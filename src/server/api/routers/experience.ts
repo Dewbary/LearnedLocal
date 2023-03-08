@@ -7,12 +7,24 @@ import {
 
 export const experienceRouter = createTRPCRouter({
   getAll: protectedProcedure.query(({ ctx }) => {
-    return ctx.prisma.experience.findMany();
+    return ctx.prisma.experience.findMany({
+      select: {
+        title: true,
+        content: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
   }),
 
   create: protectedProcedure
     .input(
-      z.object({ title: z.string(), content: z.string(), price: z.number() })
+      z.object({
+        title: z.string(),
+        content: z.string(),
+        price: z.number(),
+      })
     )
     .mutation(({ ctx, input }) => {
       return ctx.prisma.experience.create({

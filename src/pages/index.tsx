@@ -5,6 +5,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 
 import { api } from "~/utils/api";
 import { Header } from "~/components/Header";
+import Content from "~/components/Content";
 
 const Home: NextPage = () => {
   const { data: sessionData } = useSession();
@@ -18,6 +19,7 @@ const Home: NextPage = () => {
       </Head>
       <main>
         <Header />
+        <Content />
       </main>
     </>
   );
