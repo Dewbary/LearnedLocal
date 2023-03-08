@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from "react";
 import { api } from "~/utils/api";
-import { Formik, Form, useField, useFormikContext } from "formik";
+import { Formik, Form, useField, useFormikContext, Field } from "formik";
 import * as Yup from "yup";
 
 const Content = () => {
@@ -37,7 +37,8 @@ const Content = () => {
           title: "",
           description: "",
           location: "",
-          // recurring: false, // added for our checkbox
+          price: 0.0,
+          recurring: false, // added for our checkbox
           // category: "" // added for our select
         }}
         validationSchema={Yup.object({
@@ -66,43 +67,50 @@ const Content = () => {
           createExperience.mutate({
             title: values.title,
             content: values.description,
-            price: 8.88,
+            price: values.price,
           });
 
           await new Promise((r) => setTimeout(r, 500));
           setSubmitting(false);
         }}
       >
-        {({ handleSubmit, values, handleChange }) => (
-          <form onSubmit={handleSubmit}>
-            <FormLabel text="Experience Title" />
-            <InputField
-              id="title"
-              type="text"
-              placeholder="experience title"
-              value={values.title}
-              onChange={handleChange}
-            />
-            <FormLabel text="Experience Description" />
-            <InputField
-              id="description"
-              type="text"
-              placeholder="experience description"
-              value={values.description}
-              onChange={handleChange}
-            />
-            <FormLabel text="Experience Location" />
-            <InputField
-              id="location"
-              type="text"
-              placeholder="experience location"
-              value={values.location}
-              onChange={handleChange}
-            />
-            {/* <FormLabel text="Experience Price"/>
+        <Form>
+          <FormLabel text="Experience Title" />
+          <InputField
+            id="title"
+            name="title"
+            type="text"
+            placeholder="experience title"
+          />
+
+          <FormLabel text="Experience Description" />
+          <InputField
+            id="description"
+            name="description"
+            type="text"
+            placeholder="experience description"
+          />
+
+          <FormLabel text="Experience Location" />
+          <InputField
+            id="location"
+            name="location"
+            type="text"
+            placeholder="experience location"
+          />
+
+          <FormLabel text="Experience Price" />
+          <InputField id="price" name="price" type="number" />
+
+          <label>
+            <Field name="recurring" type="checkbox" />
+            Recurring
+          </label>
+
+          {/* <FormLabel text="Experience Price"/>
           <InputField id="description" type="number" placeholder="experience description"/> */}
 
-            {/* <MySelect label="Job Type" name="jobType">
+          {/* <MySelect label="Job Type" name="jobType">
             <option value="">Select a job type</option>
             <option value="designer">Designer</option>
             <option value="development">Developer</option>
@@ -113,9 +121,8 @@ const Content = () => {
             I accept the terms and conditions
           </MyCheckbox> */}
 
-            <button type="submit">Submit</button>
-          </form>
-        )}
+          <button type="submit">Submit</button>
+        </Form>
       </Formik>
 
       {/* Max Attendees */}
@@ -171,10 +178,9 @@ export default Content;
 
 type InputFieldProps = {
   id: string;
+  name: string;
   type: string;
-  placeholder: string;
-  value: string;
-  onChange: (e: ChangeEvent<any>) => void;
+  placeholder?: string;
 };
 
 // const TextInput = ({label, name, type, placeholder}: TextInputProps) => {
@@ -192,23 +198,26 @@ type InputFieldProps = {
 //   );
 // }
 
-const InputField = ({
-  id,
-  type,
-  placeholder,
-  value,
-  onChange,
-}: InputFieldProps) => (
-  <>
-    <input
-      id={id}
-      type={type}
-      placeholder={placeholder}
-      className="mb-3 block w-full appearance-none rounded border bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:bg-white focus:outline-none"
-      value={value}
-      onChange={onChange}
-    />
-  </>
+const InputField = ({ id, name, type, placeholder }: InputFieldProps) => (
+  <Field
+    id={id}
+    name={name}
+    type={type}
+    placeholder={placeholder}
+    className="mb-3 block w-full appearance-none rounded border bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:bg-white focus:outline-none"
+  />
+
+  // <>
+
+  //   <input
+  //     id={id}
+  //     type={type}
+  //     placeholder={placeholder}
+  //     className="mb-3 block w-full appearance-none rounded border bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:bg-white focus:outline-none"
+  //     value={value}
+  //     onChange={onChange}
+  //   />
+  // </>
 );
 
 type FormLabelProps = {
