@@ -7,19 +7,11 @@ const Content = () => {
   const { data: experiences, isLoading } = api.experience.getAll.useQuery();
   const createExperience = api.experience.create.useMutation();
 
-  const [title, setTitle] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [location, setLocation] = useState<string>("");
-  const [maxAttendees, setMaxAttendees] = useState<number>(0);
-  const [requirements, setRequirements] = useState<string>("");
-  const [date, setDate] = useState<string>("");
-  const [time, setTime] = useState<string>("");
-  const [recurring, setRecurring] = useState<boolean>(false);
-  const [categories, setCategories] = useState<string>("");
-
   return (
-    <div>
-      <h1>Create an Experience</h1>
+    <div className="mx-5 mt-5 grid grid-cols-3 ">
+      <article className="prose">
+        <h1>Create an Experience</h1>
+      </article>
       {/* List Experiences */}
       {/* <div className="flex flex-col gap-4">
         {experiences?.map((entry, index) => {
@@ -38,6 +30,9 @@ const Content = () => {
           description: "",
           location: "",
           price: 0.0,
+          maxAttendees: 10,
+          date: "",
+          time: "",
           recurring: false, // added for our checkbox
           // category: "" // added for our select
         }}
@@ -74,7 +69,7 @@ const Content = () => {
           setSubmitting(false);
         }}
       >
-        <Form>
+        <Form className="mb-10">
           <FormLabel text="Experience Title" />
           <InputField
             id="title"
@@ -84,11 +79,19 @@ const Content = () => {
           />
 
           <FormLabel text="Experience Description" />
-          <InputField
+          {/* <InputField
             id="description"
             name="description"
             type="text"
             placeholder="experience description"
+          /> */}
+
+          <Field
+            className="textarea-bordered textarea w-full"
+            id="description"
+            name="description"
+            as="textarea"
+            placeholder="Briefly describe what your experience offers"
           />
 
           <FormLabel text="Experience Location" />
@@ -99,75 +102,90 @@ const Content = () => {
             placeholder="experience location"
           />
 
-          <FormLabel text="Experience Price" />
-          <InputField id="price" name="price" type="number" />
+          <FormLabel text="Date" />
+          <InputField
+            id="date"
+            name="date"
+            type="text"
+            placeholder="input date"
+          />
 
-          <label>
-            <Field name="recurring" type="checkbox" />
-            Recurring
+          <FormLabel text="Time" />
+          <InputField
+            id="time"
+            name="time"
+            type="text"
+            placeholder="input time"
+          />
+
+          <label className="label cursor-pointer">
+            <span className="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700">
+              Recurring
+            </span>
+            <Field
+              name="recurring"
+              type="checkbox"
+              className="checkbox-primary checkbox"
+            />
           </label>
 
-          {/* <FormLabel text="Experience Price"/>
-          <InputField id="description" type="number" placeholder="experience description"/> */}
+          {/* <FormLabel text="Experience Price" />
+          <InputField id="price" name="price" type="number" /> */}
+          <FormLabel text="Experience Price" />
+          <label className="input-group">
+            <Field
+              name="price"
+              type="number"
+              placeholder="0"
+              className="input-bordered input mb-5"
+            />
+            <span className="mb-5">USD</span>
+          </label>
 
-          {/* <MySelect label="Job Type" name="jobType">
-            <option value="">Select a job type</option>
-            <option value="designer">Designer</option>
-            <option value="development">Developer</option>
-            <option value="product">Product Manager</option>
-            <option value="other">Other</option>
-          </MySelect>
-          <MyCheckbox name="acceptedTerms">
-            I accept the terms and conditions
-          </MyCheckbox> */}
+          <FormLabel text="Max # of Attendees" />
+          <InputField id="maxAttendees" name="maxAttendees" type="number" />
 
-          <button type="submit">Submit</button>
+          <FormLabel text="Requirements" />
+          <InputField
+            id="requirements"
+            name="requirements"
+            type="text"
+            placeholder="materials needed, clothing, etc..."
+          />
+
+          <FormLabel text="Select Image" />
+          <input
+            type="file"
+            className="file-input-bordered file-input-primary file-input w-full max-w-xs"
+          />
+
+          <select className="select-bordered select my-5 w-full max-w-xs">
+            <option disabled selected>
+              Select Category
+            </option>
+            <option>Outdoors</option>
+            <option>Cooking</option>
+            <option>Art</option>
+            <option>Tech</option>
+            <option>Other</option>
+          </select>
+          <div>
+            <button className="btn-primary btn" type="submit">
+              Submit
+            </button>
+          </div>
         </Form>
       </Formik>
 
-      {/* Max Attendees */}
-      <input
-        type="number"
-        placeholder="Max Attendees Limit"
-        className="input-bordered input input-sm w-full"
-        value={maxAttendees}
-        onChange={(e) => setMaxAttendees(parseInt(e.target.value))}
-      />
       {/* Photos */}
-      {/* Requirements */}
-      <input
-        type="text"
-        placeholder="Requirements"
-        className="input-bordered input input-sm w-full"
-        value={requirements}
-        onChange={(e) => setRequirements(e.target.value)}
-      />
       {/* Video */}
       {/* Dates */}
-      <input
-        type="text"
-        placeholder="Date"
-        className="input-bordered input input-sm w-full"
-        value={date}
-        onChange={(e) => setDate(e.target.value)}
-      />
+
       {/* Time */}
-      <input
-        type="text"
-        placeholder="Time"
-        className="input-bordered input input-sm w-full"
-        value={time}
-        onChange={(e) => setTime(e.target.value)}
-      />
+
       {/* Reccuring? */}
       {/* Categories */}
-      <input
-        type="Category"
-        placeholder="Category"
-        className="input-bordered input input-sm w-full"
-        value={categories}
-        onChange={(e) => setCategories(e.target.value)}
-      />
+
       {/* Tags? (for searching) */}
       {/* Rules? */}
     </div>
