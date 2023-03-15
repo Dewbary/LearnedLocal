@@ -8,10 +8,7 @@ const Content = () => {
   const createExperience = api.experience.create.useMutation();
 
   return (
-    <div className="mx-5 mt-5 grid grid-cols-3 ">
-      <article className="prose">
-        <h1>Create an Experience</h1>
-      </article>
+    <div className="mx-5 mt-5 grid grid-cols-2 ">
       {/* List Experiences */}
       {/* <div className="flex flex-col gap-4">
         {experiences?.map((entry, index) => {
