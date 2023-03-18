@@ -7,9 +7,9 @@ export const Header = () => {
   return (
     <nav
       className={classNames({
-        "navbar bg-primary text-primary-content": true, // colors
-        "flex items-center": true, // layout
-        "fixed z-10 h-16 w-full px-4 shadow-sm": true, //positioning & styling
+        "navbar bg-primary text-primary-content": true,
+        "flex items-center": true,
+        "fixed z-10 h-16 w-full px-4 shadow-sm": true,
       })}
     >
       <div className="flex-1 pl-5 text-3xl font-bold">

@@ -3,7 +3,7 @@ import { api } from "~/utils/api";
 import { Formik, Form, useField, useFormikContext, Field } from "formik";
 import * as Yup from "yup";
 
-const Content = () => {
+const CreateExperience = () => {
   const { data: experiences, isLoading } = api.experience.getAll.useQuery();
   const createExperience = api.experience.create.useMutation();
 
@@ -189,7 +189,7 @@ const Content = () => {
   );
 };
 
-export default Content;
+export default CreateExperience;
 
 type InputFieldProps = {
   id: string;
@@ -213,7 +213,12 @@ type InputFieldProps = {
 //   );
 // }
 
-const InputField = ({ id, name, type, placeholder }: InputFieldProps) => (
+export const InputField = ({
+  id,
+  name,
+  type,
+  placeholder,
+}: InputFieldProps) => (
   <Field
     id={id}
     name={name}
@@ -239,7 +244,7 @@ type FormLabelProps = {
   text: string;
 };
 
-const FormLabel = ({ text }: FormLabelProps) => (
+export const FormLabel = ({ text }: FormLabelProps) => (
   <>
     <label className="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700">
       {text}
