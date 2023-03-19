@@ -67,54 +67,6 @@ const CreateExperience = () => {
         }}
       >
         <Form className="mb-10">
-          <FormLabel text="Experience Title" />
-          <InputField
-            id="title"
-            name="title"
-            type="text"
-            placeholder="experience title"
-          />
-
-          <FormLabel text="Experience Description" />
-          {/* <InputField
-            id="description"
-            name="description"
-            type="text"
-            placeholder="experience description"
-          /> */}
-
-          <Field
-            className="textarea-bordered textarea w-full"
-            id="description"
-            name="description"
-            as="textarea"
-            placeholder="Briefly describe what your experience offers"
-          />
-
-          <FormLabel text="Experience Location" />
-          <InputField
-            id="location"
-            name="location"
-            type="text"
-            placeholder="experience location"
-          />
-
-          <FormLabel text="Date" />
-          <InputField
-            id="date"
-            name="date"
-            type="text"
-            placeholder="input date"
-          />
-
-          <FormLabel text="Time" />
-          <InputField
-            id="time"
-            name="time"
-            type="text"
-            placeholder="input time"
-          />
-
           <label className="label cursor-pointer">
             <span className="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700">
               Recurring

@@ -4,8 +4,7 @@ import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 import { api } from "~/utils/api";
-import CreateExperience from "~/components/CreateExperience";
-import CreateExperienceForm from "~/components/CreateExperience/CreateExperienceForm";
+import HomePage from "./Home/HomePage";
 
 const Home: NextPage = () => {
   const { data: sessionData } = useSession();
@@ -19,10 +18,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main>
-        <div>Create a New Experience</div>
-        <Link href={"/experience/create/hello-world"}>
-          Create an Experience
-        </Link>
+        <HomePage />
       </main>
     </>
   );

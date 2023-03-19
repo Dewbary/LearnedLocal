@@ -1,8 +1,4 @@
-import { useRouter } from "next/router";
 import React, { useMemo } from "react";
-import DescriptionPage from "./DescriptionPage";
-import LocationPage from "./LocationPage";
-import TimePage from "./TimePage";
 
 type Props = {
   tabComponent: React.ReactNode;

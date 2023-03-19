@@ -6,9 +6,8 @@ import {
   HomeIcon,
   UserGroupIcon,
 } from "@heroicons/react/24/outline";
-import { NavItem } from "../CreateExperience/CreateExperienceTabs";
 
-export const defaultNavItems: NavItem[] = [
+export const defaultNavItems = [
   {
     label: "Experience Description",
     href: "/create/experience/",

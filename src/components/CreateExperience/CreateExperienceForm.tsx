@@ -1,13 +1,10 @@
-import { Formik, Form, Field, useFormik } from "formik";
+import { Formik, Form, Field, useFormik, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import { useRouter } from "next/router";
 import DescriptionPage from "./DescriptionPage";
 import TimePage from "./TimePage";
 import LocationPage from "./LocationPage";
-import AboutPage from "./AboutPage";
-import RequirementsPage from "./RequirementsPage";
-import SettingsPage from "./SettingsPage";
-import SubmitPage from "./SubmitPage";
+import SubmitPage from "./FinalStepsPage";
 import { FormValues, TabInfo } from "./types";
 import CreateExperienceTabs from "./CreateExperienceTabs";
 import { useMemo, useState } from "react";
@@ -74,6 +71,11 @@ const CreateExperienceForm = () => {
       text: "Location",
       activeMatcher: "location",
     },
+    {
+      url: `/experience/create/${slug}/submit`,
+      text: "Submit",
+      activeMatcher: "submit",
+    },
   ];
 
   const TabComponent = useMemo(() => {
@@ -82,6 +84,8 @@ const CreateExperienceForm = () => {
         return <TimePage />;
       case "location":
         return <LocationPage />;
+      case "submit":
+        return <SubmitPage />;
       default:
         return <DescriptionPage />;
     }
@@ -89,50 +93,36 @@ const CreateExperienceForm = () => {
 
   const [showSidebar, setShowSidebar] = useState(true);
 
-  const handleSubmit = (values: FormValues) => {
-    console.log(values);
+  const handleSubmit = (
+    values: FormValues,
+    helpers: FormikHelpers<FormValues>
+  ) => {
+    helpers.setSubmitting(true);
+    console.log("onSubmit", values);
+
+    setTimeout(() => {
+      helpers.setSubmitting(false);
+      helpers.resetForm({ values });
+    }, 2000);
+
     router.push("/success");
   };
 
   return (
-    <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={(values, helpers) => handleSubmit(values, helpers)}
+    >
       <ProSidebarProvider>
-        <div className="grid grid-cols-2">
-          <CreateExperienceTabs
-            open={showSidebar}
-            setOpen={setShowSidebar}
-            tabInfoList={tabInfoList}
-          />
-          <CreateExperienceFormArea tabComponent={TabComponent} />
-        </div>
+        <Form>
+          <div className="grid grid-cols-2">
+            <CreateExperienceTabs tabInfoList={tabInfoList} />
+            <CreateExperienceFormArea tabComponent={TabComponent} />
+          </div>
+        </Form>
       </ProSidebarProvider>
     </Formik>
   );
-
-  // const formik = useFormik({
-  //   initialValues,
-  //   validationSchema,
-  //   onSubmit: handleSubmit,
-  // });
-
-  // switch (router.pathname) {
-  //   case "/create/description":
-  //     return <DescriptionPage formik={formik} />;
-  //   case "/create/time":
-  //     return <TimePage formik={formik} />;
-  //   case "/create/location":
-  //     return <LocationPage formik={formik} />;
-  //   case "/create/about":
-  //     return <AboutPage formik={formik} />;
-  //   case "/create/requirements":
-  //     return <RequirementsPage formik={formik} />;
-  //   case "/create/settings":
-  //     return <SettingsPage formik={formik} />;
-  //   case "/create/submit":
-  //     return <SubmitPage formik={formik} />;
-  //   default:
-  //     return <DescriptionPage formik={formik} />;
-  // }
 };
 
 export default CreateExperienceForm;
