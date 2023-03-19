@@ -5,9 +5,9 @@ export type FormValues = {
   theme: string;
   description: string;
   timeline: string;
-  duration: string;
   date: string;
-  time: string;
+  startTime: string;
+  endTime: string;
   location: string;
   locationDescription: string;
   firstName: string;

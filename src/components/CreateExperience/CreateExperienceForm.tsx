@@ -4,12 +4,16 @@ import { useRouter } from "next/router";
 import DescriptionPage from "./DescriptionPage";
 import TimePage from "./TimePage";
 import LocationPage from "./LocationPage";
-import SubmitPage from "./FinalStepsPage";
+import FinalStepsPage from "./FinalStepsPage";
 import { FormValues, TabInfo } from "./types";
 import CreateExperienceTabs from "./CreateExperienceTabs";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { ProSidebarProvider } from "react-pro-sidebar";
 import CreateExperienceFormArea from "./CreateExperienceFormArea";
+import AboutPage from "./AboutPage";
+import RequirementsPage from "./RequirementsPage";
+import SettingsPage from "./SettingsPage";
+import PhotosPage from "./PhotosPage";
 
 const validationSchema = Yup.object({
   // firstName: Yup.string().required('First name is required'),
@@ -28,9 +32,9 @@ const initialValues: FormValues = {
   theme: "",
   description: "",
   timeline: "",
-  duration: "",
   date: "",
-  time: "",
+  startTime: "",
+  endTime: "",
   location: "",
   locationDescription: "",
   firstName: "",
@@ -39,12 +43,12 @@ const initialValues: FormValues = {
   qualifications: "",
   provided: "",
   guestRequirements: "",
-  minAge: 0,
-  price: 0,
   activityLevel: "",
   skillLevel: "",
-  photos: [],
+  minAge: 0,
+  price: 0,
   maxAttendees: 0,
+  photos: [],
 };
 
 const CreateExperienceForm = () => {
@@ -72,6 +76,21 @@ const CreateExperienceForm = () => {
       activeMatcher: "location",
     },
     {
+      url: `/experience/create/${slug}/requirements`,
+      text: "Requirements",
+      activeMatcher: "requirements",
+    },
+    {
+      url: `/experience/create/${slug}/settings`,
+      text: "Settings",
+      activeMatcher: "settings",
+    },
+    {
+      url: `/experience/create/${slug}/photos`,
+      text: "Photos",
+      activeMatcher: "photos",
+    },
+    {
       url: `/experience/create/${slug}/submit`,
       text: "Submit",
       activeMatcher: "submit",
@@ -84,14 +103,20 @@ const CreateExperienceForm = () => {
         return <TimePage />;
       case "location":
         return <LocationPage />;
+      case "about":
+        return <AboutPage />;
+      case "requirements":
+        return <RequirementsPage />;
+      case "settings":
+        return <SettingsPage />;
+      case "photos":
+        return <PhotosPage />;
       case "submit":
-        return <SubmitPage />;
+        return <FinalStepsPage />;
       default:
         return <DescriptionPage />;
     }
   }, [currentTab]);
-
-  const [showSidebar, setShowSidebar] = useState(true);
 
   const handleSubmit = (
     values: FormValues,
