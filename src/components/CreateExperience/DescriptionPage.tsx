@@ -16,12 +16,16 @@ const DescriptionPage = () => {
       />
 
       <FormLabel text="Experience Theme" />
-      <InputField
-        id="theme"
-        name="theme"
-        type="text"
-        placeholder="experience theme"
-      />
+      <select className="select-bordered select my-5 w-full max-w-xs">
+        <option disabled selected>
+          Experience Theme
+        </option>
+        <option>Outdoors</option>
+        <option>Cooking</option>
+        <option>Art</option>
+        <option>Tech</option>
+        <option>Other</option>
+      </select>
 
       <FormLabel text="Experience Description" />
       <Field

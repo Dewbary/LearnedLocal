@@ -4,13 +4,11 @@ import { FormLabel, InputField } from "../CreateExperience";
 const PhotosPage = () => {
   return (
     <div>
-      <div>PhotosPage</div>
-      <FormLabel text="Select photos that represent your experience" />
-      <InputField
-        id="photos"
-        name="photos"
-        type="text"
-        placeholder="photo url's"
+      <div>Photos Page</div>
+      <FormLabel text="Select Image" />
+      <input
+        type="file"
+        className="file-input-bordered file-input-primary file-input w-full max-w-xs"
       />
     </div>
   );

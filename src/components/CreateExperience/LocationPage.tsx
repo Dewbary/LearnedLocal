@@ -21,6 +21,8 @@ const LocationPage = () => {
         type="text"
         placeholder="Are there any specific instructions when arriving at the location?"
       />
+
+      <GoogleMap />
     </div>
   );
 };

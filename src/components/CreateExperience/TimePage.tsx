@@ -1,30 +1,54 @@
 import { Field } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import { FormLabel, InputField } from "../CreateExperience";
-import { FormProps } from "./types";
+import { DatePicker, StaticDateTimePicker } from "@mui/x-date-pickers";
+import SelectUnstyled from "@mui/base/SelectUnstyled";
+import OptionUnstyled from "@mui/base/OptionUnstyled";
+import TimeSelect from "./TimeSelect";
 
 const TimePage = () => {
+  const [range, setRange] = useState({
+    startDate: new Date(),
+    endDate: new Date(),
+  });
+
+  const [value, setValue] = useState({
+    startDate: new Date(),
+    endDate: new Date().setMonth(11),
+  });
+
+  const handleValueChange = (
+    newValue: React.SetStateAction<{ startDate: Date; endDate: number }>
+  ) => {
+    console.log("newValue:", newValue);
+    setValue(newValue);
+  };
   return (
     <div>
       <div>TimePage</div>
       <FormLabel text="Date" />
-      <InputField id="date" name="date" type="text" placeholder="input date" />
+      {/* <InputField id="date" name="date" type="text" placeholder="input date" /> */}
 
-      <FormLabel text="StartTime" />
-      <InputField
+      <DatePicker label="basic date picker" />
+
+      <FormLabel text="Start Time" />
+      {/* <InputField
         id="startTime"
         name="startTime"
         type="text"
         placeholder="input start time"
-      />
+      /> */}
 
-      <FormLabel text="EndTime" />
-      <InputField
+      <TimeSelect label="Start Time" />
+
+      <FormLabel text="End Time" />
+      {/* <InputField
         id="endTime"
         name="endTime"
         type="text"
         placeholder="input end time"
-      />
+      /> */}
+      <TimeSelect label="End Time" />
 
       <FormLabel text="Timeline" />
       <Field

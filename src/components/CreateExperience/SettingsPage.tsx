@@ -1,3 +1,4 @@
+import { Field } from "formik";
 import React from "react";
 import { FormLabel, InputField } from "../CreateExperience";
 
@@ -13,8 +14,16 @@ const SettingsPage = () => {
         placeholder="min age"
       />
 
-      <FormLabel text="Price" />
-      <InputField id="price" name="price" type="number" placeholder="Price" />
+      <FormLabel text="Experience Price" />
+      <label className="input-group">
+        <Field
+          name="price"
+          type="number"
+          placeholder="0"
+          className="input-bordered input mb-5"
+        />
+        <span className="mb-5">USD</span>
+      </label>
 
       <FormLabel text="Max Attendees" />
       <InputField

@@ -78,19 +78,6 @@ const CreateExperience = () => {
             />
           </label>
 
-          {/* <FormLabel text="Experience Price" />
-          <InputField id="price" name="price" type="number" /> */}
-          <FormLabel text="Experience Price" />
-          <label className="input-group">
-            <Field
-              name="price"
-              type="number"
-              placeholder="0"
-              className="input-bordered input mb-5"
-            />
-            <span className="mb-5">USD</span>
-          </label>
-
           <FormLabel text="Max # of Attendees" />
           <InputField id="maxAttendees" name="maxAttendees" type="number" />
 
@@ -102,22 +89,6 @@ const CreateExperience = () => {
             placeholder="materials needed, clothing, etc..."
           />
 
-          <FormLabel text="Select Image" />
-          <input
-            type="file"
-            className="file-input-bordered file-input-primary file-input w-full max-w-xs"
-          />
-
-          <select className="select-bordered select my-5 w-full max-w-xs">
-            <option disabled selected>
-              Select Category
-            </option>
-            <option>Outdoors</option>
-            <option>Cooking</option>
-            <option>Art</option>
-            <option>Tech</option>
-            <option>Other</option>
-          </select>
           <div>
             <button className="btn-primary btn" type="submit">
               Submit
