@@ -5,8 +5,6 @@ import { FormLabel, InputField } from "../CreateExperience";
 const DescriptionPage = () => {
   return (
     <div>
-      <div>DescriptionPage</div>
-
       <FormLabel text="Experience Title" />
       <InputField
         id="title"
@@ -17,9 +15,6 @@ const DescriptionPage = () => {
 
       <FormLabel text="Experience Theme" />
       <select className="select-bordered select my-5 w-full max-w-xs">
-        <option disabled selected>
-          Experience Theme
-        </option>
         <option>Outdoors</option>
         <option>Cooking</option>
         <option>Art</option>

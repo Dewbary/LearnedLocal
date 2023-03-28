@@ -1,19 +1,10 @@
 import React from "react";
 import { FormLabel, InputField } from "../CreateExperience";
+import LocationPicker from "./LocationPicker/LocationPicker";
 
 const LocationPage = () => {
   return (
     <div>
-      <div>LocationPage</div>
-
-      <FormLabel text="Experience Location" />
-      <InputField
-        id="location"
-        name="location"
-        type="text"
-        placeholder="experience location"
-      />
-
       <FormLabel text="Location Description" />
       <InputField
         id="locationDescription"
@@ -22,7 +13,7 @@ const LocationPage = () => {
         placeholder="Are there any specific instructions when arriving at the location?"
       />
 
-      <GoogleMap />
+      <LocationPicker />
     </div>
   );
 };

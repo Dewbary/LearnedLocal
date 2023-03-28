@@ -4,7 +4,6 @@ import { FormLabel, InputField } from "../CreateExperience";
 const RequirementsPage = () => {
   return (
     <div>
-      <div>RequirementsPage</div>
       <FormLabel text="Provided Materials" />
       <InputField
         id="provided"

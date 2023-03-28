@@ -5,7 +5,6 @@ import { FormLabel, InputField } from "../CreateExperience";
 const SettingsPage = () => {
   return (
     <div>
-      <div>SettingsPage</div>
       <FormLabel text="Minimum Age" />
       <InputField
         id="minAge"

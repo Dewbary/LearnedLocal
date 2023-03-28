@@ -58,7 +58,7 @@ const times = [
 const TimeSelect = ({ label }: Props) => {
   return (
     <div>
-      <select className="select w-full max-w-xs">
+      <select defaultValue={"12:00PM"} className="select w-full max-w-xs">
         <option disabled>{label}</option>
         {times.map((time) => (
           <option>{time}</option>

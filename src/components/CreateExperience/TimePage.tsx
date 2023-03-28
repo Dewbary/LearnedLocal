@@ -1,16 +1,17 @@
 import { Field } from "formik";
 import React, { useState } from "react";
 import { FormLabel, InputField } from "../CreateExperience";
-import { DatePicker, StaticDateTimePicker } from "@mui/x-date-pickers";
-import SelectUnstyled from "@mui/base/SelectUnstyled";
-import OptionUnstyled from "@mui/base/OptionUnstyled";
+import Calendar from "./Calendar";
 import TimeSelect from "./TimeSelect";
+// import Calendar from "react-calendar";
 
 const TimePage = () => {
   const [range, setRange] = useState({
     startDate: new Date(),
     endDate: new Date(),
   });
+
+  const [date, setDate] = useState(new Date());
 
   const [value, setValue] = useState({
     startDate: new Date(),
@@ -25,11 +26,12 @@ const TimePage = () => {
   };
   return (
     <div>
-      <div>TimePage</div>
       <FormLabel text="Date" />
       {/* <InputField id="date" name="date" type="text" placeholder="input date" /> */}
 
-      <DatePicker label="basic date picker" />
+      {/* <DatePicker label="basic date picker" /> */}
+      {/* <Calendar onChange={setDate} value={date} /> */}
+      <Calendar />
 
       <FormLabel text="Start Time" />
       {/* <InputField

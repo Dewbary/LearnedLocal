@@ -3,8 +3,6 @@ import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 
 import { api } from "~/utils/api";
-import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 import "~/styles/globals.css";
 import { ChakraProvider } from "@chakra-ui/react";
@@ -16,13 +14,11 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <ChakraProvider>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </ChakraProvider>
-      </LocalizationProvider>
+      {/* <ChakraProvider> */}
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+      {/* </ChakraProvider> */}
     </SessionProvider>
   );
 };

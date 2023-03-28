@@ -140,9 +140,13 @@ const CreateExperienceForm = () => {
     >
       <ProSidebarProvider>
         <Form>
-          <div className="grid grid-cols-2">
+          <div className="grid min-h-screen grid-cols-[auto_1fr] justify-center gap-4 overflow-hidden p-4">
             <CreateExperienceTabs tabInfoList={tabInfoList} />
-            <CreateExperienceFormArea tabComponent={TabComponent} />
+            <div className="h-[calc(100vh_-_2rem)] w-full overflow-y-scroll">
+              <main className="min-h-screen w-full p-4">
+                <CreateExperienceFormArea tabComponent={TabComponent} />
+              </main>
+            </div>
           </div>
         </Form>
       </ProSidebarProvider>

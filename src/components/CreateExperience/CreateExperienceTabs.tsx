@@ -10,7 +10,7 @@ type Props = {
 
 const CreateExperienceTabs = ({ tabInfoList }: Props) => {
   return (
-    <Sidebar>
+    <Sidebar className="flex h-[calc(100vh_-_2rem)] w-20 flex-col items-center justify-between py-6">
       <Menu>
         {tabInfoList.map((item, index) => {
           return (
