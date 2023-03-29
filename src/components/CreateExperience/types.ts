@@ -32,4 +32,5 @@ export type TabInfo = {
   url: string;
   text: string;
   activeMatcher: string;
+  icon: React.ReactNode;
 };

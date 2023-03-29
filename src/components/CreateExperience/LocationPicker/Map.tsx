@@ -99,8 +99,8 @@ const Map = ({
       <div
         ref={mapRef}
         style={{
-          width: "80%",
-          height: "80%",
+          width: 1000,
+          height: 550,
         }}
       />
     </>

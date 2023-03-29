@@ -26,22 +26,8 @@ const TimePage = () => {
   };
   return (
     <div>
-      <FormLabel text="Start Time" />
-
-      <TimeSelect label="Start Time" />
-
-      <FormLabel text="End Time" />
-
-      <TimeSelect label="End Time" />
-
-      <FormLabel text="Timeline" />
-      <Field
-        className="textarea-bordered textarea w-full"
-        id="timeline"
-        name="timeline"
-        as="textarea"
-        placeholder="Describe in detail the timeline of your experience"
-      />
+      <FormLabel text="Date" />
+      <Calendar />
     </div>
   );
 };

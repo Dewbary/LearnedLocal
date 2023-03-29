@@ -51,6 +51,7 @@
     "react-hook-form": "^7.43.7",
     "react-icons": "^4.8.0",
     "react-pro-sidebar": "^1.0.0",
+    "solid": "link:@heroicons/react/solid",
     "superjson": "1.9.1",
     "tailwind-datepicker-react": "^1.2.3",
     "tw-daterange": "^1.1.24",

@@ -121,21 +121,6 @@ type InputFieldProps = {
   placeholder?: string;
 };
 
-// const TextInput = ({label, name, type, placeholder}: TextInputProps) => {
-
-//   const [field, meta] = useField([name, type, placeholder]);
-
-//   return (
-//     <>
-//       <label htmlFor={name}>{label}</label>
-//       <input className="text-input" type={type} placeholder={placeholder} />
-//       {meta.touched && meta.error ? (
-//         <div className="error">{meta.error}</div>
-//       ) : null}
-//     </>
-//   );
-// }
-
 export const InputField = ({
   id,
   name,
@@ -147,20 +132,8 @@ export const InputField = ({
     name={name}
     type={type}
     placeholder={placeholder}
-    className="mb-3 block w-full appearance-none rounded border bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:bg-white focus:outline-none"
+    className="mb-3 rounded py-3 px-4 leading-tight text-gray-700 focus:bg-white focus:outline-none"
   />
-
-  // <>
-
-  //   <input
-  //     id={id}
-  //     type={type}
-  //     placeholder={placeholder}
-  //     className="mb-3 block w-full appearance-none rounded border bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:bg-white focus:outline-none"
-  //     value={value}
-  //     onChange={onChange}
-  //   />
-  // </>
 );
 
 type FormLabelProps = {

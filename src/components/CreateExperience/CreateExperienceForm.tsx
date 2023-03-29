@@ -1,19 +1,27 @@
 import { Formik, Form, Field, useFormik, FormikHelpers } from "formik";
 import * as Yup from "yup";
+import {
+  HomeIcon,
+  CalendarIcon,
+  ClockIcon,
+  CogIcon,
+  CameraIcon,
+  CheckCircleIcon,
+} from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
 import DescriptionPage from "./DescriptionPage";
 import TimePage from "./TimePage";
 import LocationPage from "./LocationPage";
 import FinalStepsPage from "./FinalStepsPage";
 import { FormValues, TabInfo } from "./types";
-import CreateExperienceTabs from "./CreateExperienceTabs";
-import { useMemo } from "react";
+import CreateExperienceTabs from "./CreateExperienceTabs/CreateExperienceTabs";
 import { ProSidebarProvider } from "react-pro-sidebar";
 import CreateExperienceFormArea from "./CreateExperienceFormArea";
 import AboutPage from "./AboutPage";
 import RequirementsPage from "./RequirementsPage";
 import SettingsPage from "./SettingsPage";
 import PhotosPage from "./PhotosPage";
+import DatePage from "./DatePage";
 
 const validationSchema = Yup.object({
   // firstName: Yup.string().required('First name is required'),
@@ -63,42 +71,57 @@ const CreateExperienceForm = () => {
     {
       url: `/experience/create/${slug}`,
       text: "Description",
-      activeMatcher: "",
+      activeMatcher: "experience/create",
+      icon: <HomeIcon className="h-5 w-5" />,
+    },
+    {
+      url: `/experience/create/${slug}/date`,
+      text: "Date",
+      activeMatcher: "date",
+      icon: <CalendarIcon className="h-5 w-5" />,
     },
     {
       url: `/experience/create/${slug}/time`,
       text: "Time",
       activeMatcher: "time",
+      icon: <ClockIcon className="h-5 w-5" />,
     },
     {
       url: `/experience/create/${slug}/location`,
       text: "Location",
       activeMatcher: "location",
+      icon: <ClockIcon className="h-5 w-5" />,
     },
     {
       url: `/experience/create/${slug}/requirements`,
       text: "Requirements",
       activeMatcher: "requirements",
+      icon: <ClockIcon className="h-5 w-5" />,
     },
     {
       url: `/experience/create/${slug}/settings`,
       text: "Settings",
       activeMatcher: "settings",
+      icon: <CogIcon className="h-5 w-5" />,
     },
     {
       url: `/experience/create/${slug}/photos`,
       text: "Photos",
       activeMatcher: "photos",
+      icon: <CameraIcon className="h-5 w-5" />,
     },
     {
       url: `/experience/create/${slug}/submit`,
       text: "Submit",
       activeMatcher: "submit",
+      icon: <CheckCircleIcon className="h-5 w-5" />,
     },
   ];
 
-  const TabComponent = useMemo(() => {
-    switch (currentTab) {
+  const getTabComponent = (tab: string) => {
+    switch (tab) {
+      case "date":
+        return <DatePage />;
       case "time":
         return <TimePage />;
       case "location":
@@ -116,7 +139,7 @@ const CreateExperienceForm = () => {
       default:
         return <DescriptionPage />;
     }
-  }, [currentTab]);
+  };
 
   const handleSubmit = (
     values: FormValues,
@@ -134,23 +157,38 @@ const CreateExperienceForm = () => {
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={(values, helpers) => handleSubmit(values, helpers)}
-    >
-      <ProSidebarProvider>
-        <Form>
-          <div className="grid min-h-screen grid-cols-[auto_1fr] justify-center gap-4 overflow-hidden p-4">
-            <CreateExperienceTabs tabInfoList={tabInfoList} />
-            <div className="h-[calc(100vh_-_2rem)] w-full overflow-y-scroll">
-              <main className="min-h-screen w-full p-4">
-                <CreateExperienceFormArea tabComponent={TabComponent} />
-              </main>
-            </div>
-          </div>
-        </Form>
-      </ProSidebarProvider>
-    </Formik>
+    <div className="flex h-screen flex-col">
+      <nav className="flex h-32 items-center bg-white px-8">
+        <div>
+          <h1 className="text-2xl font-bold">Create Your Experience</h1>
+          <p className="text-sm text-gray-600">
+            Follow the steps below to create your experience
+          </p>
+        </div>
+      </nav>
+
+      <div className="flex flex-1 overflow-hidden">
+        <aside className="w-64 overflow-y-auto sm:block">
+          <CreateExperienceTabs
+            tabInfoList={tabInfoList}
+            currentTab={currentTab}
+          />
+        </aside>
+
+        <main className="paragraph ml-8 mr-12 mb-12 flex flex-1 overflow-y-auto rounded-lg bg-gray-100 px-8 py-8">
+          <Formik
+            initialValues={initialValues}
+            onSubmit={(values, helpers) => handleSubmit(values, helpers)}
+          >
+            <Form className="w-full">
+              <CreateExperienceFormArea
+                tabComponent={getTabComponent(currentTab)}
+              />
+            </Form>
+          </Formik>
+        </main>
+      </div>
+    </div>
   );
 };
 
