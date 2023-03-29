@@ -30,7 +30,7 @@ const SearchBar = ({ onPlaceSelected, onApiReady }: SearchBarProps) => {
     onApiReady();
 
     return () => {
-      google.maps.event.clearInstanceListeners(searchBox);
+      searchBox.unbindAll();
     };
   }, [onPlaceSelected, onApiReady]);
 

@@ -3,7 +3,7 @@ import { Header } from "../Header";
 
 const Layout = (props: PropsWithChildren) => {
   return (
-    <div className="grid min-h-screen grid-rows-header bg-zinc-100">
+    <div className="grid min-h-screen grid-rows-header bg-white">
       <div className="z-10 bg-white shadow-sm">
         <Header />
       </div>
