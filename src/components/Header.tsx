@@ -1,12 +1,25 @@
+import classNames from "classnames";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 export const Header = () => {
   const { data: sessionData } = useSession();
 
   return (
-    <div className="navbar bg-primary text-primary-content">
+    <nav
+      className={classNames({
+        "navbar bg-primary text-primary-content": true,
+        "flex items-center": true,
+        "fixed z-10 h-16 w-full px-4 shadow-sm": true,
+      })}
+    >
       <div className="flex-1 pl-5 text-3xl font-bold">
-        {sessionData?.user?.name ? `Welcome ${sessionData.user.name}` : ""}
+
+        <article className="prose">
+          <h1>Create An Experience</h1>
+        </article>
+
+
+
       </div>
       <div className="flex-none gap-2">
         <div className="dropdown-end dropdown">
@@ -33,6 +46,6 @@ export const Header = () => {
           )}
         </div>
       </div>
-    </div>
+    </nav>
   );
 };
