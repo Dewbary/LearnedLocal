@@ -1,10 +1,17 @@
 import { Field } from "formik";
 import React from "react";
 import { FormLabel, InputField } from "../CreateExperience";
+import FormPageHeader from "./Typography/Typography";
 
 const SettingsPage = () => {
   return (
     <div>
+      <FormPageHeader
+        step={7}
+        title="Let's go through a few more details"
+        subtitle="Remember to keep in mind your target audience"
+      />
+
       <FormLabel text="Minimum Age" />
       <InputField
         id="minAge"

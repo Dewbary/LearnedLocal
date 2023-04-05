@@ -1,7 +1,9 @@
+import { Field } from "formik";
 import React from "react";
 
 type Props = {
   label: string;
+  name: string;
 };
 
 const times = [
@@ -55,15 +57,20 @@ const times = [
   "11:30 PM",
 ];
 
-const TimeSelect = ({ label }: Props) => {
+const TimeSelect = ({ label, name }: Props) => {
   return (
     <div>
-      <select defaultValue={"12:00PM"} className="select w-full max-w-xs">
+      <Field
+        as="select"
+        name={name}
+        defaultValue={"12:00PM"}
+        className="select w-full max-w-xs"
+      >
         <option disabled>{label}</option>
         {times.map((time) => (
           <option>{time}</option>
         ))}
-      </select>
+      </Field>
     </div>
   );
 };

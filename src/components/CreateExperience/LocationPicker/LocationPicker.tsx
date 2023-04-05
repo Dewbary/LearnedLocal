@@ -1,7 +1,7 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import Map from "./Map";
 import PinButton from "./PinButton";
-import { PinContextProvider, usePinContext } from "./PinContext";
+import { usePinContext } from "./PinContext";
 import SearchBar from "./SearchBar";
 
 // Default San Francisco
@@ -13,22 +13,36 @@ export type Pin = {
   lng: number;
 };
 
-const LocationPicker = () => {
-  const [center, setCenter] = useState({ lat: DefaultLat, lng: DefaultLng });
+type LocationPickerProps = {
+  value: Pin | null;
+  onLocationChange: (location: Pin) => void;
+};
+
+const LocationPicker = ({ value, onLocationChange }: LocationPickerProps) => {
+  const [center, setCenter] = useState<Pin>(
+    value
+      ? { lat: value.lat, lng: value.lng }
+      : { lat: DefaultLat, lng: DefaultLng }
+  );
   const [isApiLoaded, setApiLoaded] = useState(false);
-  const [pinData, setPinData] = useState<Pin[]>([]);
+  const [pinData, setPinData] = useState<Pin[]>(value ? [value] : []);
+  const { pinMode, togglePinMode } = usePinContext();
+
+  useEffect(() => {
+    if (value) {
+      setCenter({ lat: value.lat, lng: value.lng });
+      setPinData([value]);
+    }
+  }, [value]);
 
   const handlePinDrop = useCallback(
     ({ lat, lng }: Pin) => {
-      if (pinData.length === 0) {
-        setPinData([{ lat, lng }]);
-      } else {
-        setPinData([{ lat, lng }]);
-      }
-
-      console.log(pinData);
+      const newPin: Pin = { lat: lat, lng: lng };
+      setPinData([newPin]);
+      onLocationChange(newPin);
+      // togglePinMode();
     },
-    [pinData]
+    [onLocationChange, togglePinMode]
   );
 
   const clearPinData = useCallback(() => {
@@ -76,7 +90,7 @@ const LocationPicker = () => {
           <PinButton clearPinData={clearPinData} />
         </div>
       </div>
-      <div style={{ flex: 1 }}>
+      <div className="flex-grow place-items-center">
         <Map
           center={center}
           zoom={20}
@@ -89,10 +103,4 @@ const LocationPicker = () => {
   );
 };
 
-export default function WrappedLocationPicker() {
-  return (
-    <PinContextProvider>
-      <LocationPicker />
-    </PinContextProvider>
-  );
-}
+export default LocationPicker;

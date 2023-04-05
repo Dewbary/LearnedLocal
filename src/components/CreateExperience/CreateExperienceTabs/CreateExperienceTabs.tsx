@@ -7,10 +7,15 @@ import styles from "./CreateExperienceTabs.module.css";
 
 type Props = {
   tabInfoList: TabInfo[];
-  currentTab: string;
+  currentTab: string | undefined;
+  onTabClick: (index: number) => void;
 };
 
-const CreateExperienceTabs = ({ tabInfoList, currentTab }: Props) => {
+const CreateExperienceTabs = ({
+  tabInfoList,
+  currentTab,
+  onTabClick,
+}: Props) => {
   const router = useRouter();
   const [selectedTab, setSelectedTab] = useState("");
 
@@ -21,9 +26,7 @@ const CreateExperienceTabs = ({ tabInfoList, currentTab }: Props) => {
   return (
     <ul className={`flex flex-col items-end`}>
       {tabInfoList.map((item, index, array) => {
-        const isSelected =
-          (item.activeMatcher === "experience/create" && currentTab === "") ||
-          selectedTab.endsWith(item.activeMatcher);
+        const isSelected = selectedTab.endsWith(item.activeMatcher);
 
         return (
           <li key={index} className={styles.progressItem}>
@@ -39,6 +42,7 @@ const CreateExperienceTabs = ({ tabInfoList, currentTab }: Props) => {
                 className={`flex w-full items-center rounded-lg p-2 ${
                   isSelected ? "bg-blue-500 text-white" : "bg-white"
                 }`}
+                onClick={() => onTabClick(index)}
               >
                 <div className="flex content-end items-center space-x-2">
                   <span>{item.text}</span>

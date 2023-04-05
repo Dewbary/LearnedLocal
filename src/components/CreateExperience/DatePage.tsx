@@ -2,10 +2,9 @@ import { Field } from "formik";
 import React, { useState } from "react";
 import { FormLabel, InputField } from "../CreateExperience";
 import Calendar from "./Calendar";
-import TimeSelect from "./TimeSelect";
-// import Calendar from "react-calendar";
+import FormPageHeader from "./Typography/Typography";
 
-const TimePage = () => {
+const DatePage = () => {
   const [range, setRange] = useState({
     startDate: new Date(),
     endDate: new Date(),
@@ -26,10 +25,17 @@ const TimePage = () => {
   };
   return (
     <div>
+      <FormPageHeader
+        step={3}
+        title="Select a date for your experience"
+        subtitle=""
+      />
       <FormLabel text="Date" />
-      <Calendar />
+      <div className="">
+        <Field name="date" component={Calendar} />
+      </div>
     </div>
   );
 };
 
-export default TimePage;
+export default DatePage;

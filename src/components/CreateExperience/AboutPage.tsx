@@ -1,10 +1,15 @@
 import React from "react";
 import { FormLabel, InputField } from "../CreateExperience";
+import FormPageHeader from "./Typography/Typography";
 
 const AboutPage = () => {
   return (
     <div>
-      <div>AboutPage</div>
+      <FormPageHeader
+        step={2}
+        title="We would like to know a little more about you"
+        subtitle="As people get to know you, they will be more willing to join your experience"
+      />
 
       <FormLabel text="FirstName" />
       <InputField

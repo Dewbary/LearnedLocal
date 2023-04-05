@@ -8,8 +8,9 @@ import {
   CameraIcon,
   CheckCircleIcon,
 } from "@heroicons/react/24/solid";
+import { api } from "~/utils/api";
 import { useRouter } from "next/router";
-import DescriptionPage from "./DescriptionPage";
+import DescriptionPage from "./DescriptionPage/DescriptionPage";
 import TimePage from "./TimePage";
 import LocationPage from "./LocationPage";
 import FinalStepsPage from "./FinalStepsPage";
@@ -22,6 +23,10 @@ import RequirementsPage from "./RequirementsPage";
 import SettingsPage from "./SettingsPage";
 import PhotosPage from "./PhotosPage";
 import DatePage from "./DatePage";
+import { useStepNavigation } from "./hooks/useStepNavigation";
+import StartPage from "./StartPage";
+import { Pin } from "./LocationPicker/LocationPicker";
+import { useState } from "react";
 
 const validationSchema = Yup.object({
   // firstName: Yup.string().required('First name is required'),
@@ -43,7 +48,7 @@ const initialValues: FormValues = {
   date: "",
   startTime: "",
   endTime: "",
-  location: "",
+  location: { lat: 0, lng: 0 },
   locationDescription: "",
   firstName: "",
   lastName: "",
@@ -62,16 +67,30 @@ const initialValues: FormValues = {
 const CreateExperienceForm = () => {
   const router = useRouter();
 
+  const createExperience = api.experience.create.useMutation();
+
   const params = Array.isArray(router.query.slug)
     ? (router.query.slug as string[])
     : [];
 
-  const [slug, currentTab = ""] = params;
+  const [slug] = params;
+  const [location, setLocation] = useState<Pin | null>(null);
+
+  const handleLocationChange = (newLocation: Pin) => {
+    setLocation(newLocation);
+  };
+
   const tabInfoList: TabInfo[] = [
     {
-      url: `/experience/create/${slug}`,
+      url: `/experience/create/${slug}/description`,
       text: "Description",
-      activeMatcher: "experience/create",
+      activeMatcher: "description",
+      icon: <HomeIcon className="h-5 w-5" />,
+    },
+    {
+      url: `/experience/create/${slug}/about`,
+      text: "About",
+      activeMatcher: "about",
       icon: <HomeIcon className="h-5 w-5" />,
     },
     {
@@ -118,14 +137,26 @@ const CreateExperienceForm = () => {
     },
   ];
 
-  const getTabComponent = (tab: string) => {
-    switch (tab) {
+  const { next, back, goToStep, activeTab, step } = useStepNavigation(
+    tabInfoList,
+    0
+  );
+
+  const getTabComponent = () => {
+    switch (activeTab?.activeMatcher) {
+      case "description":
+        return <DescriptionPage />;
       case "date":
         return <DatePage />;
       case "time":
         return <TimePage />;
       case "location":
-        return <LocationPage />;
+        return (
+          <LocationPage
+            location={location}
+            onLocationChange={handleLocationChange}
+          />
+        );
       case "about":
         return <AboutPage />;
       case "requirements":
@@ -137,7 +168,7 @@ const CreateExperienceForm = () => {
       case "submit":
         return <FinalStepsPage />;
       default:
-        return <DescriptionPage />;
+        return <StartPage />;
     }
   };
 
@@ -147,13 +178,41 @@ const CreateExperienceForm = () => {
   ) => {
     helpers.setSubmitting(true);
     console.log("onSubmit", values);
+    const date = new Date(values.date);
+
+    createExperience.mutate({
+      firstName: values.firstName,
+      lastName: values.lastName,
+      title: values.title,
+      description: values.description,
+      price: values.price,
+      theme: values.theme,
+      date: date,
+      startTime: values.startTime,
+      endTime: values.endTime,
+      timeline: values.timeline,
+      location: values.location,
+      locationDescription: values.locationDescription,
+      qualifications: values.qualifications,
+      provided: values.provided,
+      guestRequirements: values.guestRequirements,
+      minAge: values.minAge,
+      activityLevel: values.activityLevel,
+      skillLevel: values.skillLevel,
+      maxAttendees: values.maxAttendees,
+    });
 
     setTimeout(() => {
       helpers.setSubmitting(false);
-      helpers.resetForm({ values });
+      // helpers.resetForm({ values });
     }, 2000);
 
-    router.push("/success");
+    // router.push("/success");
+  };
+
+  const handleTabClick = (index: number) => {
+    goToStep(index);
+    router.push(tabInfoList[index]?.url || "", undefined, { shallow: true });
   };
 
   return (
@@ -171,7 +230,8 @@ const CreateExperienceForm = () => {
         <aside className="w-64 overflow-y-auto sm:block">
           <CreateExperienceTabs
             tabInfoList={tabInfoList}
-            currentTab={currentTab}
+            currentTab={activeTab?.activeMatcher}
+            onTabClick={handleTabClick}
           />
         </aside>
 
@@ -182,7 +242,11 @@ const CreateExperienceForm = () => {
           >
             <Form className="w-full">
               <CreateExperienceFormArea
-                tabComponent={getTabComponent(currentTab)}
+                tabComponent={getTabComponent()}
+                onNext={next}
+                onBack={back}
+                isFirstStep={step === 0}
+                isLastStep={step === tabInfoList.length - 1}
               />
             </Form>
           </Formik>

@@ -67,19 +67,34 @@ model VerificationToken {
 }
 
 model Experience {
-    id String @id @default(cuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    title String
-    content String @db.Text
-    author User @relation(fields: [authorId], references: [id])
-    authorId String
-    price Float
-    categories Category[]
+  id                 Int      @id @default(autoincrement())
+  authorId           String
+  firstName String
+  lastName           String
+  title              String
+  description        String
+  price              Float
+  theme              String
+  date               DateTime
+  startTime          String
+  endTime            String
+  timeline           String
+  location           Json
+  locationDescription String
+  qualifications     String
+  provided           String
+  guestRequirements  String
+  minAge             Int
+  activityLevel      String
+  skillLevel         String
+  maxAttendees       Int
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  author             User    @relation(fields: [authorId], references: [id])
 }
 
 model Category {
     id Int @id @default(autoincrement())
     name String
-    experiences Experience[]
 }

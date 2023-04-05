@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { FormLabel, InputField } from "../CreateExperience";
 import Calendar from "./Calendar";
 import TimeSelect from "./TimeSelect";
+import FormPageHeader from "./Typography/Typography";
 // import Calendar from "react-calendar";
 
 const TimePage = () => {
@@ -26,13 +27,16 @@ const TimePage = () => {
   };
   return (
     <div>
+      <FormPageHeader
+        step={4}
+        title="Choose a time for your experience"
+        subtitle=""
+      />
       <FormLabel text="Start Time" />
-
-      <TimeSelect label="Start Time" />
+      <TimeSelect label="Start Time" name="startTime" />
 
       <FormLabel text="End Time" />
-
-      <TimeSelect label="End Time" />
+      <TimeSelect label="End Time" name="endTime" />
 
       <FormLabel text="Timeline" />
       <Field

@@ -1,4 +1,5 @@
 import { FormikProps } from "formik";
+import { Pin } from "./LocationPicker/LocationPicker";
 
 export type FormValues = {
   title: string;
@@ -8,7 +9,7 @@ export type FormValues = {
   date: string;
   startTime: string;
   endTime: string;
-  location: string;
+  location: Pin;
   locationDescription: string;
   firstName: string;
   lastName: string;
