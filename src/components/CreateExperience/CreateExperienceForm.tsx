@@ -22,6 +22,7 @@ import RequirementsPage from "./RequirementsPage";
 import SettingsPage from "./SettingsPage";
 import PhotosPage from "./PhotosPage";
 import DatePage from "./DatePage";
+import { api } from "~/utils/api";
 
 const validationSchema = Yup.object({
   // firstName: Yup.string().required('First name is required'),
@@ -61,6 +62,7 @@ const initialValues: FormValues = {
 
 const CreateExperienceForm = () => {
   const router = useRouter();
+  const createExperience = api.experience.create.useMutation();
 
   const params = Array.isArray(router.query.slug)
     ? (router.query.slug as string[])
@@ -147,6 +149,12 @@ const CreateExperienceForm = () => {
   ) => {
     helpers.setSubmitting(true);
     console.log("onSubmit", values);
+
+    createExperience.mutate({
+      title: values.title,
+      content: values.description,
+      price: values.price,
+    });
 
     setTimeout(() => {
       helpers.setSubmitting(false);

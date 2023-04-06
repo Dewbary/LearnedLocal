@@ -11,6 +11,7 @@ export const experienceRouter = createTRPCRouter({
       select: {
         title: true,
         content: true,
+        price: true
       },
       orderBy: {
         createdAt: "desc",
