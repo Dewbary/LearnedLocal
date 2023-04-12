@@ -17,10 +17,22 @@ import { useCallback, useState } from "react";
 function classNames(...classes: (string | boolean | undefined)[]) {
   return classes.filter(Boolean).join(" ");
 }
-const Calendar = ({ field, form }: FieldProps) => {
-  let today = startOfToday();
-  let [selectedDay, setSelectedDay] = useState(today);
-  let [currentMonth, setCurrentMonth] = useState(format(today, "MMM-yyyy"));
+
+interface CalendarProps extends FieldProps {
+  selectedDay: Date;
+  setSelectedDay: (day: Date) => void;
+  currentMonth: string;
+  setCurrentMonth: (month: string) => void;
+}
+
+const Calendar = ({
+  field,
+  form,
+  selectedDay,
+  setSelectedDay,
+  currentMonth,
+  setCurrentMonth,
+}: CalendarProps) => {
   let firstDayCurrentMonth = parse(currentMonth, "MMM-yyyy", new Date());
 
   let days = eachDayOfInterval({
@@ -45,10 +57,13 @@ const Calendar = ({ field, form }: FieldProps) => {
   };
 
   return (
-    <div className="pt-16">
-      <div className="mx-auto max-w-md px-4 sm:px-7 md:max-w-4xl md:px-6">
-        <div className="md:grid md:divide-x md:divide-gray-200">
-          <div className="md:pr-14">
+    <div className="">
+      <div
+        className="mx-auto max-w-md md:max-w-4xl"
+        style={{ maxWidth: "600px" }}
+      >
+        <div className="p-12 md:grid md:divide-x md:divide-gray-200">
+          <div className="">
             <div className="flex items-center">
               <h2 className="flex-auto font-semibold text-gray-900">
                 {format(firstDayCurrentMonth, "MMMM yyyy")}

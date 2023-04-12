@@ -10,13 +10,20 @@ export const experienceRouter = createTRPCRouter({
     return ctx.prisma.experience.findMany({
       select: {
         title: true,
-        // content: true,
       },
       orderBy: {
         createdAt: "desc",
       },
     });
   }),
+
+  byCategory: publicProcedure
+    .input(z.number())
+    .query(async ({ ctx, input: categoryId }) => {
+      return await ctx.prisma.experience.findMany({
+        where: { categoryId },
+      });
+    }),
 
   create: protectedProcedure
     .input(
@@ -26,7 +33,7 @@ export const experienceRouter = createTRPCRouter({
         title: z.string(),
         description: z.string(),
         price: z.number(),
-        theme: z.string(),
+        theme: z.number(),
         date: z.date(),
         startTime: z.string(),
         endTime: z.string(),
@@ -45,13 +52,13 @@ export const experienceRouter = createTRPCRouter({
     .mutation(({ ctx, input }) => {
       return ctx.prisma.experience.create({
         data: {
-          authorId: ctx.session.user.id,
+          authorId: ctx.userId,
           firstName: input.firstName,
           lastName: input.lastName,
           title: input.title,
           description: input.description,
           price: input.price,
-          theme: input.theme,
+          categoryId: input.theme,
           date: input.date,
           startTime: input.startTime,
           endTime: input.endTime,

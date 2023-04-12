@@ -7,6 +7,9 @@ import {
   CogIcon,
   CameraIcon,
   CheckCircleIcon,
+  UserIcon,
+  MapPinIcon,
+  ClipboardDocumentCheckIcon,
 } from "@heroicons/react/24/solid";
 import { api } from "~/utils/api";
 import { useRouter } from "next/router";
@@ -27,6 +30,18 @@ import { useStepNavigation } from "./hooks/useStepNavigation";
 import StartPage from "./StartPage";
 import { Pin } from "./LocationPicker/LocationPicker";
 import { useState } from "react";
+import {
+  add,
+  eachDayOfInterval,
+  endOfMonth,
+  format,
+  getDay,
+  isEqual,
+  isSameMonth,
+  isToday,
+  parse,
+  startOfToday,
+} from "date-fns";
 
 const validationSchema = Yup.object({
   // firstName: Yup.string().required('First name is required'),
@@ -42,7 +57,7 @@ const validationSchema = Yup.object({
 
 const initialValues: FormValues = {
   title: "",
-  theme: "",
+  theme: 0,
   description: "",
   timeline: "",
   date: "",
@@ -75,6 +90,9 @@ const CreateExperienceForm = () => {
 
   const [slug] = params;
   const [location, setLocation] = useState<Pin | null>(null);
+  let today = startOfToday();
+  let [selectedDay, setSelectedDay] = useState(today);
+  let [currentMonth, setCurrentMonth] = useState(format(today, "MMM-yyyy"));
 
   const handleLocationChange = (newLocation: Pin) => {
     setLocation(newLocation);
@@ -91,31 +109,31 @@ const CreateExperienceForm = () => {
       url: `/experience/create/${slug}/about`,
       text: "About",
       activeMatcher: "about",
-      icon: <HomeIcon className="h-5 w-5" />,
+      icon: <UserIcon className="h-5 w-5" />,
     },
     {
       url: `/experience/create/${slug}/date`,
-      text: "Date",
+      text: "Date & Time",
       activeMatcher: "date",
       icon: <CalendarIcon className="h-5 w-5" />,
     },
-    {
-      url: `/experience/create/${slug}/time`,
-      text: "Time",
-      activeMatcher: "time",
-      icon: <ClockIcon className="h-5 w-5" />,
-    },
+    // {
+    //   url: `/experience/create/${slug}/time`,
+    //   text: "Time",
+    //   activeMatcher: "time",
+    //   icon: <ClockIcon className="h-5 w-5" />,
+    // },
     {
       url: `/experience/create/${slug}/location`,
       text: "Location",
       activeMatcher: "location",
-      icon: <ClockIcon className="h-5 w-5" />,
+      icon: <MapPinIcon className="h-5 w-5" />,
     },
     {
       url: `/experience/create/${slug}/requirements`,
       text: "Requirements",
       activeMatcher: "requirements",
-      icon: <ClockIcon className="h-5 w-5" />,
+      icon: <ClipboardDocumentCheckIcon className="h-5 w-5" />,
     },
     {
       url: `/experience/create/${slug}/settings`,
@@ -147,9 +165,16 @@ const CreateExperienceForm = () => {
       case "description":
         return <DescriptionPage />;
       case "date":
-        return <DatePage />;
-      case "time":
-        return <TimePage />;
+        return (
+          <DatePage
+            selectedDay={selectedDay}
+            setSelectedDay={setSelectedDay}
+            selectedMonth={currentMonth}
+            setSelectedMonth={setCurrentMonth}
+          />
+        );
+      // case "time":
+      //   return <TimePage />;
       case "location":
         return (
           <LocationPage
@@ -227,7 +252,7 @@ const CreateExperienceForm = () => {
       </nav>
 
       <div className="flex flex-1 overflow-hidden">
-        <aside className="w-64 overflow-y-auto sm:block">
+        <aside className="flex w-64 flex-col overflow-y-auto">
           <CreateExperienceTabs
             tabInfoList={tabInfoList}
             currentTab={activeTab?.activeMatcher}
@@ -235,7 +260,7 @@ const CreateExperienceForm = () => {
           />
         </aside>
 
-        <main className="paragraph ml-8 mr-12 mb-12 flex flex-1 overflow-y-auto rounded-lg bg-gray-100 px-8 py-8">
+        <main className="paragraph ml-8 mr-12 mb-12 flex flex-1 overflow-y-auto rounded-lg bg-gradient-to-r from-amber-400 via-amber-200 to-slate-50 px-8 py-8">
           <Formik
             initialValues={initialValues}
             onSubmit={(values, helpers) => handleSubmit(values, helpers)}

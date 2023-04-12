@@ -40,9 +40,8 @@ const LocationPicker = ({ value, onLocationChange }: LocationPickerProps) => {
       const newPin: Pin = { lat: lat, lng: lng };
       setPinData([newPin]);
       onLocationChange(newPin);
-      // togglePinMode();
     },
-    [onLocationChange, togglePinMode]
+    [onLocationChange]
   );
 
   const clearPinData = useCallback(() => {
@@ -73,24 +72,15 @@ const LocationPicker = ({ value, onLocationChange }: LocationPickerProps) => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      <div
-        style={{ display: "flex", justifyContent: "center", margin: "10px" }}
-      >
-        <div style={{ display: "flex", flexDirection: "row" }}>
-          <SearchBar
-            onPlaceSelected={handlePlaceSelected}
-            onApiReady={handleApiReady}
-          />
-          <PinButton clearPinData={clearPinData} />
-        </div>
+    <div className="flex flex-col">
+      <div className="flex justify-center space-x-4 pb-4">
+        <SearchBar
+          onPlaceSelected={handlePlaceSelected}
+          onApiReady={handleApiReady}
+        />
+        <PinButton clearPinData={clearPinData} />
       </div>
-      <div className="flex-grow place-items-center">
+      <div className="flex-grow">
         <Map
           center={center}
           zoom={20}

@@ -24,36 +24,43 @@ const CreateExperienceTabs = ({
   }, [router.asPath]);
 
   return (
-    <ul className={`flex flex-col items-end`}>
-      {tabInfoList.map((item, index, array) => {
-        const isSelected = selectedTab.endsWith(item.activeMatcher);
+    <>
+      <ul className={`flex flex-col items-end`}>
+        {tabInfoList.map((item, index, array) => {
+          const isSelected = selectedTab.endsWith(item.activeMatcher);
 
-        return (
-          <li key={index} className={styles.progressItem}>
-            {index < array.length - 1 && (
-              <div
-                className={`${styles.progressLine} ${
-                  isSelected ? styles.progressLineSelected : ""
-                }`}
-              />
-            )}
-            <Link href={item.url} shallow={true}>
-              <div
-                className={`flex w-full items-center rounded-lg p-2 ${
-                  isSelected ? "bg-blue-500 text-white" : "bg-white"
-                }`}
-                onClick={() => onTabClick(index)}
-              >
-                <div className="flex content-end items-center space-x-2">
-                  <span>{item.text}</span>
-                  {item.icon}
+          return (
+            <li key={index} className={styles.progressItem}>
+              {index < array.length - 1 && (
+                <div
+                  className={`${styles.progressLine} ${
+                    isSelected ? styles.progressLineSelected : ""
+                  }`}
+                />
+              )}
+              <Link href={item.url} shallow={true}>
+                <div
+                  className={`flex w-full items-center rounded-lg p-2 ${
+                    isSelected ? "bg-amber-500 text-white" : "bg-white"
+                  }`}
+                  onClick={() => onTabClick(index)}
+                >
+                  <div className="flex content-end items-center space-x-2">
+                    <span>{item.text}</span>
+                    {item.icon}
+                  </div>
                 </div>
-              </div>
-            </Link>
-          </li>
-        );
-      })}
-    </ul>
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+      <div className="flex flex-1 flex-col items-end justify-end pb-20 ">
+        <button className="btn text-white">
+          <Link href="/">Return Home</Link>
+        </button>
+      </div>
+    </>
   );
 };
 

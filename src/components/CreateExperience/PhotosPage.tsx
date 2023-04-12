@@ -6,7 +6,7 @@ const PhotosPage = () => {
   return (
     <div>
       <FormPageHeader
-        step={8}
+        step={7}
         title="Show off your experience"
         subtitle="Trust us, people want to know what you can do"
       />

@@ -16,12 +16,16 @@ const CreateExperienceFormArea = ({
   isLastStep,
 }: Props) => {
   return (
-    <div className="">
-      {tabComponent}
-      <div className="mt-6 flex justify-between">
+    <div className="flex h-full flex-col ">
+      <div className="flex-grow overflow-y-auto ">{tabComponent}</div>
+      <div
+        className={`mt-6 flex ${
+          isFirstStep ? "justify-end" : "justify-between"
+        }`}
+      >
         <button
           type="button"
-          className={`rounded bg-blue-500 px-4 py-2 text-white ${
+          className={`rounded bg-amber-500 px-4 py-2 text-white ${
             isFirstStep ? "hidden" : ""
           }`}
           onClick={onBack}
@@ -30,7 +34,7 @@ const CreateExperienceFormArea = ({
         </button>
         <button
           type="button"
-          className={`rounded bg-blue-500 px-4 py-2 text-white ${
+          className={`rounded bg-amber-500 px-4 py-2 text-white ${
             isLastStep ? "hidden" : ""
           }`}
           onClick={onNext}
