@@ -5,7 +5,7 @@ import { usePinContext } from "./PinContext";
 import SearchBar from "./SearchBar";
 
 // Default San Francisco
-const DefaultLat = 37.749;
+const DefaultLat = 37.7498;
 const DefaultLng = -122.4194;
 
 export type Pin = {
