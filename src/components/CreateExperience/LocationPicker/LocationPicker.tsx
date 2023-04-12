@@ -1,11 +1,11 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import Map from "./Map";
 import PinButton from "./PinButton";
-import { PinContextProvider, usePinContext } from "./PinContext";
+import { usePinContext } from "./PinContext";
 import SearchBar from "./SearchBar";
 
 // Default San Francisco
-const DefaultLat = 37.749;
+const DefaultLat = 37.7498;
 const DefaultLng = -122.4194;
 
 export type Pin = {
@@ -13,22 +13,35 @@ export type Pin = {
   lng: number;
 };
 
-const LocationPicker = () => {
-  const [center, setCenter] = useState({ lat: DefaultLat, lng: DefaultLng });
+type LocationPickerProps = {
+  value: Pin | null;
+  onLocationChange: (location: Pin) => void;
+};
+
+const LocationPicker = ({ value, onLocationChange }: LocationPickerProps) => {
+  const [center, setCenter] = useState<Pin>(
+    value
+      ? { lat: value.lat, lng: value.lng }
+      : { lat: DefaultLat, lng: DefaultLng }
+  );
   const [isApiLoaded, setApiLoaded] = useState(false);
-  const [pinData, setPinData] = useState<Pin[]>([]);
+  const [pinData, setPinData] = useState<Pin[]>(value ? [value] : []);
+  const { pinMode, togglePinMode } = usePinContext();
+
+  useEffect(() => {
+    if (value) {
+      setCenter({ lat: value.lat, lng: value.lng });
+      setPinData([value]);
+    }
+  }, [value]);
 
   const handlePinDrop = useCallback(
     ({ lat, lng }: Pin) => {
-      if (pinData.length === 0) {
-        setPinData([{ lat, lng }]);
-      } else {
-        setPinData([{ lat, lng }]);
-      }
-
-      console.log(pinData);
+      const newPin: Pin = { lat: lat, lng: lng };
+      setPinData([newPin]);
+      onLocationChange(newPin);
     },
-    [pinData]
+    [onLocationChange]
   );
 
   const clearPinData = useCallback(() => {
@@ -59,24 +72,15 @@ const LocationPicker = () => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      <div
-        style={{ display: "flex", justifyContent: "center", margin: "10px" }}
-      >
-        <div style={{ display: "flex", flexDirection: "row" }}>
-          <SearchBar
-            onPlaceSelected={handlePlaceSelected}
-            onApiReady={handleApiReady}
-          />
-          <PinButton clearPinData={clearPinData} />
-        </div>
+    <div className="flex flex-col">
+      <div className="flex justify-center space-x-4 pb-4">
+        <SearchBar
+          onPlaceSelected={handlePlaceSelected}
+          onApiReady={handleApiReady}
+        />
+        <PinButton clearPinData={clearPinData} />
       </div>
-      <div style={{ flex: 1 }}>
+      <div className="flex-grow">
         <Map
           center={center}
           zoom={20}
@@ -89,10 +93,4 @@ const LocationPicker = () => {
   );
 };
 
-export default function WrappedLocationPicker() {
-  return (
-    <PinContextProvider>
-      <LocationPicker />
-    </PinContextProvider>
-  );
-}
+export default LocationPicker;

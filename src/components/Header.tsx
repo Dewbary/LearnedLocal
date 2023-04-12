@@ -13,13 +13,9 @@ export const Header = () => {
       })}
     >
       <div className="flex-1 pl-5 text-3xl font-bold">
-
         <article className="prose">
           <h1>Create An Experience</h1>
         </article>
-
-
-
       </div>
       <div className="flex-none gap-2">
         <div className="dropdown-end dropdown">
