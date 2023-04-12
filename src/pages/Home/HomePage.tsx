@@ -1,41 +1,33 @@
 import Link from "next/link";
 import React from "react";
-import { signIn, signOut, useSession } from "next-auth/react";
-import { SignIn, SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
+import { v4 as uuidv4 } from "uuid";
+import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
+import { api } from "~/utils/api";
 
 const HomePage = () => {
-  // const { data: sessionData } = useSession();
-
   const user = useUser();
+  const uniqueSlug = uuidv4();
+
+  const { data: experiences, isLoading } = api.experience.byUserId.useQuery();
 
   return (
     <>
       <div>Create a New Experience</div>
-      <Link href={"/experience/create/hello-world"}>Create an Experience</Link>
+
+      {user.isSignedIn ? (
+        <Link href={`/experience/create/${uniqueSlug}`}>
+          Create an Experience
+        </Link>
+      ) : null}
       <div className="dropdown-end dropdown">
-        {/* {sessionData?.user ? (
-          <label
-            tabIndex={0}
-            className="btn-ghost btn-circle avatar btn"
-            onClick={() => void signOut()}
-          >
-            <div className="w-10 rounded-full">
-              <img
-                src={sessionData?.user?.image ?? ""}
-                alt={sessionData?.user?.name ?? ""}
-              />
-            </div>
-          </label>
-        ) : (
-          <button
-            className="btn-ghost rounded-btn btn"
-            onClick={() => void signIn()}
-          >
-            Sign in
-          </button>
-        )} */}
-        {/* <SignIn path="/sign-in" routing="path" signUpUrl="/sign-up" /> */}
         <div>{user.isSignedIn ? <SignOutButton /> : <SignInButton />}</div>
+      </div>
+
+      <div>
+        My Experiences
+        {experiences?.map((experience) => {
+          return <div key={experience.id}>{experience.title}</div>;
+        })}
       </div>
     </>
   );

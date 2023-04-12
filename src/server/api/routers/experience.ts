@@ -17,6 +17,12 @@ export const experienceRouter = createTRPCRouter({
     });
   }),
 
+  byUserId: protectedProcedure.query(async ({ ctx }) => {
+    return await ctx.prisma.experience.findMany({
+      where: { authorId: ctx.userId },
+    });
+  }),
+
   byCategory: publicProcedure
     .input(z.number())
     .query(async ({ ctx, input: categoryId }) => {
@@ -47,6 +53,7 @@ export const experienceRouter = createTRPCRouter({
         activityLevel: z.string(),
         skillLevel: z.string(),
         maxAttendees: z.number(),
+        slugId: z.string(),
       })
     )
     .mutation(({ ctx, input }) => {
@@ -72,6 +79,7 @@ export const experienceRouter = createTRPCRouter({
           activityLevel: input.activityLevel,
           skillLevel: input.skillLevel,
           maxAttendees: input.maxAttendees,
+          slugId: input.slugId,
         },
       });
     }),
