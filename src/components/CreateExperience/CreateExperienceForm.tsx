@@ -225,6 +225,7 @@ const CreateExperienceForm = () => {
       activityLevel: values.activityLevel,
       skillLevel: values.skillLevel,
       maxAttendees: values.maxAttendees,
+      slugId: slug ?? "",
     });
 
     setTimeout(() => {

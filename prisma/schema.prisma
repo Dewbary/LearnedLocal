@@ -88,6 +88,7 @@ model Experience {
   maxAttendees       Int
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
+  slugId             String   @unique
 
   categoryId         Int
   category           Category @relation(fields: [categoryId], references: [id])
