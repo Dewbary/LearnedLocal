@@ -7,7 +7,7 @@ import { api } from "~/utils/api";
 import HomePage from "./Home/HomePage";
 
 const Home: NextPage = () => {
-  const { data: sessionData } = useSession();
+  // const { data: sessionData } = useSession();
 
   return (
     <>

@@ -132,17 +132,20 @@ export const InputField = ({
     name={name}
     type={type}
     placeholder={placeholder}
-    className="mb-3 rounded py-3 px-4 leading-tight text-gray-700 focus:bg-white focus:outline-none"
+    className="mb-3 rounded-md border-2 border-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-blue-500 focus:outline-none"
   />
 );
 
 type FormLabelProps = {
   text: string;
+  className?: string;
 };
 
-export const FormLabel = ({ text }: FormLabelProps) => (
+export const FormLabel = ({ text, className }: FormLabelProps) => (
   <>
-    <label className="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700">
+    <label
+      className={`mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700 ${className}`}
+    >
       {text}
     </label>
   </>

@@ -1,19 +1,47 @@
-import React from "react";
-import { FormLabel, InputField } from "../CreateExperience";
-import LocationPicker from "./LocationPicker/LocationPicker";
+import React, { useEffect } from "react";
+import { Field, FieldProps } from "formik";
+import LocationPicker, { Pin } from "./LocationPicker/LocationPicker";
+import { PinContextProvider } from "./LocationPicker/PinContext";
+import FormPageHeader from "./Typography/Typography";
 
-const LocationPage = () => {
+type LocationPageProps = {
+  location: Pin | null;
+  onLocationChange: (location: Pin) => void;
+};
+
+const LocationPage = ({ location, onLocationChange }: LocationPageProps) => {
+  useEffect(() => {
+    if (location) {
+      onLocationChange(location);
+    }
+  }, [location, onLocationChange]);
+
   return (
-    <div>
-      <FormLabel text="Location Description" />
-      <InputField
-        id="locationDescription"
-        name="locationDescription"
-        type="text"
-        placeholder="Are there any specific instructions when arriving at the location?"
-      />
-
-      <LocationPicker />
+    <div className="min-h-screen">
+      <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <FormPageHeader
+          step={4}
+          title="Now let's pinpoint the exact location of your experience"
+          subtitle="Make sure that it is in a location accessible to those participating"
+        />
+        <div className="rounded-lg bg-white p-8 shadow-md">
+          <Field name="location">
+            {(
+              { field, form }: FieldProps<Pin> // TODO: Extract into a separate component
+            ) => (
+              <PinContextProvider>
+                <LocationPicker
+                  {...field}
+                  onLocationChange={(pin: Pin) => {
+                    onLocationChange(pin);
+                    form.setFieldValue("location", pin);
+                  }}
+                />
+              </PinContextProvider>
+            )}
+          </Field>
+        </div>
+      </div>
     </div>
   );
 };
