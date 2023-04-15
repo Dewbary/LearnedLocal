@@ -11,7 +11,6 @@ import {
   MapPinIcon,
   ClipboardDocumentCheckIcon,
 } from "@heroicons/react/24/solid";
-import { api } from "~/utils/api";
 import { useRouter } from "next/router";
 import DescriptionPage from "./DescriptionPage/DescriptionPage";
 import TimePage from "./TimePage";

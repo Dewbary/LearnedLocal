@@ -1,10 +1,10 @@
 import Link from "next/link";
 import React from "react";
-import ExperienceCard, { Experience } from "~/components/FindExperience/ExperienceCard";
+import ExperienceCard  from "~/components/FindExperience/ExperienceCard";
+import { Experience } from '@prisma/client';
 //import SignIn from "~/components/NavBar/SignIn";
 import { api } from "~/utils/api";
 import { SignIn, SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
-import { signIn, signOut, useSession } from "next-auth/react";
 
 const HomePage = () => {
 

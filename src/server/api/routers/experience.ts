@@ -8,11 +8,6 @@ import {
 export const experienceRouter = createTRPCRouter({
   getAll: protectedProcedure.query(({ ctx }) => {
     return ctx.prisma.experience.findMany({
-      select: {
-        title: true,
-        content: true,
-        price: true
-      },
       orderBy: {
         createdAt: "desc",
       },

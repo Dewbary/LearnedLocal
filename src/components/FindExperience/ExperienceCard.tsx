@@ -3,12 +3,7 @@ import outdoors from '../../assets/outdoors.jpg'
 import ExperienceModal from './ExperienceModal';
 import { useState } from 'react';
 import styles from "./ExperienceCard.module.css"
-
-interface Experience {
-    title: string,
-    content: string,
-    price: number
-}
+import { Experience } from '@prisma/client';
 
 export default function ExperienceCard ({experience}: {experience: Experience}) {
 
@@ -37,7 +32,7 @@ export default function ExperienceCard ({experience}: {experience: Experience}) 
                 </div>
             </div>
             <div className='absolute bottom-0 w-full bg-white rounded-b-2xl h-36 p-3'>
-                <p>{experience.content}</p>
+                <p>{experience.description}</p>
                 <div className='absolute bottom-5 left-5'>
                     <p className='font-bold text-xl'>${experience.price}</p>
                 </div>
