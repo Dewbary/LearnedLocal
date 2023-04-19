@@ -16,14 +16,13 @@ export const uploadImageToBucket = async (file: File, userId: string) => {
   return data.path;
 };
 
-export const getImagesFromBucket = async (userId: string) => {
-  const { data, error } = await supabase.storage
-    .from("Images")
-    .list(userId + "/");
+export const getImageUrl = async (path: string) => {
+  const { data } = supabase.storage.from("images").getPublicUrl(path);
+  const { publicUrl } = data;
 
-  if (error) {
-    throw error;
-  }
+  // if (error) {
+  //   throw error;
+  // }
 
-  return data;
+  return publicUrl;
 };
