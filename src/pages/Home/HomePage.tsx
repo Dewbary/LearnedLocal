@@ -1,32 +1,45 @@
 import Link from "next/link";
-import React from "react";
-import ExperienceCard  from "~/components/FindExperience/ExperienceCard";
-import { Experience } from '@prisma/client';
-//import SignIn from "~/components/NavBar/SignIn";
+import ExperienceCard from "~/components/FindExperience/ExperienceCard";
+import { Experience } from "@prisma/client";
 import { api } from "~/utils/api";
-import { SignIn, SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
+import { v4 as uuidv4 } from "uuid";
+import Header from "~/components/Header";
+import NavBar from "~/components/NavBar/NavBar";
+import Footer from "~/components/Footer/Footer";
 
 const HomePage = () => {
-
-  const getExperiences = api.experience.getAll.useQuery();
   const user = useUser();
+  const uniqueSlug = uuidv4();
+  const experiencesQuery = api.experience.getAll.useQuery();
+
+  // Get all experiences owned by the user
+  // const { data: ownedExperiences, isLoading } =
+  //   api.experience.byUserId.useQuery();
 
   return (
     <>
-      <SignIn></SignIn>
-      <div>Create a New Experience</div>
-      <Link href={"/experience/create/hello-world"}>Create an Experience</Link>
-      <div className="w-3/4 grid grid-cols-3 justify-items-center gap-y-10">
-        {getExperiences.data?.map((experience: Experience) => (
-          <div className="">
-            <ExperienceCard experience={experience}/>
+      <NavBar isSignedIn={user.isSignedIn ?? false} />
+
+      <Header />
+
+      {user.isSignedIn ? (
+        <button className="btn-primary btn m-4">
+          <Link href={`/experience/create/${uniqueSlug}`}>
+            Create an Experience
+          </Link>
+        </button>
+      ) : null}
+
+      <div className="grid grid-cols-1 justify-items-stretch gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {experiencesQuery.data?.map((experience: Experience) => (
+          <div className="card-component my-8 flex justify-center">
+            <ExperienceCard experience={experience} />
           </div>
-          )
-        )}
+        ))}
       </div>
-      <div className="dropdown-end dropdown">
-        <div>{user.isSignedIn ? <SignOutButton /> : <SignInButton />}</div>
-      </div>
+
+      <Footer />
     </>
   );
 };
