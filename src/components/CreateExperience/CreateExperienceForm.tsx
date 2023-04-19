@@ -42,6 +42,8 @@ import {
   startOfToday,
 } from "date-fns";
 import { api } from "~/utils/api";
+import { uploadImageToBucket } from "~/utils/images";
+import { useUser } from "@clerk/nextjs";
 
 const validationSchema = Yup.object({
   // firstName: Yup.string().required('First name is required'),
@@ -88,14 +90,22 @@ const CreateExperienceForm = () => {
     ? (router.query.slug as string[])
     : [];
 
+  const { user } = useUser();
   const [slug] = params;
   const [location, setLocation] = useState<Pin | null>(null);
   let today = startOfToday();
   let [selectedDay, setSelectedDay] = useState(today);
   let [currentMonth, setCurrentMonth] = useState(format(today, "MMM-yyyy"));
+  const [image, setImage] = useState<File | null>(null);
 
   const handleLocationChange = (newLocation: Pin) => {
     setLocation(newLocation);
+  };
+
+  const handleImageSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files ? e.target.files[0] : null;
+    if (!file) return;
+    setImage(file);
   };
 
   const tabInfoList: TabInfo[] = [
@@ -173,8 +183,6 @@ const CreateExperienceForm = () => {
             setSelectedMonth={setCurrentMonth}
           />
         );
-      // case "time":
-      //   return <TimePage />;
       case "location":
         return (
           <LocationPage
@@ -189,7 +197,7 @@ const CreateExperienceForm = () => {
       case "settings":
         return <SettingsPage />;
       case "photos":
-        return <PhotosPage />;
+        return <PhotosPage handleImageSelected={handleImageSelected} />;
       case "submit":
         return <FinalStepsPage />;
       default:
@@ -197,13 +205,18 @@ const CreateExperienceForm = () => {
     }
   };
 
-  const handleSubmit = (
+  const handleSubmit = async (
     values: FormValues,
     helpers: FormikHelpers<FormValues>
   ) => {
     helpers.setSubmitting(true);
     console.log("onSubmit", values);
+
     const date = new Date(values.date);
+    let filePath = "";
+    if (image && user) {
+      filePath = await uploadImageToBucket(image, user.id);
+    }
 
     createExperience.mutate({
       firstName: values.firstName,
@@ -225,6 +238,8 @@ const CreateExperienceForm = () => {
       activityLevel: values.activityLevel,
       skillLevel: values.skillLevel,
       maxAttendees: values.maxAttendees,
+      photos: [filePath],
+      slugId: slug ?? "",
     });
 
     setTimeout(() => {
