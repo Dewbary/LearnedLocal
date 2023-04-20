@@ -8,6 +8,8 @@ import {
   UserIcon,
 } from "@heroicons/react/24/solid";
 import type { Experience } from "@prisma/client";
+import { Pin } from "../CreateExperience/LocationPicker/LocationPicker";
+import { generateGoogleMapsURL } from "./FindExperienceUtils";
 
 type Props = {
   experience: Experience;
@@ -20,6 +22,9 @@ const ExperienceModal = ({ experience, hideModal }: Props) => {
     month: "short",
     day: "numeric",
   } as const;
+
+  const location: Pin = experience.location as Pin;
+  const { lat, lng } = location;
 
   return (
     <div className="relative flex h-5/6 w-2/3 flex-col rounded-3xl bg-white">
@@ -119,7 +124,14 @@ const ExperienceModal = ({ experience, hideModal }: Props) => {
               </span>
               <MapPinIcon className="w-5" />{" "}
               <span className="col-span-4">
-                {experience.location?.toString()}
+                <a
+                  href={generateGoogleMapsURL(lat, lng)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-500 underline"
+                >
+                  View Experience Location
+                </a>
               </span>
               <CalendarIcon className="w-5" />{" "}
               <span className="col-span-4">
