@@ -21,6 +21,7 @@ import { uploadImageToBucket } from "~/utils/images";
 import { useUser } from "@clerk/nextjs";
 import { getTabInfos, initialValues } from "./CreateExperienceFormUtils";
 import CreateExperienceHeader from "./Layout/CreateExperienceHeader";
+import { ImageListType } from "react-images-uploading";
 
 const CreateExperienceForm = () => {
   const router = useRouter();
@@ -38,6 +39,7 @@ const CreateExperienceForm = () => {
   const [selectedDay, setSelectedDay] = useState(today);
   const [currentMonth, setCurrentMonth] = useState(format(today, "MMM-yyyy"));
   const [image, setImage] = useState<File | null>(null);
+  const [images, setImages] = useState<ImageListType>([]);
 
   const handleLocationChange = (newLocation: Pin) => {
     setLocation(newLocation);
@@ -47,6 +49,7 @@ const CreateExperienceForm = () => {
     const file = e.target.files ? e.target.files[0] : null;
     if (!file) return;
     setImage(file);
+    images.push(file);
   };
 
   const tabInfoList: TabInfo[] = getTabInfos(slug ?? "");
@@ -82,7 +85,7 @@ const CreateExperienceForm = () => {
       case "settings":
         return <SettingsPage />;
       case "photos":
-        return <PhotosPage handleImageSelected={handleImageSelected} />;
+        return <PhotosPage images={images} onSetImages={setImages} />;
       case "submit":
         return <FinalStepsPage />;
       default:
@@ -94,17 +97,24 @@ const CreateExperienceForm = () => {
     values: FormValues,
     helpers: FormikHelpers<FormValues>
   ) => {
+    if (!user) return;
     helpers.setSubmitting(true);
     console.log("onSubmit", values);
 
     const date = new Date(values.date);
-    let filePath = "";
-    if (image && user) {
-      const path = await uploadImageToBucket(image, user.id);
-      filePath =
-        "https://sipawyumxienbevdvlse.supabase.co/storage/v1/object/public/images/" +
-        path;
-    }
+
+    const filePathArray: string[] = [];
+
+    await Promise.all(
+      images.map(async (img) => {
+        if (!img.file) return;
+        const path = await uploadImageToBucket(img.file, user.id);
+        const filePath =
+          "https://sipawyumxienbevdvlse.supabase.co/storage/v1/object/public/images/" +
+          path;
+        filePathArray.push(filePath);
+      })
+    );
 
     createExperience.mutate({
       firstName: values.firstName,
@@ -126,7 +136,7 @@ const CreateExperienceForm = () => {
       activityLevel: values.activityLevel,
       skillLevel: values.skillLevel,
       maxAttendees: values.maxAttendees,
-      photos: [filePath],
+      photos: filePathArray,
       slugId: slug ?? "",
     });
 
