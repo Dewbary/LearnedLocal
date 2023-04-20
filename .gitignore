@@ -40,3 +40,6 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# Prisma migrations, for individual environments
+/prisma/migrations/
