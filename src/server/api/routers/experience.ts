@@ -14,7 +14,8 @@ export const experienceRouter = createTRPCRouter({
     });
   }),
 
-  byUserId: protectedProcedure.query(async ({ ctx }) => {
+  byUserId: protectedProcedure
+    .query(async ({ ctx }) => {
     return await ctx.prisma.experience.findMany({
       where: { authorId: ctx.userId },
     });

@@ -1,16 +1,30 @@
 import Image from "next/image";
-import outdoors from "../../assets/outdoors.jpg";
 import ExperienceModal from "./ExperienceModal";
 import { useState } from "react";
 import styles from "./ExperienceCard.module.css";
 import { Experience } from "@prisma/client";
 import profile_pic from "../../assets/profile_pic.png";
 
-export default function ExperienceCard({
-  experience,
-}: {
+
+export interface ActionButton {
+  buttonText: string;
+  buttonColor: string;
+  buttonAction: () => void;
+}
+
+export interface ModalActionButton {
+  buttonText: string;
+  buttonColor: string;
+  buttonAction: () => void;
+}
+
+export interface ExperienceCardProps {
   experience: Experience;
-}) {
+  actionButtonList?: ActionButton[];
+  modalActionButton?: ModalActionButton;
+}
+
+export default function ExperienceCard({ experienceCardProps } : { experienceCardProps: ExperienceCardProps }) {
   const [modalHidden, setModalHidden] = useState(true);
 
   const dateDisplayOptions = {
@@ -31,7 +45,7 @@ export default function ExperienceCard({
       <div className="h-96 w-72 rounded-2xl drop-shadow-xl">
         <div className="absolute top-0 left-0 h-96 w-full">
           <img
-            src={experience.photos[0] || ""}
+            src={experienceCardProps.experience.photos[0] || ""}
             alt="Picture of the outdoors"
             // className="fill absolute z-0 rounded-2xl fill"
             className="absolute inset-0 z-0 h-full w-full rounded-2xl object-cover"
@@ -47,7 +61,7 @@ export default function ExperienceCard({
         </div>
         <div className="absolute top-3 right-3">
           <h2 className="text-4xl font-bold text-white">
-            {experience.date
+            {experienceCardProps.experience.date
               .toLocaleDateString("en-US", dateDisplayOptions)
               .toLocaleUpperCase()}
           </h2>
@@ -55,16 +69,29 @@ export default function ExperienceCard({
         <div className="absolute h-56 w-full">
           <div className="absolute bottom-0 left-3 w-auto">
             <h2 className="text-2xl font-bold text-white">
-              {experience.title}
+              {experienceCardProps.experience.title}
             </h2>
           </div>
         </div>
         <div className="absolute bottom-0 h-36 w-full rounded-b-2xl bg-white p-3">
           <p className="h-16 overflow-hidden text-sm">
-            {experience.description}
+            {experienceCardProps.experience.description}
           </p>
           <div className="absolute bottom-5 left-5">
-            <p className="text-xl font-bold">${experience.price}</p>
+            <p className="text-xl font-bold">${experienceCardProps.experience.price}</p>
+          </div>
+          <div className="absolute bottom-3 left-24">
+            {/* ACTION BUTTON LIST */}
+            {experienceCardProps.actionButtonList?.map(actionButton => {
+              return (
+                <button
+                  className={`rounded-lg ${actionButton.buttonColor} text-white drop-shadow-md p-2`}
+                  onClick={() => actionButton.buttonAction()}
+                >
+                  {actionButton.buttonText}
+                </button>
+              )
+            })}
           </div>
           <div className="absolute bottom-3 right-3">
             <button
@@ -82,7 +109,13 @@ export default function ExperienceCard({
         }`}
       >
         <div className="flex h-full w-full items-center justify-center">
-          <ExperienceModal hideModal={hideModal} experience={experience} />
+          <ExperienceModal experienceModalProps={
+            {
+              hideModal: hideModal, 
+              experience: experienceCardProps.experience, 
+              modalActionButton: experienceCardProps.modalActionButton
+              }
+            } />
         </div>
       </div>
     </>
