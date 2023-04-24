@@ -1,8 +1,35 @@
 import React from "react";
 import { FormLabel, InputField } from "../CreateExperience";
 import FormPageHeader from "./Typography/Typography";
+import { FormikContextType, useFormikContext } from "formik";
+import { FormValues } from "./types";
+import { uploadImageToBucket } from "~/utils/images";
+import { useUser } from "@clerk/nextjs";
 
-const AboutPage = () => {
+type Props = {};
+
+const AboutPage = ({}: Props) => {
+  const { user } = useUser();
+
+  const {
+    values,
+    errors,
+    touched,
+    setFieldValue,
+  }: FormikContextType<FormValues> = useFormikContext();
+
+  const handleProfileImageSelected = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = e.target.files ? e.target.files[0] : null;
+    if (!file || !user) return;
+
+    const imgPath = await uploadImageToBucket(file, user.id);
+    const profileImageFilePath = `https://sipawyumxienbevdvlse.supabase.co/storage/v1/object/public/images/${imgPath}`;
+
+    setFieldValue("profileImage", profileImageFilePath);
+  };
+
   return (
     <div className="min-h-screen py-10">
       <div className="mx-auto max-w-3xl px-4">
@@ -35,11 +62,20 @@ const AboutPage = () => {
 
           <div>
             <FormLabel text="Profile Picture" className="text-gray-600" />
-            <InputField
-              id="profilePic"
-              name="profilePic"
-              type="text"
-              placeholder="Profile Picture Path"
+
+            {values.profileImage && (
+              <div className="mx-auto mt-4 mb-8 h-32 w-32">
+                <img
+                  src={values.profileImage}
+                  className="h-full w-full rounded-full object-cover shadow-lg"
+                />
+              </div>
+            )}
+
+            <input
+              type="file"
+              className="file-input-bordered file-input file-input-sm w-full max-w-xs"
+              onChange={handleProfileImageSelected}
             />
           </div>
 
@@ -50,6 +86,7 @@ const AboutPage = () => {
               name="qualifications"
               type="text"
               placeholder="What qualifies you to create this experience?"
+              className="w-full"
             />
           </div>
         </div>

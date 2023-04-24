@@ -1,13 +1,30 @@
 import { Field, useFormikContext } from "formik";
-import React from "react";
+import React, { useEffect } from "react";
 import { FormLabel, InputField } from "../../CreateExperience";
 import FormPageHeader from "../Typography/Typography";
 import { api } from "~/utils/api";
+import { Category } from "@prisma/client";
 
 const DescriptionPage = () => {
-  const { data, isLoading } = api.category.getAll.useQuery();
+  const { data: categories, isLoading } = api.category.getAll.useQuery(
+    undefined,
+    {
+      staleTime: Infinity,
+    }
+  );
   const { setFieldValue } = useFormikContext();
-  console.log(data);
+  // const [categories, setCategories] = React.useState<Category[]>([]);
+
+  // useEffect(() => {
+  //   const fetchCategories = async () => {
+  //     const { data: categories, isLoading } =
+  //       await api.category.getAll.useQuery();
+  //     setCategories(categories ?? []);
+  //     console.log(categories);
+  //   };
+
+  //   fetchCategories();
+  // }, []);
 
   const handleThemeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const themeNumber = parseInt(e.target.value);
@@ -31,6 +48,7 @@ const DescriptionPage = () => {
               name="title"
               type="text"
               placeholder="Experience title"
+              className="w-full"
             />
 
             <FormLabel text="Select a theme" className="mt-4" />
@@ -40,8 +58,8 @@ const DescriptionPage = () => {
               onChange={handleThemeChange}
               className="mb-3 w-full rounded-md border-2 border-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-blue-500 focus:outline-none"
             >
-              {data
-                ? data.map((category) => (
+              {categories
+                ? categories.map((category) => (
                     <option value={category.id} key={category.id}>
                       {category.name}
                     </option>

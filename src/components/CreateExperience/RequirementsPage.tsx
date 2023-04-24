@@ -18,6 +18,7 @@ const RequirementsPage = () => {
             name="provided"
             type="text"
             placeholder="What materials will you provide?"
+            className="w-full"
           />
 
           <FormLabel text="Location Description" />
@@ -26,6 +27,7 @@ const RequirementsPage = () => {
             name="locationDescription"
             type="text"
             placeholder="Are there any specific instructions when arriving at the location?"
+            className="w-full"
           />
 
           <FormLabel text="Guest Requirements" />
@@ -34,6 +36,7 @@ const RequirementsPage = () => {
             name="guestRequirements"
             type="text"
             placeholder="What do the guests need to prepare beforehand?"
+            className="w-full"
           />
 
           <FormLabel text="Activity Level" />
@@ -42,6 +45,7 @@ const RequirementsPage = () => {
             name="activityLevel"
             type="text"
             placeholder="What activity level does this experience involve?"
+            className="w-full"
           />
 
           <FormLabel text="Skill Level" />
@@ -50,6 +54,7 @@ const RequirementsPage = () => {
             name="skillLevel"
             type="text"
             placeholder="What skill level does this experience involve?"
+            className="w-full"
           />
         </div>
       </div>
