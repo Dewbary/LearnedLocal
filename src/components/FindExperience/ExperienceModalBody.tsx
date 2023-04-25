@@ -94,7 +94,7 @@ export default function ExperienceModalBody({experienceModalProps} : {experience
                 <div className='text-3xl font-bold'>${experienceModalProps.experience.price}</div>
                 <div className=''>
                     <UserIcon className='w-5 inline border border-black rounded-full mr-2'/>
-                    <span>9/{experienceModalProps.experience.maxAttendees} Spots Filled</span></div>
+                    <span>9/{experienceModalProps.experience.maxAttendees}</span></div>
                 {experienceModalProps.modalActionButton ? (
                     <>
                         <button 

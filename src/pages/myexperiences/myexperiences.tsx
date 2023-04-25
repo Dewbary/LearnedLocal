@@ -57,7 +57,7 @@ export default function MyExperiences () {
                     <div className="mt-7 pl-9 py-3">
                         <h1 className="text-4xl font-bold">My Upcoming Experiences</h1>
                     </div>
-                    <div className="grid lg:grid-cols-4 p-10">
+                    <div className="grid gap-4 lg:grid-cols-4 p-10">
                         {userJoinedExperiences.data?.map(experience => (
                             <ExperienceCard experienceCardProps={
                                 {

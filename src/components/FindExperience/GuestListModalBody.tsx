@@ -3,7 +3,7 @@ import profile_pic from "../../assets/profile_pic.png"
 
 export default function GuestListModalBody() {
     return (
-        <div className="flex flex-col lg:flex-row p-7 gap-7 flex-1">
+        <div className="flex flex-col lg:flex-row p-7 gap-7 flex-1 overflow-scroll lg:overflow-auto">
             <div className="flex flex-col lg:basis-1/2 flex-1 justify-between">
                 <div className="overflow-y-scroll h-96">
                     {[...Array(10)].map((e, i) => (
@@ -26,7 +26,7 @@ export default function GuestListModalBody() {
                         </div>
                     ))}
                 </div>
-                <div className="flex flex-1 w-full items-center justify-center">
+                <div className="flex flex-1 w-full items-center justify-center mt-3">
                     <button className="bg-amber-400 h-max p-3 rounded-xl text-white drop-shadow-md">Add Guest</button>
                 </div>
             </div>
