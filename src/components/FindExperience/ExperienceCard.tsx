@@ -1,18 +1,12 @@
 import Image from "next/image";
-import ExperienceModal from "./ExperienceModal";
+import ExperienceModalBody from "./ExperienceModalBody";
 import { useState } from "react";
 import styles from "./ExperienceCard.module.css";
 import { Experience } from "@prisma/client";
 import profile_pic from "../../assets/profile_pic.png";
-
+import GenericModal from "../GenericModal";
 
 export interface ActionButton {
-  buttonText: string;
-  buttonColor: string;
-  buttonAction: () => void;
-}
-
-export interface ModalActionButton {
   buttonText: string;
   buttonColor: string;
   buttonAction: () => void;
@@ -21,7 +15,9 @@ export interface ModalActionButton {
 export interface ExperienceCardProps {
   experience: Experience;
   actionButtonList?: ActionButton[];
-  modalActionButton?: ModalActionButton;
+  modalButtonText: string;
+  modalHeaderContent: JSX.Element;
+  modalBodyContent: JSX.Element;
 }
 
 export default function ExperienceCard({ experienceCardProps } : { experienceCardProps: ExperienceCardProps }) {
@@ -98,7 +94,7 @@ export default function ExperienceCard({ experienceCardProps } : { experienceCar
               className="rounded-lg bg-amber-400 p-2 text-white drop-shadow-md"
               onClick={() => showModal()}
             >
-              Details
+              {experienceCardProps.modalButtonText}
             </button>
           </div>
         </div>
@@ -109,13 +105,13 @@ export default function ExperienceCard({ experienceCardProps } : { experienceCar
         }`}
       >
         <div className="flex h-full w-full items-center justify-center">
-          <ExperienceModal experienceModalProps={
+          <GenericModal genericModalProps={
             {
-              hideModal: hideModal, 
-              experience: experienceCardProps.experience, 
-              modalActionButton: experienceCardProps.modalActionButton
-              }
-            } />
+              hideModal: hideModal,
+              modalContent: experienceCardProps.modalBodyContent,
+              modalHeaderContent: experienceCardProps.modalHeaderContent
+            }
+          } />
         </div>
       </div>
     </>

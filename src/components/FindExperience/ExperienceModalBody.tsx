@@ -1,19 +1,23 @@
 import Image, { StaticImageData } from 'next/image'
 import outdoors2 from '../../assets/outdoors-2.png'
 import outdoors from '../../assets/outdoors.jpg'
-import profile_pic from '../../assets/profile_pic.png'
 import { CalendarIcon, ClockIcon, MapPinIcon, UserIcon } from '@heroicons/react/24/solid'
 import { Experience } from '@prisma/client'
 import { useState } from 'react'
-import { ModalActionButton } from './ExperienceCard'
 
-export interface ExperienceModalProps {
-    hideModal: () => void;
-    experience: Experience;
-    modalActionButton?: ModalActionButton;
+export interface ModalActionButton {
+    buttonText: string;
+    buttonColor: string;
+    buttonAction: () => void;
 }
 
-export default function ExperienceModal({experienceModalProps} : {experienceModalProps: ExperienceModalProps}) {
+export interface ExperienceModalProps {
+    experience: Experience;
+    modalActionButton?: ModalActionButton;
+    hideModal?: () => void;
+}
+
+export default function ExperienceModalBody({experienceModalProps} : {experienceModalProps: ExperienceModalProps}) {
 
     const dateDisplayOptions = {
         weekday: 'long',
@@ -28,33 +32,7 @@ export default function ExperienceModal({experienceModalProps} : {experienceModa
     }
 
     return (
-        <div className='bg-white w-full lg:w-2/3 h-full lg:h-5/6 lg:rounded-3xl relative flex flex-col'>
-
-            {/* TOP BAR */}
-            <div className='lg:rounded-t-3xl py-4 pr-6 pl-10 shadow-lg flex flex-row justify-between items-center bg-gradient-to-r from-amber-400 via-amber-200 to-white'>
-                <div className='flex flex-col lg:flex-row justify-between lg:items-center w-full'>
-                    <div className='flex flex-col'>
-                        <h1 className='text-4xl font-bold'>{experienceModalProps.experience.title}</h1>
-                        <p>
-                            <span className='align-middle'>Hosted By</span>
-                            <span className='inline-block'>
-                                <Image src={profile_pic} alt="profile pic" className='w-5 inline lg:mx-2'/> 
-                                <span className='align-middle text-yellow-600'>{experienceModalProps.experience.firstName} {experienceModalProps.experience.lastName}</span> 
-                            </span>
-                        </p>
-                    </div>
-                    <div className='flex'>
-                        <h1 className='text-2xl mr-3'>{experienceModalProps.experience.date.toLocaleDateString("en-US", dateDisplayOptions)}</h1>
-                    </div>
-                </div>
-                <button type="button" onClick={() => experienceModalProps.hideModal()} className="h-9 place-self-center text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
-                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd">
-                            </path>
-                        </svg>
-                </button>
-            </div>
-
+        <>
             {/* MAIN SCROLLABLE CONTENT */}
             <div className='flex flex-grow overflow-y-scroll'>
                 <div className='basis-full'>
@@ -129,13 +107,13 @@ export default function ExperienceModal({experienceModalProps} : {experienceModa
                 ) : (
                     <button 
                         className='bg-amber-400 text-white p-3 rounded-lg'
-                        onClick={() => experienceModalProps.hideModal()}
+                        onClick={() => {}}
                     >
                         Close
                     </button>
                 )}
                 
             </div>
-        </div>
-    )
+        </>
+    );
 }

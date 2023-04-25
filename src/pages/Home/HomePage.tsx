@@ -7,15 +7,13 @@ import { v4 as uuidv4 } from "uuid";
 import Header from "~/components/Header";
 import NavBar from "~/components/NavBar/NavBar";
 import Footer from "~/components/Footer/Footer";
+import ExperienceModalHeader from "~/components/FindExperience/ExperienceModalHeader";
+import ExperienceModalBody from "~/components/FindExperience/ExperienceModalBody";
 
 const HomePage = () => {
   const user = useUser();
   const uniqueSlug = uuidv4();
   const experiencesQuery = api.experience.getAll.useQuery();
-
-  // Get all experiences owned by the user
-  // const { data: ownedExperiences, isLoading } =
-  //   api.experience.byUserId.useQuery();
 
   return (
     <>
@@ -36,7 +34,14 @@ const HomePage = () => {
           <div className="card-component my-8 flex justify-center">
             <ExperienceCard experienceCardProps={
               {
-                experience: experience
+                experience: experience,
+                modalButtonText: "Details",
+                modalHeaderContent: <ExperienceModalHeader experience={experience} />,
+                modalBodyContent: <ExperienceModalBody experienceModalProps={
+                  {
+                    experience: experience
+                  }
+                } />
               }
             } />
           </div>

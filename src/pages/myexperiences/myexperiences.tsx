@@ -4,6 +4,10 @@ import NavBar from "~/components/NavBar/NavBar";
 import ExperienceCard from "~/components/FindExperience/ExperienceCard";
 import Image from "next/image";
 import sapiens from "../../../public/sapiens.png"
+import ExperienceModalHeader from "~/components/FindExperience/ExperienceModalHeader";
+import ExperienceModalBody from "~/components/FindExperience/ExperienceModalBody";
+import GuestListModalHeader from "~/components/FindExperience/GuestListModalHeader";
+import GuestListModalBody from "~/components/FindExperience/GuestListModalBody";
 
 export default function MyExperiences () {
 
@@ -13,7 +17,12 @@ export default function MyExperiences () {
 
     return (
         <>
+
+            {/* NAVBAR */}
+
             <NavBar isSignedIn={user.isSignedIn ?? false} />
+
+            {/* PAGE BANNER AND TITLE */}
 
             <div className="grid place-items-center items-end text-primary-content bg-gradient-to-br from-primary to-secondary">
                 <div className="hero-content col-start-1 row-start-1 w-full max-w-7xl flex-col justify-between gap-10 lg:flex-row lg:gap-0 xl:gap-20">
@@ -42,6 +51,9 @@ export default function MyExperiences () {
 
             {user.isSignedIn ? (
                 <>
+
+                    {/* UPCOMING EXPERIENCES DISPLAY */}
+
                     <div className="mt-7 pl-9 py-3">
                         <h1 className="text-4xl font-bold">My Upcoming Experiences</h1>
                     </div>
@@ -50,15 +62,25 @@ export default function MyExperiences () {
                             <ExperienceCard experienceCardProps={
                                 {
                                     experience: experience,
-                                    modalActionButton: {
-                                        buttonText: "Cancel Registration",
-                                        buttonColor: "bg-red-400",
-                                        buttonAction: () => console.log("Cancel Registration")
-                                    }
+                                    modalButtonText: "Details",
+                                    modalHeaderContent: <ExperienceModalHeader experience={experience} />,
+                                    modalBodyContent: <ExperienceModalBody experienceModalProps={
+                                        {
+                                            experience: experience,
+                                            modalActionButton: {
+                                                buttonText: "Cancel Registration",
+                                                buttonColor: "bg-red-400",
+                                                buttonAction: () => console.log("Cancel Registration Action")
+                                            }
+                                        }
+                                    } />
                                 }
                             } />
                         ))}
                     </div>
+
+                    {/* HOSTED EXPERIENCES DISPLAY */}
+
                     <div className="mt-7 pl-9 py-3">
                         <h1 className="text-4xl font-bold">My Hosted Experiences</h1>
                     </div>
@@ -69,9 +91,9 @@ export default function MyExperiences () {
                                     experience: experience,
                                     actionButtonList: [
                                         {
-                                            buttonText: "Guests",
+                                            buttonText: "Edit",
                                             buttonColor: "bg-blue-400",
-                                            buttonAction: () => console.log("Manage Guests Action")
+                                            buttonAction: () => console.log("Edit Experience Action")
                                         },
                                         {
                                             buttonText: "Delete",
@@ -79,11 +101,9 @@ export default function MyExperiences () {
                                             buttonAction: () => console.log("Delete Experience!")
                                         },
                                     ],
-                                    modalActionButton: {
-                                        buttonText: "Edit Experience",
-                                        buttonColor: "bg-blue-400",
-                                        buttonAction: () => console.log("Edit Experience Action")
-                                    }
+                                    modalButtonText: "Manage",
+                                    modalHeaderContent: <GuestListModalHeader experience={experience} />,
+                                    modalBodyContent: <GuestListModalBody />
                                 }
                             } />
                         ))}

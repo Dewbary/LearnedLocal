@@ -7,8 +7,6 @@ export interface GenericModalProps {
 
 export default function GenericModal({ genericModalProps } : { genericModalProps: GenericModalProps}) {
 
-
-
     return (
         <div className='bg-white w-full lg:w-2/3 h-full lg:h-5/6 lg:rounded-3xl relative flex flex-col'>
 
@@ -23,10 +21,7 @@ export default function GenericModal({ genericModalProps } : { genericModalProps
                 </button>
             </div>
 
-            {/* MAIN SCROLLABLE CONTENT */}
-            <div className='flex flex-grow overflow-y-scroll'>
-
-            </div>
+            {genericModalProps.modalContent}
 
         </div>
     );
