@@ -1,10 +1,11 @@
 import React from "react";
-import { FormLabel, InputField } from "../CreateExperience";
 import FormPageHeader from "./Typography/Typography";
 import { FormikContextType, useFormikContext } from "formik";
 import { FormValues } from "./types";
 import { uploadImageToBucket } from "~/utils/images";
 import { useUser } from "@clerk/nextjs";
+import { FormLabel } from "./Form/FormLabel";
+import { InputField } from "./Form/InputField";
 
 type Props = {};
 

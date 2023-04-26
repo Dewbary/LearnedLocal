@@ -1,6 +1,7 @@
 import { Field, useFormikContext } from "formik";
 import React, { useEffect } from "react";
-import { FormLabel, InputField } from "../../CreateExperience";
+import { FormLabel } from "../Form/FormLabel";
+import { InputField } from "../Form/InputField";
 import FormPageHeader from "../Typography/Typography";
 import { api } from "~/utils/api";
 import { Category } from "@prisma/client";

@@ -40,7 +40,11 @@ const CreateExperienceForm = () => {
     : [];
   const [slug] = params;
   const { experienceId: experienceIdStr } = router.query;
-  const experienceId = parseInt(experienceIdStr as string);
+  const [experienceId, setExperienceId] = useState(
+    parseInt(experienceIdStr as string)
+  );
+
+  // const experienceId = ;
 
   // TRPC
   const createExperience = api.experience.create.useMutation();
@@ -51,6 +55,7 @@ const CreateExperienceForm = () => {
 
   // State
   const today = startOfToday();
+  const [isEditing, setIsEditing] = useState(!!experienceId);
   const [location, setLocation] = useState<Pin | null>(null);
   const [selectedDay, setSelectedDay] = useState(today);
   const [currentMonth, setCurrentMonth] = useState(format(today, "MMM-yyyy"));
@@ -64,10 +69,20 @@ const CreateExperienceForm = () => {
     0
   );
 
+  console.log(isEditing);
+  const updateExperience = api.experience.update.useMutation();
+
   useEffect(() => {
     if (experience) {
       console.log("experience", experience);
       // update the initialValues with the experience data
+      const photoData = experience.photos.map((photo) => ({
+        dataURL: photo,
+      }));
+
+      setImages(photoData);
+      setSelectedDay(experience.date);
+
       const pin = experience.location as Pin;
       setInitialFormValues({
         ...experience,
@@ -114,7 +129,7 @@ const CreateExperienceForm = () => {
       case "photos":
         return <PhotosPage images={images} onSetImages={setImages} />;
       case "submit":
-        return <FinalStepsPage />;
+        return <FinalStepsPage isEditing={isEditing} />;
       default:
         return <StartPage />;
     }
@@ -143,30 +158,59 @@ const CreateExperienceForm = () => {
       })
     );
 
-    createExperience.mutate({
-      firstName: values.firstName,
-      lastName: values.lastName,
-      title: values.title,
-      description: values.description,
-      price: values.price,
-      date: date,
-      startTime: values.startTime,
-      endTime: values.endTime,
-      timeline: values.timeline,
-      location: values.location,
-      locationDescription: values.locationDescription,
-      qualifications: values.qualifications,
-      provided: values.provided,
-      guestRequirements: values.guestRequirements,
-      minAge: values.minAge,
-      activityLevel: values.activityLevel,
-      skillLevel: values.skillLevel,
-      maxAttendees: values.maxAttendees,
-      profileImage: values.profileImage,
-      photos: filePathArray,
-      slugId: slug ?? "",
-      categoryId: values.categoryId,
-    });
+    if (isEditing && experienceId) {
+      // Update the experience
+      updateExperience.mutate({
+        id: experienceId,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        title: values.title,
+        description: values.description,
+        price: values.price,
+        date: date,
+        startTime: values.startTime,
+        endTime: values.endTime,
+        timeline: values.timeline,
+        location: values.location,
+        locationDescription: values.locationDescription,
+        qualifications: values.qualifications,
+        provided: values.provided,
+        guestRequirements: values.guestRequirements,
+        minAge: values.minAge,
+        activityLevel: values.activityLevel,
+        skillLevel: values.skillLevel,
+        maxAttendees: values.maxAttendees,
+        profileImage: values.profileImage,
+        photos: filePathArray,
+        slugId: slug ?? "",
+        categoryId: values.categoryId,
+      });
+    } else {
+      createExperience.mutate({
+        firstName: values.firstName,
+        lastName: values.lastName,
+        title: values.title,
+        description: values.description,
+        price: values.price,
+        date: date,
+        startTime: values.startTime,
+        endTime: values.endTime,
+        timeline: values.timeline,
+        location: values.location,
+        locationDescription: values.locationDescription,
+        qualifications: values.qualifications,
+        provided: values.provided,
+        guestRequirements: values.guestRequirements,
+        minAge: values.minAge,
+        activityLevel: values.activityLevel,
+        skillLevel: values.skillLevel,
+        maxAttendees: values.maxAttendees,
+        profileImage: values.profileImage,
+        photos: filePathArray,
+        slugId: slug ?? "",
+        categoryId: values.categoryId,
+      });
+    }
 
     setTimeout(() => {
       helpers.setSubmitting(false);
@@ -178,7 +222,7 @@ const CreateExperienceForm = () => {
 
   const handleTabClick = (index: number) => {
     goToStep(index);
-    router.push(tabInfoList[index]?.url || "", undefined, { shallow: true });
+    router.replace(tabInfoList[index]?.url || "", undefined, { shallow: true });
   };
 
   return (

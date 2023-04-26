@@ -1,5 +1,6 @@
 import React from "react";
-import { FormLabel, InputField } from "../CreateExperience";
+import { FormLabel } from "./Form/FormLabel";
+import { InputField } from "./Form/InputField";
 import FormPageHeader from "./Typography/Typography";
 
 const RequirementsPage = () => {

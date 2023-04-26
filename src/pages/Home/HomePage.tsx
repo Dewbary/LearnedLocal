@@ -25,7 +25,7 @@ const HomePage = () => {
 
       {user.isSignedIn ? (
         <button className="btn-primary btn m-4">
-          <Link href={`/experience/create/${uniqueSlug}`}>
+          <Link href={`experience/create/${uniqueSlug}`}>
             Create an Experience
           </Link>
         </button>
@@ -39,7 +39,7 @@ const HomePage = () => {
               <button className="btn-primary btn m-4">
                 <Link
                   href={{
-                    pathname: `/experience/create/${experience.slugId}`,
+                    pathname: `experience/create/${experience.slugId}`,
                     query: { experienceId: experience.id },
                   }}
                 >
