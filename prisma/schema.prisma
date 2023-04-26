@@ -91,9 +91,13 @@ model Experience {
   profileImage       String?
   photos             String[]
   slugId             String  @unique
+  stripeProductId    String
+  stripePriceId      String
 
   categoryId         Int
   category           Category @relation(fields: [categoryId], references: [id])
+
+  registration      Registration[] // Relation field
 
   @@index([authorId])
 }
@@ -102,4 +106,19 @@ model Category {
   id          Int          @id @default(autoincrement())
   name        String       @unique
   experiences Experience[] // Relation field
+}
+
+model Registration {
+    id           String   @id @default(cuid())
+    userId       String
+    experienceId Int
+    stripeCheckoutSessionId String
+    status       String
+    createdAt    DateTime @default(now())
+    updatedAt    DateTime @updatedAt
+
+    experience   Experience @relation(fields: [experienceId], references: [id])
+
+    @@index([userId])
+    @@index([experienceId])
 }

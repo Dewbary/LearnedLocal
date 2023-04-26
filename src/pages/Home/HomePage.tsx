@@ -59,6 +59,11 @@ const HomePage = () => {
         ))}
       </div>
 
+      <div>
+        <button className="btn-primary btn m-4">
+          <Link href={`/testcheckout/testcheckout`}>Test Checkout</Link>
+        </button>
+      </div>
       <Footer />
     </>
   );

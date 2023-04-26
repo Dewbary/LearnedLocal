@@ -10,6 +10,8 @@ import {
 import type { Experience } from "@prisma/client";
 import { Pin } from "../CreateExperience/LocationPicker/LocationPicker";
 import { generateGoogleMapsURL } from "./FindExperienceUtils";
+import { api } from "~/utils/api";
+import SignUpButton from "./SignUpButton";
 
 type Props = {
   experience: Experience;
@@ -17,6 +19,8 @@ type Props = {
 };
 
 const ExperienceModal = ({ experience, hideModal }: Props) => {
+  // const createPaymentIntent = api.payment.createPaymentIntent.useMutation();
+
   const dateDisplayOptions = {
     weekday: "long",
     month: "short",
@@ -25,6 +29,23 @@ const ExperienceModal = ({ experience, hideModal }: Props) => {
 
   const location: Pin = experience.location as Pin;
   const { lat, lng } = location;
+
+  // const handleSignUp = async () => {
+  //   try {
+  //     const data = await createPaymentIntent.mutate({
+  //       amount: experience.price * 100,
+  //       currency: "usd",
+  //     });
+
+  //     if (data.clientSecret) {
+  //       // Handle client secret and proceed with payment
+  //     } else {
+  //       // Handle error
+  //     }
+  //   } catch (error) {
+  //     // Handle error
+  //   }
+  // };
 
   return (
     <div className="relative flex h-5/6 w-2/3 flex-col rounded-3xl bg-white">
@@ -154,7 +175,11 @@ const ExperienceModal = ({ experience, hideModal }: Props) => {
           <UserIcon className="mr-2 inline w-5 rounded-full border border-black" />
           <span>9/{experience.maxAttendees} Spots Filled</span>
         </div>
-        <button className="rounded-lg bg-amber-400 p-3 text-white">
+        <SignUpButton />
+        <button
+          className="rounded-lg bg-amber-400 p-3 text-white"
+          onClick={() => {}}
+        >
           SIGN UP
         </button>
       </div>
