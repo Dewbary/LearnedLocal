@@ -29,7 +29,7 @@ import { getTabInfos, initialValues } from "./CreateExperienceFormUtils";
 import CreateExperienceHeader from "./Layout/CreateExperienceHeader";
 import { ImageListType } from "react-images-uploading";
 import { Experience } from "@prisma/client";
-import { SUPABASE_PUBLIC_BUCKET_URL } from "~/utils/supabase-dev-vars";
+import { env } from "~/env.mjs";
 
 const CreateExperienceForm = () => {
   const { user } = useUser();
@@ -151,7 +151,7 @@ const CreateExperienceForm = () => {
       images.map(async (img) => {
         if (!img.file) return;
         const path = await uploadImageToBucket(img.file, user.id);
-        const filePath = SUPABASE_PUBLIC_BUCKET_URL + path;
+        const filePath = env.SUPABASE_PUBLIC_BUCKET_URL + path;
         filePathArray.push(filePath);
       })
     );

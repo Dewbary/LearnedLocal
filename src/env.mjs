@@ -31,6 +31,8 @@ const server = z.object({
  */
 const client = z.object({
   // NEXT_PUBLIC_CLIENTVAR: z.string().min(1),
+  SUPABASE_PUBLIC_BUCKET_URL: z.string().min(1),
+  SUPABASE_PUBLIC_BUCKET_NAME: z.string().min(1)
 });
 
 /**
@@ -47,7 +49,9 @@ const processEnv = {
   DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
   DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
   GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
-  GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET
+  GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
+  SUPABASE_PUBLIC_BUCKET_NAME: process.env.SUPABASE_PUBLIC_BUCKET_NAME,
+  SUPABASE_PUBLIC_BUCKET_URL: process.env.SUPABASE_PUBLIC_BUCKET_URL
   // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
 };
 
