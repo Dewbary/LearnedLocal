@@ -95,6 +95,8 @@ model Experience {
   categoryId         Int
   category           Category @relation(fields: [categoryId], references: [id])
 
+  registrations      Registration[]
+
   @@index([authorId])
 }
 
@@ -102,4 +104,21 @@ model Category {
   id          Int          @id @default(autoincrement())
   name        String       @unique
   experiences Experience[] // Relation field
+}
+
+model Registration {
+    id           String   @id @default(cuid())
+    userId       String
+    registrantFirstName String
+    registrantLastName  String
+    experienceId Int
+    stripeCheckoutSessionId String
+    status       String
+    createdAt    DateTime @default(now())
+    updatedAt    DateTime @updatedAt
+
+    experience   Experience @relation(fields: [experienceId], references: [id])
+
+    @@index([userId])
+    @@index([experienceId])
 }

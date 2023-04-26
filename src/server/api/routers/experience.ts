@@ -37,6 +37,14 @@ export const experienceRouter = createTRPCRouter({
       });
     }),
 
+  delete: protectedProcedure
+    .input(z.number())
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.prisma.experience.delete({
+        where: {id: input}
+      })
+    }),
+
   update: protectedProcedure
     .input(
       z.object({
