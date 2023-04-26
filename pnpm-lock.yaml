@@ -1,5 +1,76 @@
 lockfileVersion: '6.0'
 
+specifiers:
+  '@chakra-ui/react': ^2.5.2
+  '@clerk/nextjs': ^4.16.0
+  '@emotion/react': ^11.10.6
+  '@emotion/styled': ^11.10.6
+  '@googlemaps/react-wrapper': ^1.1.35
+  '@headlessui/react': ^1.7.13
+  '@heroicons/react': ^2.0.16
+  '@mui/base': 5.0.0-alpha.122
+  '@mui/material': ^5.11.14
+  '@mui/system': ^5.11.14
+  '@mui/x-date-pickers': ^6.0.2
+  '@next-auth/prisma-adapter': ^1.0.5
+  '@prisma/client': ^4.9.0
+  '@react-google-maps/api': ^2.18.1
+  '@supabase/supabase-js': ^2.20.0
+  '@tailwindcss/typography': ^0.5.9
+  '@tanstack/react-query': ^4.20.2
+  '@trpc/client': ^10.9.0
+  '@trpc/next': ^10.9.0
+  '@trpc/react-query': ^10.9.0
+  '@trpc/server': ^10.9.0
+  '@types/eslint': ^8.21.1
+  '@types/google-map-react': ^2.1.7
+  '@types/google.maps': ^3.52.3
+  '@types/googlemaps': ^3.43.3
+  '@types/node': ^18.14.0
+  '@types/prettier': ^2.7.2
+  '@types/react': ^18.0.28
+  '@types/react-calendar': ^3.9.0
+  '@types/react-dom': ^18.0.11
+  '@types/uuid': ^9.0.1
+  '@typescript-eslint/eslint-plugin': ^5.53.0
+  '@typescript-eslint/parser': ^5.53.0
+  autoprefixer: ^10.4.7
+  classnames: ^2.3.2
+  daisyui: ^2.51.3
+  date-fns: ^2.29.3
+  dayjs: ^1.11.7
+  eslint: ^8.34.0
+  eslint-config-next: ^13.2.1
+  flowbite: ^1.6.4
+  flowbite-react: ^0.4.2
+  formik: ^2.2.9
+  framer-motion: ^10.8.5
+  google-map-react: ^2.2.0
+  google-maps-react: ^2.0.6
+  next: ^13.2.1
+  next-auth: ^4.19.0
+  postcss: ^8.4.14
+  prettier: ^2.8.1
+  prettier-plugin-tailwindcss: ^0.2.1
+  prisma: ^4.12.0
+  react: 18.2.0
+  react-calendar: ^4.0.0
+  react-dom: 18.2.0
+  react-hook-form: ^7.43.7
+  react-icons: ^4.8.0
+  react-images-uploading: ^3.1.7
+  react-pro-sidebar: ^1.0.0
+  solid: link:@heroicons/react/solid
+  superjson: 1.9.1
+  tailwind-datepicker-react: ^1.2.3
+  tailwindcss: ^3.2.0
+  tw-daterange: ^1.1.24
+  typescript: ^4.9.5
+  usehooks-ts: ^2.9.1
+  uuid: ^9.0.0
+  yup: ^1.0.2
+  zod: ^3.20.6
+
 dependencies:
   '@chakra-ui/react':
     specifier: ^2.5.2
@@ -130,6 +201,9 @@ dependencies:
   react-icons:
     specifier: ^4.8.0
     version: 4.8.0(react@18.2.0)
+  react-images-uploading:
+    specifier: ^3.1.7
+    version: 3.1.7(react-dom@18.2.0)(react@18.2.0)
   react-pro-sidebar:
     specifier: ^1.0.0
     version: 1.0.0(@types/react@18.0.28)(react-dom@18.2.0)(react@18.2.0)
@@ -5123,6 +5197,17 @@ packages:
       react: '*'
     dependencies:
       react: 18.2.0
+    dev: false
+
+  /react-images-uploading@3.1.7(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-woET50eCezm645iIeP4gCoN7HjdR3T64UXC5l53yd+2vHFp+pwABH8Z/aAO5IXDeC1aP6doQ+K738L701zswAw==}
+    engines: {node: '>=8', npm: '>=5'}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /react-indiana-drag-scroll@2.2.0(react-dom@18.2.0)(react@18.2.0):

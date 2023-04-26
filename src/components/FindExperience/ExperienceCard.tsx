@@ -12,7 +12,7 @@ export interface ActionButton {
   buttonAction: () => void;
 }
 
-export interface ExperienceCardProps {
+type Props = {
   experience: Experience;
   actionButtonList?: ActionButton[];
   modalButtonText: string;
@@ -20,7 +20,7 @@ export interface ExperienceCardProps {
   modalBodyContent: JSX.Element;
 }
 
-export default function ExperienceCard({ experienceCardProps } : { experienceCardProps: ExperienceCardProps }) {
+export default function ExperienceCard({ experience, actionButtonList, modalButtonText, modalHeaderContent, modalBodyContent }: Props) {
   const [modalHidden, setModalHidden] = useState(true);
 
   const dateDisplayOptions = {
@@ -58,7 +58,9 @@ export default function ExperienceCard({ experienceCardProps } : { experienceCar
         {/* COVER IMAGE */}
         <div className="w-full overflow-hidden">
           <img
-            src={experienceCardProps.experience.photos[0] || ""}
+            src={experience.photos[0] || ""}
+            alt="Picture of the outdoors"
+            className="absolute inset-0 z-0 h-full w-full rounded-2xl object-cover"
           />
           {/* <Image
             src={outdoors} //{experienceCardProps.experience.photos[0] || ""}
@@ -130,6 +132,6 @@ export default function ExperienceCard({ experienceCardProps } : { experienceCar
 
     </>
   );
-}
+};
 
-export type { Experience };
+export default ExperienceCard;

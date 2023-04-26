@@ -3,7 +3,6 @@ import { Pin } from "./LocationPicker/LocationPicker";
 
 export type FormValues = {
   title: string;
-  theme: number;
   description: string;
   timeline: string;
   date: string;
@@ -13,7 +12,6 @@ export type FormValues = {
   locationDescription: string;
   firstName: string;
   lastName: string;
-  profilePic: string;
   qualifications: string;
   provided: string;
   guestRequirements: string;
@@ -21,8 +19,10 @@ export type FormValues = {
   price: number;
   activityLevel: string;
   skillLevel: string;
+  profileImage: string | null;
   photos: string[];
   maxAttendees: number;
+  categoryId: number;
 };
 
 export type FormProps = {

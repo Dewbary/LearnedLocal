@@ -1,6 +1,6 @@
 import { Field, FieldProps } from "formik";
 import React, { useState } from "react";
-import { FormLabel, InputField } from "../CreateExperience";
+import { FormLabel } from "./Form/FormLabel";
 import Calendar from "./Calendar";
 import FormPageHeader from "./Typography/Typography";
 import TimeSelect from "./TimeSelect";
