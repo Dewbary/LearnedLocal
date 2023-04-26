@@ -1,5 +1,5 @@
 import React from "react";
-import { FormLabel } from "../CreateExperience";
+import { FormLabel } from "./Form/FormLabel";
 import FormPageHeader from "./Typography/Typography";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 

@@ -2,7 +2,11 @@ import React from "react";
 import SubmitBtn from "./SubmitBtn";
 import FormPageHeader from "./Typography/Typography";
 
-const FinalStepsPage = () => {
+type Props = {
+  isEditing: boolean;
+};
+
+const FinalStepsPage = ({ isEditing }: Props) => {
   return (
     <div>
       <FormPageHeader
@@ -10,7 +14,7 @@ const FinalStepsPage = () => {
         title="Review your experience details"
         subtitle="Double check to make sure everything is set correctly"
       />
-      <SubmitBtn />
+      <SubmitBtn isEditing={isEditing} />
     </div>
   );
 };

@@ -4,9 +4,9 @@ import PinButton from "./PinButton";
 import { usePinContext } from "./PinContext";
 import SearchBar from "./SearchBar";
 
-// Default San Francisco
-const DefaultLat = 37.7498;
-const DefaultLng = -122.4194;
+// Default BYU
+const DEFAULT_LAT = 40;
+const DEFAULT_LNG = 111;
 
 export type Pin = {
   lat: number;
@@ -22,7 +22,7 @@ const LocationPicker = ({ value, onLocationChange }: LocationPickerProps) => {
   const [center, setCenter] = useState<Pin>(
     value
       ? { lat: value.lat, lng: value.lng }
-      : { lat: DefaultLat, lng: DefaultLng }
+      : { lat: DEFAULT_LAT, lng: DEFAULT_LNG }
   );
   const [isApiLoaded, setApiLoaded] = useState(false);
   const [pinData, setPinData] = useState<Pin[]>(value ? [value] : []);
@@ -31,7 +31,8 @@ const LocationPicker = ({ value, onLocationChange }: LocationPickerProps) => {
   useEffect(() => {
     if (value) {
       setCenter({ lat: value.lat, lng: value.lng });
-      setPinData([value]);
+    } else {
+      setCenter({ lat: DEFAULT_LAT, lng: DEFAULT_LNG });
     }
   }, [value]);
 
@@ -49,20 +50,26 @@ const LocationPicker = ({ value, onLocationChange }: LocationPickerProps) => {
   }, []);
 
   const handlePlaceSelected = (place: google.maps.places.PlaceResult) => {
-    if (place.geometry) {
-      setCenter({
-        lat: place.geometry.location?.lat() ?? DefaultLat,
-        lng: place.geometry.location?.lng() ?? DefaultLng,
-      });
-      if (place.geometry.location?.lat() && place.geometry.location?.lng()) {
-        setPinData([
-          {
-            lat: place.geometry.location.lat(),
-            lng: place.geometry.location.lng(),
-          },
-        ]);
-      }
-    }
+    if (!place.geometry || !place.geometry.location) return;
+
+    const lat = place.geometry.location.lat();
+    const lng = place.geometry.location.lng();
+
+    setCenter({
+      lat: lat ?? DEFAULT_LAT,
+      lng: lng ?? DEFAULT_LNG,
+    });
+
+    setPinData([
+      {
+        lat: lat,
+        lng: lng,
+      },
+    ]);
+    onLocationChange({
+      lat: lat,
+      lng: lng,
+    });
   };
 
   const handleApiReady = () => {

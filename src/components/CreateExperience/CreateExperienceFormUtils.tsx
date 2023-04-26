@@ -25,17 +25,15 @@ export const validationSchema = Yup.object({
 
 export const initialValues: FormValues = {
   title: "",
-  theme: 0,
   description: "",
   timeline: "",
   date: "",
   startTime: "",
   endTime: "",
-  location: { lat: 0, lng: 0 },
+  location: { lat: 40.2518, lng: -111.6493 },
   locationDescription: "",
   firstName: "",
   lastName: "",
-  profilePic: "",
   qualifications: "",
   provided: "",
   guestRequirements: "",
@@ -44,7 +42,9 @@ export const initialValues: FormValues = {
   minAge: 0,
   price: 0,
   maxAttendees: 0,
+  profileImage: null,
   photos: [],
+  categoryId: 0,
 };
 
 export const getTabInfos = (slug: string) => {
