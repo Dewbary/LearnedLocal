@@ -72,7 +72,7 @@ const AboutPage = () => {
             <input
               type="file"
               className="file-input-bordered file-input file-input-sm w-full max-w-xs"
-              onChange={e => handleProfileImageSelected(e)}
+              onChange={e => {void handleProfileImageSelected(e)}}
             />
           </div>
 

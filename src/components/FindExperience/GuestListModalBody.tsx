@@ -38,7 +38,7 @@ export default function GuestListModalBody({ experience }: Props) {
                                 </div>
                             </div>
                             <div>
-                                <button onClick={() => removeGuest(registration.id)} className="bg-red-400 p-2 rounded-lg text-white text-sm">Remove Guest</button>
+                                <button onClick={() => {void removeGuest(registration.id)}} className="bg-red-400 p-2 rounded-lg text-white text-sm">Remove Guest</button>
                             </div>
                         </div>
                     ))}

@@ -219,7 +219,7 @@ const CreateExperienceForm = () => {
   };
 
   const handleTabClick = async (index: number) => {
-    goToStep(index);
+    await goToStep(index);
     await router.replace(tabInfoList[index]?.url || "", undefined, { shallow: true });
   };
 
@@ -231,7 +231,7 @@ const CreateExperienceForm = () => {
         <CreateExperienceTabs
           tabInfoList={tabInfoList}
           currentTab={activeTab?.activeMatcher}
-          onTabClick={handleTabClick}
+          onTabClick={index => {void handleTabClick(index)}}
         />
 
         <main className="paragraph ml-8 mr-12 mb-12 flex flex-1 overflow-y-auto rounded-lg bg-gradient-to-r from-amber-400 via-amber-200 to-slate-50 px-8 py-8">
@@ -243,8 +243,8 @@ const CreateExperienceForm = () => {
             <Form className="w-full">
               <CreateExperienceFormArea
                 tabComponent={getTabComponent()}
-                onNext={next}
-                onBack={back}
+                onNext={() => {next}}
+                onBack={() => {back}}
                 isFirstStep={step === 0}
                 isLastStep={step === tabInfoList.length - 1}
               />

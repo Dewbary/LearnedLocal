@@ -114,12 +114,12 @@ export default function MyExperiences () {
                                         {
                                             buttonText: "Edit",
                                             buttonColor: "bg-blue-400",
-                                            buttonAction: () => goToEditPage(experience.slugId, experience.id)
+                                            buttonAction: () => {void goToEditPage(experience.slugId, experience.id)}
                                         },
                                         {
                                             buttonText: "Delete",
                                             buttonColor: "bg-red-400",
-                                            buttonAction: () => deleteExperience(experience)
+                                            buttonAction: () => {void deleteExperience(experience)}
                                         },
                                     ]
                                 }
