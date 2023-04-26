@@ -107,7 +107,7 @@ export default function ExperienceModalBody({ experience, modalActionButton, hid
                 ) : (
                     <button 
                         className='bg-amber-400 text-white p-3 rounded-lg'
-                        onClick={() => {}}
+                        onClick={() => console.log("Default action")}
                     >
                         Close
                     </button>

@@ -16,13 +16,9 @@ export const uploadImageToBucket = async (file: File, userId: string) => {
   return data.path;
 };
 
-export const getImageUrl = async (path: string) => {
+export const getImageUrl = (path: string) => {
   const { data } = supabase.storage.from(env.SUPABASE_PUBLIC_BUCKET_NAME).getPublicUrl(path);
   const { publicUrl } = data;
-
-  // if (error) {
-  //   throw error;
-  // }
 
   return publicUrl;
 };

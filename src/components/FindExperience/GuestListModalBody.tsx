@@ -12,10 +12,10 @@ export default function GuestListModalBody({ experience }: Props) {
     const eventRegistrations = api.registration.byExperience.useQuery(experience.id);
     const removeRegistrant = api.registration.removeRegistrant.useMutation();
 
-    const removeGuest = function (guestId: string) {
+    const removeGuest = async function (guestId: string) {
         if (confirm("Are you sure you want to remove this guest? They will be refunded for their purchase.") === true) {
             removeRegistrant.mutate(guestId);
-            eventRegistrations.refetch();
+            await eventRegistrations.refetch();
         }
     }
 

@@ -37,7 +37,7 @@ const CreateExperienceForm = () => {
   // Router
   const router = useRouter();
   const params = Array.isArray(router.query.slug)
-    ? (router.query.slug as string[])
+    ? (router.query.slug)
     : [];
   const [slug] = params;
   const { experienceId: experienceIdStr } = router.query;
@@ -218,9 +218,9 @@ const CreateExperienceForm = () => {
     // router.push("/success");
   };
 
-  const handleTabClick = (index: number) => {
+  const handleTabClick = async (index: number) => {
     goToStep(index);
-    router.replace(tabInfoList[index]?.url || "", undefined, { shallow: true });
+    await router.replace(tabInfoList[index]?.url || "", undefined, { shallow: true });
   };
 
   return (

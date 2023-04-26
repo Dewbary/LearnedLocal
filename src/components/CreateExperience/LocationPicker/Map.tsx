@@ -58,7 +58,7 @@ const Map = ({
     if (pinMode) {
       const clickListener = map.addListener(
         "click",
-        (e: { latLng: { lat: () => any; lng: () => any } }) => {
+        (e: { latLng: { lat: () => number; lng: () => number } }) => {
           onPinDrop({ lat: e.latLng.lat(), lng: e.latLng.lng() });
         }
       );

@@ -23,16 +23,16 @@ export default function MyExperiences () {
 
     const router = useRouter();
 
-    const goToEditPage = function (experienceSlugId: string, experienceId: number) {
-        router.push(`/experience/create/${experienceSlugId}?experienceId=${experienceId}`);
+    const goToEditPage = async function (experienceSlugId: string, experienceId: number) {
+        await router.push(`/experience/create/${experienceSlugId}?experienceId=${experienceId}`);
     }
 
-    const deleteExperience = function (experience: Experience) {
+    const deleteExperience = async function (experience: Experience) {
         if (confirm("Are you sure you want to delete this experience?") === true) {
             experienceDeleter.mutate(experience.id);
             setShowErrorModal(true);
-            userCreatedExperiences.refetch();
-            userJoinedExperiences.refetch();
+            await userCreatedExperiences.refetch();
+            await userJoinedExperiences.refetch();
         }
     }
 
@@ -81,6 +81,7 @@ export default function MyExperiences () {
                     <div className="grid gap-4 lg:grid-cols-4 p-10">
                         {userJoinedExperiences.data?.map(experience => (
                             <ExperienceCard 
+                                key={experience.id}
                                 experience={experience}
                                 modalButtonText="Details"
                                 modalHeaderContent={<ExperienceModalHeader experience={experience} />}
@@ -106,6 +107,7 @@ export default function MyExperiences () {
                     <div className="grid lg:grid-cols-4 p-10">
                         {userCreatedExperiences.data?.map(experience => (
                             <ExperienceCard 
+                                key={experience.id}
                                 experience={experience}
                                 actionButtonList={
                                     [

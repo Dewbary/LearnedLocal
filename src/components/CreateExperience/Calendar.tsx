@@ -9,10 +9,8 @@ import {
   isSameMonth,
   isToday,
   parse,
-  startOfToday,
 } from "date-fns";
 import { FieldProps } from "formik";
-import { useCallback, useState } from "react";
 
 function classNames(...classes: (string | boolean | undefined)[]) {
   return classes.filter(Boolean).join(" ");
@@ -33,20 +31,20 @@ const Calendar = ({
   currentMonth,
   setCurrentMonth,
 }: CalendarProps) => {
-  let firstDayCurrentMonth = parse(currentMonth, "MMM-yyyy", new Date());
+  const firstDayCurrentMonth = parse(currentMonth, "MMM-yyyy", new Date());
 
-  let days = eachDayOfInterval({
+  const days = eachDayOfInterval({
     start: firstDayCurrentMonth,
     end: endOfMonth(firstDayCurrentMonth),
   });
 
   function previousMonth() {
-    let firstDayNextMonth = add(firstDayCurrentMonth, { months: -1 });
+    const firstDayNextMonth = add(firstDayCurrentMonth, { months: -1 });
     setCurrentMonth(format(firstDayNextMonth, "MMM-yyyy"));
   }
 
   function nextMonth() {
-    let firstDayNextMonth = add(firstDayCurrentMonth, { months: 1 });
+    const firstDayNextMonth = add(firstDayCurrentMonth, { months: 1 });
     setCurrentMonth(format(firstDayNextMonth, "MMM-yyyy"));
   }
 
@@ -143,7 +141,7 @@ const Calendar = ({
   );
 };
 
-let colStartClasses = [
+const colStartClasses = [
   "",
   "col-start-2",
   "col-start-3",

@@ -1,10 +1,7 @@
 import Image from "next/image";
-import img from "../../public/hero.jpg";
 import sapiens from "../../public/sapiens.png";
 
-type Props = {};
-
-const Header = ({}: Props) => {
+const Header = () => {
   return (
     <div className="-mt-[4rem] grid place-items-center items-end bg-gradient-to-br from-primary to-secondary pt-20 text-primary-content">
       <div className="hero-content col-start-1 row-start-1 w-full max-w-7xl flex-col justify-between gap-10 pb-40 lg:flex-row lg:items-end lg:gap-0 xl:gap-20">

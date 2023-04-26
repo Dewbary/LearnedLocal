@@ -6,7 +6,7 @@ type FormLabelProps = {
 export const FormLabel = ({ text, className }: FormLabelProps) => (
   <>
     <label
-      className={`mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700 ${className}`}
+      className={`mb-2 block text-xs font-bold uppercase tracking-wide text-gray-700 ${className ?? ""}`}
     >
       {text}
     </label>

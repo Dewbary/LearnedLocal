@@ -7,15 +7,11 @@ import { useUser } from "@clerk/nextjs";
 import { FormLabel } from "./Form/FormLabel";
 import { InputField } from "./Form/InputField";
 
-type Props = {};
-
-const AboutPage = ({}: Props) => {
+const AboutPage = () => {
   const { user } = useUser();
 
   const {
     values,
-    errors,
-    touched,
     setFieldValue,
   }: FormikContextType<FormValues> = useFormikContext();
 
@@ -76,7 +72,7 @@ const AboutPage = ({}: Props) => {
             <input
               type="file"
               className="file-input-bordered file-input file-input-sm w-full max-w-xs"
-              onChange={handleProfileImageSelected}
+              onChange={e => handleProfileImageSelected(e)}
             />
           </div>
 

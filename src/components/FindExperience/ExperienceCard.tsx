@@ -81,11 +81,12 @@ export default function ExperienceCard({ experience, actionButtonList, modalButt
 
           {/* ACTION BUTTON LIST */}
           <div className="">
-            {actionButtonList?.map(actionButton => {
+            {actionButtonList?.map((actionButton, i) => {
               return (
                 <button
                   className={`rounded-lg ${actionButton.buttonColor} text-white drop-shadow-md p-2`}
                   onClick={() => actionButton.buttonAction()}
+                  key={i}
                 >
                   {actionButton.buttonText}
                 </button>
@@ -109,7 +110,7 @@ export default function ExperienceCard({ experience, actionButtonList, modalButt
 
       <div
         className={`fixed inset-0 z-40 h-full w-full overflow-y-auto bg-gray-600 bg-opacity-50 ${
-          modalHidden ? styles["modal-hidden"] : styles["modal-visible"]
+          (modalHidden ? styles["modal-hidden"] : styles["modal-visible"]) ?? ""
         }`}
       >
         <div className="flex h-full w-full items-center justify-center">
@@ -122,5 +123,5 @@ export default function ExperienceCard({ experience, actionButtonList, modalButt
       </div>
 
     </>
-  );
-};
+  )
+}

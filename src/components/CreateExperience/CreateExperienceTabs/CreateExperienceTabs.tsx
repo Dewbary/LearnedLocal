@@ -33,8 +33,8 @@ const CreateExperienceTabs = ({
             <li key={index} className={styles.progressItem}>
               {index < array.length - 1 && (
                 <div
-                  className={`${styles.progressLine} ${
-                    isSelected ? styles.progressLineSelected : ""
+                  className={`${styles.progressLine ?? ""} ${
+                    isSelected ? (styles.progressLineSelected ?? "") : ""
                   }`}
                 />
               )}

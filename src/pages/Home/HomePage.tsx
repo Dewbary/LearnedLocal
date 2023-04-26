@@ -31,7 +31,7 @@ const HomePage = () => {
 
       <div className="grid grid-cols-1 justify-items-stretch gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {experiencesQuery.data?.map((experience: Experience) => (
-          <div className="card-component my-8 flex justify-center">
+          <div key={experience.id} className="card-component my-8 flex justify-center">
             <ExperienceCard 
               experience={experience}
               modalButtonText="Details"

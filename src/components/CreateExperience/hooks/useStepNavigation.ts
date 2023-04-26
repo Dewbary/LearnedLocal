@@ -2,28 +2,28 @@ import { useState } from "react";
 import { TabInfo } from "../types";
 import { useRouter } from "next/router";
 
-export const useStepNavigation = (tabs: TabInfo[], initialStep: number = 0) => {
+export const useStepNavigation = (tabs: TabInfo[], initialStep = 0) => {
   const [step, setStep] = useState(initialStep);
   const router = useRouter();
 
-  const next = () => {
+  const next = async () => {
     if (step < tabs.length - 1) {
       setStep(step + 1);
-      router.push(tabs[step + 1]?.url ?? "", undefined, { shallow: true });
+      await router.push(tabs[step + 1]?.url ?? "", undefined, { shallow: true });
     }
   };
 
-  const back = () => {
+  const back = async () => {
     if (step > 0) {
       setStep(step - 1);
-      router.push(tabs[step - 1]?.url ?? "", undefined, { shallow: true });
+      await router.push(tabs[step - 1]?.url ?? "", undefined, { shallow: true });
     }
   };
 
-  const goToStep = (step: number) => {
+  const goToStep = async (step: number) => {
     if (step >= 0 && step < tabs.length) {
       setStep(step);
-      router.push(tabs[step]?.url ?? "", undefined, { shallow: true });
+      await router.push(tabs[step]?.url ?? "", undefined, { shallow: true });
     }
   };
 
