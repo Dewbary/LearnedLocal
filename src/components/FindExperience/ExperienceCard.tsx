@@ -57,12 +57,15 @@ export default function ExperienceCard({ experienceCardProps } : { experienceCar
 
         {/* COVER IMAGE */}
         <div className="w-full overflow-hidden">
-          <Image
+          <img
+            src={experienceCardProps.experience.photos[0] || ""}
+          />
+          {/* <Image
             src={outdoors} //{experienceCardProps.experience.photos[0] || ""}
             alt="Picture of the outdoors"
             // className="fill absolute z-0 rounded-2xl fill"
             className=""
-          />
+          /> */}
         </div>
 
         {/* DESCRIPTION BOX */}

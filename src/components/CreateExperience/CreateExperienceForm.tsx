@@ -21,7 +21,7 @@ import { uploadImageToBucket } from "~/utils/images";
 import { useUser } from "@clerk/nextjs";
 import { getTabInfos, initialValues } from "./CreateExperienceFormUtils";
 import CreateExperienceHeader from "./Layout/CreateExperienceHeader";
-import { env } from "~/env.mjs";
+import { SUPABASE_PUBLIC_BUCKET_URL } from "~/utils/supabase-dev-vars";
 
 const CreateExperienceForm = () => {
   const router = useRouter();
@@ -102,8 +102,7 @@ const CreateExperienceForm = () => {
     let filePath = "";
     if (image && user) {
       const path = await uploadImageToBucket(image, user.id);
-      filePath = "https://cmthzvcffgzfgmggemfb.supabase.co/storage/v1/object/public/experience-photos/" +
-        path;
+      filePath = SUPABASE_PUBLIC_BUCKET_URL + path;
     }
 
     createExperience.mutate({
