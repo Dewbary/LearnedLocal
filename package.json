@@ -53,6 +53,7 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.7",
     "react-icons": "^4.8.0",
+    "react-images-uploading": "^3.1.7",
     "react-pro-sidebar": "^1.0.0",
     "solid": "link:@heroicons/react/solid",
     "superjson": "1.9.1",

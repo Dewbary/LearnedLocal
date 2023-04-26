@@ -6,11 +6,11 @@ import styles from "./ExperienceCard.module.css";
 import { Experience } from "@prisma/client";
 import profile_pic from "../../assets/profile_pic.png";
 
-export default function ExperienceCard({
-  experience,
-}: {
+type Props = {
   experience: Experience;
-}) {
+};
+
+const ExperienceCard = ({ experience }: Props) => {
   const [modalHidden, setModalHidden] = useState(true);
 
   const dateDisplayOptions = {
@@ -33,7 +33,6 @@ export default function ExperienceCard({
           <img
             src={experience.photos[0] || ""}
             alt="Picture of the outdoors"
-            // className="fill absolute z-0 rounded-2xl fill"
             className="absolute inset-0 z-0 h-full w-full rounded-2xl object-cover"
           />
         </div>
@@ -87,6 +86,6 @@ export default function ExperienceCard({
       </div>
     </>
   );
-}
+};
 
-export type { Experience };
+export default ExperienceCard;

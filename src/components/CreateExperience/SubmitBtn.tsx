@@ -2,7 +2,11 @@ import classNames from "classnames";
 import { useFormikContext } from "formik";
 import React from "react";
 
-const SubmitBtn = () => {
+type Props = {
+  isEditing: boolean;
+};
+
+const SubmitBtn = ({ isEditing }: Props) => {
   const { dirty, isSubmitting } = useFormikContext();
   return (
     <div>
@@ -14,7 +18,7 @@ const SubmitBtn = () => {
         })}
         disabled={!dirty}
       >
-        Submit
+        {isEditing ? "Update" : "Submit"}
       </button>
     </div>
   );

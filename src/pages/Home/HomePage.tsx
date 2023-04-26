@@ -14,8 +14,8 @@ const HomePage = () => {
   const experiencesQuery = api.experience.getAll.useQuery();
 
   // Get all experiences owned by the user
-  // const { data: ownedExperiences, isLoading } =
-  //   api.experience.byUserId.useQuery();
+  const { data: ownedExperiences, isLoading } =
+    api.experience.byUserId.useQuery();
 
   return (
     <>
@@ -25,11 +25,31 @@ const HomePage = () => {
 
       {user.isSignedIn ? (
         <button className="btn-primary btn m-4">
-          <Link href={`/experience/create/${uniqueSlug}`}>
+          <Link href={`experience/create/${uniqueSlug}`}>
             Create an Experience
           </Link>
         </button>
       ) : null}
+
+      <div>
+        {ownedExperiences?.map((experience: Experience) => {
+          return (
+            <div key={experience.id}>
+              <p>{experience.title}</p>
+              <button className="btn-primary btn m-4">
+                <Link
+                  href={{
+                    pathname: `experience/create/${experience.slugId}`,
+                    query: { experienceId: experience.id },
+                  }}
+                >
+                  Edit Experience
+                </Link>
+              </button>
+            </div>
+          );
+        })}
+      </div>
 
       <div className="grid grid-cols-1 justify-items-stretch gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {experiencesQuery.data?.map((experience: Experience) => (

@@ -34,6 +34,12 @@ const SearchBar = ({ onPlaceSelected, onApiReady }: SearchBarProps) => {
     };
   }, [onPlaceSelected, onApiReady]);
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+    }
+  };
+
   return (
     <div className="">
       <input
@@ -41,6 +47,7 @@ const SearchBar = ({ onPlaceSelected, onApiReady }: SearchBarProps) => {
         type="text"
         placeholder="Search location..."
         className="h-8 w-72 rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        onKeyDown={handleKeyDown}
       />
     </div>
   );

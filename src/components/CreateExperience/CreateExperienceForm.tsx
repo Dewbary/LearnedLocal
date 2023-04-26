@@ -1,4 +1,10 @@
-import { Formik, Form, FormikHelpers } from "formik";
+import {
+  Formik,
+  Form,
+  FormikHelpers,
+  useFormikContext,
+  FormikContextType,
+} from "formik";
 import { useRouter } from "next/router";
 import DescriptionPage from "./DescriptionPage/DescriptionPage";
 import LocationPage from "./LocationPage";
@@ -14,46 +20,85 @@ import DatePage from "./DatePage";
 import { useStepNavigation } from "./hooks/useStepNavigation";
 import StartPage from "./StartPage";
 import { Pin } from "./LocationPicker/LocationPicker";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { format, startOfToday } from "date-fns";
 import { api } from "~/utils/api";
 import { uploadImageToBucket } from "~/utils/images";
 import { useUser } from "@clerk/nextjs";
 import { getTabInfos, initialValues } from "./CreateExperienceFormUtils";
 import CreateExperienceHeader from "./Layout/CreateExperienceHeader";
+import { ImageListType } from "react-images-uploading";
+import { Experience } from "@prisma/client";
 
 const CreateExperienceForm = () => {
-  const router = useRouter();
   const { user } = useUser();
 
-  const createExperience = api.experience.create.useMutation();
-
+  // Router
+  const router = useRouter();
   const params = Array.isArray(router.query.slug)
     ? (router.query.slug as string[])
     : [];
-
   const [slug] = params;
-  const [location, setLocation] = useState<Pin | null>(null);
+  const { experienceId: experienceIdStr } = router.query;
+  const [experienceId, setExperienceId] = useState(
+    parseInt(experienceIdStr as string)
+  );
+
+  // const experienceId = ;
+
+  // TRPC
+  const createExperience = api.experience.create.useMutation();
+  const { data: experience, isLoading } =
+    api.experience.byExperienceId.useQuery(experienceId, {
+      enabled: !!experienceId,
+    });
+
+  // State
   const today = startOfToday();
+  const [isEditing, setIsEditing] = useState(!!experienceId);
+  const [location, setLocation] = useState<Pin | null>(null);
   const [selectedDay, setSelectedDay] = useState(today);
   const [currentMonth, setCurrentMonth] = useState(format(today, "MMM-yyyy"));
-  const [image, setImage] = useState<File | null>(null);
-
-  const handleLocationChange = (newLocation: Pin) => {
-    setLocation(newLocation);
-  };
-
-  const handleImageSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files ? e.target.files[0] : null;
-    if (!file) return;
-    setImage(file);
-  };
+  const [images, setImages] = useState<ImageListType>([]);
+  const [initialFormValues, setInitialFormValues] =
+    useState<FormValues>(initialValues);
 
   const tabInfoList: TabInfo[] = getTabInfos(slug ?? "");
   const { next, back, goToStep, activeTab, step } = useStepNavigation(
     tabInfoList,
     0
   );
+
+  console.log(isEditing);
+  const updateExperience = api.experience.update.useMutation();
+
+  useEffect(() => {
+    if (experience) {
+      console.log("experience", experience);
+      // update the initialValues with the experience data
+      const photoData = experience.photos.map((photo) => ({
+        dataURL: photo,
+      }));
+
+      setImages(photoData);
+      setSelectedDay(experience.date);
+
+      const pin = experience.location as Pin;
+      setInitialFormValues({
+        ...experience,
+        date: experience.date.toISOString(),
+        location: pin,
+      });
+    }
+  }, [experience]);
+
+  // if (isLoading) {
+  //   return <div>Loading...</div>;
+  // }
+
+  const handleLocationChange = (newLocation: Pin) => {
+    setLocation(newLocation);
+  };
 
   const getTabComponent = () => {
     switch (activeTab?.activeMatcher) {
@@ -82,9 +127,9 @@ const CreateExperienceForm = () => {
       case "settings":
         return <SettingsPage />;
       case "photos":
-        return <PhotosPage handleImageSelected={handleImageSelected} />;
+        return <PhotosPage images={images} onSetImages={setImages} />;
       case "submit":
-        return <FinalStepsPage />;
+        return <FinalStepsPage isEditing={isEditing} />;
       default:
         return <StartPage />;
     }
@@ -94,41 +139,78 @@ const CreateExperienceForm = () => {
     values: FormValues,
     helpers: FormikHelpers<FormValues>
   ) => {
+    if (!user) return;
     helpers.setSubmitting(true);
     console.log("onSubmit", values);
 
     const date = new Date(values.date);
-    let filePath = "";
-    if (image && user) {
-      const path = await uploadImageToBucket(image, user.id);
-      filePath =
-        "https://sipawyumxienbevdvlse.supabase.co/storage/v1/object/public/images/" +
-        path;
-    }
 
-    createExperience.mutate({
-      firstName: values.firstName,
-      lastName: values.lastName,
-      title: values.title,
-      description: values.description,
-      price: values.price,
-      theme: values.theme,
-      date: date,
-      startTime: values.startTime,
-      endTime: values.endTime,
-      timeline: values.timeline,
-      location: values.location,
-      locationDescription: values.locationDescription,
-      qualifications: values.qualifications,
-      provided: values.provided,
-      guestRequirements: values.guestRequirements,
-      minAge: values.minAge,
-      activityLevel: values.activityLevel,
-      skillLevel: values.skillLevel,
-      maxAttendees: values.maxAttendees,
-      photos: [filePath],
-      slugId: slug ?? "",
-    });
+    const filePathArray: string[] = [];
+
+    await Promise.all(
+      images.map(async (img) => {
+        if (!img.file) return;
+        const path = await uploadImageToBucket(img.file, user.id);
+        const filePath =
+          "https://sipawyumxienbevdvlse.supabase.co/storage/v1/object/public/images/" +
+          path;
+        filePathArray.push(filePath);
+      })
+    );
+
+    if (isEditing && experienceId) {
+      // Update the experience
+      updateExperience.mutate({
+        id: experienceId,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        title: values.title,
+        description: values.description,
+        price: values.price,
+        date: date,
+        startTime: values.startTime,
+        endTime: values.endTime,
+        timeline: values.timeline,
+        location: values.location,
+        locationDescription: values.locationDescription,
+        qualifications: values.qualifications,
+        provided: values.provided,
+        guestRequirements: values.guestRequirements,
+        minAge: values.minAge,
+        activityLevel: values.activityLevel,
+        skillLevel: values.skillLevel,
+        maxAttendees: values.maxAttendees,
+        profileImage: values.profileImage,
+        photos: filePathArray,
+        slugId: slug ?? "",
+        categoryId: values.categoryId,
+      });
+    } else {
+      createExperience.mutate({
+        firstName: values.firstName,
+        lastName: values.lastName,
+        title: values.title,
+        description: values.description,
+        price: values.price,
+        date: date,
+        startTime: values.startTime,
+        endTime: values.endTime,
+        timeline: values.timeline,
+        location: values.location,
+        locationDescription: values.locationDescription,
+        qualifications: values.qualifications,
+        provided: values.provided,
+        guestRequirements: values.guestRequirements,
+        minAge: values.minAge,
+        activityLevel: values.activityLevel,
+        skillLevel: values.skillLevel,
+        maxAttendees: values.maxAttendees,
+        profileImage: values.profileImage,
+        photos: filePathArray,
+        slugId: slug ?? "",
+        categoryId: values.categoryId,
+      });
+    }
 
     setTimeout(() => {
       helpers.setSubmitting(false);
@@ -140,7 +222,7 @@ const CreateExperienceForm = () => {
 
   const handleTabClick = (index: number) => {
     goToStep(index);
-    router.push(tabInfoList[index]?.url || "", undefined, { shallow: true });
+    router.replace(tabInfoList[index]?.url || "", undefined, { shallow: true });
   };
 
   return (
@@ -156,8 +238,9 @@ const CreateExperienceForm = () => {
 
         <main className="paragraph ml-8 mr-12 mb-12 flex flex-1 overflow-y-auto rounded-lg bg-gradient-to-r from-amber-400 via-amber-200 to-slate-50 px-8 py-8">
           <Formik
-            initialValues={initialValues}
+            initialValues={initialFormValues}
             onSubmit={(values, helpers) => handleSubmit(values, helpers)}
+            enableReinitialize
           >
             <Form className="w-full">
               <CreateExperienceFormArea
