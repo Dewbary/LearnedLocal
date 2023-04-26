@@ -8,12 +8,19 @@ import ExperienceModalHeader from "~/components/FindExperience/ExperienceModalHe
 import ExperienceModalBody from "~/components/FindExperience/ExperienceModalBody";
 import GuestListModalHeader from "~/components/FindExperience/GuestListModalHeader";
 import GuestListModalBody from "~/components/FindExperience/GuestListModalBody";
+import { useRouter } from "next/router";
 
 export default function MyExperiences () {
 
     const user = useUser();
     const userCreatedExperiences = api.experience.byUserId.useQuery();
     const userJoinedExperiences = api.experience.getAll.useQuery();
+
+    const router = useRouter();
+
+    const goToEditPage = function (experienceSlugId: string, experienceId: number) {
+        router.push(`/experience/create/${experienceSlugId}?experienceId=${experienceId}`);
+    }
 
     return (
         <>
@@ -59,23 +66,21 @@ export default function MyExperiences () {
                     </div>
                     <div className="grid gap-4 lg:grid-cols-4 p-10">
                         {userJoinedExperiences.data?.map(experience => (
-                            <ExperienceCard experienceCardProps={
-                                {
-                                    experience: experience,
-                                    modalButtonText: "Details",
-                                    modalHeaderContent: <ExperienceModalHeader experience={experience} />,
-                                    modalBodyContent: <ExperienceModalBody experienceModalProps={
-                                        {
-                                            experience: experience,
-                                            modalActionButton: {
-                                                buttonText: "Cancel Registration",
-                                                buttonColor: "bg-red-400",
-                                                buttonAction: () => console.log("Cancel Registration Action")
-                                            }
-                                        }
-                                    } />
-                                }
-                            } />
+                            <ExperienceCard 
+                                experience={experience}
+                                modalButtonText="Details"
+                                modalHeaderContent={<ExperienceModalHeader experience={experience} />}
+                                modalBodyContent={
+                                    <ExperienceModalBody 
+                                        experience={experience}
+                                        modalActionButton={{
+                                            buttonText: "Cancel Registration",
+                                            buttonColor: "bg-red-400",
+                                            buttonAction: () => console.log("Cancel Registration Action")
+                                        }}
+                                    /> 
+                                } 
+                            />
                         ))}
                     </div>
 
@@ -86,26 +91,26 @@ export default function MyExperiences () {
                     </div>
                     <div className="grid lg:grid-cols-4 p-10">
                         {userCreatedExperiences.data?.map(experience => (
-                            <ExperienceCard experienceCardProps={
-                                {
-                                    experience: experience,
-                                    actionButtonList: [
+                            <ExperienceCard 
+                                experience={experience}
+                                actionButtonList={
+                                    [
                                         {
                                             buttonText: "Edit",
                                             buttonColor: "bg-blue-400",
-                                            buttonAction: () => console.log("Edit Experience Action")
+                                            buttonAction: () => goToEditPage(experience.slugId, experience.id)
                                         },
                                         {
                                             buttonText: "Delete",
                                             buttonColor: "bg-red-400",
                                             buttonAction: () => console.log("Delete Experience!")
                                         },
-                                    ],
-                                    modalButtonText: "Manage",
-                                    modalHeaderContent: <GuestListModalHeader experience={experience} />,
-                                    modalBodyContent: <GuestListModalBody />
+                                    ]
                                 }
-                            } />
+                                modalButtonText="Manage"
+                                modalHeaderContent={<GuestListModalHeader experience={experience} />}
+                                modalBodyContent={<GuestListModalBody />}
+                            />
                         ))}
                     </div>
                 </>

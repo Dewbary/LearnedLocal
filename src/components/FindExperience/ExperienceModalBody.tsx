@@ -5,19 +5,19 @@ import { CalendarIcon, ClockIcon, MapPinIcon, UserIcon } from '@heroicons/react/
 import { Experience } from '@prisma/client'
 import { useState } from 'react'
 
-export interface ModalActionButton {
+type ModalActionButton = {
     buttonText: string;
     buttonColor: string;
     buttonAction: () => void;
 }
 
-export interface ExperienceModalProps {
+type Props = {
     experience: Experience;
     modalActionButton?: ModalActionButton;
     hideModal?: () => void;
 }
 
-export default function ExperienceModalBody({experienceModalProps} : {experienceModalProps: ExperienceModalProps}) {
+export default function ExperienceModalBody({ experience, modalActionButton, hideModal }: Props) {
 
     const dateDisplayOptions = {
         weekday: 'long',
@@ -60,29 +60,29 @@ export default function ExperienceModalBody({experienceModalProps} : {experience
                     <div className='mx-10 flex flex-col lg:flex-row'>
                         <div className='basis-2/3 mr-3 lg:order-0 order-2'>
                             <h3 className='text-xl font-bold'>Description</h3>
-                            <p>{experienceModalProps.experience.description}</p>
+                            <p>{experience.description}</p>
                             <br />
                             <h3 className='text-xl font-bold'>Details</h3>
                             <ul>
-                                <li>{experienceModalProps.experience.guestRequirements}</li>
-                                <li>{experienceModalProps.experience.provided}</li>
-                                <li>{experienceModalProps.experience.activityLevel}</li>
-                                <li>{experienceModalProps.experience.skillLevel}</li>
+                                <li>{experience.guestRequirements}</li>
+                                <li>{experience.provided}</li>
+                                <li>{experience.activityLevel}</li>
+                                <li>{experience.skillLevel}</li>
                             </ul>
                             <br />
                             <h3 className='text-xl font-bold'>Itinerary</h3>
-                            <p>{experienceModalProps.experience.timeline}</p>
+                            <p>{experience.timeline}</p>
                             <br />
                             <h3 className='text-xl font-bold'>Location Notes</h3>
-                            <p>{experienceModalProps.experience.locationDescription}</p>
+                            <p>{experience.locationDescription}</p>
                             <br />
                             <br />
                         </div>
                         <div className="lg:order-2 grid grid-cols-5 basis-1/3 items-center pb-5 mb-5 border-b-2 lg:border-b-0 lg:border-l-2 lg:pl-5 h-full gap-y-3">
-                            <ClockIcon className='w-5'/> <span className='col-span-4'>{experienceModalProps.experience.startTime} - {experienceModalProps.experience.endTime}</span>
-                            <MapPinIcon className='w-5'/> <span className='col-span-4'>{experienceModalProps.experience.location?.toString()}</span>
-                            <CalendarIcon className='w-5'/> <span className='col-span-4'>{experienceModalProps.experience.date.toLocaleDateString("en-US", dateDisplayOptions)}</span>
-                            <UserIcon className='w-5'/> <span className='col-span-4'>Ages {experienceModalProps.experience.minAge}+</span>
+                            <ClockIcon className='w-5'/> <span className='col-span-4'>{experience.startTime} - {experience.endTime}</span>
+                            <MapPinIcon className='w-5'/> <span className='col-span-4'>{experience.location?.toString()}</span>
+                            <CalendarIcon className='w-5'/> <span className='col-span-4'>{experience.date.toLocaleDateString("en-US", dateDisplayOptions)}</span>
+                            <UserIcon className='w-5'/> <span className='col-span-4'>Ages {experience.minAge}+</span>
                         </div>
                         
                     </div>
@@ -91,17 +91,17 @@ export default function ExperienceModalBody({experienceModalProps} : {experience
 
             {/* BOTTOM BAR */}
             <div className='py-4 pl-10 pr-6 flex justify-between items-center border-t'>
-                <div className='text-3xl font-bold'>${experienceModalProps.experience.price}</div>
+                <div className='text-3xl font-bold'>${experience.price}</div>
                 <div className=''>
                     <UserIcon className='w-5 inline border border-black rounded-full mr-2'/>
-                    <span>9/{experienceModalProps.experience.maxAttendees}</span></div>
-                {experienceModalProps.modalActionButton ? (
+                    <span>9/{experience.maxAttendees}</span></div>
+                {modalActionButton ? (
                     <>
                         <button 
-                            className={`${experienceModalProps.modalActionButton.buttonColor} text-white p-3 rounded-lg`}
-                            onClick={() => experienceModalProps.modalActionButton?.buttonAction()}
+                            className={`${modalActionButton.buttonColor} text-white p-3 rounded-lg`}
+                            onClick={() => modalActionButton?.buttonAction()}
                         >
-                            {experienceModalProps.modalActionButton.buttonText}
+                            {modalActionButton.buttonText}
                         </button>
                     </>
                 ) : (

@@ -4,9 +4,8 @@ import styles from "./ExperienceCard.module.css";
 import { Experience } from "@prisma/client";
 import profile_pic from "../../assets/profile_pic.png";
 import GenericModal from "../GenericModal";
-import outdoors from "../../assets/outdoors.jpg"
 
-export interface ActionButton {
+type ActionButton = {
   buttonText: string;
   buttonColor: string;
   buttonAction: () => void;
@@ -49,7 +48,7 @@ export default function ExperienceCard({ experience, actionButtonList, modalButt
               className="rounded-full"
             />
             <h2 className="text-4xl font-bold">
-              {experienceCardProps.experience.date
+              {experience.date
                 .toLocaleDateString("en-US", dateDisplayOptions)
                 .toLocaleUpperCase()}
             </h2>
@@ -60,23 +59,17 @@ export default function ExperienceCard({ experience, actionButtonList, modalButt
           <img
             src={experience.photos[0] || ""}
             alt="Picture of the outdoors"
-            className="absolute inset-0 z-0 h-full w-full rounded-2xl object-cover"
-          />
-          {/* <Image
-            src={outdoors} //{experienceCardProps.experience.photos[0] || ""}
-            alt="Picture of the outdoors"
-            // className="fill absolute z-0 rounded-2xl fill"
             className=""
-          /> */}
+          />
         </div>
 
         {/* DESCRIPTION BOX */}
         <div className="px-3">
           <h2 className="text-2xl font-bold">
-            {experienceCardProps.experience.title}
+            {experience.title}
           </h2>
           <p className="h-16 overflow-hidden text-sm">
-            {experienceCardProps.experience.description}
+            {experience.description}
           </p>
         </div>
 
@@ -84,11 +77,11 @@ export default function ExperienceCard({ experience, actionButtonList, modalButt
         <div className="flex justify-between px-3 pb-3 items-center">
 
           {/* PRICE TAG */}
-          <h2 className="text-xl font-bold">${experienceCardProps.experience.price}</h2>
+          <h2 className="text-xl font-bold">${experience.price}</h2>
 
           {/* ACTION BUTTON LIST */}
           <div className="">
-            {experienceCardProps.actionButtonList?.map(actionButton => {
+            {actionButtonList?.map(actionButton => {
               return (
                 <button
                   className={`rounded-lg ${actionButton.buttonColor} text-white drop-shadow-md p-2`}
@@ -106,7 +99,7 @@ export default function ExperienceCard({ experience, actionButtonList, modalButt
               className="rounded-lg bg-amber-400 p-2 text-white drop-shadow-md"
               onClick={() => showModal()}
             >
-              {experienceCardProps.modalButtonText}
+              {modalButtonText}
             </button>
           </div>
         </div>
@@ -120,18 +113,14 @@ export default function ExperienceCard({ experience, actionButtonList, modalButt
         }`}
       >
         <div className="flex h-full w-full items-center justify-center">
-          <GenericModal genericModalProps={
-            {
-              hideModal: hideModal,
-              modalContent: experienceCardProps.modalBodyContent,
-              modalHeaderContent: experienceCardProps.modalHeaderContent
-            }
-          } />
+          <GenericModal 
+            hideModal={hideModal} 
+            modalContent={modalBodyContent} 
+            modalHeaderContent={modalHeaderContent} 
+          />
         </div>
       </div>
 
     </>
   );
 };
-
-export default ExperienceCard;

@@ -29,41 +29,15 @@ const HomePage = () => {
         </button>
       ) : null}
 
-      <div>
-        {ownedExperiences?.map((experience: Experience) => {
-          return (
-            <div key={experience.id}>
-              <p>{experience.title}</p>
-              <button className="btn-primary btn m-4">
-                <Link
-                  href={{
-                    pathname: `experience/create/${experience.slugId}`,
-                    query: { experienceId: experience.id },
-                  }}
-                >
-                  Edit Experience
-                </Link>
-              </button>
-            </div>
-          );
-        })}
-      </div>
-
       <div className="grid grid-cols-1 justify-items-stretch gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {experiencesQuery.data?.map((experience: Experience) => (
           <div className="card-component my-8 flex justify-center">
-            <ExperienceCard experienceCardProps={
-              {
-                experience: experience,
-                modalButtonText: "Details",
-                modalHeaderContent: <ExperienceModalHeader experience={experience} />,
-                modalBodyContent: <ExperienceModalBody experienceModalProps={
-                  {
-                    experience: experience
-                  }
-                } />
-              }
-            } />
+            <ExperienceCard 
+              experience={experience}
+              modalButtonText="Details"
+              modalHeaderContent={<ExperienceModalHeader experience={experience} />}
+              modalBodyContent={<ExperienceModalBody experience={experience} />}
+            />
           </div>
         ))}
       </div>
