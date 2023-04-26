@@ -43,3 +43,7 @@ yarn-error.log*
 
 # Prisma migrations, for individual environments
 /prisma/migrations/
+
+
+# Supabase dev vars, for individual environments
+/src/utils/supabase-dev-vars.ts
