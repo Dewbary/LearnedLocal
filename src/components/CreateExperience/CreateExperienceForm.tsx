@@ -36,9 +36,7 @@ const CreateExperienceForm = () => {
 
   // Router
   const router = useRouter();
-  const params = Array.isArray(router.query.slug)
-    ? (router.query.slug)
-    : [];
+  const params = Array.isArray(router.query.slug) ? router.query.slug : [];
   const [slug] = params;
   const { experienceId: experienceIdStr } = router.query;
   const [experienceId, setExperienceId] = useState(
@@ -151,7 +149,7 @@ const CreateExperienceForm = () => {
       images.map(async (img) => {
         if (!img.file) return;
         const path = await uploadImageToBucket(img.file, user.id);
-        const filePath = env.SUPABASE_PUBLIC_BUCKET_URL + path;
+        const filePath = env.NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_URL + path;
         filePathArray.push(filePath);
       })
     );
@@ -220,7 +218,9 @@ const CreateExperienceForm = () => {
 
   const handleTabClick = async (index: number) => {
     await goToStep(index);
-    await router.replace(tabInfoList[index]?.url || "", undefined, { shallow: true });
+    await router.replace(tabInfoList[index]?.url || "", undefined, {
+      shallow: true,
+    });
   };
 
   return (
@@ -231,7 +231,9 @@ const CreateExperienceForm = () => {
         <CreateExperienceTabs
           tabInfoList={tabInfoList}
           currentTab={activeTab?.activeMatcher}
-          onTabClick={index => {void handleTabClick(index)}}
+          onTabClick={(index) => {
+            void handleTabClick(index);
+          }}
         />
 
         <main className="paragraph ml-8 mr-12 mb-12 flex flex-1 overflow-y-auto rounded-lg bg-gradient-to-r from-amber-400 via-amber-200 to-slate-50 px-8 py-8">
@@ -243,8 +245,12 @@ const CreateExperienceForm = () => {
             <Form className="w-full">
               <CreateExperienceFormArea
                 tabComponent={getTabComponent()}
-                onNext={() => {next}}
-                onBack={() => {back}}
+                onNext={() => {
+                  next;
+                }}
+                onBack={() => {
+                  back;
+                }}
                 isFirstStep={step === 0}
                 isLastStep={step === tabInfoList.length - 1}
               />
