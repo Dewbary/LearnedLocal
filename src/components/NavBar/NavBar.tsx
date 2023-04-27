@@ -1,11 +1,13 @@
 import * as React from "react";
 import SignInArea from "../SignInArea/SignInArea";
+import Link from "next/link";
 
 type Props = {
   isSignedIn: boolean;
 };
 
 const NavBar = ({ isSignedIn }: Props) => {
+
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
@@ -31,22 +33,19 @@ const NavBar = ({ isSignedIn }: Props) => {
             className="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-100 p-2 shadow"
           >
             <li>
-              <a>Homepage</a>
+              <Link href="/">Home</Link>
             </li>
             <li>
-              <a>Portfolio</a>
-            </li>
-            <li>
-              <a>About</a>
+              <Link href="/myexperiences">My Experiences</Link>
             </li>
           </ul>
         </div>
       </div>
       <div className="navbar-center">
-        <a className="btn-ghost btn text-xl normal-case">Learned Local</a>
+        <Link href="/" className="btn-ghost btn text-xl normal-case">Learned Local</Link>
       </div>
       <div className="navbar-end">
-        <button className="btn-ghost btn-circle btn">
+        {/* <button className="btn-ghost btn-circle btn">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5"
@@ -80,7 +79,16 @@ const NavBar = ({ isSignedIn }: Props) => {
             </svg>
             <span className="badge-primary badge badge-xs indicator-item"></span>
           </div>
+        </button> */}
+
+      {isSignedIn ? (
+        <button className="btn-primary btn mr-3 hidden lg:block">
+          <Link href={`/myexperiences`}>
+            My Experiences
+          </Link>
         </button>
+      ) : null}
+
         <SignInArea isSignedIn={isSignedIn} />
       </div>
     </div>

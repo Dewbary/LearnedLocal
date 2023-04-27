@@ -1,9 +1,8 @@
 import Image, { StaticImageData } from 'next/image'
-import outdoors2 from '../../assets/outdoors-2.png'
-import outdoors from '../../assets/outdoors.jpg'
 import { CalendarIcon, ClockIcon, MapPinIcon, UserIcon } from '@heroicons/react/24/solid'
 import { Experience } from '@prisma/client'
 import { useState } from 'react'
+import { api } from '~/utils/api'
 
 type ModalActionButton = {
     buttonText: string;
@@ -14,10 +13,9 @@ type ModalActionButton = {
 type Props = {
     experience: Experience;
     modalActionButton?: ModalActionButton;
-    hideModal?: () => void;
 }
 
-export default function ExperienceModalBody({ experience, modalActionButton, hideModal }: Props) {
+export default function ExperienceModalBody({ experience, modalActionButton }: Props) {
 
     const dateDisplayOptions = {
         weekday: 'long',
@@ -25,11 +23,13 @@ export default function ExperienceModalBody({ experience, modalActionButton, hid
         day: 'numeric'
     } as const;
 
-    const [activeImage, setActiveImage] = useState(outdoors);
+    const [activeImage, setActiveImage] = useState(experience.photos[0] || "");
 
-    const handleClickImage = function (image: StaticImageData) {
+    const handleClickImage = function (image: string) {
         setActiveImage(image);
     }
+
+    const getRegistrantCount = api.registration.registrantCountByExperience.useQuery(experience.id);
 
     return (
         <>
@@ -40,20 +40,28 @@ export default function ExperienceModalBody({ experience, modalActionButton, hid
                     {/* IMAGES PORTION */}
                     <div className='m-10 grid grid-cols-4 gap-4'>
                         <div className='overflow-hidden max-h-60 col-span-4 lg:col-span-2 lg:row-span-2 lg:rounded-l-3xl'>
-                            <Image src={activeImage} alt="outdoors"/>
+                            <img src={activeImage} alt="outdoors"/>
                         </div>
-                        <div className='overflow-hidden max-h-28'>
-                            <Image src={outdoors} alt="outdoors" onClick={() => handleClickImage(outdoors)}/>
-                        </div>
-                        <div className='overflow-hidden max-h-28 lg:rounded-tr-3xl'>
-                            <Image src={outdoors2} alt="outdoors" onClick={() => handleClickImage(outdoors2)}/>
-                        </div>
-                        <div className='overflow-hidden max-h-28'>
-                            <Image src={outdoors2} alt="outdoors" onClick={() => handleClickImage(outdoors2)}/>
-                        </div>
-                        <div className='overflow-hidden max-h-28 lg:rounded-br-3xl'>
-                            <Image src={outdoors2} alt="outdoors" onClick={() => handleClickImage(outdoors2)}/>
-                        </div>
+                        {[0, 1, 2, 3].map((e, i) => {
+                            return (
+                                <>
+                                    <div key={i} className='overflow-hidden max-h-28'>
+                                        {experience.photos[i] &&
+                                            <img
+                                            src={experience.photos[i]}
+                                            alt="outdoors"
+                                            className=""
+                                            onClick={() => handleClickImage(experience.photos[i] || "")}
+                                        />
+                                        }
+                                        {!experience.photos[i] &&
+                                            <div className='bg-slate-100 h-28 w-full' /> 
+                                        }
+                                        
+                                    </div>
+                                </>
+                            )
+                        })}
                     </div>
 
                     {/* DESCRIPTION PORTION */}
@@ -94,7 +102,7 @@ export default function ExperienceModalBody({ experience, modalActionButton, hid
                 <div className='text-3xl font-bold'>${experience.price}</div>
                 <div className=''>
                     <UserIcon className='w-5 inline border border-black rounded-full mr-2'/>
-                    <span>9/{experience.maxAttendees}</span></div>
+                    <span>{getRegistrantCount.data}/{experience.maxAttendees} Spots Filled</span></div>
                 {modalActionButton ? (
                     <>
                         <button 

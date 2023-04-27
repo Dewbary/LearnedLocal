@@ -30,9 +30,11 @@ import CreateExperienceHeader from "./Layout/CreateExperienceHeader";
 import { ImageListType } from "react-images-uploading";
 import { Experience } from "@prisma/client";
 import { env } from "~/env.mjs";
+import Footer from "../Footer/Footer";
+import NavBar from "../NavBar/NavBar";
 
 const CreateExperienceForm = () => {
-  const { user } = useUser();
+  const user = useUser();
 
   // Router
   const router = useRouter();
@@ -148,7 +150,7 @@ const CreateExperienceForm = () => {
     await Promise.all(
       images.map(async (img) => {
         if (!img.file) return;
-        const path = await uploadImageToBucket(img.file, user.id);
+        const path = await uploadImageToBucket(img.file, (user.user ? user.user.id : "notsignedin"));
         const filePath = env.NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_URL + path;
         filePathArray.push(filePath);
       })
@@ -224,6 +226,10 @@ const CreateExperienceForm = () => {
   };
 
   return (
+    <>
+    <NavBar isSignedIn={user.isSignedIn ? true : false}/>
+    <div className="border-b" />
+    
     <div className="flex h-screen flex-col">
       <CreateExperienceHeader />
 
@@ -259,6 +265,9 @@ const CreateExperienceForm = () => {
         </main>
       </div>
     </div>
+
+    <Footer />
+    </>
   );
 };
 

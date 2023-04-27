@@ -10,6 +10,15 @@ export const registrationRouter = createTRPCRouter({
       });
     }),
 
+  registrantCountByExperience: publicProcedure
+    .input(z.number())
+    .query(async ({ ctx, input }) => {
+      const registrations = await ctx.prisma.registration.findMany({
+        where: { experienceId: input }
+      });
+      return registrations.length;
+    }),
+
   removeRegistrant: publicProcedure
     .input(z.string())
     .mutation(async ({ctx, input}) => {

@@ -1,3 +1,4 @@
+import { Registration } from "@prisma/client";
 import { z } from "zod";
 import {
   createTRPCRouter,
@@ -11,6 +12,17 @@ export const experienceRouter = createTRPCRouter({
       orderBy: {
         createdAt: "desc",
       },
+    });
+  }),
+
+  getRegistered: protectedProcedure.query(async ({ ctx }) => {
+    return await ctx.prisma.registration.findMany({
+      where: {
+        userId: ctx.userId
+      },
+      include: {
+        experience: true
+      }
     });
   }),
 

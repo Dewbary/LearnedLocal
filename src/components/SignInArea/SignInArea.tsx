@@ -1,4 +1,4 @@
-import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
+import { SignInButton, SignOutButton } from "@clerk/nextjs";
 
 type Props = {
   isSignedIn: boolean;

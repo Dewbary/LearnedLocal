@@ -3,14 +3,17 @@ import { api } from "~/utils/api";
 import NavBar from "~/components/NavBar/NavBar";
 import ExperienceCard from "~/components/FindExperience/ExperienceCard";
 import Image from "next/image";
-import sapiens from "../../../public/sapiens.png"
+import sapiens from "../../public/sapiens.png"
 import ExperienceModalHeader from "~/components/FindExperience/ExperienceModalHeader";
 import ExperienceModalBody from "~/components/FindExperience/ExperienceModalBody";
 import GuestListModalHeader from "~/components/FindExperience/GuestListModalHeader";
 import GuestListModalBody from "~/components/FindExperience/GuestListModalBody";
 import { useRouter } from "next/router";
-import { Experience } from "@prisma/client";
+import { Experience, Registration } from "@prisma/client";
 import { useState } from "react";
+import CreateExperienceButton from "~/components/CreateExperienceButton";
+import Link from "next/link";
+import Footer from "~/components/Footer/Footer";
 
 export default function MyExperiences () {
 
@@ -18,8 +21,9 @@ export default function MyExperiences () {
 
     const user = useUser();
     const userCreatedExperiences = api.experience.byUserId.useQuery();
-    const userJoinedExperiences = api.experience.getAll.useQuery();
+    const userJoinedExperiences = api.experience.getRegistered.useQuery();
     const experienceDeleter = api.experience.delete.useMutation();
+    const registrationDeleter = api.registration.removeRegistrant.useMutation();
 
     const router = useRouter();
 
@@ -36,6 +40,13 @@ export default function MyExperiences () {
         }
     }
 
+    const deleteRegistration = function (registration: Registration) {
+        if (confirm("Are you sure you want to cancel your registration? You might not be refunded for this.")) {
+            registrationDeleter.mutate(registration.id);
+            router.reload();
+        }
+    }
+
     return (
         <>
 
@@ -46,7 +57,7 @@ export default function MyExperiences () {
             {/* PAGE BANNER AND TITLE */}
 
             <div className="grid place-items-center items-end text-primary-content bg-gradient-to-br from-primary to-secondary">
-                <div className="hero-content col-start-1 row-start-1 w-full max-w-7xl flex-col justify-between gap-10 lg:flex-row lg:gap-0 xl:gap-20">
+                <div className="hero-content col-start-1 row-start-1 w-full max-w-7xl flex-col justify-between lg:flex-row lg:gap-0 xl:gap-20">
                     <div className="flex-1">
                         <Image
                             className="w-full object-cover"
@@ -75,23 +86,29 @@ export default function MyExperiences () {
 
                     {/* UPCOMING EXPERIENCES DISPLAY */}
 
-                    <div className="mt-7 pl-9 py-3">
+                    <div className="mt-7 px-9 py-3 flex flex-col lg:flex-row gap-5 lg:items-center text-center lg:text-start">
                         <h1 className="text-4xl font-bold">My Upcoming Experiences</h1>
                     </div>
+                    {userJoinedExperiences.data?.length === 0 &&
+                        <div className="flex flex-col gap-6 py-10 w-full justify-center items-center bg-slate-200 mt-3 px-6">
+                            <h1>You&apos;re not currently signed up for any experiences.</h1>
+                            <Link href="/#viewexperiences" className="btn">Find an experience</Link>
+                        </div>
+                    }
                     <div className="grid gap-4 lg:grid-cols-4 p-10">
-                        {userJoinedExperiences.data?.map(experience => (
+                        {userJoinedExperiences.data?.map(registration => (
                             <ExperienceCard 
-                                key={experience.id}
-                                experience={experience}
+                                key={registration.experience.id}
+                                experience={registration.experience}
                                 modalButtonText="Details"
-                                modalHeaderContent={<ExperienceModalHeader experience={experience} />}
+                                modalHeaderContent={<ExperienceModalHeader experience={registration.experience} />}
                                 modalBodyContent={
                                     <ExperienceModalBody 
-                                        experience={experience}
+                                        experience={registration.experience}
                                         modalActionButton={{
                                             buttonText: "Cancel Registration",
                                             buttonColor: "bg-red-400",
-                                            buttonAction: () => console.log("Cancel Registration Action")
+                                            buttonAction: () => deleteRegistration(registration)
                                         }}
                                     /> 
                                 } 
@@ -101,9 +118,15 @@ export default function MyExperiences () {
 
                     {/* HOSTED EXPERIENCES DISPLAY */}
 
-                    <div className="mt-7 pl-9 py-3">
+                    <div className="mt-7 px-9 py-3 flex flex-col lg:flex-row gap-5 lg:items-center text-center lg:text-start">
                         <h1 className="text-4xl font-bold">My Hosted Experiences</h1>
+                        <CreateExperienceButton />
                     </div>
+                    {userCreatedExperiences.data?.length === 0 &&
+                        <div className="flex h-24 w-full justify-center items-center bg-slate-200 mt-3">
+                            <h1>You&apos;re not currently hosting any experiences.</h1>
+                        </div>
+                    }
                     <div className="grid lg:grid-cols-4 p-10">
                         {userCreatedExperiences.data?.map(experience => (
                             <ExperienceCard 
@@ -141,8 +164,13 @@ export default function MyExperiences () {
                     }
                 </>
             ) : (
-                <>Please sign in to see your experiences!</>
+                <div className="my-10 flex justify-center">
+                    <h1>Please sign in to see your experiences!</h1>
+                </div>
+                
             )}
+
+            <Footer />
         </>
     )
 }

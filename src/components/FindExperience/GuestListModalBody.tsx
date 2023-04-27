@@ -23,6 +23,11 @@ export default function GuestListModalBody({ experience }: Props) {
         <div className="flex flex-col lg:flex-row p-7 gap-7 flex-1 overflow-scroll lg:overflow-auto">
             <div className="flex flex-col lg:basis-1/2 flex-1 justify-between">
                 <div className="overflow-y-scroll h-96">
+                    {eventRegistrations.data?.length === 0 &&
+                        <div className="flex h-full w-full justify-center items-center">
+                            <h1>No guests signed up for this experience yet.</h1>
+                        </div>
+                    }
                     {eventRegistrations.data?.map(registration => (
                         <div key={registration.id} className="flex justify-between items-center bg-slate-100 p-3 border-b">
                             <div className="flex justify-start items-center gap-3">
