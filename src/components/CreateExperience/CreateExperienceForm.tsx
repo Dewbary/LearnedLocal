@@ -151,7 +151,7 @@ const CreateExperienceForm = () => {
       images.map(async (img) => {
         if (!img.file) return;
         const path = await uploadImageToBucket(img.file, user.id);
-        const filePath = env.SUPABASE_PUBLIC_BUCKET_URL + path;
+        const filePath = env.NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_URL + path;
         filePathArray.push(filePath);
       })
     );

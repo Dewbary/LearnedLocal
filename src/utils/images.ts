@@ -6,7 +6,7 @@ import { env } from "~/env.mjs";
 export const uploadImageToBucket = async (file: File, userId: string) => {
   const uniqueFileName = `${userId}/${uuidv4()}`;
   const { data, error } = await supabase.storage
-    .from(env.SUPABASE_PUBLIC_BUCKET_NAME)
+    .from(env.NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_NAME)
     .upload(uniqueFileName, file);
 
   if (error) {
@@ -17,7 +17,7 @@ export const uploadImageToBucket = async (file: File, userId: string) => {
 };
 
 export const getImageUrl = (path: string) => {
-  const { data } = supabase.storage.from(env.SUPABASE_PUBLIC_BUCKET_NAME).getPublicUrl(path);
+  const { data } = supabase.storage.from(env.NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_NAME).getPublicUrl(path);
   const { publicUrl } = data;
 
   return publicUrl;
