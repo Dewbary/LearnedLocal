@@ -2,6 +2,12 @@ import Image from "next/image";
 import sapiens from "../../public/sapiens.png";
 
 const Header = () => {
+
+  const scrollToHref = function (id: string) {
+    const elementToScrollTo = document.getElementById(id);
+    elementToScrollTo?.scrollIntoView({behavior: "smooth"});
+  }
+
   return (
     <div className="-mt-[4rem] grid place-items-center items-end bg-gradient-to-br from-primary to-secondary pt-20 text-primary-content">
       <div className="hero-content col-start-1 row-start-1 w-full max-w-7xl flex-col justify-between gap-10 pb-40 lg:flex-row lg:items-end lg:gap-0 xl:gap-20">
@@ -20,22 +26,21 @@ const Header = () => {
           <div className="flex w-full flex-col items-center space-y-10 lg:flex-row lg:items-start lg:space-x-4 lg:space-y-0">
             <div className="my-2 flex max-w-sm flex-col gap-2 text-left"></div>{" "}
           </div>{" "}
-          <div className="mt-4 flex flex-1 justify-center space-x-2 lg:mt-6 lg:justify-start">
-            <a
+          <div className="mt-4 flex flex-col lg:flex-row flex-1 justify-center lg:mt-6 lg:justify-start">
+            <button
               // sveltekit:prefetch=""
-              href="/components"
-              className="btn-ghost btn-active btn normal-case lg:btn-lg"
+              onClick={() => scrollToHref("viewexperiences")}
+              className="btn-ghost btn-active btn normal-case lg:btn-lg mb-3"
             >
-              <span className="hidden sm:inline">View Experiences</span>{" "}
-              <span className="inline sm:hidden">Register</span>
-            </a>{" "}
-            <a
+              <span className="">View Experiences</span>
+            </button>
+            <button
               // sveltekit:prefetch=""
-              href="/docs/install"
-              className="btn normal-case lg:btn-lg"
+              onClick={() => scrollToHref("hostexperience")}
+              className="btn normal-case lg:btn-lg lg:ml-3"
             >
-              Register
-            </a>
+              Host an Experience
+            </button>
           </div>
         </div>{" "}
         <div className="flex-1">
