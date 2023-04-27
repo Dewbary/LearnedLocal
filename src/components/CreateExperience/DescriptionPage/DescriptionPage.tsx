@@ -30,7 +30,7 @@ const DescriptionPage = () => {
   const handleThemeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const themeNumber = parseInt(e.target.value);
     console.log(themeNumber);
-    setFieldValue("theme", themeNumber);
+    setFieldValue("categoryId", themeNumber);
   };
 
   return (
@@ -54,7 +54,7 @@ const DescriptionPage = () => {
 
             <FormLabel text="Select a theme" className="mt-4" />
             <Field
-              name="theme"
+              name="categoryId"
               as="select"
               onChange={handleThemeChange}
               className="mb-3 w-full rounded-md border-2 border-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-blue-500 focus:outline-none"

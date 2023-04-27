@@ -111,6 +111,8 @@ model Category {
 model Registration {
     id           String   @id @default(cuid())
     userId       String
+    registrantFirstName String
+    registrantLastName  String
     experienceId Int
     stripeCheckoutSessionId String
     status       String

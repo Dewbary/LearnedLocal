@@ -67,8 +67,8 @@ const TimeSelect = ({ label, name }: Props) => {
         className="select w-full max-w-xs"
       >
         <option disabled>{label}</option>
-        {times.map((time) => (
-          <option>{time}</option>
+        {times.map((time, i) => (
+          <option key={i}>{time}</option>
         ))}
       </Field>
     </div>

@@ -1,16 +1,25 @@
 import Image from "next/image";
-import outdoors from "../../assets/outdoors.jpg";
-import ExperienceModal from "./ExperienceModal";
 import { useState } from "react";
 import styles from "./ExperienceCard.module.css";
 import { Experience } from "@prisma/client";
 import profile_pic from "../../assets/profile_pic.png";
+import GenericModal from "../GenericModal";
+
+type ActionButton = {
+  buttonText: string;
+  buttonColor: string;
+  buttonAction: () => void;
+}
 
 type Props = {
   experience: Experience;
-};
+  actionButtonList?: ActionButton[];
+  modalButtonText: string;
+  modalHeaderContent: JSX.Element;
+  modalBodyContent: JSX.Element;
+}
 
-const ExperienceCard = ({ experience }: Props) => {
+export default function ExperienceCard({ experience, actionButtonList, modalButtonText, modalHeaderContent, modalBodyContent }: Props) {
   const [modalHidden, setModalHidden] = useState(true);
 
   const dateDisplayOptions = {
@@ -28,64 +37,91 @@ const ExperienceCard = ({ experience }: Props) => {
 
   return (
     <>
-      <div className="h-96 w-72 rounded-2xl drop-shadow-xl">
-        <div className="absolute top-0 left-0 h-96 w-full">
+      <div className="h-96 w-72 rounded-2xl bg-white drop-shadow-xl flex flex-col">
+
+        {/* TITLE BAR */}
+        <div className="flex justify-between w-full items-center p-3 bg-gradient-to-br from-amber-300 to-amber-400 rounded-t-2xl">
+          <Image
+              src={profile_pic}
+              alt="Profile Picture Anonymous"
+              width={40}
+              className="rounded-full"
+            />
+            <h2 className="text-4xl font-bold">
+              {experience.date
+                .toLocaleDateString("en-US", dateDisplayOptions)
+                .toLocaleUpperCase()}
+            </h2>
+        </div>
+
+        {/* COVER IMAGE */}
+        <div className="w-full overflow-hidden">
           <img
             src={experience.photos[0] || ""}
             alt="Picture of the outdoors"
-            className="absolute inset-0 z-0 h-full w-full rounded-2xl object-cover"
+            className=""
           />
         </div>
-        <div className="absolute top-4 left-4 text-white">
-          <Image
-            src={profile_pic}
-            alt="Profile Picture Anonymous"
-            width={40}
-            className="rounded-full border border-white"
-          />
-        </div>
-        <div className="absolute top-3 right-3">
-          <h2 className="text-4xl font-bold text-white">
-            {experience.date
-              .toLocaleDateString("en-US", dateDisplayOptions)
-              .toLocaleUpperCase()}
+
+        {/* DESCRIPTION BOX */}
+        <div className="px-3">
+          <h2 className="text-2xl font-bold">
+            {experience.title}
           </h2>
-        </div>
-        <div className="absolute h-56 w-full">
-          <div className="absolute bottom-0 left-3 w-auto">
-            <h2 className="text-2xl font-bold text-white">
-              {experience.title}
-            </h2>
-          </div>
-        </div>
-        <div className="absolute bottom-0 h-36 w-full rounded-b-2xl bg-white p-3">
           <p className="h-16 overflow-hidden text-sm">
             {experience.description}
           </p>
-          <div className="absolute bottom-5 left-5">
-            <p className="text-xl font-bold">${experience.price}</p>
+        </div>
+
+        {/* BOTTOM BAR */}
+        <div className="flex justify-between px-3 pb-3 items-center">
+
+          {/* PRICE TAG */}
+          <h2 className="text-xl font-bold">${experience.price}</h2>
+
+          {/* ACTION BUTTON LIST */}
+          <div className="">
+            {actionButtonList?.map((actionButton, i) => {
+              return (
+                <button
+                  className={`rounded-lg ${actionButton.buttonColor} text-white drop-shadow-md p-2`}
+                  onClick={() => actionButton.buttonAction()}
+                  key={i}
+                >
+                  {actionButton.buttonText}
+                </button>
+              )
+            })}
           </div>
-          <div className="absolute bottom-3 right-3">
+
+          {/* MODAL BUTTON */}
+          <div className="">
             <button
               className="rounded-lg bg-amber-400 p-2 text-white drop-shadow-md"
               onClick={() => showModal()}
             >
-              Details
+              {modalButtonText}
             </button>
           </div>
         </div>
       </div>
+
+      {/* MODAL */}
+
       <div
         className={`fixed inset-0 z-40 h-full w-full overflow-y-auto bg-gray-600 bg-opacity-50 ${
-          modalHidden ? styles["modal-hidden"] : styles["modal-visible"]
+          (modalHidden ? styles["modal-hidden"] : styles["modal-visible"]) ?? ""
         }`}
       >
         <div className="flex h-full w-full items-center justify-center">
-          <ExperienceModal hideModal={hideModal} experience={experience} />
+          <GenericModal 
+            hideModal={hideModal} 
+            modalContent={modalBodyContent} 
+            modalHeaderContent={modalHeaderContent} 
+          />
         </div>
       </div>
-    </>
-  );
-};
 
-export default ExperienceCard;
+    </>
+  )
+}

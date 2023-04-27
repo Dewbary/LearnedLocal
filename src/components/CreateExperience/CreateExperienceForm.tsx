@@ -29,15 +29,16 @@ import { getTabInfos, initialValues } from "./CreateExperienceFormUtils";
 import CreateExperienceHeader from "./Layout/CreateExperienceHeader";
 import { ImageListType } from "react-images-uploading";
 import { Experience } from "@prisma/client";
+import { env } from "~/env.mjs";
+import Footer from "../Footer/Footer";
+import NavBar from "../NavBar/NavBar";
 
 const CreateExperienceForm = () => {
-  const { user } = useUser();
+  const user = useUser();
 
   // Router
   const router = useRouter();
-  const params = Array.isArray(router.query.slug)
-    ? (router.query.slug as string[])
-    : [];
+  const params = Array.isArray(router.query.slug) ? router.query.slug : [];
   const [slug] = params;
   const { experienceId: experienceIdStr } = router.query;
   const [experienceId, setExperienceId] = useState(
@@ -144,16 +145,13 @@ const CreateExperienceForm = () => {
     console.log("onSubmit", values);
 
     const date = new Date(values.date);
-
     const filePathArray: string[] = [];
 
     await Promise.all(
       images.map(async (img) => {
         if (!img.file) return;
-        const path = await uploadImageToBucket(img.file, user.id);
-        const filePath =
-          "https://sipawyumxienbevdvlse.supabase.co/storage/v1/object/public/images/" +
-          path;
+        const path = await uploadImageToBucket(img.file, (user.user ? user.user.id : "notsignedin"));
+        const filePath = env.NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_URL + path;
         filePathArray.push(filePath);
       })
     );
@@ -220,12 +218,18 @@ const CreateExperienceForm = () => {
     // router.push("/success");
   };
 
-  const handleTabClick = (index: number) => {
-    goToStep(index);
-    router.replace(tabInfoList[index]?.url || "", undefined, { shallow: true });
+  const handleTabClick = async (index: number) => {
+    await goToStep(index);
+    await router.replace(tabInfoList[index]?.url || "", undefined, {
+      shallow: true,
+    });
   };
 
   return (
+    <>
+    <NavBar isSignedIn={user.isSignedIn ? true : false}/>
+    <div className="border-b" />
+    
     <div className="flex h-screen flex-col">
       <CreateExperienceHeader />
 
@@ -233,7 +237,9 @@ const CreateExperienceForm = () => {
         <CreateExperienceTabs
           tabInfoList={tabInfoList}
           currentTab={activeTab?.activeMatcher}
-          onTabClick={handleTabClick}
+          onTabClick={(index) => {
+            void handleTabClick(index);
+          }}
         />
 
         <main className="paragraph ml-8 mr-12 mb-12 flex flex-1 overflow-y-auto rounded-lg bg-gradient-to-r from-amber-400 via-amber-200 to-slate-50 px-8 py-8">
@@ -245,8 +251,12 @@ const CreateExperienceForm = () => {
             <Form className="w-full">
               <CreateExperienceFormArea
                 tabComponent={getTabComponent()}
-                onNext={next}
-                onBack={back}
+                onNext={() => {
+                  next;
+                }}
+                onBack={() => {
+                  back;
+                }}
                 isFirstStep={step === 0}
                 isLastStep={step === tabInfoList.length - 1}
               />
@@ -255,6 +265,9 @@ const CreateExperienceForm = () => {
         </main>
       </div>
     </div>
+
+    <Footer />
+    </>
   );
 };
 

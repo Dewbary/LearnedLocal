@@ -1,3 +1,4 @@
+import { Registration } from "@prisma/client";
 import { z } from "zod";
 import {
   createTRPCRouter,
@@ -15,7 +16,19 @@ export const experienceRouter = createTRPCRouter({
     });
   }),
 
-  byUserId: protectedProcedure.query(async ({ ctx }) => {
+  getRegistered: protectedProcedure.query(async ({ ctx }) => {
+    return await ctx.prisma.registration.findMany({
+      where: {
+        userId: ctx.userId
+      },
+      include: {
+        experience: true
+      }
+    });
+  }),
+
+  byUserId: protectedProcedure
+    .query(async ({ ctx }) => {
     return await ctx.prisma.experience.findMany({
       where: { authorId: ctx.userId },
     });
@@ -35,6 +48,14 @@ export const experienceRouter = createTRPCRouter({
       return await ctx.prisma.experience.findMany({
         where: { categoryId },
       });
+    }),
+
+  delete: protectedProcedure
+    .input(z.number())
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.prisma.experience.delete({
+        where: {id: input}
+      })
     }),
 
   update: protectedProcedure
