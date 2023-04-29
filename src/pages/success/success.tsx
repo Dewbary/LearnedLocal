@@ -5,8 +5,8 @@ import Link from "next/link";
 const Success = () => {
   const router = useRouter();
 
-  const handleContinueShopping = () => {
-    router.push("/");
+  const handleContinueShopping = async () => {
+    await router.push("/");
   };
 
   return (

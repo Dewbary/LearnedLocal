@@ -1,4 +1,4 @@
-import { buffer } from "micro";
+import { RequestHandler, buffer } from "micro";
 import Cors from "micro-cors";
 import { NextApiRequest, NextApiResponse } from "next";
 import Stripe from "stripe";
@@ -52,7 +52,7 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     } else if (event.type === "payment_intent.payment_failed") {
       const paymentIntent = event.data.object as Stripe.PaymentIntent;
       console.log(
-        `❌ Payment failed: ${paymentIntent.last_payment_error?.message}`
+        `❌ Payment failed: ${paymentIntent.last_payment_error?.message ?? ""}`
       );
     } else if (event.type === "charge.succeeded") {
       const charge = event.data.object as Stripe.Charge;
@@ -111,4 +111,4 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default cors(webhookHandler as any);
+export default cors(webhookHandler as RequestHandler);

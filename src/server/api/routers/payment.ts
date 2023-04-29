@@ -27,6 +27,10 @@ export const paymentRouter = createTRPCRouter({
         throw new Error("Experience not found");
       }
 
+      if (!process.env.NEXT_PUBLIC_BASE_URL) {
+        throw new Error("NEXT_PUBLIC_BASE_URL is not set");
+      }
+
       const successUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/success/success`;
       const cancelUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/`;
 

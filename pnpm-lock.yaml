@@ -85,6 +85,9 @@ dependencies:
   '@types/react-calendar':
     specifier: ^3.9.0
     version: 3.9.0
+  '@types/stripe':
+    specifier: ^8.0.417
+    version: 8.0.417
   '@types/uuid':
     specifier: ^9.0.1
     version: 9.0.1
@@ -2571,6 +2574,13 @@ packages:
     dependencies:
       '@types/mime': 3.0.1
       '@types/node': 18.14.6
+    dev: false
+
+  /@types/stripe@8.0.417:
+    resolution: {integrity: sha512-PTuqskh9YKNENnOHGVJBm4sM0zE8B1jZw1JIskuGAPkMB+OH236QeN8scclhYGPA4nG6zTtPXgwpXdp+HPDTVw==}
+    deprecated: This is a stub types definition. stripe provides its own type definitions, so you do not need this installed.
+    dependencies:
+      stripe: 12.3.0
     dev: false
 
   /@types/uuid@9.0.1:
