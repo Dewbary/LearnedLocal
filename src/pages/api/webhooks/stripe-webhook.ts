@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import Stripe from "stripe";
 import { prisma } from "~/server/db";
 
-const stripe = new Stripe(process.env.NEXT_PUBLIC_SECRET_KEY!, {
+const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY!, {
   apiVersion: "2022-11-15",
 });
 
