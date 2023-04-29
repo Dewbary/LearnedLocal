@@ -5,6 +5,7 @@ import { z } from "zod";
  * built with invalid env vars.
  */
 const server = z.object({
+  NEXT_PUBLIC_BASE_URL: z.string(),
   DATABASE_URL: z.string().url(),
   NODE_ENV: z.enum(["development", "test", "production"]),
   NEXTAUTH_SECRET:
@@ -23,6 +24,7 @@ const server = z.object({
   DISCORD_CLIENT_SECRET: z.string(),
   GITHUB_CLIENT_ID: z.string(),
   GITHUB_CLIENT_SECRET: z.string(),
+  NEXT_PUBLIC_STRIPE_SECRET_KEY: z.string(),
 });
 
 /**
@@ -31,8 +33,12 @@ const server = z.object({
  */
 const client = z.object({
   // NEXT_PUBLIC_CLIENTVAR: z.string().min(1),
+  NEXT_PUBLIC_BASE_URL: z.string(),
   NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_URL: z.string().min(1),
   NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_NAME: z.string().min(1),
+  NEXT_PUBLIC_STRIPE_PUBLIC_KEY: z.string(),
+  NEXT_PUBLIC_STRIPE_SECRET_KEY: z.string(),
+  NEXT_PUBLIC_STRIPE_WEBHOOK_SECRET: z.string(),
 });
 
 /**
@@ -42,6 +48,7 @@ const client = z.object({
  * @type {Record<keyof z.infer<typeof server> | keyof z.infer<typeof client>, string | undefined>}
  */
 const processEnv = {
+  NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
   DATABASE_URL: process.env.DATABASE_URL,
   NODE_ENV: process.env.NODE_ENV,
   NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
@@ -54,6 +61,10 @@ const processEnv = {
     process.env.NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_NAME,
   NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_URL:
     process.env.NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_URL,
+  NEXT_PUBLIC_STRIPE_PUBLIC_KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY,
+  NEXT_PUBLIC_STRIPE_SECRET_KEY: process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY,
+  NEXT_PUBLIC_STRIPE_WEBHOOK_SECRET:
+    process.env.NEXT_PUBLIC_STRIPE_WEBHOOK_SECRET,
   // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
 };
 

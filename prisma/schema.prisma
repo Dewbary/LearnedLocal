@@ -91,11 +91,13 @@ model Experience {
   profileImage       String?
   photos             String[]
   slugId             String  @unique
+  stripeProductId    String
+  stripePriceId      String
 
   categoryId         Int
   category           Category @relation(fields: [categoryId], references: [id])
 
-  registrations      Registration[]
+  registration      Registration[] // Relation field
 
   @@index([authorId])
 }
@@ -111,9 +113,11 @@ model Registration {
     userId       String
     registrantFirstName String
     registrantLastName  String
+    partySize    Int
+    email        String
     experienceId Int
     stripeCheckoutSessionId String
-    status       String
+    status       String?
     createdAt    DateTime @default(now())
     updatedAt    DateTime @updatedAt
 

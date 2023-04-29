@@ -5,6 +5,7 @@ import {
   publicProcedure,
   protectedProcedure,
 } from "~/server/api/trpc";
+import { createExperienceAndPrice } from "~/utils/stripe";
 
 export const experienceRouter = createTRPCRouter({
   getAll: protectedProcedure.query(({ ctx }) => {
@@ -142,7 +143,14 @@ export const experienceRouter = createTRPCRouter({
         categoryId: z.number(),
       })
     )
-    .mutation(({ ctx, input }) => {
+    .mutation(async ({ ctx, input }) => {
+      const { productId, priceId } = await createExperienceAndPrice({
+        title: input.title,
+        description: input.description,
+        amount: input.price * 100, // Stripe uses cents, so multiply by 100 to convert the price to cents
+        currency: "usd",
+      });
+
       return ctx.prisma.experience.create({
         data: {
           authorId: ctx.userId,
@@ -168,6 +176,8 @@ export const experienceRouter = createTRPCRouter({
           profileImage: input.profileImage,
           photos: input.photos,
           slugId: input.slugId,
+          stripeProductId: productId,
+          stripePriceId: priceId,
         },
       });
     }),
