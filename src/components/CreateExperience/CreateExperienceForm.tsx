@@ -1,10 +1,4 @@
-import {
-  Formik,
-  Form,
-  FormikHelpers,
-  useFormikContext,
-  FormikContextType,
-} from "formik";
+import { Formik, Form, FormikHelpers } from "formik";
 import { useRouter } from "next/router";
 import DescriptionPage from "./DescriptionPage/DescriptionPage";
 import LocationPage from "./LocationPage";
@@ -150,7 +144,10 @@ const CreateExperienceForm = () => {
     await Promise.all(
       images.map(async (img) => {
         if (!img.file) return;
-        const path = await uploadImageToBucket(img.file, (user.user ? user.user.id : "notsignedin"));
+        const path = await uploadImageToBucket(
+          img.file,
+          user.user ? user.user.id : "notsignedin"
+        );
         const filePath = env.NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_URL + path;
         filePathArray.push(filePath);
       })
@@ -227,46 +224,46 @@ const CreateExperienceForm = () => {
 
   return (
     <>
-    <NavBar isSignedIn={user.isSignedIn ? true : false}/>
-    <div className="border-b" />
-    
-    <div className="flex h-screen flex-col">
-      <CreateExperienceHeader />
+      <NavBar isSignedIn={user.isSignedIn ? true : false} />
+      <div className="border-b" />
 
-      <div className="flex flex-1 overflow-hidden">
-        <CreateExperienceTabs
-          tabInfoList={tabInfoList}
-          currentTab={activeTab?.activeMatcher}
-          onTabClick={(index) => {
-            void handleTabClick(index);
-          }}
-        />
+      <div className="flex h-screen flex-col">
+        <CreateExperienceHeader />
 
-        <main className="paragraph ml-8 mr-12 mb-12 flex flex-1 overflow-y-auto rounded-lg bg-gradient-to-r from-amber-400 via-amber-200 to-slate-50 px-8 py-8">
-          <Formik
-            initialValues={initialFormValues}
-            onSubmit={(values, helpers) => handleSubmit(values, helpers)}
-            enableReinitialize
-          >
-            <Form className="w-full">
-              <CreateExperienceFormArea
-                tabComponent={getTabComponent()}
-                onNext={() => {
-                  next;
-                }}
-                onBack={() => {
-                  back;
-                }}
-                isFirstStep={step === 0}
-                isLastStep={step === tabInfoList.length - 1}
-              />
-            </Form>
-          </Formik>
-        </main>
+        <div className="flex flex-1 overflow-hidden">
+          <CreateExperienceTabs
+            tabInfoList={tabInfoList}
+            currentTab={activeTab?.activeMatcher}
+            onTabClick={(index) => {
+              void handleTabClick(index);
+            }}
+          />
+
+          <main className="paragraph ml-8 mr-12 mb-12 flex flex-1 overflow-y-auto rounded-lg bg-gradient-to-r from-amber-400 via-amber-200 to-slate-50 px-8 py-8">
+            <Formik
+              initialValues={initialFormValues}
+              onSubmit={(values, helpers) => handleSubmit(values, helpers)}
+              enableReinitialize
+            >
+              <Form className="w-full">
+                <CreateExperienceFormArea
+                  tabComponent={getTabComponent()}
+                  onNext={() => {
+                    next;
+                  }}
+                  onBack={() => {
+                    back;
+                  }}
+                  isFirstStep={step === 0}
+                  isLastStep={step === tabInfoList.length - 1}
+                />
+              </Form>
+            </Formik>
+          </main>
+        </div>
       </div>
-    </div>
 
-    <Footer />
+      <Footer />
     </>
   );
 };

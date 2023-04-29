@@ -80,28 +80,6 @@ const HomePage = () => {
       <div className="flex justify-center">
         <div className="h-1 w-5/6 border-b border-gray-300" />
       </div>
-
-      <span id="hostexperience" />
-      <div className="mx-10 my-10 flex flex-col items-center">
-        <h1 className="text-7xl font-bold">Become a Local</h1>
-        <h3 className="my-6 text-xl">
-          Want to host an experience? Sign up to start sharing your passion with
-          others.
-        </h3>
-        {user.isSignedIn ? (
-          <CreateExperienceButton />
-        ) : (
-          <button className="btn-primary btn mt-6">
-            <SignInButton />
-          </button>
-        )}
-      </div>
-
-      <div>
-        <button className="btn-primary btn m-4">
-          <Link href={`/testcheckout/testcheckout`}>Test Checkout</Link>
-        </button>
-      </div>
       <Footer />
     </>
   );
