@@ -52,8 +52,8 @@ export default function ExperienceModalBody({
         <div className="basis-full">
           {/* IMAGES PORTION */}
           <div className="m-10 grid grid-cols-4 gap-4">
-            <div className="col-span-4 max-h-60 overflow-hidden lg:col-span-2 lg:row-span-2 lg:rounded-l-3xl">
-              <img src={activeImage} alt="outdoors" />
+            <div className="col-span-4 max-h-60 overflow-hidden lg:col-span-2 lg:row-span-2">
+              <img src={activeImage} alt="experience photo" />
             </div>
             {[0, 1, 2, 3].map((e, i) => {
               return (
@@ -62,7 +62,7 @@ export default function ExperienceModalBody({
                     {experience.photos[i] && (
                       <img
                         src={experience.photos[i]}
-                        alt="outdoors"
+                        alt="experience photo"
                         className=""
                         onClick={() =>
                           handleClickImage(experience.photos[i] || "")
