@@ -14,6 +14,7 @@ import { useState } from "react";
 import CreateExperienceButton from "~/components/CreateExperienceButton";
 import Link from "next/link";
 import Footer from "~/components/Footer/Footer";
+import Head from "next/head";
 
 export default function MyExperiences () {
 
@@ -49,6 +50,10 @@ export default function MyExperiences () {
 
     return (
         <>
+            <Head>
+                <title>Learned Local</title>
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
 
             {/* NAVBAR */}
 

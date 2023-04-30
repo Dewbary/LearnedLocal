@@ -26,6 +26,7 @@ import { Experience } from "@prisma/client";
 import { env } from "~/env.mjs";
 import Footer from "../Footer/Footer";
 import NavBar from "../NavBar/NavBar";
+import Head from "next/head";
 
 const CreateExperienceForm = () => {
   const user = useUser();
@@ -224,6 +225,11 @@ const CreateExperienceForm = () => {
 
   return (
     <>
+      <Head>
+        <title>Learned Local</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
       <NavBar isSignedIn={user.isSignedIn ? true : false} />
       <div className="border-b" />
 
