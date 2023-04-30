@@ -18,9 +18,9 @@ export const registrationRouter = createTRPCRouter({
 
       let totalRegistrants = 0;
 
-      registrations.forEach(registration => {
+      registrations.forEach((registration) => {
         totalRegistrants += registration.partySize;
-      })
+      });
 
       return totalRegistrants;
     }),
@@ -28,16 +28,19 @@ export const registrationRouter = createTRPCRouter({
   removeRegistrant: publicProcedure
     .input(z.string())
     .mutation(async ({ ctx, input }) => {
-      const deletedRegistration =  await ctx.prisma.registration.delete({
+      const deletedRegistration = await ctx.prisma.registration.delete({
         where: { id: input },
       });
 
       const experience = await ctx.prisma.experience.findFirst({
-        where: {id: deletedRegistration.experienceId}
-      })
+        where: { id: deletedRegistration.experienceId },
+      });
 
       if (experience) {
-        sendCancelationEmail({ recipientEmail: deletedRegistration.email, experience: experience });
+        await sendCancelationEmail({
+          recipientEmail: deletedRegistration.email,
+          experience: experience,
+        });
       }
 
       return deletedRegistration;
@@ -57,7 +60,6 @@ export const registrationRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-
       const newRegistration = await ctx.prisma.registration.create({
         data: {
           userId: input.userId,
