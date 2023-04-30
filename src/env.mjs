@@ -24,8 +24,8 @@ const server = z.object({
   DISCORD_CLIENT_SECRET: z.string(),
   GITHUB_CLIENT_ID: z.string(),
   GITHUB_CLIENT_SECRET: z.string(),
-  NEXT_PUBLIC_STRIPE_SECRET_KEY: z.string(),
-  SENDGRID_API_KEY: z.string(),
+  NEXT_PUBLIC_STRIPE_SECRET_KEY: z.string().min(1),
+  SENDGRID_API_KEY: z.string().min(1),
 });
 
 /**
@@ -34,12 +34,12 @@ const server = z.object({
  */
 const client = z.object({
   // NEXT_PUBLIC_CLIENTVAR: z.string().min(1),
-  NEXT_PUBLIC_BASE_URL: z.string(),
+  NEXT_PUBLIC_BASE_URL: z.string().min(1),
   NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_URL: z.string().min(1),
   NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_NAME: z.string().min(1),
-  NEXT_PUBLIC_STRIPE_PUBLIC_KEY: z.string(),
-  NEXT_PUBLIC_STRIPE_SECRET_KEY: z.string(),
-  NEXT_PUBLIC_STRIPE_WEBHOOK_SECRET: z.string(),
+  NEXT_PUBLIC_STRIPE_PUBLIC_KEY: z.string().min(1),
+  NEXT_PUBLIC_STRIPE_SECRET_KEY: z.string().min(1),
+  NEXT_PUBLIC_STRIPE_WEBHOOK_SECRET: z.string().min(1),
 });
 
 /**
@@ -66,7 +66,7 @@ const processEnv = {
   NEXT_PUBLIC_STRIPE_SECRET_KEY: process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY,
   NEXT_PUBLIC_STRIPE_WEBHOOK_SECRET:
     process.env.NEXT_PUBLIC_STRIPE_WEBHOOK_SECRET,
-  SENDGRID_API_KEY: process.env.SENDGRID_API_KEY
+  SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
   // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
 };
 

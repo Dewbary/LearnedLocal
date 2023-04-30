@@ -102,13 +102,15 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
         // Registration successfully created, let's send a confirmation email to the user
         const experience = await prisma.experience.findFirst({
-          where: {id: experienceId}
+          where: { id: experienceId },
         });
-  
-        if (experience) {
-          sendConfirmationEmail({recipientEmail: metadata.email, experience: experience});
-        }
 
+        if (experience) {
+          await sendConfirmationEmail({
+            recipientEmail: metadata.email,
+            experience: experience,
+          });
+        }
       } catch (error) {
         console.error("Error creating registration:", error);
       }

@@ -221,8 +221,7 @@ const CreateExperienceForm = () => {
   };
 
   const handleTabClick = async (index: number) => {
-    console.log("gotostep");
-    goToStep(index);
+    await goToStep(index);
     await router.replace(tabInfoList[index]?.url || "", undefined, {
       shallow: true,
     });
