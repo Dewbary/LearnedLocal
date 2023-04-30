@@ -1,5 +1,6 @@
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 import { z } from "zod";
+import { sendConfirmationEmail } from "~/utils/sendgrid";
 
 export const registrationRouter = createTRPCRouter({
   byExperience: publicProcedure.input(z.number()).query(({ ctx, input }) => {
@@ -39,7 +40,8 @@ export const registrationRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      return await ctx.prisma.registration.create({
+
+      const newRegistration = await ctx.prisma.registration.create({
         data: {
           userId: input.userId,
           registrantFirstName: input.registrantFirstName,
@@ -51,5 +53,7 @@ export const registrationRouter = createTRPCRouter({
           status: input.status,
         },
       });
+
+      return newRegistration;
     }),
 });
