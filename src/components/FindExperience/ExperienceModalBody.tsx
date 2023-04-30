@@ -8,6 +8,9 @@ import { Experience } from "@prisma/client";
 import { useState } from "react";
 import { api } from "~/utils/api";
 import { useRouter } from "next/router";
+import Link from "next/link";
+import { generateGoogleMapsURL } from "./FindExperienceUtils";
+import { Pin } from "../CreateExperience/LocationPicker/LocationPicker";
 
 type ModalActionButton = {
   buttonText: string;
@@ -44,6 +47,9 @@ export default function ExperienceModalBody({
   const goToCheckoutPage = async function (experienceId: number) {
     await router.push(`/experience/checkout?experienceId=${experienceId}`);
   };
+
+  const location: Pin = experience.location as Pin;
+  const { lat, lng } = location;
 
   return (
     <>
@@ -107,7 +113,14 @@ export default function ExperienceModalBody({
               </span>
               <MapPinIcon className="w-5" />{" "}
               <span className="col-span-4">
-                {experience.location?.toString()}
+                <a
+                  href={generateGoogleMapsURL(lat, lng)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-500 underline"
+                >
+                  View Experience Location
+                </a>
               </span>
               <CalendarIcon className="w-5" />{" "}
               <span className="col-span-4">
@@ -142,11 +155,14 @@ export default function ExperienceModalBody({
             </button>
           </>
         ) : (
-          <button 
-            disabled={(getRegistrantCount.data || 0) >= experience.maxAttendees} 
-            className={"rounded-lg bg-amber-400 p-3 text-white disabled:cursor-not-allowed disabled:bg-gray-500"}
-            onClick={() => goToCheckoutPage(experience.id)}>
-              Sign Up
+          <button
+            disabled={(getRegistrantCount.data || 0) >= experience.maxAttendees}
+            className={
+              "rounded-lg bg-amber-400 p-3 text-white disabled:cursor-not-allowed disabled:bg-gray-500"
+            }
+            onClick={() => goToCheckoutPage(experience.id)}
+          >
+            Sign Up
           </button>
         )}
       </div>

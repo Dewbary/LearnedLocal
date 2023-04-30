@@ -149,7 +149,11 @@ const CreateExperienceForm = () => {
           img.file,
           user.user ? user.user.id : "notsignedin"
         );
-        const filePath = env.NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_URL + path;
+        const filePath =
+          env.NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_URL +
+          env.NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_NAME +
+          "/" +
+          path;
         filePathArray.push(filePath);
       })
     );
@@ -217,7 +221,8 @@ const CreateExperienceForm = () => {
   };
 
   const handleTabClick = async (index: number) => {
-    await goToStep(index);
+    console.log("gotostep");
+    goToStep(index);
     await router.replace(tabInfoList[index]?.url || "", undefined, {
       shallow: true,
     });
@@ -254,12 +259,8 @@ const CreateExperienceForm = () => {
               <Form className="w-full">
                 <CreateExperienceFormArea
                   tabComponent={getTabComponent()}
-                  onNext={() => {
-                    next;
-                  }}
-                  onBack={() => {
-                    back;
-                  }}
+                  onNext={next}
+                  onBack={back}
                   isFirstStep={step === 0}
                   isLastStep={step === tabInfoList.length - 1}
                 />

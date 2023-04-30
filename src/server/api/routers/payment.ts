@@ -59,7 +59,7 @@ export const paymentRouter = createTRPCRouter({
               product_data: {
                 name: experience.title,
               },
-              unit_amount: experience.price * 100,
+              unit_amount: Math.round(experience.price * 100 * input.partySize),
             },
             quantity: 1,
           },

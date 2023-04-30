@@ -8,7 +8,7 @@ import {
 import { createExperienceAndPrice } from "~/utils/stripe";
 
 export const experienceRouter = createTRPCRouter({
-  getAll: protectedProcedure.query(({ ctx }) => {
+  getAll: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.experience.findMany({
       orderBy: {
         createdAt: "desc",
@@ -19,16 +19,15 @@ export const experienceRouter = createTRPCRouter({
   getRegistered: protectedProcedure.query(async ({ ctx }) => {
     return await ctx.prisma.registration.findMany({
       where: {
-        userId: ctx.userId
+        userId: ctx.userId,
       },
       include: {
-        experience: true
-      }
+        experience: true,
+      },
     });
   }),
 
-  byUserId: protectedProcedure
-    .query(async ({ ctx }) => {
+  byUserId: protectedProcedure.query(async ({ ctx }) => {
     return await ctx.prisma.experience.findMany({
       where: { authorId: ctx.userId },
     });
@@ -54,8 +53,8 @@ export const experienceRouter = createTRPCRouter({
     .input(z.number())
     .mutation(async ({ ctx, input }) => {
       return await ctx.prisma.experience.delete({
-        where: {id: input}
-      })
+        where: { id: input },
+      });
     }),
 
   update: protectedProcedure
@@ -147,7 +146,7 @@ export const experienceRouter = createTRPCRouter({
       const { productId, priceId } = await createExperienceAndPrice({
         title: input.title,
         description: input.description,
-        amount: input.price * 100, // Stripe uses cents, so multiply by 100 to convert the price to cents
+        amount: Math.round(input.price * 100), // Stripe uses cents, so multiply by 100 to convert the price to cents
         currency: "usd",
       });
 
