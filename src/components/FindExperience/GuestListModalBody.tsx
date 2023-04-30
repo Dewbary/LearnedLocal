@@ -39,7 +39,7 @@ export default function GuestListModalBody({ experience }: Props) {
                                 />
                                 <div>
                                     <h4 className="font-bold">{registration.registrantFirstName} {registration.registrantLastName}</h4>
-                                    <h5 className="">Party of 5</h5>
+                                    <h5 className="">Party of {registration.partySize}</h5>
                                 </div>
                             </div>
                             <div>

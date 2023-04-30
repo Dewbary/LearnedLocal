@@ -41,7 +41,7 @@ export default function MyExperiences () {
     }
 
     const deleteRegistration = function (registration: Registration) {
-        if (confirm("Are you sure you want to cancel your registration? You might not be refunded for this.")) {
+        if (confirm("Are you sure you want to cancel your registration? You can request a refund from Learned Local.")) {
             registrationDeleter.mutate(registration.id);
             router.reload();
         }

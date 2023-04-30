@@ -30,4 +30,24 @@ const sendConfirmationEmail = async ({recipientEmail, experience}: Props) => {
     }
 }
 
-export { sendConfirmationEmail };
+const sendCancelationEmail = async ({recipientEmail, experience}: Props) => {
+    const msg = {
+        to: recipientEmail,
+        from: 'learnedlocal.app@gmail.com',
+        templateId: 'd-a621cf8b9ffd49faae9ccf9b6653bcc9',
+        dynamicTemplateData: {
+            hostFirstName: experience.firstName,
+            hostLastName: experience.lastName,
+            experienceTitle: experience.title,
+        }
+    }
+
+    try {
+        await sgMail.send(msg);
+    }
+    catch (error) {
+        console.error(error);
+    }
+}
+
+export { sendConfirmationEmail, sendCancelationEmail };
