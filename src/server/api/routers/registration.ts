@@ -1,5 +1,6 @@
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 import { z } from "zod";
+import { sendCancelationEmail } from "~/utils/sendgrid";
 
 export const registrationRouter = createTRPCRouter({
   byExperience: publicProcedure.input(z.number()).query(({ ctx, input }) => {
@@ -14,15 +15,32 @@ export const registrationRouter = createTRPCRouter({
       const registrations = await ctx.prisma.registration.findMany({
         where: { experienceId: input },
       });
-      return registrations.length;
+
+      let totalRegistrants = 0;
+
+      registrations.forEach(registration => {
+        totalRegistrants += registration.partySize;
+      })
+
+      return totalRegistrants;
     }),
 
   removeRegistrant: publicProcedure
     .input(z.string())
     .mutation(async ({ ctx, input }) => {
-      return await ctx.prisma.registration.delete({
+      const deletedRegistration =  await ctx.prisma.registration.delete({
         where: { id: input },
       });
+
+      const experience = await ctx.prisma.experience.findFirst({
+        where: {id: deletedRegistration.experienceId}
+      })
+
+      if (experience) {
+        sendCancelationEmail({ recipientEmail: deletedRegistration.email, experience: experience });
+      }
+
+      return deletedRegistration;
     }),
 
   createRegistration: publicProcedure
@@ -39,7 +57,8 @@ export const registrationRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      return await ctx.prisma.registration.create({
+
+      const newRegistration = await ctx.prisma.registration.create({
         data: {
           userId: input.userId,
           registrantFirstName: input.registrantFirstName,
@@ -51,5 +70,7 @@ export const registrationRouter = createTRPCRouter({
           status: input.status,
         },
       });
+
+      return newRegistration;
     }),
 });

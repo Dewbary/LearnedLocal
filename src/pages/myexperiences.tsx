@@ -14,6 +14,7 @@ import { useState } from "react";
 import CreateExperienceButton from "~/components/CreateExperienceButton";
 import Link from "next/link";
 import Footer from "~/components/Footer/Footer";
+import Head from "next/head";
 
 export default function MyExperiences () {
 
@@ -41,7 +42,7 @@ export default function MyExperiences () {
     }
 
     const deleteRegistration = function (registration: Registration) {
-        if (confirm("Are you sure you want to cancel your registration? You might not be refunded for this.")) {
+        if (confirm("Are you sure you want to cancel your registration? You can request a refund from Learned Local.")) {
             registrationDeleter.mutate(registration.id);
             router.reload();
         }
@@ -49,6 +50,10 @@ export default function MyExperiences () {
 
     return (
         <>
+            <Head>
+                <title>Learned Local</title>
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
 
             {/* NAVBAR */}
 

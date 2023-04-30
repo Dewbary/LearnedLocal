@@ -3,6 +3,7 @@ import Cors from "micro-cors";
 import { NextApiRequest, NextApiResponse } from "next";
 import Stripe from "stripe";
 import { prisma } from "~/server/db";
+import { sendConfirmationEmail } from "~/utils/sendgrid";
 
 const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY!, {
   apiVersion: "2022-11-15",
@@ -60,6 +61,7 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     } else if (event.type === "checkout.session.completed") {
       const session = event.data.object as Stripe.Checkout.Session;
       const metadata = session.metadata;
+
       // Handle successful payment (e.g., update the database)
       console.log(session);
 
@@ -78,13 +80,16 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
         throw new Error("Metadata not found");
       }
 
+      const experienceId = parseInt(metadata.experienceId);
+
+      // Start by creating the registration object in the database.
       const registrationData = {
         userId: metadata.userId,
         registrantFirstName: metadata.registrantFirstName,
         registrantLastName: metadata.registrantLastName,
         partySize: parseInt(metadata.partySize),
         email: metadata.email,
-        experienceId: parseInt(metadata.experienceId),
+        experienceId: experienceId,
         stripeCheckoutSessionId: session.id,
         status: session.status,
       };
@@ -94,6 +99,16 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
           data: registrationData,
         });
         console.log(`Registration created with ID: ${result.id}`);
+
+        // Registration successfully created, let's send a confirmation email to the user
+        const experience = await prisma.experience.findFirst({
+          where: {id: experienceId}
+        });
+  
+        if (experience) {
+          sendConfirmationEmail({recipientEmail: metadata.email, experience: experience});
+        }
+
       } catch (error) {
         console.error("Error creating registration:", error);
       }

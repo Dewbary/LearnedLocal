@@ -1,6 +1,4 @@
 import { Experience } from '@prisma/client';
-import Image from 'next/image';
-import profile_pic from '../../assets/profile_pic.png';
 
 export default function ExperienceModalHeader({experience} : {experience: Experience}) {
 
@@ -17,7 +15,7 @@ export default function ExperienceModalHeader({experience} : {experience: Experi
                 <p>
                     <span className='align-middle'>Hosted By</span>
                     <span className='inline-block'>
-                        <Image src={profile_pic} alt="profile pic" className='w-5 inline lg:mx-2'/> 
+                        <img src="/profile_pic.png" alt="profile picture" className='w-5 inline lg:mx-2' />
                         <span className='align-middle text-yellow-600'>{experience.firstName} {experience.lastName}</span> 
                     </span>
                 </p>
