@@ -6,14 +6,14 @@ import { uploadImageToBucket } from "~/utils/images";
 import { useUser } from "@clerk/nextjs";
 import { FormLabel } from "./Form/FormLabel";
 import { InputField } from "./Form/InputField";
+import { env } from "~/env.mjs";
+import process from "process";
 
 const AboutPage = () => {
   const { user } = useUser();
 
-  const {
-    values,
-    setFieldValue,
-  }: FormikContextType<FormValues> = useFormikContext();
+  const { values, setFieldValue }: FormikContextType<FormValues> =
+    useFormikContext();
 
   const handleProfileImageSelected = async (
     e: React.ChangeEvent<HTMLInputElement>
@@ -22,8 +22,9 @@ const AboutPage = () => {
     if (!file || !user) return;
 
     const imgPath = await uploadImageToBucket(file, user.id);
-    const profileImageFilePath = `https://sipawyumxienbevdvlse.supabase.co/storage/v1/object/public/images/${imgPath}`;
-
+    console.log(imgPath);
+    const profileImageFilePath = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${process.env.NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_NAME}/${imgPath}`;
+    console.log(profileImageFilePath);
     setFieldValue("profileImage", profileImageFilePath);
   };
 
@@ -72,7 +73,9 @@ const AboutPage = () => {
             <input
               type="file"
               className="file-input-bordered file-input file-input-sm w-full max-w-xs"
-              onChange={e => {void handleProfileImageSelected(e)}}
+              onChange={(e) => {
+                void handleProfileImageSelected(e);
+              }}
             />
           </div>
 
