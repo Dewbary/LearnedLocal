@@ -1,4 +1,3 @@
-import Image, { StaticImageData } from "next/image";
 import {
   CalendarIcon,
   ClockIcon,
@@ -9,7 +8,6 @@ import { Experience } from "@prisma/client";
 import { useState } from "react";
 import { api } from "~/utils/api";
 import { useRouter } from "next/router";
-import Link from "next/link";
 
 type ModalActionButton = {
   buttonText: string;
@@ -144,10 +142,11 @@ export default function ExperienceModalBody({
             </button>
           </>
         ) : (
-          <button className="rounded-lg bg-amber-400 p-3 text-white">
-            <Link href={`/experience/checkout?experienceId=${experience.id}`}>
+          <button 
+            disabled={(getRegistrantCount.data || 0) >= experience.maxAttendees} 
+            className={"rounded-lg bg-amber-400 p-3 text-white disabled:cursor-not-allowed disabled:bg-gray-500"}
+            onClick={() => goToCheckoutPage(experience.id)}>
               Sign Up
-            </Link>
           </button>
         )}
       </div>

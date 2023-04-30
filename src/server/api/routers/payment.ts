@@ -31,6 +31,22 @@ export const paymentRouter = createTRPCRouter({
         throw new Error("NEXT_PUBLIC_BASE_URL is not set");
       }
 
+      // Check to make sure they're not exceeding the max attendees limit
+
+      const registrations = await ctx.prisma.registration.findMany({
+        where: { experienceId: input.experienceId },
+      });
+
+      let totalRegistrants = 0;
+
+      registrations.forEach(registration => {
+        totalRegistrants += registration.partySize;
+      })
+
+      if (totalRegistrants + input.partySize > (experience?.maxAttendees || 0)) {
+        throw new Error("TOO_MANY_IN_PARTY");
+      }
+
       const successUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/success/success`;
       const cancelUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/`;
 

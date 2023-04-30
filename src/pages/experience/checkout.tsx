@@ -222,7 +222,11 @@ const Checkout = () => {
           }
         },
         onError: (error) => {
-          console.error("Error creating checkout session:", error);
+          if (error.message === "TOO_MANY_IN_PARTY") {
+            window.alert("You have too many people in your party for this experience to accomodate.");
+          } else {
+            console.error("Error creating checkout session:", error);
+          }
         },
       }
     );
