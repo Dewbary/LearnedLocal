@@ -44,6 +44,10 @@ export default function ExperienceModalBody({
 
   const router = useRouter();
 
+  const goToCheckoutPage = async function (experienceId: number) {
+    await router.push(`/experience/checkout?experienceId=${experienceId}`);
+  };
+
   const location: Pin = experience.location as Pin;
   const { lat, lng } = location;
 
