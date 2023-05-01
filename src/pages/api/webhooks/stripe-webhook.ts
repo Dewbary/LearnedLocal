@@ -10,11 +10,11 @@ const handler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
-  const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
+  const stripe = new Stripe(env.NEXT_PUBLIC_STRIPE_SECRET_KEY, {
     apiVersion: "2022-11-15",
   });
 
-  const webhookSecret: string = env.STRIPE_WEBHOOK_SECRET;
+  const webhookSecret: string = env.NEXT_PUBLIC_STRIPE_WEBHOOK_SECRET;
   console.log("WEBHOOK SECRET: ", webhookSecret);
 
   if (req.method === "POST") {
