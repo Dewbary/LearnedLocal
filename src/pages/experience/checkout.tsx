@@ -190,7 +190,6 @@ const Checkout = () => {
   const { user } = useUser();
 
   const getStripe = async () => {
-    console.log(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
     const stripe = await loadStripe(
       process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY ?? ""
     );
@@ -224,7 +223,9 @@ const Checkout = () => {
         },
         onError: (error) => {
           if (error.message === "TOO_MANY_IN_PARTY") {
-            window.alert("You have too many people in your party for this experience to accomodate.");
+            window.alert(
+              "You have too many people in your party for this experience to accomodate."
+            );
           } else {
             console.error("Error creating checkout session:", error);
           }
@@ -242,7 +243,6 @@ const Checkout = () => {
     e.preventDefault();
     // Call your API or perform any action with the formData
     handleCheckout();
-    console.log(formData);
   };
 
   return (

@@ -22,14 +22,12 @@ const AboutPage = () => {
     if (!file || !user) return;
 
     const imgPath = await uploadImageToBucket(file, user.id);
-    console.log(imgPath);
     if (
       !process.env.NEXT_PUBLIC_SUPABASE_URL ||
       !process.env.NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_NAME
     )
       return;
     const profileImageFilePath = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${process.env.NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_NAME}/${imgPath}`;
-    console.log(profileImageFilePath);
     setFieldValue("profileImage", profileImageFilePath);
   };
 
@@ -60,6 +58,16 @@ const AboutPage = () => {
               name="lastName"
               type="text"
               placeholder="Last Name"
+            />
+          </div>
+
+          <div>
+            <FormLabel text="Email" className="text-gray-600" />
+            <InputField
+              id="email"
+              name="email"
+              type="text"
+              placeholder="Email"
             />
           </div>
 

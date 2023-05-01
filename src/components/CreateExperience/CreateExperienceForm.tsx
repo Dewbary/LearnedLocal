@@ -65,12 +65,10 @@ const CreateExperienceForm = () => {
     0
   );
 
-  console.log(isEditing);
   const updateExperience = api.experience.update.useMutation();
 
   useEffect(() => {
     if (experience) {
-      console.log("experience", experience);
       // update the initialValues with the experience data
       const photoData = experience.photos.map((photo) => ({
         dataURL: photo,
@@ -137,7 +135,6 @@ const CreateExperienceForm = () => {
   ) => {
     if (!user) return;
     helpers.setSubmitting(true);
-    console.log("onSubmit", values);
 
     const date = new Date(values.date);
     const filePathArray: string[] = [];
@@ -164,6 +161,7 @@ const CreateExperienceForm = () => {
         id: experienceId,
         firstName: values.firstName,
         lastName: values.lastName,
+        email: values.email,
         title: values.title,
         description: values.description,
         price: values.price,
@@ -189,6 +187,7 @@ const CreateExperienceForm = () => {
       createExperience.mutate({
         firstName: values.firstName,
         lastName: values.lastName,
+        email: values.email,
         title: values.title,
         description: values.description,
         price: values.price,
@@ -217,7 +216,7 @@ const CreateExperienceForm = () => {
       // helpers.resetForm({ values });
     }, 2000);
 
-    // router.push("/success");
+    await router.push("/");
   };
 
   const handleTabClick = async (index: number) => {

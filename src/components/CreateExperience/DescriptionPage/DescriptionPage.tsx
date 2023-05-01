@@ -29,7 +29,6 @@ const DescriptionPage = () => {
 
   const handleThemeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const themeNumber = parseInt(e.target.value);
-    console.log(themeNumber);
     setFieldValue("categoryId", themeNumber);
   };
 
