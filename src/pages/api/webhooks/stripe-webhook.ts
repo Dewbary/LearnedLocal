@@ -4,6 +4,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import Stripe from "stripe";
 import { prisma } from "~/server/db";
 import { sendConfirmationEmail } from "~/utils/sendgrid";
+import getRawBody from "raw-body";
 
 const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY!, {
   apiVersion: "2022-11-15",
@@ -24,17 +25,14 @@ const cors = Cors({
 
 const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
-    const buf = await buffer(req);
+    // const buf = await buffer(req);
+    const rawBody = await getRawBody(req);
     const sig = req.headers["stripe-signature"]!;
 
     let event: Stripe.Event;
 
     try {
-      event = stripe.webhooks.constructEvent(
-        buf.toString(),
-        sig,
-        webhookSecret
-      );
+      event = stripe.webhooks.constructEvent(rawBody, sig, webhookSecret);
     } catch (err: unknown) {
       // On error, log and return the error message.
       const errMsg = (err as Error).message;
