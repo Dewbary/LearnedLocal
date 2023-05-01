@@ -145,6 +145,7 @@ const handler = async (
 
   if (req.method === "POST") {
     const sig = req.headers["stripe-signature"];
+    console.log(sig);
 
     let event: Stripe.Event;
 
