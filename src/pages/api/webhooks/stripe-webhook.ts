@@ -5,12 +5,13 @@ import Stripe from "stripe";
 import { prisma } from "~/server/db";
 import { sendConfirmationEmail } from "~/utils/sendgrid";
 import getRawBody from "raw-body";
+import { env } from "~/env.mjs";
 
 const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY!, {
   apiVersion: "2022-11-15",
 });
 
-const webhookSecret: string = process.env.NEXT_PUBLIC_STRIPE_WEBHOOK_SECRET!;
+const webhookSecret: string = env.STRIPE_WEBHOOK_SECRET!;
 
 // Stripe requires the raw body to construct the event.
 export const config = {
@@ -32,6 +33,7 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     let event: Stripe.Event;
 
     try {
+      console.log(stripe);
       event = stripe.webhooks.constructEvent(rawBody, sig, webhookSecret);
     } catch (err: unknown) {
       // On error, log and return the error message.
