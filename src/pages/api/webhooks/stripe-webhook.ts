@@ -11,7 +11,7 @@ const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY!, {
   apiVersion: "2022-11-15",
 });
 
-const webhookSecret: string = env.STRIPE_WEBHOOK_SECRET!;
+const webhookSecret = env.STRIPE_WEBHOOK_SECRET;
 
 // Stripe requires the raw body to construct the event.
 export const config = {
