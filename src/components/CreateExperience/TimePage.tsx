@@ -21,7 +21,6 @@ const TimePage = () => {
   const handleValueChange = (
     newValue: React.SetStateAction<{ startDate: Date; endDate: number }>
   ) => {
-    console.log("newValue:", newValue);
     setValue(newValue);
   };
   return (

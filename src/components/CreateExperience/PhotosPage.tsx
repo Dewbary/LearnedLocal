@@ -16,7 +16,6 @@ const PhotosPage = ({ images, onSetImages }: Props) => {
     addUpdateIndex: number[] | undefined
   ) => {
     // data for submit
-    console.log(imageList, addUpdateIndex);
 
     onSetImages(imageList);
   };

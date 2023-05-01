@@ -12,6 +12,7 @@ export type FormValues = {
   locationDescription: string;
   firstName: string;
   lastName: string;
+  email: string;
   qualifications: string;
   provided: string;
   guestRequirements: string;

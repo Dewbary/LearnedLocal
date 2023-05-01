@@ -39,11 +39,14 @@ export const paymentRouter = createTRPCRouter({
 
       let totalRegistrants = 0;
 
-      registrations.forEach(registration => {
+      registrations.forEach((registration) => {
         totalRegistrants += registration.partySize;
-      })
+      });
 
-      if (totalRegistrants + input.partySize > (experience?.maxAttendees || 0)) {
+      if (
+        totalRegistrants + input.partySize >
+        (experience?.maxAttendees || 0)
+      ) {
         throw new Error("TOO_MANY_IN_PARTY");
       }
 

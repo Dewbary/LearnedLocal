@@ -70,6 +70,7 @@ model Experience {
   authorId           String
   firstName          String
   lastName           String
+  email              String
   title              String
   description        String
   price              Float
@@ -93,7 +94,7 @@ model Experience {
   slugId             String  @unique
   stripeProductId    String
   stripePriceId      String
-  verified     Boolean  @default(false)
+  verified           Boolean  @default(false)
 
 
   categoryId         Int

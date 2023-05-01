@@ -63,7 +63,6 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       const metadata = session.metadata;
 
       // Handle successful payment (e.g., update the database)
-      console.log(session);
 
       if (!metadata) {
         throw new Error("Metadata not found");

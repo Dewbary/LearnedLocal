@@ -10,6 +10,9 @@ import { createExperienceAndPrice } from "~/utils/stripe";
 export const experienceRouter = createTRPCRouter({
   getAll: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.experience.findMany({
+      where: {
+        verified: true,
+      },
       orderBy: {
         createdAt: "desc",
       },
@@ -63,6 +66,7 @@ export const experienceRouter = createTRPCRouter({
         id: z.number(),
         firstName: z.string(),
         lastName: z.string(),
+        email: z.string(),
         title: z.string(),
         description: z.string(),
         price: z.number(),
@@ -91,6 +95,7 @@ export const experienceRouter = createTRPCRouter({
         data: {
           firstName: input.firstName,
           lastName: input.lastName,
+          email: input.email,
           title: input.title,
           description: input.description,
           price: input.price,
@@ -120,6 +125,7 @@ export const experienceRouter = createTRPCRouter({
       z.object({
         firstName: z.string(),
         lastName: z.string(),
+        email: z.string(),
         title: z.string(),
         description: z.string(),
         price: z.number(),
@@ -155,6 +161,7 @@ export const experienceRouter = createTRPCRouter({
           authorId: ctx.userId,
           firstName: input.firstName,
           lastName: input.lastName,
+          email: input.email,
           title: input.title,
           description: input.description,
           price: input.price,
