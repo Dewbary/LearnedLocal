@@ -34,6 +34,7 @@ export const initialValues: FormValues = {
   locationDescription: "",
   firstName: "",
   lastName: "",
+  email: "",
   qualifications: "",
   provided: "",
   guestRequirements: "",

@@ -216,7 +216,7 @@ const CreateExperienceForm = () => {
       // helpers.resetForm({ values });
     }, 2000);
 
-    router.push("/");
+    await router.push("/");
   };
 
   const handleTabClick = async (index: number) => {
