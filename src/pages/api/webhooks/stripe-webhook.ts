@@ -141,6 +141,7 @@ const handler = async (
   });
 
   const webhookSecret: string = env.STRIPE_WEBHOOK_SECRET;
+  console.log("WEBHOOK SECRET: ", webhookSecret);
 
   if (req.method === "POST") {
     const sig = req.headers["stripe-signature"];
