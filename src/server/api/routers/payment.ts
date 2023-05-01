@@ -1,8 +1,9 @@
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 import Stripe from "stripe";
+import { env } from "~/env.mjs";
 
-const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY as string, {
+const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
   apiVersion: "2022-11-15",
 });
 
