@@ -7,15 +7,20 @@ type Props = {
 const SignInArea = ({ isSignedIn }: Props) => {
   if (isSignedIn)
     return (
-      <button className="btn-secondary btn">
-        <SignOutButton />
-      </button>
+      <SignOutButton>
+        <button className="btn-secondary btn">
+          Sign out
+        </button>
+      </SignOutButton>
+      
     );
 
   return (
-    <button className="btn-primary btn">
-      <SignInButton />
-    </button>
+    <SignInButton>
+      <button className="btn-primary btn">
+        Sign in
+      </button>
+    </SignInButton>
   );
 };
 

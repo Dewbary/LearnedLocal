@@ -1,4 +1,4 @@
-import { useUser } from "@clerk/nextjs";
+import { RedirectToSignIn, SignedIn, SignedOut, useUser } from "@clerk/nextjs";
 import { api } from "~/utils/api";
 import NavBar from "~/components/NavBar/NavBar";
 import ExperienceCard from "~/components/FindExperience/ExperienceCard";
@@ -86,95 +86,90 @@ export default function MyExperiences () {
                 </div>
             </div>
 
-            {user.isSignedIn ? (
-                <>
+            <SignedIn>
 
-                    {/* UPCOMING EXPERIENCES DISPLAY */}
+                {/* UPCOMING EXPERIENCES DISPLAY */}
 
-                    <div className="mt-7 px-9 py-3 flex flex-col lg:flex-row gap-5 lg:items-center text-center lg:text-start">
-                        <h1 className="text-4xl font-bold">My Upcoming Experiences</h1>
-                    </div>
-                    {userJoinedExperiences.data?.length === 0 &&
-                        <div className="flex flex-col gap-6 py-10 w-full justify-center items-center bg-slate-200 mt-3 px-6">
-                            <h1>You&apos;re not currently signed up for any experiences.</h1>
-                            <Link href="/#viewexperiences" className="btn">Find an experience</Link>
-                        </div>
-                    }
-                    <div className="grid gap-4 lg:grid-cols-4 p-10">
-                        {userJoinedExperiences.data?.map(registration => (
-                            <ExperienceCard 
-                                key={registration.experience.id}
-                                experience={registration.experience}
-                                modalButtonText="Details"
-                                modalHeaderContent={<ExperienceModalHeader experience={registration.experience} />}
-                                modalBodyContent={
-                                    <ExperienceModalBody 
-                                        experience={registration.experience}
-                                        modalActionButton={{
-                                            buttonText: "Cancel Registration",
-                                            buttonColor: "bg-red-400",
-                                            buttonAction: () => deleteRegistration(registration)
-                                        }}
-                                    /> 
-                                } 
-                            />
-                        ))}
-                    </div>
-
-                    {/* HOSTED EXPERIENCES DISPLAY */}
-
-                    <div className="mt-7 px-9 py-3 flex flex-col lg:flex-row gap-5 lg:items-center text-center lg:text-start">
-                        <h1 className="text-4xl font-bold">My Hosted Experiences</h1>
-                        <CreateExperienceButton />
-                    </div>
-                    {userCreatedExperiences.data?.length === 0 &&
-                        <div className="flex h-24 w-full justify-center items-center bg-slate-200 mt-3">
-                            <h1>You&apos;re not currently hosting any experiences.</h1>
-                        </div>
-                    }
-                    <div className="grid lg:grid-cols-4 p-10">
-                        {userCreatedExperiences.data?.map(experience => (
-                            <ExperienceCard 
-                                key={experience.id}
-                                experience={experience}
-                                actionButtonList={
-                                    [
-                                        {
-                                            buttonText: "Edit",
-                                            buttonColor: "bg-blue-400",
-                                            buttonAction: () => {void goToEditPage(experience.slugId, experience.id)}
-                                        },
-                                        {
-                                            buttonText: "Delete",
-                                            buttonColor: "bg-red-400",
-                                            buttonAction: () => {void deleteExperience(experience)}
-                                        },
-                                    ]
-                                }
-                                modalButtonText="Manage"
-                                modalHeaderContent={<GuestListModalHeader experience={experience} />}
-                                modalBodyContent={<GuestListModalBody experience={experience}/>}
-                            />
-                        ))}
-                    </div>
-
-                    {(experienceDeleter.error && showErrorModal) && 
-                        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded fixed bottom-5 left-1/3 flex gap-3" role="alert">
-                            <strong className="font-bold">Error:</strong>
-                            <span className="block sm:inline">You need to remove all guests from this event before deleting it.</span>
-                            <button className="" onClick={() => setShowErrorModal(false)}>
-                                <svg className="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
-                            </button>
-                      </div>
-                    }
-                </>
-            ) : (
-                <div className="my-10 flex justify-center">
-                    <h1>Please sign in to see your experiences!</h1>
+                <div className="mt-7 px-9 py-3 flex flex-col lg:flex-row gap-5 lg:items-center text-center lg:text-start">
+                    <h1 className="text-4xl font-bold">My Upcoming Experiences</h1>
                 </div>
-                
-            )}
+                {userJoinedExperiences.data?.length === 0 &&
+                    <div className="flex flex-col gap-6 py-10 w-full justify-center items-center bg-slate-200 mt-3 px-6">
+                        <h1>You&apos;re not currently signed up for any experiences.</h1>
+                        <Link href="/#viewexperiences" className="btn">Find an experience</Link>
+                    </div>
+                }
+                <div className="grid gap-4 lg:grid-cols-4 p-10">
+                    {userJoinedExperiences.data?.map(registration => (
+                        <ExperienceCard 
+                            key={registration.experience.id}
+                            experience={registration.experience}
+                            modalButtonText="Details"
+                            modalHeaderContent={<ExperienceModalHeader experience={registration.experience} />}
+                            modalBodyContent={
+                                <ExperienceModalBody 
+                                    experience={registration.experience}
+                                    modalActionButton={{
+                                        buttonText: "Cancel Registration",
+                                        buttonColor: "bg-red-400",
+                                        buttonAction: () => deleteRegistration(registration)
+                                    }}
+                                /> 
+                            } 
+                        />
+                    ))}
+                </div>
 
+                {/* HOSTED EXPERIENCES DISPLAY */}
+
+                <div className="mt-7 px-9 py-3 flex flex-col lg:flex-row gap-5 lg:items-center text-center lg:text-start">
+                    <h1 className="text-4xl font-bold">My Hosted Experiences</h1>
+                    <CreateExperienceButton />
+                </div>
+                {userCreatedExperiences.data?.length === 0 &&
+                    <div className="flex h-24 w-full justify-center items-center bg-slate-200 mt-3">
+                        <h1>You&apos;re not currently hosting any experiences.</h1>
+                    </div>
+                }
+                <div className="grid lg:grid-cols-4 p-10">
+                    {userCreatedExperiences.data?.map(experience => (
+                        <ExperienceCard 
+                            key={experience.id}
+                            experience={experience}
+                            actionButtonList={
+                                [
+                                    {
+                                        buttonText: "Edit",
+                                        buttonColor: "bg-blue-400",
+                                        buttonAction: () => {void goToEditPage(experience.slugId, experience.id)}
+                                    },
+                                    {
+                                        buttonText: "Delete",
+                                        buttonColor: "bg-red-400",
+                                        buttonAction: () => {void deleteExperience(experience)}
+                                    },
+                                ]
+                            }
+                            modalButtonText="Manage"
+                            modalHeaderContent={<GuestListModalHeader experience={experience} />}
+                            modalBodyContent={<GuestListModalBody experience={experience}/>}
+                        />
+                    ))}
+                </div>
+
+                {(experienceDeleter.error && showErrorModal) && 
+                    <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded fixed bottom-5 left-1/3 flex gap-3" role="alert">
+                        <strong className="font-bold">Error:</strong>
+                        <span className="block sm:inline">You need to remove all guests from this event before deleting it.</span>
+                        <button className="" onClick={() => setShowErrorModal(false)}>
+                            <svg className="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+                        </button>
+                    </div>
+                }
+            </SignedIn>
+            <SignedOut>
+                <RedirectToSignIn />
+            </SignedOut>
             <Footer />
         </>
     )

@@ -6,10 +6,8 @@ export default function CreateExperienceButton() {
     const uniqueSlug = uuidv4();
 
     return (
-        <button className="btn-primary btn">
-          <Link href={`experience/create/${uniqueSlug}`}>
-            Create an Experience
-          </Link>
-        </button>
+      <Link className="btn-primary btn" href={`experience/create/${uniqueSlug}`}>
+        Create an Experience
+      </Link>
     )
 }

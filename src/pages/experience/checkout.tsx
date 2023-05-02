@@ -163,7 +163,7 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
 import Link from "next/link";
-import { useUser } from "@clerk/nextjs";
+import { RedirectToSignIn, SignedIn, SignedOut, useUser } from "@clerk/nextjs";
 import { loadStripe } from "@stripe/stripe-js";
 import { api } from "~/utils/api";
 import { useRouter } from "next/router";
@@ -251,83 +251,88 @@ const Checkout = () => {
         <title>Learned Local</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="flex min-h-screen items-center justify-center bg-gray-100">
-        <div className="rounded-lg bg-white p-8 shadow-lg">
-          <div className="flex flex-row items-center">
-            <Link className="pr-8" href="/">
-              <div className="mb-6 block text-sm text-blue-500">
-                &larr; Go Back
-              </div>
-            </Link>
-            <h1 className="mb-6 text-2xl font-bold text-gray-700">
-              Checkout Experience
-            </h1>
-          </div>
+      <SignedIn>
+        <div className="flex min-h-screen items-center justify-center bg-gray-100">
+          <div className="rounded-lg bg-white p-8 shadow-lg">
+            <div className="flex flex-row items-center">
+              <Link className="pr-8" href="/">
+                <div className="mb-6 block text-sm text-blue-500">
+                  &larr; Go Back
+                </div>
+              </Link>
+              <h1 className="mb-6 text-2xl font-bold text-gray-700">
+                Checkout Experience
+              </h1>
+            </div>
 
-          <form onSubmit={(e) => handleSubmit(e)}>
-            <div className="mb-4">
-              <label className="mb-2 block text-sm font-bold text-gray-700">
-                First Name
-              </label>
-              <input
-                type="text"
-                name="firstName"
-                placeholder="First Name"
-                value={formData.firstName}
-                onChange={handleChange}
-                required
-                className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="mb-2 block text-sm font-bold text-gray-700">
-                Last Name
-              </label>
-              <input
-                type="text"
-                name="lastName"
-                placeholder="Last Name"
-                value={formData.lastName}
-                onChange={handleChange}
-                required
-                className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="mb-2 block text-sm font-bold text-gray-700">
-                Party Size
-              </label>
-              <input
-                type="number"
-                name="partySize"
-                placeholder="Party Size"
-                value={formData.partySize}
-                onChange={handleChange}
-                min="1"
-                required
-                className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
-              />
-            </div>
-            <div className="mb-6">
-              <label className="mb-2 block text-sm font-bold text-gray-700">
-                Email
-              </label>
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
-              />
-            </div>
-            <button type="submit" className="btn-primary btn">
-              Sign Up
-            </button>
-          </form>
+            <form onSubmit={(e) => handleSubmit(e)}>
+              <div className="mb-4">
+                <label className="mb-2 block text-sm font-bold text-gray-700">
+                  First Name
+                </label>
+                <input
+                  type="text"
+                  name="firstName"
+                  placeholder="First Name"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  required
+                  className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="mb-2 block text-sm font-bold text-gray-700">
+                  Last Name
+                </label>
+                <input
+                  type="text"
+                  name="lastName"
+                  placeholder="Last Name"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  required
+                  className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="mb-2 block text-sm font-bold text-gray-700">
+                  Party Size
+                </label>
+                <input
+                  type="number"
+                  name="partySize"
+                  placeholder="Party Size"
+                  value={formData.partySize}
+                  onChange={handleChange}
+                  min="1"
+                  required
+                  className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
+                />
+              </div>
+              <div className="mb-6">
+                <label className="mb-2 block text-sm font-bold text-gray-700">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
+                />
+              </div>
+              <button type="submit" className="btn-primary btn">
+                Sign Up
+              </button>
+            </form>
+          </div>
         </div>
-      </div>
+      </SignedIn>
+      <SignedOut>
+        <RedirectToSignIn />
+      </SignedOut>
     </>
   );
 };

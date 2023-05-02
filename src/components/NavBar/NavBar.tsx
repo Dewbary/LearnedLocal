@@ -51,11 +51,9 @@ const NavBar = ({ isSignedIn }: Props) => {
       </div>
       <div className="navbar-end">
       {isSignedIn ? (
-        <button className="btn-primary btn mr-3 hidden lg:block">
-          <Link href={`/myexperiences`}>
-            My Experiences
-          </Link>
-        </button>
+        <Link className="btn-primary btn mr-3 hidden lg:flex" href={`/myexperiences`}>
+          My Experiences
+        </Link>
       ) : null}
 
         <SignInArea isSignedIn={isSignedIn} />

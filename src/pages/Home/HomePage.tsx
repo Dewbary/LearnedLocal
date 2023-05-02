@@ -1,7 +1,7 @@
 import ExperienceCard from "~/components/FindExperience/ExperienceCard";
 import { Experience } from "@prisma/client";
 import { api } from "~/utils/api";
-import { SignInButton, useUser } from "@clerk/nextjs";
+import { SignInButton, SignedIn, SignedOut, useUser } from "@clerk/nextjs";
 import Header from "~/components/Header";
 import NavBar from "~/components/NavBar/NavBar";
 import Footer from "~/components/Footer/Footer";
@@ -68,13 +68,16 @@ const HomePage = () => {
           Want to host an experience? Sign up to start sharing your passion with
           others.
         </h3>
-        {user.isSignedIn ? (
+        <SignedIn>
           <CreateExperienceButton />
-        ) : (
-          <button className="btn-primary btn mt-6">
-            <SignInButton />
-          </button>
-        )}
+        </SignedIn>
+        <SignedOut>
+          <SignInButton>
+            <button className="btn-primary btn">
+              Sign In
+            </button>
+          </SignInButton>
+        </SignedOut>
       </div>
 
       <div className="flex justify-center">
