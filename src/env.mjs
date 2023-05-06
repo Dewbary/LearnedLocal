@@ -9,7 +9,8 @@ const server = z.object({
   DATABASE_URL: z.string().url(),
   NODE_ENV: z.enum(["development", "test", "production"]),
   // Add `.min(1) on ID and SECRET if you want to make sure they're not empty
-  NEXT_PUBLIC_STRIPE_SECRET_KEY: z.string().min(1),
+  STRIPE_SECRET_KEY: z.string().min(1),
+  STRIPE_WEBHOOK_SECRET: z.string().min(1),
   SENDGRID_API_KEY: z.string().min(1),
 });
 
@@ -22,8 +23,6 @@ const client = z.object({
   NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_URL: z.string().min(1),
   NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_NAME: z.string().min(1),
   NEXT_PUBLIC_STRIPE_PUBLIC_KEY: z.string().min(1),
-  NEXT_PUBLIC_STRIPE_SECRET_KEY: z.string().min(1),
-  NEXT_PUBLIC_STRIPE_WEBHOOK_SECRET: z.string().min(1),
 });
 
 /**
@@ -41,9 +40,8 @@ const processEnv = {
   NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_URL:
     process.env.NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_URL,
   NEXT_PUBLIC_STRIPE_PUBLIC_KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY,
-  NEXT_PUBLIC_STRIPE_SECRET_KEY: process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY,
-  NEXT_PUBLIC_STRIPE_WEBHOOK_SECRET:
-    process.env.NEXT_PUBLIC_STRIPE_WEBHOOK_SECRET,
+  STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
+  STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
   SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
 };
 
