@@ -4,7 +4,7 @@ import Stripe from "stripe";
 const stripe = new Stripe(env.NEXT_PUBLIC_STRIPE_SECRET_KEY, {
   apiVersion: "2022-11-15",
 });
-
+//test
 export type StripeProductInfo = {
   title: string;
   description: string;
