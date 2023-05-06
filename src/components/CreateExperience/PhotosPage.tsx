@@ -21,7 +21,7 @@ const PhotosPage = ({ images, onSetImages }: Props) => {
   };
 
   return (
-    <div className="">
+    <div className="container mx-auto overflow-y-auto py-12 px-4 sm:px-6 lg:px-8">
       <FormPageHeader
         step={7}
         title="Show off your experience"

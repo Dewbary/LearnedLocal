@@ -24,7 +24,7 @@ const TimePage = () => {
     setValue(newValue);
   };
   return (
-    <div>
+    <div className="">
       <FormPageHeader
         step={4}
         title="Choose a time for your experience"

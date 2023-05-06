@@ -6,7 +6,7 @@ import { Instagram } from "react-feather";
 
 const Footer = () => {
   return (
-    <footer className="footer flex-1 bg-neutral p-10 text-neutral-content">
+    <footer className="footer bg-neutral p-10 text-neutral-content">
       <div>
         <Image src={logo} alt="website logo" className="w-10" />
         <p>
