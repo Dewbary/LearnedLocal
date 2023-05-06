@@ -11,8 +11,7 @@ type Props = {
 
 const NavBar = ({ isSignedIn, className }: Props) => {
   return (
-    // <div className={`navbar bg-base-100`}>
-    <div className={`navbar fixed z-10 h-16 ${className} md:relative`}>
+    <div className={`navbar fixed z-10 h-16 ${className ?? ""} md:relative`}>
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn-ghost btn-circle btn">
