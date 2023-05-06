@@ -60,7 +60,7 @@ const Calendar = ({
         className="mx-auto max-w-md md:max-w-4xl"
         style={{ maxWidth: "600px" }}
       >
-        <div className="p-12 md:grid md:divide-x md:divide-gray-200">
+        <div className="md:grid md:divide-x md:divide-gray-200">
           <div className="">
             <div className="flex items-center">
               <h2 className="flex-auto font-semibold text-gray-900">

@@ -21,7 +21,7 @@ const PhotosPage = ({ images, onSetImages }: Props) => {
   };
 
   return (
-    <div>
+    <div className="">
       <FormPageHeader
         step={7}
         title="Show off your experience"

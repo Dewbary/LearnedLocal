@@ -14,18 +14,6 @@ const DescriptionPage = () => {
     }
   );
   const { setFieldValue } = useFormikContext();
-  // const [categories, setCategories] = React.useState<Category[]>([]);
-
-  // useEffect(() => {
-  //   const fetchCategories = async () => {
-  //     const { data: categories, isLoading } =
-  //       await api.category.getAll.useQuery();
-  //     setCategories(categories ?? []);
-  //     console.log(categories);
-  //   };
-
-  //   fetchCategories();
-  // }, []);
 
   const handleThemeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const themeNumber = parseInt(e.target.value);
@@ -33,7 +21,7 @@ const DescriptionPage = () => {
   };
 
   return (
-    <div className="min-h-screen py-10">
+    <div className="py-10">
       <div className="mx-auto max-w-3xl px-4">
         <FormPageHeader
           step={1}

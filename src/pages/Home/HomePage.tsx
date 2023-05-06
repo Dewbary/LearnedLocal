@@ -15,8 +15,8 @@ const HomePage = () => {
   const experiencesQuery = api.experience.getAll.useQuery();
 
   return (
-    <>
-      <NavBar isSignedIn={user.isSignedIn ?? false} />
+    <div className="">
+      <NavBar isSignedIn={user.isSignedIn ?? false} className="bg-amber-400" />
 
       <Header />
 
@@ -73,9 +73,7 @@ const HomePage = () => {
         </SignedIn>
         <SignedOut>
           <SignInButton>
-            <button className="btn-primary btn">
-              Sign In
-            </button>
+            <button className="btn-primary btn">Sign In</button>
           </SignInButton>
         </SignedOut>
       </div>
@@ -84,7 +82,7 @@ const HomePage = () => {
         <div className="h-1 w-5/6 border-b border-gray-300" />
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 

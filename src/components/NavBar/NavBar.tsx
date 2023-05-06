@@ -6,12 +6,12 @@ import logo_white from "../../assets/logo_white_bg.png";
 
 type Props = {
   isSignedIn: boolean;
+  className?: string;
 };
 
-const NavBar = ({ isSignedIn }: Props) => {
-
+const NavBar = ({ isSignedIn, className }: Props) => {
   return (
-    <div className="navbar bg-base-100">
+    <div className={`navbar fixed z-10 h-16 ${className ?? ""} md:relative`}>
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn-ghost btn-circle btn">
@@ -45,16 +45,23 @@ const NavBar = ({ isSignedIn }: Props) => {
       </div>
       <div className="navbar-center">
         <Link href="/" className="btn-ghost btn text-xl normal-case">
-          <Image src={logo_white} alt="company logo" className="hidden lg:block w-10 mr-3"/>
+          <Image
+            src={logo_white}
+            alt="company logo"
+            className="mr-3 hidden w-10 lg:block"
+          />
           Learned Local
         </Link>
       </div>
       <div className="navbar-end">
-      {isSignedIn ? (
-        <Link className="btn-primary btn mr-3 hidden lg:flex" href={`/myexperiences`}>
-          My Experiences
-        </Link>
-      ) : null}
+        {isSignedIn ? (
+          <Link
+            className="btn-primary btn mr-3 hidden lg:flex"
+            href={`/myexperiences`}
+          >
+            My Experiences
+          </Link>
+        ) : null}
 
         <SignInArea isSignedIn={isSignedIn} />
       </div>

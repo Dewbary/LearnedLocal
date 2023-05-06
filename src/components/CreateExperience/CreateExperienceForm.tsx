@@ -227,49 +227,50 @@ const CreateExperienceForm = () => {
   };
 
   return (
-    <>
-      <Head>
-        <title>Learned Local</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <NavBar isSignedIn={user.isSignedIn ? true : false} />
+    <div className="flex min-h-screen flex-col">
+      <NavBar isSignedIn={user.isSignedIn ?? false} className="bg-white" />
       <div className="border-b" />
 
-      <div className="flex h-screen flex-col">
-        <CreateExperienceHeader />
+      <div className="flex flex-col">
+        <div className="container">
+          <div className="hidden md:block">
+            <CreateExperienceHeader />
+          </div>
+        </div>
 
-        <div className="flex flex-1 overflow-hidden">
-          <CreateExperienceTabs
-            tabInfoList={tabInfoList}
-            currentTab={activeTab?.activeMatcher}
-            onTabClick={(index) => {
-              void handleTabClick(index);
-            }}
-          />
+        <div className="flex flex-1 overflow-x-hidden">
+          <div className="flex flex-1 flex-col overflow-hidden px-0 md:flex-row md:px-4">
+            <CreateExperienceTabs
+              tabInfoList={tabInfoList}
+              currentTab={activeTab?.activeMatcher}
+              onTabClick={(index) => {
+                void handleTabClick(index);
+              }}
+            />
 
-          <main className="paragraph ml-8 mr-12 mb-12 flex flex-1 overflow-y-auto rounded-lg bg-gradient-to-r from-amber-400 via-amber-200 to-slate-50 px-8 py-8">
-            <Formik
-              initialValues={initialFormValues}
-              onSubmit={(values, helpers) => handleSubmit(values, helpers)}
-              enableReinitialize
-            >
-              <Form className="w-full">
-                <CreateExperienceFormArea
-                  tabComponent={getTabComponent()}
-                  onNext={next}
-                  onBack={back}
-                  isFirstStep={step === 0}
-                  isLastStep={step === tabInfoList.length - 1}
-                />
-              </Form>
-            </Formik>
-          </main>
+            <main className="paragraph flex flex-1 rounded-lg bg-gradient-to-r from-amber-400 via-amber-200 to-slate-50 px-8 py-8 md:mb-12 md:ml-8 md:mr-12">
+              <Formik
+                initialValues={initialFormValues}
+                onSubmit={(values, helpers) => handleSubmit(values, helpers)}
+                enableReinitialize
+              >
+                <Form className="w-full">
+                  <CreateExperienceFormArea
+                    tabComponent={getTabComponent()}
+                    onNext={next}
+                    onBack={back}
+                    isFirstStep={step === 0}
+                    isLastStep={step === tabInfoList.length - 1}
+                  />
+                </Form>
+              </Formik>
+            </main>
+          </div>
         </div>
       </div>
 
       <Footer />
-    </>
+    </div>
   );
 };
 

@@ -32,7 +32,7 @@ const AboutPage = () => {
   };
 
   return (
-    <div className="min-h-screen py-10">
+    <div className="py-10 ">
       <div className="mx-auto max-w-3xl px-4">
         <FormPageHeader
           step={2}
