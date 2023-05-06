@@ -17,7 +17,7 @@ const LocationPage = ({ location, onLocationChange }: LocationPageProps) => {
   }, [location, onLocationChange]);
 
   return (
-    <div className="min-h-screen">
+    <div className="">
       <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <FormPageHeader
           step={4}

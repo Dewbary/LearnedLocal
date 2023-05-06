@@ -5,7 +5,7 @@ import FormPageHeader from "./Typography/Typography";
 
 const RequirementsPage = () => {
   return (
-    <div className="min-h-screen">
+    <div className="">
       <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <FormPageHeader
           step={5}
