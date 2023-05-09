@@ -14,12 +14,23 @@ export const InputField = ({
   type,
   placeholder,
   className,
-}: InputFieldProps) => (
-  <Field
-    id={id}
-    name={name}
-    type={type}
-    placeholder={placeholder}
-    className={`${className ?? ""} mb-3 rounded-md border-2 border-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-blue-500 focus:outline-none`}
-  />
-);
+}: InputFieldProps) => {
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+    }
+  };
+
+  return (
+    <Field
+      id={id}
+      name={name}
+      type={type}
+      placeholder={placeholder}
+      className={`${
+        className ?? ""
+      } mb-3 rounded-md border-2 border-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-blue-500 focus:outline-none`}
+      onKeyDown={handleKeyDown}
+    />
+  );
+};

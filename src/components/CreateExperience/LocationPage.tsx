@@ -23,23 +23,22 @@ const LocationPage = ({ location, onLocationChange }: LocationPageProps) => {
         title="Now let's pinpoint the exact location of your experience"
         subtitle="Make sure that it is in a location accessible to those participating"
       />
-      <div className="rounded-lg bg-white p-8 shadow-md">
-        <Field name="location">
-          {(
-            { field, form }: FieldProps<Pin> // TODO: Extract into a separate component
-          ) => (
-            <PinContextProvider>
-              <LocationPicker
-                {...field}
-                onLocationChange={(pin: Pin) => {
-                  onLocationChange(pin);
-                  form.setFieldValue("location", pin);
-                }}
-              />
-            </PinContextProvider>
-          )}
-        </Field>
-      </div>
+
+      <Field name="location">
+        {(
+          { field, form }: FieldProps<Pin> // TODO: Extract into a separate component
+        ) => (
+          <PinContextProvider>
+            <LocationPicker
+              {...field}
+              onLocationChange={(pin: Pin) => {
+                onLocationChange(pin);
+                form.setFieldValue("location", pin);
+              }}
+            />
+          </PinContextProvider>
+        )}
+      </Field>
     </div>
   );
 };

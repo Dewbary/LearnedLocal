@@ -79,6 +79,11 @@ const HomePage = () => {
               <button className="btn-primary btn">Sign In</button>
             </SignInButton>
           </SignedOut>
+          <video
+            src="/learnedlocalvid.mp4"
+            controls
+            className="pt-8 md:pl-16 md:pr-16 md:pt-8 md:pb-8 lg:pl-48 lg:pr-48 lg:pt-16 lg:pb-16"
+          />
         </div>
 
         <div className="flex justify-center">

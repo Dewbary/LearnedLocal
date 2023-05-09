@@ -21,7 +21,7 @@ const PinButton = ({ clearPinData }: PinButtonProps) => {
       onClick={handleClick}
       className={`ml-2 rounded-md px-4 py-2 text-white ${
         pinMode ? "bg-green-500" : "bg-gray-500"
-      } focus:outline-none focus:ring-2 focus:ring-blue-500`}
+      } mt-4 focus:outline-none focus:ring-2 focus:ring-blue-500 md:mt-0`}
     >
       {pinMode ? "Remove Pin" : "Drop Pin"}
     </button>

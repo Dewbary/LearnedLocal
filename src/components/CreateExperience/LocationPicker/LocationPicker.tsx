@@ -79,22 +79,24 @@ const LocationPicker = ({ value, onLocationChange }: LocationPickerProps) => {
   };
 
   return (
-    <div className="flex flex-col">
-      <div className="flex justify-center space-x-4 pb-4">
+    <div className="flex h-full flex-col">
+      <div className="flex flex-wrap justify-center space-x-4 pb-4">
         <SearchBar
           onPlaceSelected={handlePlaceSelected}
           onApiReady={handleApiReady}
         />
         <PinButton clearPinData={clearPinData} />
       </div>
-      <div className="flex-grow">
-        <Map
-          center={center}
-          zoom={20}
-          onApiReady={handleApiReady}
-          onPinDrop={handlePinDrop}
-          markers={pinData}
-        />
+      <div className="flex h-full flex-col">
+        <div className="flex-grow">
+          <Map
+            center={center}
+            zoom={20}
+            onApiReady={handleApiReady}
+            onPinDrop={handlePinDrop}
+            markers={pinData}
+          />
+        </div>
       </div>
     </div>
   );

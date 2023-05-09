@@ -91,11 +91,29 @@ export default function ExperienceModalBody({
               <p>{experience.description}</p>
               <br />
               <h3 className="text-xl font-bold">Details</h3>
+              <hr className="w-64" />
+              <br />
+
               <ul>
-                <li>{experience.guestRequirements}</li>
-                <li>{experience.provided}</li>
-                <li>{experience.activityLevel}</li>
-                <li>{experience.skillLevel}</li>
+                <li>
+                  <strong>Guest Requirements:</strong>{" "}
+                  {experience.guestRequirements}
+                </li>
+                <br />
+
+                <li>
+                  <strong>Provided Resources:</strong> {experience.provided}
+                </li>
+                <br />
+
+                <li>
+                  <strong>Activity Level:</strong> {experience.activityLevel}
+                </li>
+                <br />
+
+                <li>
+                  <strong>Skill Level:</strong> {experience.skillLevel}
+                </li>
               </ul>
               <br />
               <h3 className="text-xl font-bold">Itinerary</h3>
@@ -106,7 +124,7 @@ export default function ExperienceModalBody({
               <br />
               <br />
             </div>
-            <div className="mb-5 grid h-full basis-1/3 grid-cols-5 items-center gap-y-3 border-b-2 pb-5 lg:order-2 lg:border-b-0 lg:border-l-2 lg:pl-5">
+            <div className="mb-5 grid basis-1/3 grid-cols-5 items-center gap-y-3 border-b-2 pb-5 md:h-full lg:order-2 lg:border-b-0 lg:border-l-2 lg:pl-5">
               <ClockIcon className="w-5" />{" "}
               <span className="col-span-4">
                 {experience.startTime} - {experience.endTime}

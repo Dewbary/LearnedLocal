@@ -227,7 +227,7 @@ const CreateExperienceForm = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="space-between flex min-h-screen flex-col">
       <NavBar isSignedIn={user.isSignedIn ?? false} className="bg-white" />
       <div className="border-b" />
 
