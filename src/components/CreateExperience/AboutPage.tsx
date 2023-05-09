@@ -72,16 +72,18 @@ const AboutPage = () => {
           </div>
 
           <div>
-            <FormLabel text="Profile Picture" className="text-gray-600" />
+            <FormLabel text="Profile Picture" />
 
-            {values.profileImage && (
-              <div className="mx-auto mt-4 mb-8 h-32 w-32">
+            <div className="mx-auto mt-4 mb-8 h-32 w-32 overflow-hidden rounded-full">
+              {values.profileImage ? (
                 <img
                   src={values.profileImage}
                   className="h-full w-full rounded-full object-cover shadow-lg"
                 />
-              </div>
-            )}
+              ) : (
+                <div className="h-full w-full bg-gray-100 shadow-lg"></div>
+              )}
+            </div>
 
             <input
               type="file"

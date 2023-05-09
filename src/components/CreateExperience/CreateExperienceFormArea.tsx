@@ -17,7 +17,7 @@ const CreateExperienceFormArea = ({
 }: Props) => {
   return (
     <div className="flex w-full flex-col">
-      <div className="max-h-screen flex-grow overflow-y-auto">
+      <div className="overflow-y-auto">
         {tabComponent}
         <div
           className={`mt-6 flex ${

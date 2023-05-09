@@ -9,7 +9,7 @@ type ActionButton = {
   buttonText: string;
   buttonColor: string;
   buttonAction: () => void;
-}
+};
 
 type Props = {
   experience: Experience;
@@ -17,9 +17,15 @@ type Props = {
   modalButtonText: string;
   modalHeaderContent: JSX.Element;
   modalBodyContent: JSX.Element;
-}
+};
 
-export default function ExperienceCard({ experience, actionButtonList, modalButtonText, modalHeaderContent, modalBodyContent }: Props) {
+export default function ExperienceCard({
+  experience,
+  actionButtonList,
+  modalButtonText,
+  modalHeaderContent,
+  modalBodyContent,
+}: Props) {
   const [modalHidden, setModalHidden] = useState(true);
 
   const dateDisplayOptions = {
@@ -37,21 +43,27 @@ export default function ExperienceCard({ experience, actionButtonList, modalButt
 
   return (
     <>
-      <div className="h-96 w-72 rounded-2xl bg-white drop-shadow-xl flex flex-col">
-
+      <div className="flex h-96 w-72 flex-col rounded-2xl bg-white drop-shadow-xl">
         {/* TITLE BAR */}
-        <div className="flex justify-between w-full items-center p-3 bg-gradient-to-br from-amber-300 to-amber-400 rounded-t-2xl">
-          <Image
+        <div className="flex w-full items-center justify-between rounded-t-2xl bg-gradient-to-br from-amber-300 to-amber-400 p-3">
+          {experience.profileImage ? (
+            <img
+              src={experience.profileImage}
+              className="h-12 w-12 rounded-full object-cover"
+            />
+          ) : (
+            <Image
               src={profile_pic}
               alt="Profile Picture Anonymous"
               width={40}
               className="rounded-full"
             />
-            <h2 className="text-4xl font-bold">
-              {experience.date
-                .toLocaleDateString("en-US", dateDisplayOptions)
-                .toLocaleUpperCase()}
-            </h2>
+          )}
+          <h2 className="text-4xl font-bold">
+            {experience.date
+              .toLocaleDateString("en-US", dateDisplayOptions)
+              .toLocaleUpperCase()}
+          </h2>
         </div>
 
         {/* COVER IMAGE */}
@@ -65,17 +77,14 @@ export default function ExperienceCard({ experience, actionButtonList, modalButt
 
         {/* DESCRIPTION BOX */}
         <div className="px-3">
-          <h2 className="text-2xl font-bold">
-            {experience.title}
-          </h2>
+          <h2 className="text-2xl font-bold">{experience.title}</h2>
           <p className="h-16 overflow-hidden text-sm">
             {experience.description}
           </p>
         </div>
 
         {/* BOTTOM BAR */}
-        <div className="flex justify-between px-3 pb-3 items-center">
-
+        <div className="flex items-center justify-between px-3 pb-3">
           {/* PRICE TAG */}
           <h2 className="text-xl font-bold">${experience.price}</h2>
 
@@ -84,13 +93,13 @@ export default function ExperienceCard({ experience, actionButtonList, modalButt
             {actionButtonList?.map((actionButton, i) => {
               return (
                 <button
-                  className={`rounded-lg ${actionButton.buttonColor} text-white drop-shadow-md p-2`}
+                  className={`rounded-lg ${actionButton.buttonColor} p-2 text-white drop-shadow-md`}
                   onClick={() => actionButton.buttonAction()}
                   key={i}
                 >
                   {actionButton.buttonText}
                 </button>
-              )
+              );
             })}
           </div>
 
@@ -114,14 +123,13 @@ export default function ExperienceCard({ experience, actionButtonList, modalButt
         }`}
       >
         <div className="flex h-full w-full items-center justify-center">
-          <GenericModal 
-            hideModal={hideModal} 
-            modalContent={modalBodyContent} 
-            modalHeaderContent={modalHeaderContent} 
+          <GenericModal
+            hideModal={hideModal}
+            modalContent={modalBodyContent}
+            modalHeaderContent={modalHeaderContent}
           />
         </div>
       </div>
-
     </>
-  )
+  );
 }
