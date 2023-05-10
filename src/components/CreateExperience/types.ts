@@ -1,5 +1,6 @@
 import { FormikProps } from "formik";
 import { Pin } from "./LocationPicker/LocationPicker";
+import { ImageListType } from "react-images-uploading";
 
 export type FormValues = {
   title: string;
@@ -21,7 +22,7 @@ export type FormValues = {
   activityLevel: string;
   skillLevel: string;
   profileImage: string | null;
-  photos: string[];
+  photos: ImageListType;
   maxAttendees: number;
   categoryId: number;
 };

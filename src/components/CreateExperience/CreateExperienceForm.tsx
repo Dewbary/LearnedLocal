@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import DescriptionPage from "./DescriptionPage/DescriptionPage";
 import LocationPage from "./LocationPage";
 import FinalStepsPage from "./FinalStepsPage";
-import { FormValues, TabInfo } from "./types";
+import type { FormValues, TabInfo } from "./types";
 import CreateExperienceTabs from "./CreateExperienceTabs/CreateExperienceTabs";
 import CreateExperienceFormArea from "./CreateExperienceFormArea";
 import AboutPage from "./AboutPage";
@@ -22,50 +22,35 @@ import { useUser } from "@clerk/nextjs";
 import { getTabInfos, initialValues } from "./CreateExperienceFormUtils";
 import CreateExperienceHeader from "./Layout/CreateExperienceHeader";
 import { ImageListType } from "react-images-uploading";
-import { Experience } from "@prisma/client";
 import { env } from "~/env.mjs";
 import Footer from "../Footer/Footer";
 import NavBar from "../NavBar/NavBar";
-import Head from "next/head";
 
 const CreateExperienceForm = () => {
+  // Hooks
   const user = useUser();
+  const router = useRouter();
 
   // Router
-  const router = useRouter();
   const params = Array.isArray(router.query.slug) ? router.query.slug : [];
   const [slug] = params;
-  const { experienceId: experienceIdStr } = router.query;
-  const [experienceId, setExperienceId] = useState(
-    parseInt(experienceIdStr as string)
-  );
-
-  // const experienceId = ;
-
-  // TRPC
-  const createExperience = api.experience.create.useMutation();
-  const { data: experience, isLoading } =
-    api.experience.byExperienceId.useQuery(experienceId, {
-      enabled: !!experienceId,
-    });
+  const { experienceId } = router.query;
 
   // State
   const today = startOfToday();
-  const [isEditing, setIsEditing] = useState(!!experienceId);
-  const [location, setLocation] = useState<Pin | null>(null);
   const [selectedDay, setSelectedDay] = useState(today);
   const [currentMonth, setCurrentMonth] = useState(format(today, "MMM-yyyy"));
   const [images, setImages] = useState<ImageListType>([]);
   const [initialFormValues, setInitialFormValues] =
     useState<FormValues>(initialValues);
 
-  const tabInfoList: TabInfo[] = getTabInfos(slug ?? "");
-  const { next, back, goToStep, activeTab, step } = useStepNavigation(
-    tabInfoList,
-    0
-  );
+  // TRPC
+  const createExperience = api.experience.create.useMutation();
 
-  const updateExperience = api.experience.update.useMutation();
+  const { data: experience, isLoading } =
+    api.experience.byExperienceId.useQuery(parseInt(experienceId as string), {
+      enabled: !!experienceId,
+    });
 
   useEffect(() => {
     if (experience) {
@@ -82,17 +67,19 @@ const CreateExperienceForm = () => {
         ...experience,
         date: experience.date.toISOString(),
         location: pin,
+        photos: photoData,
       });
     }
-  }, [experience]);
+  }, [experienceId, experience]);
 
-  // if (isLoading) {
-  //   return <div>Loading...</div>;
-  // }
+  const tabInfoList: TabInfo[] = getTabInfos(slug ?? "");
+  const { next, back, goToStep, activeTab, step } = useStepNavigation(
+    tabInfoList,
+    0,
+    experienceId as string
+  );
 
-  const handleLocationChange = (newLocation: Pin) => {
-    setLocation(newLocation);
-  };
+  const updateExperience = api.experience.update.useMutation();
 
   const getTabComponent = () => {
     switch (activeTab?.activeMatcher) {
@@ -108,12 +95,7 @@ const CreateExperienceForm = () => {
           />
         );
       case "location":
-        return (
-          <LocationPage
-            location={location}
-            onLocationChange={handleLocationChange}
-          />
-        );
+        return <LocationPage />;
       case "about":
         return <AboutPage />;
       case "requirements":
@@ -123,7 +105,7 @@ const CreateExperienceForm = () => {
       case "photos":
         return <PhotosPage images={images} onSetImages={setImages} />;
       case "submit":
-        return <FinalStepsPage isEditing={isEditing} />;
+        return <FinalStepsPage isEditing={!!experienceId} />;
       default:
         return <StartPage />;
     }
@@ -140,8 +122,13 @@ const CreateExperienceForm = () => {
     const filePathArray: string[] = [];
 
     await Promise.all(
-      images.map(async (img) => {
-        if (!img.file) return;
+      values.photos.map(async (img) => {
+        if (!img.file) {
+          if (img.dataURL) {
+            filePathArray.push(img.dataURL);
+          }
+          return;
+        }
         const path = await uploadImageToBucket(
           img.file,
           user.user ? user.user.id : "notsignedin"
@@ -155,10 +142,10 @@ const CreateExperienceForm = () => {
       })
     );
 
-    if (isEditing && experienceId) {
+    if (experienceId) {
       // Update the experience
       updateExperience.mutate({
-        id: experienceId,
+        id: parseInt(experienceId as string),
         firstName: values.firstName,
         lastName: values.lastName,
         email: values.email,
@@ -220,10 +207,18 @@ const CreateExperienceForm = () => {
   };
 
   const handleTabClick = async (index: number) => {
+    console.log(index);
     await goToStep(index);
-    await router.replace(tabInfoList[index]?.url || "", undefined, {
-      shallow: true,
-    });
+    await router.replace(
+      {
+        pathname: tabInfoList[index]?.url || "",
+        query: { experienceId: experienceId || "" },
+      },
+      undefined,
+      {
+        shallow: true,
+      }
+    );
   };
 
   return (

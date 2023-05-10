@@ -28,7 +28,7 @@ const CreateExperienceTabs = ({
         <div className={`flex flex-grow flex-col items-end md:block`}>
           <ul className={`flex flex-col items-end`}>
             {tabInfoList.map((item, index, array) => {
-              const isSelected = selectedTab.endsWith(item.activeMatcher);
+              const isSelected = selectedTab.includes(item.activeMatcher);
 
               return (
                 <li key={index} className={styles.progressItem}>

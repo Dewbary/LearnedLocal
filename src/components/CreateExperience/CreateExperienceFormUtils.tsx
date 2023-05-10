@@ -49,6 +49,8 @@ export const initialValues: FormValues = {
 };
 
 export const getTabInfos = (slug: string) => {
+  if (!slug) return [];
+
   return [
     {
       url: `/experience/create/${slug}/description`,
