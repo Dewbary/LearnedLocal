@@ -67,11 +67,11 @@ export default function ExperienceCard({
         </div>
 
         {/* COVER IMAGE */}
-        <div className="w-full overflow-hidden">
+        <div className="w-full h-40 max-h-40 overflow-hidden relative">
           <img
             src={experience.photos[0] || ""}
             alt="Picture of the outdoors"
-            className=""
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
           />
         </div>
 
