@@ -5,10 +5,8 @@ import {
   UserIcon,
 } from "@heroicons/react/24/solid";
 import { Experience } from "@prisma/client";
-import { useState } from "react";
 import { api } from "~/utils/api";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import { generateGoogleMapsURL } from "./FindExperienceUtils";
 import { Pin } from "../CreateExperience/LocationPicker/LocationPicker";
 import ExperienceImageDisplay from "../ExperienceImageDisplay";
@@ -39,8 +37,8 @@ export default function ExperienceModalBody({
 
   const router = useRouter();
 
-  const goToCheckoutPage = async function (experienceId: number) {
-    await router.push(`/experience/checkout?experienceId=${experienceId}`);
+  const goToViewPage = async function (experienceId: number) {
+    await router.push(`/experience/view/${experienceId}`);
   };
 
   const location: Pin = experience.location as Pin;
@@ -59,7 +57,7 @@ export default function ExperienceModalBody({
             <div className="lg:order-0 order-2 mr-3 basis-2/3">
               <h3 className="text-xl font-bold">Description</h3>
               <p>{experience.description}</p>
-              <br />
+              {/* <br />
               <h3 className="text-xl font-bold">Details</h3>
               <hr className="w-64" />
               <br />
@@ -92,7 +90,7 @@ export default function ExperienceModalBody({
               <h3 className="text-xl font-bold">Location Notes</h3>
               <p>{experience.locationDescription}</p>
               <br />
-              <br />
+              <br /> */}
             </div>
             <div className="mb-5 grid basis-1/3 grid-cols-5 items-center gap-y-3 border-b-2 pb-5 md:h-full lg:order-2 lg:border-b-0 lg:border-l-2 lg:pl-5">
               <ClockIcon className="w-5" />{" "}
@@ -148,9 +146,9 @@ export default function ExperienceModalBody({
             className={
               "rounded-lg bg-amber-400 p-3 text-white disabled:cursor-not-allowed disabled:bg-gray-500"
             }
-            onClick={() => goToCheckoutPage(experience.id)}
+            onClick={() => goToViewPage(experience.id)}
           >
-            Sign Up
+            View Details
           </button>
         )}
       </div>
