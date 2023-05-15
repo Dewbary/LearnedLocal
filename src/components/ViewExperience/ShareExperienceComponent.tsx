@@ -1,6 +1,6 @@
 import { ShareIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
-import { shareOnMobile } from "react-mobile-share";
+//import { shareOnMobile } from "react-mobile-share";
 import QRCode from "react-qr-code";
 
 type Props = {
@@ -22,9 +22,9 @@ export default function ShareExperienceComponent({ experienceId }: Props) {
     }
 
     const handleMobileShareClick = function () {
-        shareOnMobile({
+        /*shareOnMobile({
             url: experienceUrl
-        });
+        });*/
     }
 
     const handleCopyURLClick = function () {

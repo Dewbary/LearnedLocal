@@ -178,9 +178,6 @@ dependencies:
   react-images-uploading:
     specifier: ^3.1.7
     version: 3.1.7(react-dom@18.2.0)(react@18.2.0)
-  react-mobile-share:
-    specifier: ^1.0.30
-    version: 1.0.30
   react-pro-sidebar:
     specifier: ^1.0.0
     version: 1.0.0(@types/react@18.0.28)(react-dom@18.2.0)(react@18.2.0)
@@ -258,6 +255,9 @@ devDependencies:
   prisma:
     specifier: ^4.12.0
     version: 4.12.0
+  react-mobile-share:
+    specifier: ^1.0.30
+    version: 1.0.30
   tailwindcss:
     specifier: ^3.2.0
     version: 3.2.7(postcss@8.4.21)
@@ -5478,7 +5478,7 @@ packages:
 
   /react-mobile-share@1.0.30:
     resolution: {integrity: sha512-mP5UxJ1m3cRSbmidR0sB/y470sBSeX9Wuf9uL6cFrFypWQt+zca00IT6j1s9UQ9FzPqCTZSkYGVS3EsOwrGTCQ==}
-    dev: false
+    dev: true
 
   /react-pro-sidebar@1.0.0(@types/react@18.0.28)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-TAU3vHj0rYHSLWdZksiWte59dwh3rweaFY+dXri+y8mtlbQalxnNTG11k9wRCiaMa0IGPmIIbdY1E1yoHBUd/A==}
