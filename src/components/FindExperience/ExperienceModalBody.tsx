@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { generateGoogleMapsURL } from "./FindExperienceUtils";
 import { Pin } from "../CreateExperience/LocationPicker/LocationPicker";
+import ExperienceImageDisplay from "../ExperienceImageDisplay";
 
 type ModalActionButton = {
   buttonText: string;
@@ -33,12 +34,6 @@ export default function ExperienceModalBody({
     day: "numeric",
   } as const;
 
-  const [activeImage, setActiveImage] = useState(experience.photos[0] || "");
-
-  const handleClickImage = function (image: string) {
-    setActiveImage(image);
-  };
-
   const getRegistrantCount =
     api.registration.registrantCountByExperience.useQuery(experience.id);
 
@@ -57,32 +52,7 @@ export default function ExperienceModalBody({
       <div className="flex flex-grow overflow-y-scroll">
         <div className="basis-full">
           {/* IMAGES PORTION */}
-          <div className="m-10 grid grid-cols-4 gap-4">
-            <div className="col-span-4 max-h-60 overflow-hidden lg:col-span-2 lg:row-span-2 relative">
-              <img src={activeImage} alt="experience photo" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-            </div>
-            {[0, 1, 2, 3].map((e, i) => {
-              return (
-                <>
-                  <div key={i} className="max-h-28 h-28 overflow-hidden relative">
-                    {experience.photos[i] && (
-                      <img
-                        src={experience.photos[i]}
-                        alt="experience photo"
-                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                        onClick={() =>
-                          handleClickImage(experience.photos[i] || "")
-                        }
-                      />
-                    )}
-                    {!experience.photos[i] && (
-                      <div className="h-28 w-full bg-slate-100" />
-                    )}
-                  </div>
-                </>
-              );
-            })}
-          </div>
+            <ExperienceImageDisplay photos={experience.photos} />
 
           {/* DESCRIPTION PORTION */}
           <div className="mx-10 flex flex-col lg:flex-row">
