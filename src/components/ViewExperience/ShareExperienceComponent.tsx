@@ -27,8 +27,8 @@ export default function ShareExperienceComponent({ experienceId }: Props) {
         });*/
     }
 
-    const handleCopyURLClick = function () {
-        navigator.clipboard.writeText(experienceUrl);
+    const handleCopyURLClick = async function () {
+        await navigator.clipboard.writeText(experienceUrl);
         alert("URL Copied!");
     }
 
