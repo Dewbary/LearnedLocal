@@ -40,7 +40,7 @@ export const experienceRouter = createTRPCRouter({
     .input(z.number())
     .query(async ({ ctx, input }) => {
       return await ctx.prisma.experience.findFirst({
-        where: { id: input, verified: true},
+        where: { id: input },
       });
     }),
 
