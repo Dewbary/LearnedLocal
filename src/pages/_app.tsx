@@ -2,6 +2,7 @@ import { type AppType } from "next/app";
 import { type Session } from "next-auth";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Elements } from "@stripe/react-stripe-js";
+import NextNProgress from "nextjs-progressbar";
 
 import { api } from "~/utils/api";
 
@@ -20,6 +21,13 @@ const MyApp: AppType<{ session: Session | null }> = ({
   return (
     <ClerkProvider {...pageProps}>
       <Elements stripe={stripePromise}>
+        <NextNProgress
+          color="#FFC107"
+          startPosition={0.3}
+          stopDelayMs={200}
+          height={7}
+          showOnShallow={false}
+        />
         <Layout>
           <Component {...pageProps} />
         </Layout>

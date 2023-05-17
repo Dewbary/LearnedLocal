@@ -1,30 +1,24 @@
-import { Formik, Form, FormikHelpers } from "formik";
+import { Formik, Form } from "formik";
 import { useRouter } from "next/router";
-import DescriptionPage from "./DescriptionPage/DescriptionPage";
-import LocationPage from "./LocationPage";
-import FinalStepsPage from "./FinalStepsPage";
-import type { FormValues, TabInfo } from "./types";
+import type { TabInfo } from "./types";
 import CreateExperienceTabs from "./CreateExperienceTabs/CreateExperienceTabs";
 import CreateExperienceFormArea from "./CreateExperienceFormArea";
-import AboutPage from "./AboutPage";
-import RequirementsPage from "./RequirementsPage";
-import SettingsPage from "./SettingsPage";
-import PhotosPage from "./PhotosPage";
-import DatePage from "./DatePage";
-import { useStepNavigation } from "./hooks/useStepNavigation";
-import StartPage from "./StartPage";
-import { Pin } from "./LocationPicker/LocationPicker";
 import { useEffect, useState } from "react";
 import { format, startOfToday } from "date-fns";
 import { api } from "~/utils/api";
-import { uploadImageToBucket } from "~/utils/images";
 import { useUser } from "@clerk/nextjs";
-import { getTabInfos, initialValues } from "./CreateExperienceFormUtils";
+import {
+  getTabComponent,
+  getTabInfos,
+  getInitialFormValues,
+  parseQueryString,
+} from "./CreateExperienceFormUtils";
 import CreateExperienceHeader from "./Layout/CreateExperienceHeader";
-import { ImageListType } from "react-images-uploading";
-import { env } from "~/env.mjs";
 import Footer from "../Footer/Footer";
 import NavBar from "../NavBar/NavBar";
+import { useExperienceSubmission } from "./hooks/useExperienceSubmission";
+import { useNavigation } from "./hooks/useNavigation";
+import { BounceLoader } from "react-spinners";
 
 const CreateExperienceForm = () => {
   // Hooks
@@ -32,239 +26,99 @@ const CreateExperienceForm = () => {
   const router = useRouter();
 
   // Router
-  const params = Array.isArray(router.query.slug) ? router.query.slug : [];
-  const [slug] = params;
-  const { experienceId } = router.query;
-
-  // State
-  const today = startOfToday();
-  const [selectedDay, setSelectedDay] = useState(today);
-  const [currentMonth, setCurrentMonth] = useState(format(today, "MMM-yyyy"));
-  const [images, setImages] = useState<ImageListType>([]);
-  const [initialFormValues, setInitialFormValues] =
-    useState<FormValues>(initialValues);
-
-  // TRPC
-  const createExperience = api.experience.create.useMutation();
+  const slug = parseQueryString(router.query.slug);
+  const experienceId = parseQueryString(router.query.experienceId);
 
   const { data: experience, isLoading } =
-    api.experience.byExperienceId.useQuery(parseInt(experienceId as string), {
+    api.experience.byExperienceId.useQuery(parseInt(experienceId), {
       enabled: !!experienceId,
     });
 
-  useEffect(() => {
-    if (experience) {
-      // update the initialValues with the experience data
-      const photoData = experience.photos.map((photo) => ({
-        dataURL: photo,
-      }));
-
-      setImages(photoData);
-      setSelectedDay(experience.date);
-
-      const pin = experience.location as Pin;
-      setInitialFormValues({
-        ...experience,
-        date: experience.date.toISOString(),
-        location: pin,
-        photos: photoData,
-      });
-    }
-  }, [experienceId, experience]);
-
-  const tabInfoList: TabInfo[] = getTabInfos(slug ?? "");
-  const { next, back, goToStep, activeTab, step } = useStepNavigation(
-    tabInfoList,
-    0,
-    experienceId as string
+  // State
+  const [isCreating, setIsCreating] = useState<boolean>(false);
+  const [selectedDay, setSelectedDay] = useState<Date>(startOfToday());
+  const [currentMonth, setCurrentMonth] = useState<string>(
+    format(startOfToday(), "MMM-yyyy")
+  );
+  const [experienceIdStr, setExperienceIdStr] = useState<string>(
+    experienceId ?? ""
   );
 
-  const updateExperience = api.experience.update.useMutation();
+  const tabInfoList: TabInfo[] = getTabInfos(slug);
 
-  const getTabComponent = () => {
-    switch (activeTab?.activeMatcher) {
-      case "description":
-        return <DescriptionPage />;
-      case "date":
-        return (
-          <DatePage
-            selectedDay={selectedDay}
-            setSelectedDay={setSelectedDay}
-            selectedMonth={currentMonth}
-            setSelectedMonth={setCurrentMonth}
-          />
-        );
-      case "location":
-        return <LocationPage />;
-      case "about":
-        return <AboutPage />;
-      case "requirements":
-        return <RequirementsPage />;
-      case "settings":
-        return <SettingsPage />;
-      case "photos":
-        return <PhotosPage images={images} onSetImages={setImages} />;
-      case "submit":
-        return <FinalStepsPage isEditing={!!experienceId} />;
-      default:
-        return <StartPage />;
+  const { next, back, goToStep, activeTab, step } = useNavigation(
+    tabInfoList,
+    slug,
+    0,
+    experienceIdStr
+  );
+
+  useEffect(() => {
+    if (experience) {
+      setSelectedDay(experience.date);
+      setCurrentMonth(format(experience.date, "MMM-yyyy"));
     }
-  };
+  }, [experience]);
 
-  const handleSubmit = async (
-    values: FormValues,
-    helpers: FormikHelpers<FormValues>
-  ) => {
-    if (!user) return;
-    helpers.setSubmitting(true);
+  const handleSubmit = useExperienceSubmission(
+    experienceId,
+    slug,
+    setIsCreating
+  );
 
-    const date = new Date(values.date);
-    const filePathArray: string[] = [];
-
-    await Promise.all(
-      values.photos.map(async (img) => {
-        if (!img.file) {
-          if (img.dataURL) {
-            filePathArray.push(img.dataURL);
-          }
-          return;
-        }
-        const path = await uploadImageToBucket(
-          img.file,
-          user.user ? user.user.id : "notsignedin"
-        );
-        const filePath =
-          env.NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_URL +
-          env.NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_NAME +
-          "/" +
-          path;
-        filePathArray.push(filePath);
-      })
-    );
-
-    if (experienceId) {
-      // Update the experience
-      updateExperience.mutate({
-        id: parseInt(experienceId as string),
-        firstName: values.firstName,
-        lastName: values.lastName,
-        email: values.email,
-        title: values.title,
-        description: values.description,
-        price: values.price,
-        date: date,
-        startTime: values.startTime,
-        endTime: values.endTime,
-        timeline: values.timeline,
-        location: values.location,
-        locationDescription: values.locationDescription,
-        qualifications: values.qualifications,
-        provided: values.provided,
-        guestRequirements: values.guestRequirements,
-        minAge: values.minAge,
-        activityLevel: values.activityLevel,
-        skillLevel: values.skillLevel,
-        maxAttendees: values.maxAttendees,
-        profileImage: values.profileImage,
-        photos: filePathArray,
-        slugId: slug ?? "",
-        categoryId: values.categoryId,
-      });
-    } else {
-      createExperience.mutate({
-        firstName: values.firstName,
-        lastName: values.lastName,
-        email: values.email,
-        title: values.title,
-        description: values.description,
-        price: values.price,
-        date: date,
-        startTime: values.startTime,
-        endTime: values.endTime,
-        timeline: values.timeline,
-        location: values.location,
-        locationDescription: values.locationDescription,
-        qualifications: values.qualifications,
-        provided: values.provided,
-        guestRequirements: values.guestRequirements,
-        minAge: values.minAge,
-        activityLevel: values.activityLevel,
-        skillLevel: values.skillLevel,
-        maxAttendees: values.maxAttendees,
-        profileImage: values.profileImage,
-        photos: filePathArray,
-        slugId: slug ?? "",
-        categoryId: values.categoryId,
-      });
-    }
-
-    setTimeout(() => {
-      helpers.setSubmitting(false);
-      // helpers.resetForm({ values });
-    }, 2000);
-
-    await router.push("/");
-  };
-
-  const handleTabClick = async (index: number) => {
-    console.log(index);
+  const handleGoToNextStep = async (index: number) => {
     await goToStep(index);
-    await router.replace(
-      {
-        pathname: tabInfoList[index]?.url || "",
-        query: { experienceId: experienceId || "" },
-      },
-      undefined,
-      {
-        shallow: true,
-      }
-    );
   };
 
   return (
     <div className="space-between flex min-h-screen flex-col">
-      <NavBar isSignedIn={user.isSignedIn ?? false} className="bg-white" />
-      <div className="border-b" />
+      {(experienceId && isLoading) || isCreating ? (
+        <div className="flex h-screen items-center justify-center">
+          <BounceLoader color="#FFC107" />
+        </div>
+      ) : (
+        <>
+          <NavBar isSignedIn={user.isSignedIn ?? false} className="bg-white" />
 
-      <div className="flex flex-col">
-        <div className="container">
-          <div className="hidden md:block">
+          <div className="flex flex-col">
             <CreateExperienceHeader />
+
+            <div className="flex flex-1 flex-col overflow-hidden px-0 md:flex-row md:px-4">
+              <CreateExperienceTabs
+                tabInfoList={tabInfoList}
+                currentTab={activeTab?.activeMatcher}
+                onTabClick={(index) => handleGoToNextStep(index)}
+              />
+
+              <main className="paragraph flex flex-1 rounded-lg bg-gradient-to-r from-amber-400 via-amber-200 to-slate-50 px-8 pb-8 pt-12 md:mb-12 md:ml-8 md:mr-12 md:pt-0">
+                <Formik
+                  initialValues={getInitialFormValues(experience)}
+                  onSubmit={(values, helpers) => handleSubmit(values, helpers)}
+                  enableReinitialize
+                >
+                  <Form className="w-full">
+                    <CreateExperienceFormArea
+                      tabComponent={getTabComponent(
+                        activeTab?.activeMatcher ?? "",
+                        !!experienceId,
+                        selectedDay,
+                        currentMonth,
+                        setSelectedDay,
+                        setCurrentMonth
+                      )}
+                      onNext={next}
+                      onBack={back}
+                      isFirstStep={step === 0}
+                      isLastStep={step === tabInfoList.length - 1}
+                    />
+                  </Form>
+                </Formik>
+              </main>
+            </div>
           </div>
-        </div>
-
-        <div className="flex flex-1 overflow-x-hidden">
-          <div className="flex flex-1 flex-col overflow-hidden px-0 md:flex-row md:px-4">
-            <CreateExperienceTabs
-              tabInfoList={tabInfoList}
-              currentTab={activeTab?.activeMatcher}
-              onTabClick={(index) => {
-                void handleTabClick(index);
-              }}
-            />
-
-            <main className="paragraph flex flex-1 rounded-lg bg-gradient-to-r from-amber-400 via-amber-200 to-slate-50 px-8 py-8 md:mb-12 md:ml-8 md:mr-12">
-              <Formik
-                initialValues={initialFormValues}
-                onSubmit={(values, helpers) => handleSubmit(values, helpers)}
-                enableReinitialize
-              >
-                <Form className="w-full">
-                  <CreateExperienceFormArea
-                    tabComponent={getTabComponent()}
-                    onNext={next}
-                    onBack={back}
-                    isFirstStep={step === 0}
-                    isLastStep={step === tabInfoList.length - 1}
-                  />
-                </Form>
-              </Formik>
-            </main>
-          </div>
-        </div>
-      </div>
-
-      <Footer />
+          <Footer />
+        </>
+      )}
     </div>
   );
 };

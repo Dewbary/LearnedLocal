@@ -31,6 +31,7 @@ const Calendar = ({
   currentMonth,
   setCurrentMonth,
 }: CalendarProps) => {
+  console.log(currentMonth);
   const firstDayCurrentMonth = parse(currentMonth, "MMM-yyyy", new Date());
 
   const days = eachDayOfInterval({
