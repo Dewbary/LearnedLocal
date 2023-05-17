@@ -39,19 +39,18 @@ const CreateExperienceTabs = ({
                       }`}
                     />
                   )}
-                  <Link href={item.url} shallow={true}>
-                    <div
-                      className={`flex w-full items-center rounded-lg p-2 ${
-                        isSelected ? "bg-amber-500 text-white" : "bg-white"
-                      }`}
-                      onClick={() => onTabClick(index)}
-                    >
-                      <div className="flex content-end items-center space-x-2">
-                        <span>{item.text}</span>
-                        {item.icon}
-                      </div>
+
+                  <button
+                    className={`flex w-full items-center rounded-lg p-2 ${
+                      isSelected ? "bg-amber-500 text-white" : "bg-white"
+                    }`}
+                    onClick={() => onTabClick(index)}
+                  >
+                    <div className="flex content-end items-center space-x-2">
+                      <span>{item.text}</span>
+                      {item.icon}
                     </div>
-                  </Link>
+                  </button>
                 </li>
               );
             })}

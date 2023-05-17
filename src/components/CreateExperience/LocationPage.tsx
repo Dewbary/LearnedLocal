@@ -6,7 +6,7 @@ import FormPageHeader from "./Typography/Typography";
 
 const LocationPage = () => {
   return (
-    <div className="container mx-auto overflow-y-auto py-12 px-4 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-4xl py-10 px-4">
       <FormPageHeader
         step={4}
         title="Now let's pinpoint the exact location of your experience"

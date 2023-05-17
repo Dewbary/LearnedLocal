@@ -1,14 +1,18 @@
-import { useState } from "react";
-import { TabInfo } from "../types";
+// useNavigation.tsx
 import { useRouter } from "next/router";
+import { TabInfo } from "../types";
+import { getTabInfos } from "../CreateExperienceFormUtils";
+import { useState } from "react";
 
-export const useStepNavigation = (
+export function useNavigation(
   tabs: TabInfo[],
+  slug: string,
   initialStep = 0,
   experienceId: string
-) => {
-  const [step, setStep] = useState(initialStep);
+) {
   const router = useRouter();
+  const tabInfoList: TabInfo[] = getTabInfos(slug);
+  const [step, setStep] = useState(initialStep);
 
   const next = async () => {
     if (step < tabs.length - 1) {
@@ -44,7 +48,7 @@ export const useStepNavigation = (
       await router.push(
         {
           pathname: tabs[step]?.url ?? "",
-          query: { experienceId: experienceId || "" },
+          query: { experienceId: experienceId },
         },
         undefined,
         { shallow: true }
@@ -54,5 +58,11 @@ export const useStepNavigation = (
 
   const activeTab = tabs[step];
 
-  return { step, next, back, goToStep, activeTab };
-};
+  return {
+    next,
+    back,
+    goToStep,
+    activeTab,
+    step,
+  };
+}

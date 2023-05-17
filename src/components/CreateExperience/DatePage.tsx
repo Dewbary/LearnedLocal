@@ -1,5 +1,5 @@
 import { Field, FieldProps } from "formik";
-import React, { useState } from "react";
+import React from "react";
 import { FormLabel } from "./Form/FormLabel";
 import Calendar from "./Calendar";
 import FormPageHeader from "./Typography/Typography";
@@ -18,23 +18,6 @@ const DatePage = ({
   selectedMonth,
   setSelectedMonth,
 }: Props) => {
-  const [range, setRange] = useState({
-    startDate: new Date(),
-    endDate: new Date(),
-  });
-
-  const [date, setDate] = useState(new Date());
-
-  const [value, setValue] = useState({
-    startDate: new Date(),
-    endDate: new Date().setMonth(11),
-  });
-
-  const handleValueChange = (
-    newValue: React.SetStateAction<{ startDate: Date; endDate: number }>
-  ) => {
-    setValue(newValue);
-  };
   return (
     <div className="mx-auto max-w-4xl py-10 px-4">
       <FormPageHeader
