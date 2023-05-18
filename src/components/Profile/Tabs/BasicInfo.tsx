@@ -14,7 +14,7 @@ type Props = {
     instagram: string,
     setInstagram: Dispatch<SetStateAction<string>>,
     facebook: string,
-    setFacebook: Dispatch<SetStateAction<string>>
+    setFacebook: Dispatch<SetStateAction<string>>,
 }
 
 export default function BasicInfo({firstName, setFirstName, lastName, setLastName, bio, setBio, qualis, setQualis, instagram, setInstagram, facebook, setFacebook}: Props) {

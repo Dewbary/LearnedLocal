@@ -5,7 +5,7 @@ type Props = {
     venmoAccount: string,
     setVenmoAccount: Dispatch<SetStateAction<string>>,
     zelleAccount: string,
-    setZelleAccount: Dispatch<SetStateAction<string>>,
+    setZelleAccount: Dispatch<SetStateAction<string>>
 }
 
 export default function PaymentInfo({venmoAccount, setVenmoAccount, zelleAccount, setZelleAccount}: Props) {

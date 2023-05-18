@@ -129,3 +129,16 @@ model Registration {
     @@index([userId])
     @@index([experienceId])
 }
+
+model Profile {
+    id          String  @id @default(cuid())
+    userId      String
+    firstName   String?
+    lastName    String?
+    bio         String?
+    qualis      String?
+    instagram   String?
+    facebook    String?
+    venmo       String?
+    zelle       String?
+}

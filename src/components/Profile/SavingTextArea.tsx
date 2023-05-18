@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 type Props = {
     label: string,
     savedValue: string,
-    setSavedValue: Dispatch<SetStateAction<string>>
+    setSavedValue: Dispatch<SetStateAction<string>>,
 }
 
 export default function SavingTextArea({label, savedValue, setSavedValue}: Props) {
