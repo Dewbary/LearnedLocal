@@ -83,13 +83,13 @@ export default function Profile () {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <NavBar isSignedIn={user.isSignedIn || false} className="bg-white drop-shadow-md"/>
-            <div className="flex flex-col w-full gap-10 min-h-screen pb-10">
+            <div className="flex flex-col w-full gap-10 min-h-screen pb-10 pt-14 lg:pt-0">
                 <div className="flex w-full justify-center py-10 bg-gradient-to-r from-amber-400 via-amber-200 to-amber-50">
-                    <h1 className="text-5xl font-bold">Profile and Settings</h1>
+                    <h1 className="text-3xl lg:text-5xl font-bold">Profile and Settings</h1>
                 </div>
 
-                <div className="flex w-full gap-10">
-                    <div className="basis-1/3 flex flex-col items-end gap-5 mt-5">
+                <div className="flex w-full gap-10 flex-col lg:flex-row">
+                    <div className="lg:basis-1/3 flex flex-col lg:items-end gap-2 lg:gap-5 lg:mt-5 mx-5 lg:mx-0">
                         {Tabs.map(tab => (
                             <button 
                                 className={`flex items-center gap-2 px-3 py-2 rounded-md ${selectedTab?.label === tab.label ? "bg-amber-400 text-white" : ""}`}

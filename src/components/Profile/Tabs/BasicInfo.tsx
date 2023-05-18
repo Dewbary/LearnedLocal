@@ -19,8 +19,8 @@ type Props = {
 
 export default function BasicInfo({firstName, setFirstName, lastName, setLastName, bio, setBio, qualis, setQualis, instagram, setInstagram, facebook, setFacebook}: Props) {
     return (
-        <div className="flex flex-col gap-10">
-            <h1 className="text-4xl">Basic Profile Information</h1>
+        <div className="flex flex-col gap-10 mx-3 lg:mx-0">
+            <h1 className="text-3xl lg:text-4xl text-center lg:text-left">Basic Profile Information</h1>
             <SavingInputField label="First Name" savedValue={firstName} setSavedValue={setFirstName} />
             <SavingInputField label="Last Name" savedValue={lastName} setSavedValue={setLastName} />
             <SavingTextArea label="Biography / About You" savedValue={bio} setSavedValue={setBio} /> 
