@@ -74,7 +74,7 @@ export default function ViewExperiencePage() {
                     {/* EXPERIENCE TITLE AND HEADER */}
                     <div className="flex justify-between items-center bg-gradient-to-r from-amber-400 via-amber-200 to-white p-3 lg:p-7 rounded-t-lg">
                         <div>
-                           <h1 className="text-3xl lg:text-5xl font-bold">{experience.title}</h1>
+                           <h1 className="text-2xl lg:text-5xl font-bold">{experience.title}</h1>
                             <div>
                                 <span>Hosted By {experience.firstName} {experience.lastName}</span>
                             </div> 
@@ -104,7 +104,13 @@ export default function ViewExperiencePage() {
                                 </span>
                             </div>
                             <div>
-                                <button className="bg-amber-400 text-white w-full p-2 rounded-lg font-bold drop-shadow-sm" onClick={() => goToCheckoutPage()}>Sign Up Now</button>
+                                <button 
+                                    disabled={(getRegistrantCount.data || 0) >= experience.maxAttendees} 
+                                    className="bg-amber-400 text-white w-full p-2 rounded-lg font-bold drop-shadow-sm disabled:cursor-not-allowed disabled:bg-gray-500" 
+                                    onClick={() => goToCheckoutPage()}
+                                >
+                                    Sign Up Now
+                                </button>
                             </div>
                         </div>
 
@@ -140,43 +146,44 @@ export default function ViewExperiencePage() {
                         {/* TEXT DETAILS */}
 
                         <div className="lg:order-1 lg:basis-1/2">
-                            <h3 className="text-xl font-bold">Description</h3>
-                            <p>{experience.description}</p>
-                            <br />
-                            <h3 className="text-xl font-bold">Details</h3>
-                            <hr className="w-64" />
-                            <br />
-
-                            <ul>
-                                <li>
-                                <strong>Guest Requirements:</strong>{" "}
-                                {experience.guestRequirements}
-                                </li>
-                                <br />
-
-                                <li>
-                                <strong>Provided Resources:</strong> {experience.provided}
-                                </li>
-                                <br />
-
-                                <li>
-                                <strong>Activity Level:</strong> {experience.activityLevel}
-                                </li>
-                                <br />
-
-                                <li>
-                                <strong>Skill Level:</strong> {experience.skillLevel}
-                                </li>
-                            </ul>
-                            <br />
-                            <h3 className="text-xl font-bold">Itinerary</h3>
-                            <p>{experience.timeline}</p>
-                            <br />
-                            <h3 className="text-xl font-bold">Location Notes</h3>
-                            <p>{experience.locationDescription}</p>
-                            <br />
-                            <br />
+                            <div>
+                                <h3 className="text-xl font-bold">Description</h3>
+                                <hr className="w-64" />
+                                <p>{experience.description}</p>
                             </div>
+                            <div className="flex flex-col gap-2 my-3">
+                                <div>
+                                    <h3 className="text-xl font-bold">Details</h3>
+                                    <hr className="w-64" />
+                                </div>
+                                <div hidden={!experience.guestRequirements}>
+                                    <h5 className="font-bold">Guest Requirements:</h5>
+                                    <p>{experience.guestRequirements}</p>
+                                </div>
+                                <div hidden={!experience.provided}>
+                                    <h5 className="font-bold">Provided Resources:</h5>
+                                    <p>{experience.provided}</p>
+                                </div>
+                                <div hidden={!experience.activityLevel}>
+                                    <h5 className="font-bold">Activity Level:</h5>
+                                    <p>{experience.activityLevel}</p>
+                                </div>
+                                <div hidden={!experience.skillLevel}>
+                                    <h5 className="font-bold">Skill Level:</h5>
+                                    <p>{experience.skillLevel}</p>
+                                </div>
+                            </div>
+                            <div hidden={!experience.timeline}>
+                                <h3 className="text-xl font-bold">Itinerary</h3>
+                                <hr className="w-64" />
+                                <p>{experience.timeline}</p>
+                            </div>
+                            <div hidden={!experience.locationDescription}>
+                                <h3 className="text-xl font-bold">Location Notes</h3>
+                                <hr className="w-64" />
+                                <p>{experience.locationDescription}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             )}

@@ -63,8 +63,8 @@ const TimeSelect = ({ label, name }: Props) => {
       <Field
         as="select"
         name={name}
-        defaultValue={"12:00PM"}
-        className="select w-full max-w-xs"
+        defaultValue={"12:00 PM"}
+        className="select w-full max-w-xs bg-gray-100"
       >
         <option disabled>{label}</option>
         {times.map((time, i) => (

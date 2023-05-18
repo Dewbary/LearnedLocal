@@ -57,11 +57,11 @@ export default function MyExperiences () {
 
             {/* NAVBAR */}
 
-            <NavBar isSignedIn={user.isSignedIn ?? false} />
+            <NavBar isSignedIn={user.isSignedIn ?? false} className="bg-white drop-shadow-lg lg:drop-shadow-none lg:bg-opacity-0"/>
 
             {/* PAGE BANNER AND TITLE */}
 
-            <div className="grid place-items-center items-end text-primary-content bg-gradient-to-br from-primary to-secondary">
+            <div className="grid place-items-center items-end text-primary-content bg-gradient-to-br from-primary to-secondary pt-10 lg:pt-0">
                 <div className="hero-content col-start-1 row-start-1 w-full max-w-7xl flex-col justify-between lg:flex-row lg:gap-0 xl:gap-20">
                     <div className="flex-1">
                         <Image

@@ -36,10 +36,10 @@ export const experienceRouter = createTRPCRouter({
     });
   }),
 
-  byExperienceId: protectedProcedure
+  byExperienceId: publicProcedure
     .input(z.number())
     .query(async ({ ctx, input }) => {
-      return await ctx.prisma.experience.findUnique({
+      return await ctx.prisma.experience.findFirst({
         where: { id: input },
       });
     }),

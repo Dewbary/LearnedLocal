@@ -38,7 +38,7 @@ export default function ShareExperienceComponent({ experienceId }: Props) {
                 className="flex items-center gap-3 bg-blue-400 text-white p-2 rounded-lg drop-shadow-sm"
                 onClick={() => handleShareButtonClick()}
             >
-                <div>Share</div> 
+                <div className="hidden lg:block">Share</div> 
                 <ShareIcon className="w-5"/>
             </button>
             <div className={`bg-black bg-opacity-90 h-screen w-screen fixed inset-0 z-50 ${showShareBox ? "" : "hidden"}`}>
