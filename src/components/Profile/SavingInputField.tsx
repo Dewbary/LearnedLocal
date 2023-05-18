@@ -43,11 +43,11 @@ export default function SavingInputField({label, savedValue, setSavedValue}: Pro
                         className="text-xl"
                         hidden={editModeActive}
                     >
-                        {savedValue}
+                        {savedValue !== "" ? savedValue : "[missing]"}
                     </p>
                     <div className={`${editModeActive ? "flex" : "hidden"} flex items-center gap-2`}>
                         <input 
-                            placeholder="First Name"
+                            placeholder={label}
                             className="border-2 border-slate-500 rounded-md py-1 px-2"
                             value={newValue}
                             onChange={e => setNewValue(e.target.value)}
