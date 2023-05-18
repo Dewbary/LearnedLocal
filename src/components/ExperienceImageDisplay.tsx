@@ -43,10 +43,11 @@ export default function ExperienceImageDisplay({ photos }: Props) {
             src={photos[0]}
             alt="experience photo"
             className="max-h-96"
+            onClick={() => handleClickImage(0)}
           />
           
           <div 
-            className="absolute inset-0 flex cursor-pointer items-center justify-center bg-black bg-opacity-30 opacity-0 transition-opacity hover:opacity-100"
+            className="absolute hidden inset-0 lg:flex cursor-pointer items-center justify-center bg-black bg-opacity-30 opacity-0 transition-opacity hover:opacity-100"
             onClick={() => handleClickImage(0)}
             >
             <span className="text-lg font-semibold text-white">
@@ -64,9 +65,10 @@ export default function ExperienceImageDisplay({ photos }: Props) {
                       src={photos[i]}
                       alt="experience photo"
                       className=""
+                      onClick={() => handleClickImage(i)}
                     />
                     <div
-                      className="absolute inset-0 flex cursor-pointer items-center justify-center bg-black bg-opacity-30 opacity-0 transition-opacity hover:opacity-100"
+                      className="absolute inset-0 hidden lg:flex cursor-pointer items-center justify-center bg-black bg-opacity-30 opacity-0 transition-opacity hover:opacity-100"
                       onClick={() => handleClickImage(i)}
                     >
                       <span className="text-lg font-semibold text-white">
@@ -75,7 +77,7 @@ export default function ExperienceImageDisplay({ photos }: Props) {
                     </div>
                   </>
                 )}
-                {!photos[i] && <div className="h-full w-full bg-slate-100" />}
+                {!photos[i] && <div className="h-full w-full bg-white" />}
               </div>
             </>
           );
@@ -92,7 +94,7 @@ export default function ExperienceImageDisplay({ photos }: Props) {
         </svg>
         <svg 
             xmlns="http://www.w3.org/2000/svg" 
-            className="h-6 w-6 text-white absolute top-3/4 right-20 transform -translate-y-1/2 cursor-pointer lg:top-1/2 lg:right-8" 
+            className="h-6 w-6 text-white absolute bottom-4 right-20 cursor-pointer" 
             viewBox="0 0 24 24"
             onClick={() => handleClickNextOverlayImage()}
         >
@@ -100,14 +102,14 @@ export default function ExperienceImageDisplay({ photos }: Props) {
         </svg>
         <svg 
             xmlns="http://www.w3.org/2000/svg" 
-            className="h-6 w-6 text-white absolute top-3/4 left-20 transform -translate-y-1/2 cursor-pointer lg:top-1/2 lg:left-2" 
+            className="h-6 w-6 text-white absolute bottom-4 left-20 cursor-pointer" 
             viewBox="0 0 24 24"
             onClick={() => handleClickPreviousOverlayImage()}
         >
             <path fill="currentColor" d="M 15 18 v -14 l -11 7 z"/>
         </svg>
 
-        <img src={photos[overlayImageIndex]} className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 max-w-screen max-h-screen select-none lg:max-w-3xl"/>
+        <img src={photos[overlayImageIndex]} className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 max-w-screen max-h-96 lg:max-h-screen lg:h-5/6 select-none lg:max-w-3xl"/>
 
         <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-xl text-white">Photo {overlayImageIndex + 1} / {photos.length}</p>
       </div>

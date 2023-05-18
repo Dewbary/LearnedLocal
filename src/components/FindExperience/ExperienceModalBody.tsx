@@ -57,40 +57,6 @@ export default function ExperienceModalBody({
             <div className="lg:order-0 order-2 mr-3 basis-2/3">
               <h3 className="text-xl font-bold">Description</h3>
               <p>{experience.description}</p>
-              {/* <br />
-              <h3 className="text-xl font-bold">Details</h3>
-              <hr className="w-64" />
-              <br />
-
-              <ul>
-                <li>
-                  <strong>Guest Requirements:</strong>{" "}
-                  {experience.guestRequirements}
-                </li>
-                <br />
-
-                <li>
-                  <strong>Provided Resources:</strong> {experience.provided}
-                </li>
-                <br />
-
-                <li>
-                  <strong>Activity Level:</strong> {experience.activityLevel}
-                </li>
-                <br />
-
-                <li>
-                  <strong>Skill Level:</strong> {experience.skillLevel}
-                </li>
-              </ul>
-              <br />
-              <h3 className="text-xl font-bold">Itinerary</h3>
-              <p>{experience.timeline}</p>
-              <br />
-              <h3 className="text-xl font-bold">Location Notes</h3>
-              <p>{experience.locationDescription}</p>
-              <br />
-              <br /> */}
             </div>
             <div className="mb-5 grid basis-1/3 grid-cols-5 items-center gap-y-3 border-b-2 pb-5 md:h-full lg:order-2 lg:border-b-0 lg:border-l-2 lg:pl-5">
               <ClockIcon className="w-5" />{" "}
@@ -123,11 +89,11 @@ export default function ExperienceModalBody({
       </div>
 
       {/* BOTTOM BAR */}
-      <div className="flex items-center justify-between border-t py-4 pl-10 pr-6">
+      <div className="flex items-center justify-between border-t py-4 pl-6 pr-6">
         <div className="text-3xl font-bold">${experience.price}</div>
         <div className="">
-          <UserIcon className="mr-2 inline w-5 rounded-full border border-black" />
-          <span>
+          <UserIcon className="mr-2 inline w-4 lg:w-5 rounded-full border border-black" />
+          <span className="text-sm lg:text-md">
             {getRegistrantCount.data}/{experience.maxAttendees} Spots Filled
           </span>
         </div>
