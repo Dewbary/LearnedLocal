@@ -8,6 +8,7 @@ import BasicInfo from "~/components/Profile/Tabs/BasicInfo";
 import PaymentInfo from "~/components/Profile/Tabs/PaymentInfo";
 import AdvancedSettings from "~/components/Profile/Tabs/AdvancedSettings";
 import { api } from "~/utils/api";
+import { useRouter } from "next/router";
 
 type Tab = {
     label: string;
@@ -17,9 +18,13 @@ type Tab = {
 export default function Profile () {
 
     const user = useUser();
+    const router = useRouter();
 
-    const { data: profile } = api.profile.getProfile.useQuery();
+    const getProfile = api.profile.getProfile.useQuery();
+    const {data: profile, isLoading: profileIsLoading} = getProfile;
     const updateProfile = api.profile.setProfile.useMutation();
+    const createProfile = api.profile.createProfile.useMutation();
+    const [profileExists, setProfileExists] = useState("loading");
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -31,7 +36,7 @@ export default function Profile () {
     const [zelleAccount, setZelleAccount] = useState("");
 
     useEffect(() => {
-        if (profile) {
+        if (profile && !profileIsLoading) {
             setFirstName(profile.firstName || "");
             setLastName(profile.lastName || "");
             setBio(profile.bio || "");
@@ -40,20 +45,43 @@ export default function Profile () {
             setFacebook(profile.facebook || "");
             setVenmoAccount(profile.venmo || "");
             setZelleAccount(profile.zelle || "");
+
+            setProfileExists("yes");
+        }
+        else if (!profile && !profileIsLoading) {
+            setProfileExists("no");
         }
     }, [profile]);
 
-    const handleSaveClick = function () {
-        updateProfile.mutate({
-            firstName: firstName,
-            lastName: lastName,
-            bio: bio,
-            qualis: qualis,
-            instagram: instagram,
-            facebook: facebook,
-            venmo: venmoAccount,
-            zelle: zelleAccount
-        });
+    const handleSaveClick = async function () {
+
+        if (profileExists === "no") {
+            createProfile.mutate({
+                firstName: firstName,
+                lastName: lastName,
+                bio: bio,
+                qualis: qualis,
+                instagram: instagram,
+                facebook: facebook,
+                venmo: venmoAccount,
+                zelle: zelleAccount
+            });
+
+            router.reload();
+        }
+        else if (profileExists === "yes") {
+            updateProfile.mutate({
+                firstName: firstName,
+                lastName: lastName,
+                bio: bio,
+                qualis: qualis,
+                instagram: instagram,
+                facebook: facebook,
+                venmo: venmoAccount,
+                zelle: zelleAccount
+            });
+        }
+        
     }
 
     const deleteAccountAction = function () {
@@ -103,7 +131,19 @@ export default function Profile () {
                             </button>
                         ))}
                         <hr className="w-full lg:w-36" />
-                        <button className="px-3 py-2 bg-green-400 rounded-md text-white drop-shadow-md" onClick={() => handleSaveClick()}>Save Changes</button>
+                        <button
+                            disabled={firstName.length <= 0 || lastName.length <= 0} 
+                            className="px-3 py-2 bg-green-400 rounded-md text-white drop-shadow-md disabled:bg-gray-400" 
+                            onClick={() => handleSaveClick()}
+                        >
+                            {profileExists === "yes" ? "Save Changes" : "Create Profile"} 
+                        </button>
+                        <p 
+                            hidden={!(firstName.length <= 0 || lastName.length <= 0)} 
+                            className="text-red-600 w-full lg:w-48 text-center lg:text-right"
+                        >
+                            You must provide a first name and a last name.
+                        </p>
                     </div>
                     <div className="basis-2/3">
                         {selectedTab?.label === "Basic Info" &&
