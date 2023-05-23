@@ -55,10 +55,10 @@ export default function ExperienceImageDisplay({ photos }: Props) {
             </span>
           </div>
         </div>
-        {[1, 2, 3, 4].map((i) => {
+        {[1, 2, 3, 4].map((i, index) => {
           return (
             <>
-              <div key={i} className={`relative overflow-hidden flex justify-center items-center max-h-48`}>
+              <div key={index} className={`relative overflow-hidden flex justify-center items-center max-h-48`}>
                 {photos[i] && (
                   <>
                     <img
