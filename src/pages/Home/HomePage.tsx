@@ -24,11 +24,10 @@ const HomePage = () => {
         <span id="viewexperiences" />
 
         <div className="mx-10 my-10 flex flex-col items-center">
-          <h1 className="text-7xl font-bold">Create a Memory</h1>
-          <h3 className="mt-6 text-xl">
-            Plan a fun activity, discover a new hobby, or forge a friendship
-            with experiences hosted by locals near you.
-          </h3>
+          <h2 className="text-5xl lg:text-7xl font-bold">Experience Your Community</h2>
+          <h2 className="mt-6 text-xl lg:mx-10">
+            Having a hard time thinking of date night ideas? Looking for fun things to do in Utah and Provo? Why not learn a new hobby from a talented individual or business right where you live? Come find an experience and create a memory with us while building a stronger sense of community!
+          </h2>
         </div>
 
         {experiencesQuery.data?.length === 0 && (
@@ -64,9 +63,25 @@ const HomePage = () => {
           <div className="h-1 w-5/6 border-b border-gray-300" />
         </div>
 
-        <span id="hostexperience" />
         <div className="mx-10 my-10 flex flex-col items-center">
-          <h1 className="text-7xl font-bold">Become a Local</h1>
+          <h2 className="text-5xl lg:text-7xl font-bold">What is Learned Local?</h2>
+          <h3 className="mt-6 text-xl lg:mx-10">
+            We believe that everyone has hobbies, passions, and interests that makes them unique. We made Learned Local as a place for members of your community to come together and share these interests with each other, in events that we like to call "experiences". Along the way, you'll forge friendships, create memories, and discover that you have a lot more in common with the people around you than you think. Sign up for an experience today!
+          </h3>
+          <video
+            src="/learnedlocalvid.mp4"
+            controls
+            className="pt-8 md:pl-16 md:pr-16 md:pt-8 md:pb-8 lg:pl-48 lg:pr-48 lg:pt-16 lg:pb-16"
+          />
+        </div>
+
+        <div className="flex justify-center">
+          <div className="h-1 w-5/6 border-b border-gray-300" />
+        </div>
+
+        <div className="mx-10 my-10 flex flex-col items-center">
+          <span id="hostexperience" />
+          <h2 className="text-5xl lg:text-7xl font-bold">Become a Local</h2>
           <h3 className="my-6 text-xl">
             Want to host an experience? Sign up to start sharing your passion
             with others.
@@ -79,11 +94,6 @@ const HomePage = () => {
               <button className="btn-primary btn">Sign In</button>
             </SignInButton>
           </SignedOut>
-          <video
-            src="/learnedlocalvid.mp4"
-            controls
-            className="pt-8 md:pl-16 md:pr-16 md:pt-8 md:pb-8 lg:pl-48 lg:pr-48 lg:pt-16 lg:pb-16"
-          />
         </div>
 
         <div className="flex justify-center">
