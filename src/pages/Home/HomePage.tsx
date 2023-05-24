@@ -1,18 +1,23 @@
 import ExperienceCard from "~/components/FindExperience/ExperienceCard";
 import { Experience } from "@prisma/client";
 import { api } from "~/utils/api";
-import { SignInButton, SignedIn, SignedOut, useUser } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 import Header from "~/components/Header";
 import NavBar from "~/components/NavBar/NavBar";
 import Footer from "~/components/Footer/Footer";
 import ExperienceModalHeader from "~/components/FindExperience/ExperienceModalHeader";
 import ExperienceModalBody from "~/components/FindExperience/ExperienceModalBody";
-import Link from "next/link";
-import CreateExperienceButton from "~/components/CreateExperienceButton";
+import { useRouter } from "next/router";
 
 const HomePage = () => {
   const user = useUser();
   const experiencesQuery = api.experience.getAll.useQuery();
+
+  const router = useRouter();
+  
+  const navigateToHosting = async function () {
+    await router.push("/host");
+  }
 
   return (
     <>
@@ -86,14 +91,7 @@ const HomePage = () => {
             Want to host an experience? Sign up to start sharing your passion
             with others.
           </h3>
-          <SignedIn>
-            <CreateExperienceButton />
-          </SignedIn>
-          <SignedOut>
-            <SignInButton>
-              <button className="btn-primary btn">Sign In</button>
-            </SignInButton>
-          </SignedOut>
+          <button className="btn-primary btn" onClick={() => navigateToHosting()}>Learn More</button>
         </div>
 
         <div className="flex justify-center">
