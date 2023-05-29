@@ -71,6 +71,7 @@ model Experience {
   firstName          String
   lastName           String
   email              String
+  phone              String?
   title              String
   description        String
   price              Float
@@ -118,6 +119,7 @@ model Registration {
     registrantLastName  String
     partySize    Int
     email        String
+    phone        String?
     experienceId Int
     stripeCheckoutSessionId String
     status       String?

@@ -72,6 +72,16 @@ const AboutPage = () => {
           </div>
 
           <div>
+            <FormLabel text="Phone #" className="text-gray-600" />
+            <InputField
+              id="phone"
+              name="phone"
+              type="text"
+              placeholder="123-456-7890"
+            />
+          </div>
+
+          <div>
             <FormLabel text="Profile Picture" />
 
             <div className="mx-auto mt-4 mb-8 h-32 w-32 overflow-hidden rounded-full">

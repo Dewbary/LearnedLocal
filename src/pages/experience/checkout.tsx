@@ -174,6 +174,7 @@ type FormData = {
   lastName: string;
   partySize: string;
   email: string;
+  phone: string;
 };
 
 const Checkout = () => {
@@ -184,6 +185,7 @@ const Checkout = () => {
     lastName: "",
     partySize: "1",
     email: "",
+    phone: "",
   });
 
   const createCheckoutSession = api.payment.createCheckoutSession.useMutation();
@@ -207,6 +209,7 @@ const Checkout = () => {
         registrantLastName: formData.lastName,
         partySize: parseInt(formData.partySize),
         email: formData.email,
+        phone: formData.phone,
       },
       {
         onSuccess: async (data) => {
@@ -309,7 +312,7 @@ const Checkout = () => {
                   className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
                 />
               </div>
-              <div className="mb-6">
+              <div className="mb-4">
                 <label className="mb-2 block text-sm font-bold text-gray-700">
                   Email
                 </label>
@@ -318,6 +321,20 @@ const Checkout = () => {
                   name="email"
                   placeholder="Email"
                   value={formData.email}
+                  onChange={handleChange}
+                  required
+                  className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
+                />
+              </div>
+              <div className="mb-6">
+                <label className="mb-2 block text-sm font-bold text-gray-700">
+                  Phone #
+                </label>
+                <input
+                  type="text"
+                  name="phone"
+                  placeholder="123-456-7890"
+                  value={formData.phone}
                   onChange={handleChange}
                   required
                   className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"

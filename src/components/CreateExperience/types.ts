@@ -14,6 +14,7 @@ export type FormValues = {
   firstName: string;
   lastName: string;
   email: string;
+  phone: string | null;
   qualifications: string;
   provided: string;
   guestRequirements: string;
