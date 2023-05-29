@@ -72,6 +72,13 @@ const HomePage = () => {
             </div>
           ))}
         </div>
+        <div>
+          <p className="mx-24 mb-20 text-center text-3xl font-bold lg:text-3xl">
+            Not seeing an experience in your area yet? Want to be notified when
+            new experiences are available?
+          </p>
+        </div>
+
         <div className="flex justify-center">
           <div className="h-1 w-5/6 border-b border-gray-300" />
         </div>
