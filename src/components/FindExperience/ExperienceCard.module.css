@@ -1,7 +1,11 @@
 .modal-visible {
-    display: block;
+  display: block;
 }
 
 .modal-hidden {
-    display: none;
+  display: none;
+}
+
+.card-height {
+  height: 26rem;
 }
