@@ -14,10 +14,10 @@ const HomePage = () => {
   const experiencesQuery = api.experience.getAll.useQuery();
 
   const router = useRouter();
-  
+
   const navigateToHosting = async function () {
     await router.push("/host");
-  }
+  };
 
   return (
     <>
@@ -29,9 +29,15 @@ const HomePage = () => {
         <span id="viewexperiences" />
 
         <div className="mx-10 my-10 flex flex-col items-center">
-          <h2 className="text-5xl lg:text-7xl font-bold">Experience Your Community</h2>
-          <h2 className="mt-6 text-xl lg:mx-10">
-            Having a hard time thinking of date night ideas? Looking for fun things to do in Utah and Provo? Why not learn a new hobby from a talented individual or business right where you live? Come find an experience and create a memory with us while building a stronger sense of community!
+          <h2 className="text-5xl font-bold lg:text-7xl">
+            Experience Your Community
+          </h2>
+          <h2 className="mt-6 text-center text-xl lg:mx-24">
+            Having a hard time thinking of date night ideas? Looking for fun
+            things to do in Utah and Provo? Why not learn a new hobby from a
+            talented individual or business right where you live? Come find an
+            experience and create a memory with us while building a stronger
+            sense of community!
           </h2>
         </div>
 
@@ -57,21 +63,31 @@ const HomePage = () => {
                   <ExperienceModalHeader experience={experience} />
                 }
                 modalBodyContent={
-                  <ExperienceModalBody experience={experience} />
+                  <ExperienceModalBody
+                    experience={experience}
+                    registered={false}
+                  />
                 }
               />
             </div>
           ))}
         </div>
-
         <div className="flex justify-center">
           <div className="h-1 w-5/6 border-b border-gray-300" />
         </div>
 
         <div className="mx-10 my-10 flex flex-col items-center">
-          <h2 className="text-5xl lg:text-7xl font-bold">What is Learned Local?</h2>
-          <h3 className="mt-6 text-xl lg:mx-10">
-            We believe that everyone has hobbies, passions, and interests that makes them unique. We made Learned Local as a place for members of your community to come together and share these interests with each other, in events that we like to call &quot;experiences&quot;. Along the way, you&apos;ll forge friendships, create memories, and discover that you have a lot more in common with the people around you than you think. Sign up for an experience today!
+          <h2 className="text-5xl font-bold lg:text-7xl">
+            What is Learned Local?
+          </h2>
+          <h3 className="mt-6 text-center text-xl lg:mx-24">
+            We believe that everyone has hobbies, passions, and interests that
+            makes them unique. We made Learned Local as a place for members of
+            your community to come together and share these interests with each
+            other, in events that we like to call &quot;experiences&quot;. Along
+            the way, you&apos;ll forge friendships, create memories, and
+            discover that you have a lot more in common with the people around
+            you than you think. Sign up for an experience today!
           </h3>
           <video
             src="/learnedlocalvid.mp4"
@@ -86,12 +102,17 @@ const HomePage = () => {
 
         <div className="mx-10 my-10 flex flex-col items-center">
           <span id="hostexperience" />
-          <h2 className="text-5xl lg:text-7xl font-bold">Become a Local</h2>
+          <h2 className="text-5xl font-bold lg:text-7xl">Become a Local</h2>
           <h3 className="my-6 text-xl">
             Want to host an experience? Sign up to start sharing your passion
             with others.
           </h3>
-          <button className="btn-primary btn" onClick={() => navigateToHosting()}>Learn More</button>
+          <button
+            className="btn-primary btn"
+            onClick={() => navigateToHosting()}
+          >
+            Learn More
+          </button>
         </div>
 
         <div className="flex justify-center">
