@@ -44,7 +44,9 @@ export default function ExperienceCard({
   return (
     <>
       <div
-        className={`${styles["card-height"]} flex w-72 flex-col rounded-2xl bg-white drop-shadow-xl`}
+        className={`${
+          styles["card-height"] ?? ""
+        }  flex w-72 flex-col rounded-2xl bg-white drop-shadow-xl`}
       >
         {/* TITLE BAR */}
         <div className="flex w-full items-center justify-between rounded-t-2xl bg-gradient-to-br from-amber-300 to-amber-400 p-3">
