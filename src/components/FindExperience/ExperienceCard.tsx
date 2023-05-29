@@ -43,22 +43,30 @@ export default function ExperienceCard({
 
   return (
     <>
-      <div className="flex h-96 w-72 flex-col rounded-2xl bg-white drop-shadow-xl">
+      <div
+        className={`${
+          styles["card-height"] ?? ""
+        }  flex w-72 flex-col rounded-2xl bg-white drop-shadow-xl`}
+      >
         {/* TITLE BAR */}
         <div className="flex w-full items-center justify-between rounded-t-2xl bg-gradient-to-br from-amber-300 to-amber-400 p-3">
-          {experience.profileImage ? (
-            <img
-              src={experience.profileImage}
-              className="h-12 w-12 rounded-full object-cover"
-            />
-          ) : (
-            <Image
-              src={profile_pic}
-              alt="Profile Picture Anonymous"
-              width={40}
-              className="rounded-full"
-            />
-          )}
+          <div className="relative h-12 w-12 overflow-hidden rounded-full">
+            {experience.profileImage ? (
+              <Image
+                src={experience.profileImage}
+                alt="Profile Picture"
+                className="rounded-full object-cover"
+                fill
+              />
+            ) : (
+              <Image
+                src={profile_pic}
+                alt="Profile Picture Anonymous"
+                className="rounded-full object-cover"
+                fill
+              />
+            )}
+          </div>
           <h2 className="text-4xl font-bold">
             {experience.date
               .toLocaleDateString("en-US", dateDisplayOptions)
@@ -67,18 +75,19 @@ export default function ExperienceCard({
         </div>
 
         {/* COVER IMAGE */}
-        <div className="w-full h-40 max-h-40 overflow-hidden relative">
-          <img
+        <div className="relative h-56 w-full overflow-hidden">
+          <Image
             src={experience.photos[0] || ""}
-            alt="Picture of the outdoors"
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+            alt="experience image"
+            className="absolute object-cover"
+            fill
           />
         </div>
 
         {/* DESCRIPTION BOX */}
         <div className="px-3">
           <h2 className="text-2xl font-bold">{experience.title}</h2>
-          <p className="h-16 overflow-hidden text-sm">
+          <p className="h-10 overflow-hidden text-sm">
             {experience.description}
           </p>
         </div>
