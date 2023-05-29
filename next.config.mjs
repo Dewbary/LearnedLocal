@@ -13,7 +13,10 @@ const config = {
   reactStrictMode: true,
 
   images: {
-    domains: ["tvectiqcwbgbhhgsavuc.supabase.co"],
+    domains: [
+      "tvectiqcwbgbhhgsavuc.supabase.co",
+      "ovrsneiokoigxbnvzugb.supabase.co",
+    ],
   },
 
   /**
