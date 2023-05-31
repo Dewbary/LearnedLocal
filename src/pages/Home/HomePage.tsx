@@ -8,10 +8,8 @@ import Footer from "~/components/Footer/Footer";
 import ExperienceModalHeader from "~/components/FindExperience/ExperienceModalHeader";
 import ExperienceModalBody from "~/components/FindExperience/ExperienceModalBody";
 import { useRouter } from "next/router";
-import Script from "next/script";
 import Modal from "react-modal";
 import { useState } from "react";
-import SubscribeModal from "~/components/SubscribeModal";
 import ReactModal from "react-modal";
 
 Modal.setAppElement("#__next");
