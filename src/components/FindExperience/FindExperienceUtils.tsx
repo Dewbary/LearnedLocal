@@ -7,6 +7,8 @@ export const generateGoogleMapsURL = (
   if (registered) {
     return `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
   }
-
+  if (!city) {
+    city = "";
+  }
   return `https://www.google.com/maps/dir/?api=1&destination=${city}`;
 };
