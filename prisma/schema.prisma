@@ -79,6 +79,7 @@ model Experience {
   startTime          String
   endTime            String
   timeline           String
+  city               String?
   location           Json
   locationDescription String
   qualifications     String
