@@ -20,8 +20,9 @@ const LocationPage = () => {
           <PinContextProvider>
             <LocationPicker
               {...field}
-              onLocationChange={(pin: Pin) => {
+              onLocationChange={(pin: Pin, city?: string | null) => {
                 form.setFieldValue("location", pin);
+                form.setFieldValue("city", city);
               }}
             />
           </PinContextProvider>

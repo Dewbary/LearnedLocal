@@ -15,7 +15,7 @@ export type Pin = {
 
 type LocationPickerProps = {
   value: Pin | null;
-  onLocationChange: (location: Pin) => void;
+  onLocationChange: (location: Pin, city?: string | null) => void;
 };
 
 const LocationPicker = ({ value, onLocationChange }: LocationPickerProps) => {
@@ -52,6 +52,11 @@ const LocationPicker = ({ value, onLocationChange }: LocationPickerProps) => {
   const handlePlaceSelected = (place: google.maps.places.PlaceResult) => {
     if (!place.geometry || !place.geometry.location) return;
 
+    const cityComponent = place.address_components?.find((component) =>
+      component.types.includes("locality")
+    );
+    const city = cityComponent ? cityComponent.long_name : null;
+
     const lat = place.geometry.location.lat();
     const lng = place.geometry.location.lng();
 
@@ -66,10 +71,13 @@ const LocationPicker = ({ value, onLocationChange }: LocationPickerProps) => {
         lng: lng,
       },
     ]);
-    onLocationChange({
-      lat: lat,
-      lng: lng,
-    });
+    onLocationChange(
+      {
+        lat: lat,
+        lng: lng,
+      },
+      city
+    );
   };
 
   const handleApiReady = () => {

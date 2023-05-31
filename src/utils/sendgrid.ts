@@ -1,5 +1,6 @@
 import { Experience } from "@prisma/client";
 import sgMail from "@sendgrid/mail";
+import { Pin } from "~/components/CreateExperience/LocationPicker/LocationPicker";
 import { env } from "~/env.mjs";
 
 type Props = {
@@ -10,6 +11,10 @@ type Props = {
 sgMail.setApiKey(env.SENDGRID_API_KEY);
 
 const sendConfirmationEmail = async ({ recipientEmail, experience }: Props) => {
+  const location = experience.location as Pin;
+  const lat = location.lat;
+  const lng = location.lng;
+
   const msg = {
     to: recipientEmail,
     from: "learnedlocal.app@gmail.com",
@@ -19,6 +24,10 @@ const sendConfirmationEmail = async ({ recipientEmail, experience }: Props) => {
       hostLastName: experience.lastName,
       experienceTitle: experience.title,
       hostEmail: experience.email,
+      experienceLocation:
+        lat && lng
+          ? `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`
+          : "",
     },
   };
 
