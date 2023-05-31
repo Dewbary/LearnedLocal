@@ -3,6 +3,7 @@ import Head from "next/head";
 import NavBar from "~/components/NavBar/NavBar";
 import Image from "next/image";
 import Footer from "~/components/Footer/Footer";
+import CreateExperienceButton from "~/components/CreateExperienceButton";
 
 export default function Host() {
 
@@ -78,7 +79,12 @@ export default function Host() {
                 </div>
             </div>
 
-            <div className="mx-5 lg:mx-20 border-t-2 pt-10 my-10">
+            <div className="flex justify-center py-8 border-t-2 mx-20 bg-white sticky bottom-0 gap-5 items-center">
+                <p className="font-bold text-xl">Create an Experience today!</p>
+                <CreateExperienceButton />
+            </div>
+
+            <div className="mx-5 lg:mx-20 border-t-2 pt-10 mb-10">
                 <h2 className="text-3xl lg:text-5xl font-bold mb-5">FAQs</h2>
                 <div className="flex flex-col gap-3">
                     <h3 className="font-bold text-xl">Can anyone host an experience?</h3>

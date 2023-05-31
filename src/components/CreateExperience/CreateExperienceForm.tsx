@@ -6,7 +6,7 @@ import CreateExperienceFormArea from "./CreateExperienceFormArea";
 import { useEffect, useState } from "react";
 import { format, startOfToday } from "date-fns";
 import { api } from "~/utils/api";
-import { useUser } from "@clerk/nextjs";
+import { RedirectToSignIn, SignedIn, SignedOut, useUser } from "@clerk/nextjs";
 import {
   getTabComponent,
   getTabInfos,
@@ -72,6 +72,7 @@ const CreateExperienceForm = () => {
 
   return (
     <div className="space-between flex min-h-screen flex-col">
+      <SignedIn>
       {(experienceId && isLoading) || isCreating ? (
         <div className="flex h-screen items-center justify-center">
           <BounceLoader color="#FFC107" />
@@ -119,6 +120,10 @@ const CreateExperienceForm = () => {
           <Footer />
         </>
       )}
+      </SignedIn>
+      <SignedOut>
+        <RedirectToSignIn />
+      </SignedOut>
     </div>
   );
 };

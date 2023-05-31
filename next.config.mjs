@@ -16,6 +16,7 @@ const config = {
     domains: [
       "tvectiqcwbgbhhgsavuc.supabase.co",
       "ovrsneiokoigxbnvzugb.supabase.co",
+      "cmthzvcffgzfgmggemfb.supabase.co"
     ],
   },
 
