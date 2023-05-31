@@ -101,13 +101,13 @@ const HomePage = () => {
           <ReactModal
             isOpen={modalIsOpen}
             contentLabel="Minimal Modal Example"
-            className="fixed m-auto flex h-[700px] w-[600px] items-center justify-center rounded-xl bg-white p-6"
+            className="fixed m-auto flex h-96 w-full items-center justify-center overflow-x-hidden rounded-xl bg-white p-6 md:h-[700px] md:w-[600px]"
             overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
           >
             <iframe
               src="https://cdn.forms-content.sg-form.com/c47b4367-ff5d-11ed-ac99-0292391286ae"
               title="Subscription Form"
-              className="h-full w-full"
+              className="h-96 w-96 overflow-x-hidden"
             />
             <button
               onClick={closeModal}
