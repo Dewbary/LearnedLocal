@@ -19,11 +19,13 @@ type ModalActionButton = {
 
 type Props = {
   experience: Experience;
+  registered: boolean;
   modalActionButton?: ModalActionButton;
 };
 
 export default function ExperienceModalBody({
   experience,
+  registered,
   modalActionButton,
 }: Props) {
   const dateDisplayOptions = {
@@ -50,10 +52,17 @@ export default function ExperienceModalBody({
       <div className="flex flex-grow overflow-y-scroll">
         <div className="basis-full">
           {/* IMAGES PORTION */}
-            <ExperienceImageDisplay photos={experience.photos} />
+          <ExperienceImageDisplay photos={experience.photos} />
 
           {/* DESCRIPTION PORTION */}
           <div className="mx-10 flex flex-col lg:flex-row">
+            {registered && (
+              <div className="lg:order-0 order-2 mr-3 mb-3 basis-2/3">
+                <h3 className="text-xl font-bold">Contact Host</h3>
+                <p>Email: {experience.email}</p>
+                {experience.phone && <p>Phone: {experience.phone}</p>}
+              </div>
+            )}
             <div className="lg:order-0 order-2 mr-3 basis-2/3">
               <h3 className="text-xl font-bold">Description</h3>
               <p>{experience.description}</p>
@@ -92,8 +101,8 @@ export default function ExperienceModalBody({
       <div className="flex items-center justify-between border-t py-4 pl-6 pr-6">
         <div className="text-3xl font-bold">${experience.price}</div>
         <div className="">
-          <UserIcon className="mr-2 inline w-4 lg:w-5 rounded-full border border-black" />
-          <span className="text-sm lg:text-md">
+          <UserIcon className="mr-2 inline w-4 rounded-full border border-black lg:w-5" />
+          <span className="lg:text-md text-sm">
             {getRegistrantCount.data}/{experience.maxAttendees} Spots Filled
           </span>
         </div>

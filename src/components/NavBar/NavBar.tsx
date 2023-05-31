@@ -40,6 +40,9 @@ const NavBar = ({ isSignedIn, className }: Props) => {
             <li>
               <Link href="/myexperiences">My Experiences</Link>
             </li>
+            <li>
+              <Link href="/host">About Hosting</Link>
+            </li>
           </ul>
         </div>
       </div>

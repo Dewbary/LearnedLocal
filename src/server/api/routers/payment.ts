@@ -17,6 +17,7 @@ export const paymentRouter = createTRPCRouter({
         registrantLastName: z.string(),
         partySize: z.number(),
         email: z.string(),
+        phone: z.string(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -77,6 +78,7 @@ export const paymentRouter = createTRPCRouter({
           registrantLastName: input.registrantLastName,
           partySize: input.partySize,
           email: input.email,
+          phone: input.phone,
           experienceId: input.experienceId,
         },
       });

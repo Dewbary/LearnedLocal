@@ -1,18 +1,23 @@
 import ExperienceCard from "~/components/FindExperience/ExperienceCard";
 import { Experience } from "@prisma/client";
 import { api } from "~/utils/api";
-import { SignInButton, SignedIn, SignedOut, useUser } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 import Header from "~/components/Header";
 import NavBar from "~/components/NavBar/NavBar";
 import Footer from "~/components/Footer/Footer";
 import ExperienceModalHeader from "~/components/FindExperience/ExperienceModalHeader";
 import ExperienceModalBody from "~/components/FindExperience/ExperienceModalBody";
-import Link from "next/link";
-import CreateExperienceButton from "~/components/CreateExperienceButton";
+import { useRouter } from "next/router";
 
 const HomePage = () => {
   const user = useUser();
   const experiencesQuery = api.experience.getAll.useQuery();
+
+  const router = useRouter();
+
+  const navigateToHosting = async function () {
+    await router.push("/host");
+  };
 
   return (
     <>
@@ -24,11 +29,16 @@ const HomePage = () => {
         <span id="viewexperiences" />
 
         <div className="mx-10 my-10 flex flex-col items-center">
-          <h1 className="text-7xl font-bold">Create a Memory</h1>
-          <h3 className="mt-6 text-xl">
-            Plan a fun activity, discover a new hobby, or forge a friendship
-            with experiences hosted by locals near you.
-          </h3>
+          <h2 className="text-5xl font-bold lg:text-7xl">
+            Experience Your Community
+          </h2>
+          <h2 className="mt-6 text-center text-xl lg:mx-24">
+            Having a hard time thinking of date night ideas? Looking for fun
+            things to do in Utah and Provo? Why not learn a new hobby from a
+            talented individual or business right where you live? Come find an
+            experience and create a memory with us while building a stronger
+            sense of community!
+          </h2>
         </div>
 
         {experiencesQuery.data?.length === 0 && (
@@ -53,37 +63,56 @@ const HomePage = () => {
                   <ExperienceModalHeader experience={experience} />
                 }
                 modalBodyContent={
-                  <ExperienceModalBody experience={experience} />
+                  <ExperienceModalBody
+                    experience={experience}
+                    registered={false}
+                  />
                 }
               />
             </div>
           ))}
+        </div>
+        <div className="flex justify-center">
+          <div className="h-1 w-5/6 border-b border-gray-300" />
+        </div>
+
+        <div className="mx-10 my-10 flex flex-col items-center">
+          <h2 className="text-5xl font-bold lg:text-7xl">
+            What is Learned Local?
+          </h2>
+          <h3 className="mt-6 text-center text-xl lg:mx-24">
+            We believe that everyone has hobbies, passions, and interests that
+            makes them unique. We made Learned Local as a place for members of
+            your community to come together and share these interests with each
+            other, in events that we like to call &quot;experiences&quot;. Along
+            the way, you&apos;ll forge friendships, create memories, and
+            discover that you have a lot more in common with the people around
+            you than you think. Sign up for an experience today!
+          </h3>
+          <video
+            src="/learnedlocalvid.mp4"
+            controls
+            className="pt-8 md:pl-16 md:pr-16 md:pt-8 md:pb-8 lg:pl-48 lg:pr-48 lg:pt-16 lg:pb-16"
+          />
         </div>
 
         <div className="flex justify-center">
           <div className="h-1 w-5/6 border-b border-gray-300" />
         </div>
 
-        <span id="hostexperience" />
         <div className="mx-10 my-10 flex flex-col items-center">
-          <h1 className="text-7xl font-bold">Become a Local</h1>
+          <span id="hostexperience" />
+          <h2 className="text-5xl font-bold lg:text-7xl">Become a Local</h2>
           <h3 className="my-6 text-xl">
             Want to host an experience? Sign up to start sharing your passion
             with others.
           </h3>
-          <SignedIn>
-            <CreateExperienceButton />
-          </SignedIn>
-          <SignedOut>
-            <SignInButton>
-              <button className="btn-primary btn">Sign In</button>
-            </SignInButton>
-          </SignedOut>
-          <video
-            src="/learnedlocalvid.mp4"
-            controls
-            className="pt-8 md:pl-16 md:pr-16 md:pt-8 md:pb-8 lg:pl-48 lg:pr-48 lg:pt-16 lg:pb-16"
-          />
+          <button
+            className="btn-primary btn"
+            onClick={() => navigateToHosting()}
+          >
+            Learn More
+          </button>
         </div>
 
         <div className="flex justify-center">

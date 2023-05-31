@@ -9,6 +9,7 @@ import { api } from "~/utils/api";
 import "~/styles/globals.css";
 import Layout from "~/components/layout/Layout";
 import { loadStripe } from "@stripe/stripe-js";
+import Script from "next/script";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string
@@ -19,6 +20,20 @@ const MyApp: AppType<{ session: Session | null }> = ({
   pageProps: { session, ...pageProps },
 }) => {
   return (
+    <>
+
+    {/* The following content enables google analytics on our website: */}
+    <Script async src="https://www.googletagmanager.com/gtag/js?id=G-M86ZFHHF5R" strategy="beforeInteractive"/>
+    <Script strategy="beforeInteractive" id="analyticsScript">
+      {`
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-M86ZFHHF5R');
+      `}
+    </Script>
+
+    {/* Page content is wrapped here */}
     <ClerkProvider {...pageProps}>
       <Elements stripe={stripePromise}>
         <NextNProgress
@@ -33,6 +48,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
         </Layout>
       </Elements>
     </ClerkProvider>
+    </>
   );
 };
 

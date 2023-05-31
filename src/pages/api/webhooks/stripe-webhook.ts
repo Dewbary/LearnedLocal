@@ -69,6 +69,7 @@ const handler = async (
         !metadata.registrantLastName ||
         !metadata.partySize ||
         !metadata.email ||
+        !metadata.phone ||
         !metadata.experienceId
       ) {
         throw new Error("Metadata not found");
@@ -83,6 +84,7 @@ const handler = async (
         registrantLastName: metadata.registrantLastName,
         partySize: parseInt(metadata.partySize),
         email: metadata.email,
+        phone: metadata.phone,
         experienceId: experienceId,
         stripeCheckoutSessionId: session.id,
         status: session.status,

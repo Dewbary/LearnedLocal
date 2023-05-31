@@ -9,18 +9,18 @@ const Header = () => {
 
   return (
     <div className="-mt-[4rem] grid place-items-center items-end bg-amber-400 pt-20 text-primary-content">
-      <div className="hero-content col-start-1 row-start-1 w-full max-w-7xl flex-col justify-between gap-10 pb-40 lg:flex-row lg:items-end lg:gap-0 xl:gap-20">
+      <div className="hero-content col-start-1 row-start-1 w-full max-w-7xl flex-col justify-between gap-10 pb-20 lg:pb-10 lg:flex-row lg:items-end lg:gap-0 xl:gap-20">
         <div className="lg:pl-10 lg:pb-32">
           <div className="mb-2 py-4 text-center lg:py-10 lg:text-left">
             <div className="badge-outline badge mb-4 gap-2 py-3 px-5 font-mono">
               ⏳ <span className="text-xs">Alpha Version</span>
             </div>{" "}
-            <h1 className="font-title mb-2 text-4xl font-extrabold sm:text-5xl lg:text-6xl">
+            <h2 className="font-title mb-2 text-4xl font-extrabold sm:text-5xl lg:text-6xl">
               Learned Local
-            </h1>{" "}
-            <h2 className="font-title text-lg font-extrabold sm:text-xl lg:text-2xl">
+            </h2>{" "}
+            <h3 className="font-title text-lg font-extrabold sm:text-xl lg:text-2xl">
               Share a hobby, find a hidden talent
-            </h2>
+            </h3>
           </div>{" "}
           <div className="flex w-full flex-col items-center space-y-10 lg:flex-row lg:items-start lg:space-x-4 lg:space-y-0">
             <div className="my-2 flex max-w-sm flex-col gap-2 text-left"></div>{" "}
@@ -28,13 +28,13 @@ const Header = () => {
           <div className="mt-4 flex flex-1 flex-col justify-center lg:mt-6 lg:flex-row lg:justify-start">
             <button
               onClick={() => scrollToHref("viewexperiences")}
-              className="btn-ghost btn-active btn mb-3 normal-case lg:btn-lg"
+              className="btn-primary btn mb-3 normal-case lg:btn-lg drop-shadow-md"
             >
               <span className="">View Experiences</span>
             </button>
             <button
               onClick={() => scrollToHref("hostexperience")}
-              className="btn normal-case lg:btn-lg lg:ml-3"
+              className="btn normal-case lg:btn-lg lg:ml-3 drop-shadow-md"
             >
               Host an Experience
             </button>
