@@ -75,12 +75,17 @@ export default function ExperienceModalBody({
               <MapPinIcon className="w-5" />{" "}
               <span className="col-span-4">
                 <a
-                  href={generateGoogleMapsURL(lat, lng)}
+                  href={generateGoogleMapsURL(
+                    lat,
+                    lng,
+                    experience.city,
+                    registered
+                  )}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-500 underline"
                 >
-                  View Experience Location
+                  {registered ? "View Experience Location" : experience.city}
                 </a>
               </span>
               <CalendarIcon className="w-5" />{" "}

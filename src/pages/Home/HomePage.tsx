@@ -8,12 +8,26 @@ import Footer from "~/components/Footer/Footer";
 import ExperienceModalHeader from "~/components/FindExperience/ExperienceModalHeader";
 import ExperienceModalBody from "~/components/FindExperience/ExperienceModalBody";
 import { useRouter } from "next/router";
+import Modal from "react-modal";
+import { useState } from "react";
+import ReactModal from "react-modal";
+
+Modal.setAppElement("#__next");
 
 const HomePage = () => {
   const user = useUser();
   const experiencesQuery = api.experience.getAll.useQuery();
 
   const router = useRouter();
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
 
   const navigateToHosting = async function () {
     await router.push("/host");
@@ -72,6 +86,38 @@ const HomePage = () => {
             </div>
           ))}
         </div>
+        <div className="flex flex-col items-center justify-center">
+          <p className="mx-24 mb-4 text-center text-3xl lg:text-2xl">
+            Not seeing an experience? Get notified when there are new
+            experiences in your area!
+          </p>
+
+          <button
+            onClick={openModal}
+            className="btn-outline btn-ghost btn mb-8"
+          >
+            Subscribe For Experience Updates
+          </button>
+          <ReactModal
+            isOpen={modalIsOpen}
+            contentLabel="Minimal Modal Example"
+            className="fixed m-auto flex h-96 w-full items-center justify-center overflow-x-hidden rounded-xl bg-white p-6 md:h-[700px] md:w-[600px]"
+            overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+          >
+            <iframe
+              src="https://cdn.forms-content.sg-form.com/c47b4367-ff5d-11ed-ac99-0292391286ae"
+              title="Subscription Form"
+              className="h-96 w-96 overflow-x-hidden"
+            />
+            <button
+              onClick={closeModal}
+              className="btn-sm btn-circle btn absolute right-2 top-2"
+            >
+              ✕
+            </button>
+          </ReactModal>
+        </div>
+
         <div className="flex justify-center">
           <div className="h-1 w-5/6 border-b border-gray-300" />
         </div>

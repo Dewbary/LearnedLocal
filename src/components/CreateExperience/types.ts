@@ -9,6 +9,7 @@ export type FormValues = {
   date: string;
   startTime: string;
   endTime: string;
+  city: string | null;
   location: Pin;
   locationDescription: string;
   firstName: string;
