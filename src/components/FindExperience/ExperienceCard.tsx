@@ -17,6 +17,7 @@ type Props = {
   modalButtonText: string;
   modalHeaderContent: JSX.Element;
   modalBodyContent: JSX.Element;
+  showPrice?: boolean;
 };
 
 export default function ExperienceCard({
@@ -25,6 +26,7 @@ export default function ExperienceCard({
   modalButtonText,
   modalHeaderContent,
   modalBodyContent,
+  showPrice
 }: Props) {
   const [modalHidden, setModalHidden] = useState(true);
 
@@ -95,10 +97,14 @@ export default function ExperienceCard({
         {/* BOTTOM BAR */}
         <div className="flex items-center justify-between px-3 pb-3">
           {/* PRICE TAG */}
-          <h2 className="text-xl font-bold">${experience.price}</h2>
+          
+          {showPrice === true || showPrice === undefined &&
+            <h2 className="text-xl font-bold">${experience.price}</h2>
+          }
+          
 
           {/* ACTION BUTTON LIST */}
-          <div className="">
+          <div className="flex flex-row gap-2">
             {actionButtonList?.map((actionButton, i) => {
               return (
                 <button

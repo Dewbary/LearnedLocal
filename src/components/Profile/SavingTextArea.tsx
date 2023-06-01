@@ -61,7 +61,7 @@ export default function SavingTextArea({label, savedValue, setSavedValue}: Props
                     </p>
                     <div className={`${editModeActive ? "flex" : "hidden"} flex items-center gap-2`}>
                         <textarea
-                            placeholder="First Name"
+                            placeholder={label}
                             className="border-2 border-slate-500 rounded-md py-1 px-2 w-72 lg:w-full"
                             value={newValue}
                             onChange={e => setNewValue(e.target.value)}

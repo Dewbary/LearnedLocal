@@ -144,4 +144,7 @@ model Profile {
     facebook    String?
     venmo       String?
     zelle       String?
+    email       String?
+    phone       String?
+    profileImage    String?
 }

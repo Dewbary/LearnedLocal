@@ -43,6 +43,9 @@ const NavBar = ({ isSignedIn, className }: Props) => {
             <li>
               <Link href="/host">About Hosting</Link>
             </li>
+            <li>
+              <Link href="/profile">My Profile</Link>
+            </li>
           </ul>
         </div>
       </div>

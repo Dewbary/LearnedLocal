@@ -34,6 +34,8 @@ const CreateExperienceForm = () => {
       enabled: !!experienceId,
     });
 
+  const { data: profile, isLoading: profileIsLoading } = api.profile.getProfile.useQuery();
+
   // State
   const [isCreating, setIsCreating] = useState<boolean>(false);
   const [selectedDay, setSelectedDay] = useState<Date>(startOfToday());
@@ -43,6 +45,7 @@ const CreateExperienceForm = () => {
   const [experienceIdStr, setExperienceIdStr] = useState<string>(
     experienceId ?? ""
   );
+  const [profileExists, setProfileExists] = useState("loading");
 
   const tabInfoList: TabInfo[] = getTabInfos(slug);
 
@@ -70,6 +73,23 @@ const CreateExperienceForm = () => {
     await goToStep(index);
   };
 
+  //////////////// PROFILE LOAD CHECK /////////////
+
+  useEffect(() => {
+    if (profile && !profileIsLoading) {
+      setProfileExists("yes");
+    }
+    else if (!profile && !profileIsLoading) {
+      setProfileExists("no");
+    }
+  });
+
+  ///// GO TO PROFILE PAGE FUNCTION /////
+
+  const navigateToProfilePage = function () {
+    router.push("/profile");
+  }
+
   return (
     <div className="space-between flex min-h-screen flex-col">
       <SignedIn>
@@ -92,7 +112,9 @@ const CreateExperienceForm = () => {
               />
 
               <main className="paragraph flex flex-1 rounded-lg bg-gradient-to-r from-amber-400 via-amber-200 to-slate-50 px-8 pb-8 pt-12 md:mb-12 md:ml-8 md:mr-12 md:pt-0">
-                <Formik
+                
+                {profileExists === "yes" || profileExists === "loading" ? (
+                  <Formik
                   initialValues={getInitialFormValues(experience)}
                   onSubmit={(values, helpers) => handleSubmit(values, helpers)}
                   enableReinitialize
@@ -114,6 +136,14 @@ const CreateExperienceForm = () => {
                     />
                   </Form>
                 </Formik>
+                ) : (
+                  <div className="flex flex-col items-center w-full h-full justify-center gap-5">
+                    <p>You need to create a profile before creating your first experience.</p>
+                    <button className="btn btn-primary" onClick={() => navigateToProfilePage()}>Set Up My Profile</button>
+                  </div>
+                )}
+                
+
               </main>
             </div>
           </div>

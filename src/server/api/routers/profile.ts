@@ -1,7 +1,23 @@
 import { z } from "zod";
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
+import { clerkClient } from "@clerk/nextjs/server";
 
 export const profileRouter = createTRPCRouter({
+
+    getPublicProfile: publicProcedure
+        .input(
+            z.object({
+                userId: z.string()
+            })
+        )
+        .query(async ({ ctx, input }) => {
+        return await ctx.prisma.profile.findFirst({
+            where: {
+                userId: input.userId
+            }
+        });
+    }),
+
     getProfile: protectedProcedure.query(async ({ ctx }) => {
         return await ctx.prisma.profile.findFirst({
             where: {
@@ -20,7 +36,10 @@ export const profileRouter = createTRPCRouter({
                 instagram: z.string(),
                 facebook: z.string(),
                 venmo: z.string(),
-                zelle: z.string()
+                zelle: z.string(),
+                email: z.string(),
+                phone: z.string(),
+                profileImage: z.string(),
             })
         )
         .mutation(async ({ ctx, input }) => {
@@ -34,7 +53,10 @@ export const profileRouter = createTRPCRouter({
                     instagram: input.instagram,
                     facebook: input.facebook,
                     venmo: input.venmo,
-                    zelle: input.zelle
+                    zelle: input.zelle,
+                    email: input.email,
+                    phone: input.phone,
+                    profileImage: input.profileImage
                 }
             });
     }),
@@ -49,7 +71,10 @@ export const profileRouter = createTRPCRouter({
                 instagram: z.string(),
                 facebook: z.string(),
                 venmo: z.string(),
-                zelle: z.string()
+                zelle: z.string(),
+                email: z.string(),
+                phone: z.string(),
+                profileImage: z.string()
             })
         )
         .mutation(async ({ ctx, input }) => {
@@ -70,10 +95,28 @@ export const profileRouter = createTRPCRouter({
                         instagram: input.instagram,
                         facebook: input.facebook,
                         venmo: input.venmo,
-                        zelle: input.zelle
+                        zelle: input.zelle,
+                        email: input.email,
+                        phone: input.phone,
+                        profileImage: input.profileImage
                     }
                 });
                 return true;
             }
+        }),
+
+    deleteUser: protectedProcedure
+        .mutation(async ({ctx}) => {
+            await ctx.prisma.experience.deleteMany({
+                where: {
+                    authorId: ctx.userId
+                }
+            });
+            await ctx.prisma.profile.deleteMany({
+                where: {
+                    userId: ctx.userId
+                }
+            });
+            await clerkClient.users.deleteUser(ctx.userId);
         })
 });

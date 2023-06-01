@@ -24,6 +24,7 @@ export default function Profile () {
     const {data: profile, isLoading: profileIsLoading} = getProfile;
     const updateProfile = api.profile.setProfile.useMutation();
     const createProfile = api.profile.createProfile.useMutation();
+    const deleteUser = api.profile.deleteUser.useMutation();
     const [profileExists, setProfileExists] = useState("loading");
 
     const [firstName, setFirstName] = useState("");
@@ -34,6 +35,9 @@ export default function Profile () {
     const [facebook, setFacebook] = useState("");
     const [venmoAccount, setVenmoAccount] = useState("");
     const [zelleAccount, setZelleAccount] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
+    const [profileImage, setProfileImage] = useState("");
 
     useEffect(() => {
         if (profile && !profileIsLoading) {
@@ -45,6 +49,9 @@ export default function Profile () {
             setFacebook(profile.facebook || "");
             setVenmoAccount(profile.venmo || "");
             setZelleAccount(profile.zelle || "");
+            setEmail(profile.email || "");
+            setPhone(profile.phone || "");
+            setProfileImage(profile.profileImage || "");
 
             setProfileExists("yes");
         }
@@ -64,7 +71,10 @@ export default function Profile () {
                 instagram: instagram,
                 facebook: facebook,
                 venmo: venmoAccount,
-                zelle: zelleAccount
+                zelle: zelleAccount,
+                email: email,
+                phone: phone,
+                profileImage: profileImage,
             });
 
             router.reload();
@@ -78,14 +88,20 @@ export default function Profile () {
                 instagram: instagram,
                 facebook: facebook,
                 venmo: venmoAccount,
-                zelle: zelleAccount
+                zelle: zelleAccount,
+                email: email,
+                phone: phone,
+                profileImage: profileImage,
             });
         }
         
     }
 
     const deleteAccountAction = function () {
-        confirm("Are you sure you want to delete your account?");
+        if(confirm("Are you sure you want to delete your account?")) {
+            deleteUser.mutate();
+            router.push("/");
+        }
     }
 
     const Tabs = [
@@ -160,6 +176,12 @@ export default function Profile () {
                                 setInstagram={setInstagram}
                                 facebook={facebook}
                                 setFacebook={setFacebook}
+                                email={email}
+                                setEmail={setEmail}
+                                phone={phone}
+                                setPhone={setPhone}
+                                profileImage={profileImage}
+                                setProfileImage={setProfileImage}
                             />
                         }
                         {selectedTab?.label === "Payment Info" &&

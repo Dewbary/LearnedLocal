@@ -17,6 +17,7 @@ import {
 import { generateGoogleMapsURL } from "../FindExperience/FindExperienceUtils";
 import { Pin } from "../CreateExperience/LocationPicker/LocationPicker";
 import ShareExperienceComponent from "./ShareExperienceComponent";
+import { Facebook, Instagram } from "react-feather";
 
 export default function ViewExperiencePage() {
   const router = useRouter();
@@ -43,6 +44,11 @@ export default function ViewExperiencePage() {
       enabled: !!experienceId,
     }
   );
+
+  const { data: profileData } = api.profile.getPublicProfile.useQuery({
+    userId: experienceData?.authorId || ""
+  });
+
   const getRegistrantCount =
     api.registration.registrantCountByExperience.useQuery(
       parseInt(experienceId)
@@ -90,7 +96,7 @@ export default function ViewExperiencePage() {
           {/* EXPERIENCE TITLE AND HEADER */}
           <div className="flex items-center justify-between rounded-t-lg bg-gradient-to-r from-amber-400 via-amber-200 to-white p-3 lg:p-7">
             <div>
-              <h1 className="text-2xl font-bold lg:text-5xl">
+              <h1 className="text-2xl font-bold lg:text-5xl lg:mb-2">
                 {experience.title}
               </h1>
               <div>
@@ -110,6 +116,7 @@ export default function ViewExperiencePage() {
           </div>
 
           <div className="flex flex-col gap-10 lg:mx-10 lg:flex-row">
+
             {/* ACTION BUTTON BOX */}
 
             <div className="flex h-fit w-full flex-col gap-5 rounded-xl border bg-white p-5 drop-shadow-lg lg:order-3 lg:basis-1/4">
@@ -213,6 +220,35 @@ export default function ViewExperiencePage() {
               </div>
             </div>
           </div>
+
+          {/* ABOUT THE HOST */}
+          <div className="flex flex-col gap-5 lg:mx-10 my-10 items-center">
+              <div className="flex flex-col lg:flex-row lg:gap-3">
+                <h3 className="text-3xl">About your Host:</h3>
+                <h3 className="text-3xl font-bold">{profileData?.firstName} {profileData?.lastName}</h3>
+              </div>
+              <div className="flex flex-col lg:flex-row gap-5 items-center">
+                <div className="overflow-hidden">
+                  <img src={profileData?.profileImage || ""} alt="Profile Image" className="w-72 rounded-full"/>
+                </div>
+                <div className="flex flex-col gap-3">
+                  <p>{profileData?.bio || "[No Bio found]"}</p>
+                  <p>{profileData?.qualis || "[No Qualifications found]"}</p>
+                  <div className="flex items-start gap-3 flex-col">
+                    <p>Social Media Links:</p>
+                    {profileData?.instagram &&
+                      <a href={profileData?.instagram} className="flex flex-row gap-1 items-center hover:text-blue-400"><Instagram /> {profileData?.instagram}</a>
+                    }
+                    {profileData?.facebook &&
+                      <a href={profileData?.facebook} className="flex flex-row gap-1 items-center hover:text-blue-400"><Facebook /> {profileData?.facebook}</a>
+                    }
+                    
+                  </div>
+                </div>
+              </div>
+              
+          </div>
+
         </div>
       )}
       <Footer />

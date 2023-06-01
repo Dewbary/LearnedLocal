@@ -36,6 +36,14 @@ export default function MyExperiences() {
     );
   };
 
+  const goToExperienceView = async function (
+    experienceId: number
+  ) {
+    await router.push(
+      `/experience/view/${experienceId}`
+    );
+  }
+
   const deleteExperience = async function (experience: Experience) {
     if (confirm("Are you sure you want to delete this experience?") === true) {
       experienceDeleter.mutate(experience.id);
@@ -151,7 +159,15 @@ export default function MyExperiences() {
             <ExperienceCard
               key={experience.id}
               experience={experience}
+              showPrice={false}
               actionButtonList={[
+                {
+                  buttonText: "View",
+                  buttonColor: "bg-amber-400",
+                  buttonAction: () => {
+                    void goToExperienceView(experience.id);
+                  }
+                },
                 {
                   buttonText: "Edit",
                   buttonColor: "bg-blue-400",
