@@ -65,7 +65,7 @@ const HomePage = () => {
         )}
 
         <div className="mb-20 grid grid-cols-1 justify-items-stretch gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {experiencesQuery.data?.map((experience: Experience) => (
+          {experiencesQuery.data?.map(experience => (
             <div
               key={experience.id}
               className="card-component my-8 flex justify-center"
@@ -74,11 +74,12 @@ const HomePage = () => {
                 experience={experience}
                 modalButtonText="Details"
                 modalHeaderContent={
-                  <ExperienceModalHeader experience={experience} />
+                  <ExperienceModalHeader experience={experience} hostProfile={experience.profile} />
                 }
                 modalBodyContent={
                   <ExperienceModalBody
                     experience={experience}
+                    hostProfile={experience.profile}
                     registered={false}
                   />
                 }

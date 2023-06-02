@@ -98,6 +98,8 @@ model Experience {
   stripePriceId      String
   verified           Boolean  @default(false)
 
+  profileId         String?
+  profile           Profile? @relation(fields: [profileId], references: [id])
 
   categoryId         Int
   category           Category @relation(fields: [categoryId], references: [id])
@@ -147,4 +149,6 @@ model Profile {
     email       String?
     phone       String?
     profileImage    String?
+
+    experiences Experience[]
 }

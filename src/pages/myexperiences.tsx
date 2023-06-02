@@ -126,11 +126,12 @@ export default function MyExperiences() {
               experience={registration.experience}
               modalButtonText="Details"
               modalHeaderContent={
-                <ExperienceModalHeader experience={registration.experience} />
+                <ExperienceModalHeader experience={registration.experience} hostProfile={registration.experience.profile} />
               }
               modalBodyContent={
                 <ExperienceModalBody
                   experience={registration.experience}
+                  hostProfile={registration.experience.profile}
                   registered={true}
                   modalActionButton={{
                     buttonText: "Cancel Registration",

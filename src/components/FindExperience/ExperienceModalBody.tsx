@@ -4,7 +4,7 @@ import {
   MapPinIcon,
   UserIcon,
 } from "@heroicons/react/24/solid";
-import { Experience } from "@prisma/client";
+import { Experience, Profile } from "@prisma/client";
 import { api } from "~/utils/api";
 import { useRouter } from "next/router";
 import { generateGoogleMapsURL } from "./FindExperienceUtils";
@@ -21,12 +21,14 @@ type Props = {
   experience: Experience;
   registered: boolean;
   modalActionButton?: ModalActionButton;
+  hostProfile?: Profile | null;
 };
 
 export default function ExperienceModalBody({
   experience,
   registered,
   modalActionButton,
+  hostProfile
 }: Props) {
   const dateDisplayOptions = {
     weekday: "long",
@@ -59,8 +61,8 @@ export default function ExperienceModalBody({
             {registered && (
               <div className="lg:order-0 order-2 mr-3 mb-3 basis-2/3">
                 <h3 className="text-xl font-bold">Contact Host</h3>
-                <p>Email: {experience.email}</p>
-                {experience.phone && <p>Phone: {experience.phone}</p>}
+                <p>Email: {hostProfile?.email}</p>
+                {hostProfile?.phone && <p>Phone: {hostProfile?.phone}</p>}
               </div>
             )}
             <div className="lg:order-0 order-2 mr-3 basis-2/3">

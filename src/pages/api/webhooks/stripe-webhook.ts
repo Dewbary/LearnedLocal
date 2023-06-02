@@ -101,10 +101,15 @@ const handler = async (
           where: { id: experienceId },
         });
 
-        if (experience) {
+        const hostProfile = await prisma.profile.findFirst({
+          where: { userId: experience?.authorId }
+        });
+
+        if (experience && hostProfile) {
           await sendConfirmationEmail({
             recipientEmail: metadata.email,
             experience: experience,
+            hostProfile: hostProfile
           });
         }
       } catch (error) {

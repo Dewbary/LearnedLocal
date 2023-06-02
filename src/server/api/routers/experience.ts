@@ -13,6 +13,9 @@ export const experienceRouter = createTRPCRouter({
       where: {
         verified: true,
       },
+      include: {
+        profile: true
+      },
       orderBy: {
         createdAt: "desc",
       },
@@ -25,7 +28,11 @@ export const experienceRouter = createTRPCRouter({
         userId: ctx.userId,
       },
       include: {
-        experience: true,
+        experience: {
+          include: {
+            profile: true
+          }
+        }
       },
     });
   }),

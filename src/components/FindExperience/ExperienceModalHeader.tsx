@@ -1,11 +1,13 @@
-import { Experience } from "@prisma/client";
+import { Experience, Profile } from "@prisma/client";
 import Image from "next/image";
 
-export default function ExperienceModalHeader({
-  experience,
-}: {
+type Props = {
   experience: Experience;
-}) {
+  hostProfile?: Profile | null;
+}
+
+export default function ExperienceModalHeader({ experience, hostProfile } : Props) {
+  
   const dateDisplayOptions = {
     weekday: "long",
     month: "short",
@@ -20,14 +22,14 @@ export default function ExperienceModalHeader({
           <span className="lg:text-md align-middle text-sm">Hosted By</span>
           <span className="inline-block">
             <Image
-              src={experience.profileImage ?? ""}
+              src={hostProfile?.profileImage ?? ""}
               alt="Profile Picture"
               className="mx-2 inline w-5 rounded-full object-cover"
               width={50}
               height={50}
             />
             <span className="lg:text-md align-middle text-sm text-yellow-600">
-              {experience.firstName} {experience.lastName}
+              {hostProfile?.firstName} {hostProfile?.lastName}
             </span>
           </span>
         </p>

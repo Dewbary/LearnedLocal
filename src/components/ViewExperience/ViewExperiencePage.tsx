@@ -101,7 +101,7 @@ export default function ViewExperiencePage() {
               </h1>
               <div>
                 <span>
-                  Hosted By {experience.firstName} {experience.lastName}
+                  Hosted By {profileData?.firstName} {profileData?.lastName}
                 </span>
               </div>
             </div>

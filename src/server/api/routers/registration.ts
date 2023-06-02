@@ -36,10 +36,15 @@ export const registrationRouter = createTRPCRouter({
         where: { id: deletedRegistration.experienceId },
       });
 
-      if (experience) {
+      const hostProfile = await ctx.prisma.profile.findFirst({
+        where: { userId: experience?.authorId }
+      })
+
+      if (experience && hostProfile) {
         await sendCancelationEmail({
           recipientEmail: deletedRegistration.email,
           experience: experience,
+          hostProfile: hostProfile
         });
       }
 
