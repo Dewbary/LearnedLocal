@@ -13,7 +13,6 @@ import {
 import DescriptionPage from "./DescriptionPage/DescriptionPage";
 import DatePage from "./DatePage";
 import LocationPage from "./LocationPage";
-import AboutPage from "./AboutPage";
 import RequirementsPage from "./RequirementsPage";
 import SettingsPage from "./SettingsPage";
 import PhotosPage from "./PhotosPage";
@@ -50,10 +49,6 @@ export const initialValues: FormValues = {
   city: "",
   location: { lat: 40.2518, lng: -111.6493 },
   locationDescription: "",
-  firstName: "",
-  lastName: "",
-  email: "",
-  phone: "",
   qualifications: "",
   provided: "",
   guestRequirements: "",
@@ -62,7 +57,6 @@ export const initialValues: FormValues = {
   minAge: 0,
   price: 0,
   maxAttendees: 1,
-  profileImage: null,
   photos: [],
   categoryId: 0,
 };
@@ -76,12 +70,6 @@ export const getTabInfos = (slug: string) => {
       text: "Description",
       activeMatcher: "description",
       icon: <HomeIcon className="h-5 w-5" />,
-    },
-    {
-      url: `/experience/create/${slug}/about`,
-      text: "About",
-      activeMatcher: "about",
-      icon: <UserIcon className="h-5 w-5" />,
     },
     {
       url: `/experience/create/${slug}/date`,
@@ -144,8 +132,6 @@ export const getTabComponent = (
       );
     case "location":
       return <LocationPage />;
-    case "about":
-      return <AboutPage />;
     case "requirements":
       return <RequirementsPage />;
     case "settings":
@@ -188,15 +174,12 @@ export const getUpdateExperienceObject = (
   experienceId: string,
   date: Date,
   filePathArray: string[],
-  slug: string
+  slug: string,
+  hostProfileId: string,
 ) => {
   // Update the experience
   return {
     id: parseInt(experienceId),
-    firstName: values.firstName,
-    lastName: values.lastName,
-    email: values.email,
-    phone: values.phone,
     title: values.title,
     description: values.description,
     price: values.price,
@@ -214,10 +197,10 @@ export const getUpdateExperienceObject = (
     activityLevel: values.activityLevel,
     skillLevel: values.skillLevel,
     maxAttendees: values.maxAttendees,
-    profileImage: values.profileImage,
     photos: filePathArray,
     slugId: slug,
     categoryId: values.categoryId,
+    profileId: hostProfileId
   };
 };
 
@@ -225,13 +208,10 @@ export const getCreateExperienceObject = (
   values: FormValues,
   date: Date,
   filePathArray: string[],
-  slug: string
+  slug: string,
+  hostProfileId: string,
 ) => {
   return {
-    firstName: values.firstName,
-    lastName: values.lastName,
-    email: values.email,
-    phone: values.phone,
     title: values.title,
     description: values.description,
     price: values.price,
@@ -249,10 +229,10 @@ export const getCreateExperienceObject = (
     activityLevel: values.activityLevel,
     skillLevel: values.skillLevel,
     maxAttendees: values.maxAttendees,
-    profileImage: values.profileImage,
     photos: filePathArray,
     slugId: slug,
     categoryId: values.categoryId,
+    profileId: hostProfileId
   };
 };
 

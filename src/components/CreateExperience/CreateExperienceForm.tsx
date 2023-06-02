@@ -66,7 +66,8 @@ const CreateExperienceForm = () => {
   const handleSubmit = useExperienceSubmission(
     experienceId,
     slug,
-    setIsCreating
+    setIsCreating,
+    profile?.id
   );
 
   const handleGoToNextStep = async (index: number) => {
@@ -86,8 +87,8 @@ const CreateExperienceForm = () => {
 
   ///// GO TO PROFILE PAGE FUNCTION /////
 
-  const navigateToProfilePage = function () {
-    router.push("/profile");
+  const navigateToProfilePage = async function () {
+    await router.push("/profile");
   }
 
   return (

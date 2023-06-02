@@ -71,10 +71,6 @@ export const experienceRouter = createTRPCRouter({
     .input(
       z.object({
         id: z.number(),
-        firstName: z.string(),
-        lastName: z.string(),
-        email: z.string(),
-        phone: z.string().nullable(),
         title: z.string(),
         description: z.string(),
         price: z.number(),
@@ -92,20 +88,16 @@ export const experienceRouter = createTRPCRouter({
         activityLevel: z.string(),
         skillLevel: z.string(),
         maxAttendees: z.number(),
-        profileImage: z.string().nullable(),
         photos: z.array(z.string()),
         slugId: z.string(),
         categoryId: z.number(),
+        profileId: z.string(),
       })
     )
     .mutation(async ({ ctx, input }) => {
       return await ctx.prisma.experience.update({
         where: { id: input.id },
         data: {
-          firstName: input.firstName,
-          lastName: input.lastName,
-          email: input.email,
-          phone: input.phone,
           title: input.title,
           description: input.description,
           price: input.price,
@@ -124,9 +116,9 @@ export const experienceRouter = createTRPCRouter({
           activityLevel: input.activityLevel,
           skillLevel: input.skillLevel,
           maxAttendees: input.maxAttendees,
-          profileImage: input.profileImage,
           photos: input.photos,
           slugId: input.slugId,
+          profileId: input.profileId
         },
       });
     }),
@@ -134,10 +126,6 @@ export const experienceRouter = createTRPCRouter({
   create: protectedProcedure
     .input(
       z.object({
-        firstName: z.string(),
-        lastName: z.string(),
-        email: z.string(),
-        phone: z.string().nullable(),
         title: z.string(),
         description: z.string(),
         price: z.number(),
@@ -155,10 +143,10 @@ export const experienceRouter = createTRPCRouter({
         activityLevel: z.string(),
         skillLevel: z.string(),
         maxAttendees: z.number(),
-        profileImage: z.string().nullable(),
         photos: z.array(z.string()),
         slugId: z.string(),
         categoryId: z.number(),
+        profileId: z.string(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -172,10 +160,6 @@ export const experienceRouter = createTRPCRouter({
       return ctx.prisma.experience.create({
         data: {
           authorId: ctx.userId,
-          firstName: input.firstName,
-          lastName: input.lastName,
-          email: input.email,
-          phone: input.phone,
           title: input.title,
           description: input.description,
           price: input.price,
@@ -194,11 +178,11 @@ export const experienceRouter = createTRPCRouter({
           activityLevel: input.activityLevel,
           skillLevel: input.skillLevel,
           maxAttendees: input.maxAttendees,
-          profileImage: input.profileImage,
           photos: input.photos,
           slugId: input.slugId,
           stripeProductId: productId,
           stripePriceId: priceId,
+          profileId: input.profileId
         },
       });
     }),

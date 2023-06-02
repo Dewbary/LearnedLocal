@@ -12,7 +12,8 @@ import type { FormValues } from "../types";
 export const useExperienceSubmission = (
   experienceId: string,
   slug: string,
-  setIsCreating: (isCreating: boolean) => void
+  setIsCreating: (isCreating: boolean) => void,
+  hostProfileId: string | null | undefined,
 ) => {
   const user = useUser();
   const router = useRouter();
@@ -32,20 +33,23 @@ export const useExperienceSubmission = (
       const filePathArray: string[] = [];
       await uploadImages(filePathArray, values.photos, user.user.id);
 
-      if (experienceId) {
+      if (experienceId && hostProfileId) {
         await updateExperience.mutateAsync(
           getUpdateExperienceObject(
             values,
             experienceId,
             date,
             filePathArray,
-            slug
+            slug,
+            hostProfileId
           )
         );
-      } else {
+      } else if (hostProfileId) {
         await createExperience.mutateAsync(
-          getCreateExperienceObject(values, date, filePathArray, slug)
+          getCreateExperienceObject(values, date, filePathArray, slug, hostProfileId)
         );
+      } else {
+        throw "No profile has been created"
       }
 
       await router.push("/experience/success");

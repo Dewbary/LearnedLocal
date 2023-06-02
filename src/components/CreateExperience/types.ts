@@ -12,10 +12,6 @@ export type FormValues = {
   city: string | null;
   location: Pin;
   locationDescription: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string | null;
   qualifications: string;
   provided: string;
   guestRequirements: string;
@@ -23,7 +19,6 @@ export type FormValues = {
   price: number;
   activityLevel: string;
   skillLevel: string;
-  profileImage: string | null;
   photos: ImageListType;
   maxAttendees: number;
   categoryId: number;

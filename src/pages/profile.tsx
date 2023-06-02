@@ -60,7 +60,7 @@ export default function Profile () {
         }
     }, [profile]);
 
-    const handleSaveClick = async function () {
+    const handleSaveClick = function () {
 
         if (profileExists === "no") {
             createProfile.mutate({
@@ -97,10 +97,10 @@ export default function Profile () {
         
     }
 
-    const deleteAccountAction = function () {
+    const deleteAccountAction = async function () {
         if(confirm("Are you sure you want to delete your account?")) {
             deleteUser.mutate();
-            router.push("/");
+            await router.push("/");
         }
     }
 
