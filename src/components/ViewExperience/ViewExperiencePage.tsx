@@ -181,6 +181,11 @@ export default function ViewExperiencePage() {
               </div>
               <div className="my-3 flex flex-col gap-2">
                 <div>
+                  <h3 className="text-xl font-bold">Qualifications</h3>
+                  <hr className="w-64" />
+                  <p>{experience.qualifications}</p>
+                </div>
+                <div>
                   <h3 className="text-xl font-bold">Details</h3>
                   <hr className="w-64" />
                 </div>
