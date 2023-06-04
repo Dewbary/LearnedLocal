@@ -237,17 +237,14 @@ export default function ViewExperiencePage() {
                   <img src={profileData?.profileImage || ""} alt="Profile Image" className="w-72 rounded-full"/>
                 </div>
                 <div className="flex flex-col gap-3">
-                  <p>{profileData?.bio || "[No Bio found]"}</p>
-                  <p>{profileData?.qualis || "[No Qualifications found]"}</p>
+                  <p>{profileData?.bio || <i>This host has not added a bio to their profile.</i>}</p>
                   <div className="flex items-start gap-3 flex-col">
-                    <p>Social Media Links:</p>
-                    {profileData?.instagram &&
-                      <a href={profileData?.instagram} className="flex flex-row gap-1 items-center hover:text-blue-400"><Instagram /> {profileData?.instagram}</a>
+                    {profileData?.social &&
+                      <div>
+                        <p>Social Media:</p>
+                        <a href={profileData?.social} className="flex flex-row gap-1 items-center hover:text-blue-400">{profileData?.social}</a>
+                      </div>
                     }
-                    {profileData?.facebook &&
-                      <a href={profileData?.facebook} className="flex flex-row gap-1 items-center hover:text-blue-400"><Facebook /> {profileData?.facebook}</a>
-                    }
-                    
                   </div>
                 </div>
               </div>

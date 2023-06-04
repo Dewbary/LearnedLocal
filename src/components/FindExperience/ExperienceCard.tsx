@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import styles from "./ExperienceCard.module.css";
-import { Experience } from "@prisma/client";
+import { Experience, Profile } from "@prisma/client";
 import profile_pic from "../../assets/profile_pic.png";
 import GenericModal from "../GenericModal";
 
@@ -18,6 +18,7 @@ type Props = {
   modalHeaderContent: JSX.Element;
   modalBodyContent: JSX.Element;
   showPrice?: boolean;
+  hostProfile?: Profile | null;
 };
 
 export default function ExperienceCard({
@@ -26,7 +27,8 @@ export default function ExperienceCard({
   modalButtonText,
   modalHeaderContent,
   modalBodyContent,
-  showPrice
+  showPrice,
+  hostProfile
 }: Props) {
   const [modalHidden, setModalHidden] = useState(true);
 
@@ -53,9 +55,9 @@ export default function ExperienceCard({
         {/* TITLE BAR */}
         <div className="flex w-full items-center justify-between rounded-t-2xl bg-gradient-to-br from-amber-300 to-amber-400 p-3">
           <div className="relative h-12 w-12 overflow-hidden rounded-full">
-            {experience.profileImage ? (
+            {hostProfile?.profileImage ? (
               <Image
-                src={experience.profileImage}
+                src={hostProfile.profileImage}
                 alt="Profile Picture"
                 className="rounded-full object-cover"
                 fill

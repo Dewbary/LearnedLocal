@@ -11,12 +11,8 @@ type Props = {
     setLastName: Dispatch<SetStateAction<string>>,
     bio: string,
     setBio: Dispatch<SetStateAction<string>>,
-    qualis: string,
-    setQualis: Dispatch<SetStateAction<string>>,
-    instagram: string,
-    setInstagram: Dispatch<SetStateAction<string>>,
-    facebook: string,
-    setFacebook: Dispatch<SetStateAction<string>>,
+    social: string,
+    setSocial: Dispatch<SetStateAction<string>>,
     email: string,
     setEmail: Dispatch<SetStateAction<string>>,
     phone: string,
@@ -30,9 +26,7 @@ export default function BasicInfo(
         firstName, setFirstName, 
         lastName, setLastName, 
         bio, setBio, 
-        qualis, setQualis, 
-        instagram, setInstagram, 
-        facebook, setFacebook, 
+        social, setSocial,
         email, setEmail, 
         phone, setPhone, 
         profileImage, setProfileImage
@@ -88,9 +82,7 @@ export default function BasicInfo(
             </div>
 
             <SavingTextArea label="Biography / About You" savedValue={bio} setSavedValue={setBio} /> 
-            <SavingTextArea label="Qualifications" savedValue={qualis} setSavedValue={setQualis} />
-            <SavingInputField label="Instagram Link (optional)" savedValue={instagram} setSavedValue={setInstagram} />
-            <SavingInputField label="Facebook Profile Link (optional)" savedValue={facebook} setSavedValue={setFacebook} />
+            <SavingInputField label="Social Media" savedValue={social} setSavedValue={setSocial} />
         </div>
     )
 }

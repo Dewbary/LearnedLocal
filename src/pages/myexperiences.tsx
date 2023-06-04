@@ -124,6 +124,7 @@ export default function MyExperiences() {
             <ExperienceCard
               key={registration.experience.id}
               experience={registration.experience}
+              hostProfile={registration.experience.profile}
               modalButtonText="Details"
               modalHeaderContent={
                 <ExperienceModalHeader experience={registration.experience} hostProfile={registration.experience.profile} />
@@ -160,6 +161,7 @@ export default function MyExperiences() {
             <ExperienceCard
               key={experience.id}
               experience={experience}
+              hostProfile={experience.profile}
               showPrice={false}
               actionButtonList={[
                 {

@@ -30,9 +30,7 @@ export default function Profile () {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [bio, setBio] = useState("");
-    const [qualis, setQualis] = useState("");
-    const [instagram, setInstagram] = useState("");
-    const [facebook, setFacebook] = useState("");
+    const [social, setSocial] = useState("");
     const [venmoAccount, setVenmoAccount] = useState("");
     const [zelleAccount, setZelleAccount] = useState("");
     const [email, setEmail] = useState("");
@@ -44,9 +42,7 @@ export default function Profile () {
             setFirstName(profile.firstName || "");
             setLastName(profile.lastName || "");
             setBio(profile.bio || "");
-            setQualis(profile.qualis || "");
-            setInstagram(profile.instagram || "");
-            setFacebook(profile.facebook || "");
+            setSocial(profile.social || "");
             setVenmoAccount(profile.venmo || "");
             setZelleAccount(profile.zelle || "");
             setEmail(profile.email || "");
@@ -67,9 +63,7 @@ export default function Profile () {
                 firstName: firstName,
                 lastName: lastName,
                 bio: bio,
-                qualis: qualis,
-                instagram: instagram,
-                facebook: facebook,
+                social: social,
                 venmo: venmoAccount,
                 zelle: zelleAccount,
                 email: email,
@@ -84,9 +78,7 @@ export default function Profile () {
                 firstName: firstName,
                 lastName: lastName,
                 bio: bio,
-                qualis: qualis,
-                instagram: instagram,
-                facebook: facebook,
+                social: social,
                 venmo: venmoAccount,
                 zelle: zelleAccount,
                 email: email,
@@ -170,12 +162,8 @@ export default function Profile () {
                                 setLastName={setLastName} 
                                 bio={bio} 
                                 setBio={setBio} 
-                                qualis={qualis} 
-                                setQualis={setQualis} 
-                                instagram={instagram}
-                                setInstagram={setInstagram}
-                                facebook={facebook}
-                                setFacebook={setFacebook}
+                                social={social}
+                                setSocial={setSocial}
                                 email={email}
                                 setEmail={setEmail}
                                 phone={phone}

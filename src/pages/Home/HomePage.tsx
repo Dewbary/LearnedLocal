@@ -72,6 +72,7 @@ const HomePage = () => {
             >
               <ExperienceCard
                 experience={experience}
+                hostProfile={experience.profile}
                 modalButtonText="Details"
                 modalHeaderContent={
                   <ExperienceModalHeader experience={experience} hostProfile={experience.profile} />
