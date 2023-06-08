@@ -39,9 +39,10 @@ const HomePage = () => {
   const upcomingExperienceIds = [30, 32, 33, 34];
 
   const currentExperiences =
-    experiencesQuery.data?.filter(
-      (experience) => new Date(experience.date) >= today
-    ) || [];
+    experiencesQuery.data
+      ?.filter((experience) => new Date(experience.date) >= today)
+      .filter((experience) => !upcomingExperienceIds.includes(experience.id)) ||
+    [];
 
   const upcomingExperiences =
     experiencesQuery.data?.filter((experience) =>
