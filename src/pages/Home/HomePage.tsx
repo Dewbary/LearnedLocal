@@ -36,7 +36,7 @@ const HomePage = () => {
   const today = new Date();
   today.setHours(0, 0, 0, 0); // set to the start of the day
 
-  const upcomingExperienceIds = [30];
+  const upcomingExperienceIds = [30, 32, 33, 34];
 
   const currentExperiences =
     experiencesQuery.data?.filter(
