@@ -1,5 +1,5 @@
 import ExperienceCard from "~/components/FindExperience/ExperienceCard";
-import { Experience } from "@prisma/client";
+import { Experience, Profile } from "@prisma/client";
 import { api } from "~/utils/api";
 import { useUser } from "@clerk/nextjs";
 import Header from "~/components/Header";
@@ -33,6 +33,28 @@ const HomePage = () => {
     await router.push("/host");
   };
 
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // set to the start of the day
+
+  const upcomingExperienceIds = [30];
+
+  const currentExperiences =
+    experiencesQuery.data?.filter(
+      (experience) => new Date(experience.date) >= today
+    ) || [];
+
+  const upcomingExperiences =
+    experiencesQuery.data?.filter((experience) =>
+      upcomingExperienceIds.includes(experience.id)
+    ) || [];
+
+  const pastExperiences =
+    experiencesQuery.data?.filter(
+      (experience) =>
+        new Date(experience.date) < today &&
+        !upcomingExperienceIds.includes(experience.id)
+    ) || [];
+
   return (
     <>
       <NavBar isSignedIn={user.isSignedIn ?? false} className="bg-amber-400" />
@@ -65,28 +87,34 @@ const HomePage = () => {
         )}
 
         <div className="mb-20 grid grid-cols-1 justify-items-stretch gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {experiencesQuery.data?.map(experience => (
-            <div
-              key={experience.id}
-              className="card-component my-8 flex justify-center"
-            >
-              <ExperienceCard
-                experience={experience}
-                hostProfile={experience.profile}
-                modalButtonText="Details"
-                modalHeaderContent={
-                  <ExperienceModalHeader experience={experience} hostProfile={experience.profile} />
-                }
-                modalBodyContent={
-                  <ExperienceModalBody
-                    experience={experience}
-                    hostProfile={experience.profile}
-                    registered={false}
-                  />
-                }
-              />
+          {currentExperiences.map(
+            (experience: Experience & { profile: Profile | null }) =>
+              renderExperienceCard(experience, true)
+          )}
+          {currentExperiences.length > 0 && (
+            <div className="col-span-1 flex flex-col justify-center md:col-span-3 lg:col-span-4">
+              <div className="h-1 border-b border-gray-300" />
+              <div className="my-4 text-center text-3xl font-bold">
+                Coming Soon
+              </div>
             </div>
-          ))}
+          )}
+          {upcomingExperiences.map(
+            (experience: Experience & { profile: Profile | null }) =>
+              renderExperienceCard(experience, false)
+          )}
+          {currentExperiences.length > 0 && (
+            <div className="col-span-1 flex flex-col justify-center md:col-span-3 lg:col-span-4">
+              <div className="h-1 border-b border-gray-300" />
+              <div className="my-4 text-center text-3xl font-bold">
+                Past Experiences
+              </div>
+            </div>
+          )}
+          {pastExperiences.map(
+            (experience: Experience & { profile: Profile | null }) =>
+              renderExperienceCard(experience, false)
+          )}
         </div>
         <div className="flex flex-col items-center justify-center">
           <p className="mx-24 mb-4 text-center text-3xl lg:text-2xl">
@@ -173,3 +201,32 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
+const renderExperienceCard = (
+  experience: Experience & {
+    profile: Profile | null;
+  },
+  showDetails: boolean
+) => (
+  <div key={experience.id} className="card-component my-8 flex justify-center">
+    <ExperienceCard
+      experience={experience}
+      hostProfile={experience.profile}
+      showDetails={showDetails}
+      modalButtonText="Details"
+      modalHeaderContent={
+        <ExperienceModalHeader
+          experience={experience}
+          hostProfile={experience.profile}
+        />
+      }
+      modalBodyContent={
+        <ExperienceModalBody
+          experience={experience}
+          hostProfile={experience.profile}
+          registered={false}
+        />
+      }
+    />
+  </div>
+);

@@ -19,6 +19,7 @@ type Props = {
   modalBodyContent: JSX.Element;
   showPrice?: boolean;
   hostProfile?: Profile | null;
+  showDetails: boolean;
 };
 
 export default function ExperienceCard({
@@ -28,7 +29,8 @@ export default function ExperienceCard({
   modalHeaderContent,
   modalBodyContent,
   showPrice,
-  hostProfile
+  hostProfile,
+  showDetails,
 }: Props) {
   const [modalHidden, setModalHidden] = useState(true);
 
@@ -71,11 +73,13 @@ export default function ExperienceCard({
               />
             )}
           </div>
-          <h2 className="text-4xl font-bold">
-            {experience.date
-              .toLocaleDateString("en-US", dateDisplayOptions)
-              .toLocaleUpperCase()}
-          </h2>
+          {showDetails && (
+            <h2 className="text-4xl font-bold">
+              {experience.date
+                .toLocaleDateString("en-US", dateDisplayOptions)
+                .toLocaleUpperCase()}
+            </h2>
+          )}
         </div>
 
         {/* COVER IMAGE */}
@@ -99,11 +103,11 @@ export default function ExperienceCard({
         {/* BOTTOM BAR */}
         <div className="flex items-center justify-between px-3 pb-3">
           {/* PRICE TAG */}
-          
-          {showPrice === true || showPrice === undefined &&
-            <h2 className="text-xl font-bold">${experience.price}</h2>
-          }
-          
+
+          {showPrice === true ||
+            (showPrice === undefined && (
+              <h2 className="text-xl font-bold">${experience.price}</h2>
+            ))}
 
           {/* ACTION BUTTON LIST */}
           <div className="flex flex-row gap-2">
@@ -121,14 +125,16 @@ export default function ExperienceCard({
           </div>
 
           {/* MODAL BUTTON */}
-          <div className="">
-            <button
-              className="rounded-lg bg-amber-400 p-2 text-white drop-shadow-md"
-              onClick={() => showModal()}
-            >
-              {modalButtonText}
-            </button>
-          </div>
+          {showDetails && (
+            <div className="">
+              <button
+                className="rounded-lg bg-amber-400 p-2 text-white drop-shadow-md"
+                onClick={() => showModal()}
+              >
+                {modalButtonText}
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
