@@ -105,7 +105,7 @@ export default function ExperienceCard({
           {/* PRICE TAG */}
 
           {showPrice === true ||
-            (showPrice === undefined && (
+            (showPrice === undefined && showDetails && (
               <h2 className="text-xl font-bold">${experience.price}</h2>
             ))}
 

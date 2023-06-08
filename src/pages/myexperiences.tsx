@@ -36,13 +36,9 @@ export default function MyExperiences() {
     );
   };
 
-  const goToExperienceView = async function (
-    experienceId: number
-  ) {
-    await router.push(
-      `/experience/view/${experienceId}`
-    );
-  }
+  const goToExperienceView = async function (experienceId: number) {
+    await router.push(`/experience/view/${experienceId}`);
+  };
 
   const deleteExperience = async function (experience: Experience) {
     if (confirm("Are you sure you want to delete this experience?") === true) {
@@ -125,9 +121,13 @@ export default function MyExperiences() {
               key={registration.experience.id}
               experience={registration.experience}
               hostProfile={registration.experience.profile}
+              showDetails={true}
               modalButtonText="Details"
               modalHeaderContent={
-                <ExperienceModalHeader experience={registration.experience} hostProfile={registration.experience.profile} />
+                <ExperienceModalHeader
+                  experience={registration.experience}
+                  hostProfile={registration.experience.profile}
+                />
               }
               modalBodyContent={
                 <ExperienceModalBody
@@ -163,13 +163,14 @@ export default function MyExperiences() {
               experience={experience}
               hostProfile={experience.profile}
               showPrice={false}
+              showDetails={false}
               actionButtonList={[
                 {
                   buttonText: "View",
                   buttonColor: "bg-amber-400",
                   buttonAction: () => {
                     void goToExperienceView(experience.id);
-                  }
+                  },
                 },
                 {
                   buttonText: "Edit",
