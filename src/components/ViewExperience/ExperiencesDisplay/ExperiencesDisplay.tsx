@@ -3,9 +3,10 @@ import * as React from "react";
 import ExperienceCard from "~/components/FindExperience/ExperienceCard";
 import ExperienceModalBody from "~/components/FindExperience/ExperienceModalBody";
 import ExperienceModalHeader from "~/components/FindExperience/ExperienceModalHeader";
+import { ExperienceInfo } from "~/components/types";
 
 type Props = {
-  experiences: Experience[];
+  experiences: ExperienceInfo[];
 };
 
 const ExperiencesDisplay = ({ experiences }: Props) => {
@@ -13,7 +14,7 @@ const ExperiencesDisplay = ({ experiences }: Props) => {
     <>
       <span id="viewexperiences" />
 
-      <div className="mx-10 my-10 flex flex-col items-center">
+      {/* <div className="mx-10 my-10 flex flex-col items-center">
         <h2 className="text-5xl font-bold lg:text-7xl">
           Experience Your Community
         </h2>
@@ -24,7 +25,7 @@ const ExperiencesDisplay = ({ experiences }: Props) => {
           experience and create a memory with us while building a stronger sense
           of community!
         </h2>
-      </div>
+      </div> */}
 
       {experiences.length === 0 && (
         <div className="flex items-center justify-center bg-slate-200 py-10">
@@ -36,11 +37,10 @@ const ExperiencesDisplay = ({ experiences }: Props) => {
       )}
 
       <div className="mb-20 grid grid-cols-1 justify-items-stretch gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {currentExperiences.map(
-          (experience: Experience & { profile: Profile | null }) =>
-            renderExperienceCard(experience, true)
+        {experiences.map((experience) =>
+          renderExperienceCard(experience, true)
         )}
-        {currentExperiences.length > 0 && (
+        {/* {currentExperiences.length > 0 && (
           <div className="col-span-1 flex flex-col justify-center md:col-span-3 lg:col-span-4">
             <div className="h-1 border-b border-gray-300" />
             <div className="my-4 text-center text-3xl font-bold">
@@ -63,7 +63,7 @@ const ExperiencesDisplay = ({ experiences }: Props) => {
         {pastExperiences.map(
           (experience: Experience & { profile: Profile | null }) =>
             renderExperienceCard(experience, false)
-        )}
+        )} */}
       </div>
     </>
   );
@@ -72,9 +72,7 @@ const ExperiencesDisplay = ({ experiences }: Props) => {
 export default ExperiencesDisplay;
 
 const renderExperienceCard = (
-  experience: Experience & {
-    profile: Profile | null;
-  },
+  experience: ExperienceInfo,
   showDetails: boolean
 ) => (
   <div key={experience.id} className="card-component my-8 flex justify-center">

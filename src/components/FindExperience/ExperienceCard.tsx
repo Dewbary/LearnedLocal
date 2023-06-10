@@ -55,7 +55,7 @@ export default function ExperienceCard({
         }  flex w-72 flex-col rounded-2xl bg-white drop-shadow-xl`}
       >
         {/* TITLE BAR */}
-        <div className="flex w-full items-center justify-between rounded-t-2xl bg-gradient-to-br from-amber-300 to-amber-400 p-3">
+        <div className="flex w-full items-center justify-between rounded-t-2xl bg-gradient-to-br from-amber-300 to-ll-orange p-3">
           <div className="relative h-12 w-12 overflow-hidden rounded-full">
             {hostProfile?.profileImage ? (
               <Image

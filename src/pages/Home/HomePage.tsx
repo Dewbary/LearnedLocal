@@ -56,12 +56,12 @@ const HomePage = () => {
 
   return (
     <div className="flex min-h-screen w-full flex-col">
-      <NavBar isSignedIn={user.isSignedIn ?? false} className="bg-ll-orange" />
+      <NavBar isSignedIn={user.isSignedIn ?? false} className="" />
 
       <div className="pt-16 md:pt-0">
         {/* <Header /> */}
 
-        {/* <ExperiencesDisplay /> */}
+        <ExperiencesDisplay experiences={experiencesQuery.data ?? []} />
         {/* <EmailSignup /> */}
 
         <div className="divider px-16"></div>
