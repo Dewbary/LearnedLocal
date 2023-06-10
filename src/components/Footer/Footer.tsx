@@ -6,7 +6,7 @@ import { Instagram, Facebook, Home, Phone } from "react-feather";
 
 const Footer = () => {
   return (
-    <footer className="footer bg-neutral px-10 py-5 text-neutral-content">
+    <footer className="footer bg-white px-10 py-5 text-black">
       <div className="">
         <span className="footer-title">About us</span>
         <div className="flex gap-3">
@@ -20,7 +20,7 @@ const Footer = () => {
       </div>
       <div>
         <span className="footer-title">Address and Phone</span>
-        <div className="flex gap-2 items-center">
+        <div className="flex items-center gap-2">
           <Home />
           <p>
             580 S 100 W St
@@ -28,11 +28,9 @@ const Footer = () => {
             Provo, UT 84601
           </p>
         </div>
-        <div className="flex gap-2 items-center">
+        <div className="flex items-center gap-2">
           <Phone />
-          <p>
-            (385) 268-0372
-          </p>
+          <p>(385) 268-0372</p>
         </div>
       </div>
       <div>
@@ -41,7 +39,10 @@ const Footer = () => {
           <a href="https://www.instagram.com/learnedlocal/" target="_blank">
             <Instagram />
           </a>
-          <a href="https://www.facebook.com/profile.php?id=100092194838632" target="_blank">
+          <a
+            href="https://www.facebook.com/profile.php?id=100092194838632"
+            target="_blank"
+          >
             <Facebook />
           </a>
         </div>

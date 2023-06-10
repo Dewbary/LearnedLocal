@@ -5,7 +5,7 @@ const Layout = (props: PropsWithChildren) => {
   const user = useUser();
 
   return (
-    <div className="grid min-h-screen grid-rows-header bg-white">
+    <div>
       <div>{props.children}</div>
     </div>
   );
