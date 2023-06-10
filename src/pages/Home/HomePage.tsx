@@ -55,24 +55,25 @@ const HomePage = () => {
     ) || [];
 
   return (
-    <>
-      <NavBar isSignedIn={user.isSignedIn ?? false} className="bg-amber-400" />
+    <div className="flex min-h-screen w-full flex-col">
+      <NavBar isSignedIn={user.isSignedIn ?? false} className="bg-ll-orange" />
 
       <div className="pt-16 md:pt-0">
-        <Header />
+        {/* <Header /> */}
 
-        <ExperiencesDisplay />
-        <EmailSignup />
-
-        <div className="divider px-16"></div>
-
-        <Register />
+        {/* <ExperiencesDisplay /> */}
+        {/* <EmailSignup /> */}
 
         <div className="divider px-16"></div>
 
+        {/* <Register /> */}
+
+        <div className="divider px-16"></div>
+      </div>
+      <div className="mt-auto">
         <Footer />
       </div>
-    </>
+    </div>
   );
 };
 

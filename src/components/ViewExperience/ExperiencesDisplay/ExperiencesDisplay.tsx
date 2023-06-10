@@ -1,6 +1,14 @@
+import { Experience } from "@prisma/client";
 import * as React from "react";
+import ExperienceCard from "~/components/FindExperience/ExperienceCard";
+import ExperienceModalBody from "~/components/FindExperience/ExperienceModalBody";
+import ExperienceModalHeader from "~/components/FindExperience/ExperienceModalHeader";
 
-const ExperiencesDisplay = () => {
+type Props = {
+  experiences: Experience[];
+};
+
+const ExperiencesDisplay = ({ experiences }: Props) => {
   return (
     <>
       <span id="viewexperiences" />
@@ -18,7 +26,7 @@ const ExperiencesDisplay = () => {
         </h2>
       </div>
 
-      {experiencesQuery.data?.length === 0 && (
+      {experiences.length === 0 && (
         <div className="flex items-center justify-center bg-slate-200 py-10">
           <p>
             There are currently no experiences hosted in your area. Why not host
