@@ -14,10 +14,10 @@ export const experienceRouter = createTRPCRouter({
         verified: true,
       },
       include: {
-        profile: true
+        profile: true,
       },
       orderBy: {
-        createdAt: "desc",
+        date: "asc",
       },
     });
   }),
@@ -30,7 +30,7 @@ export const experienceRouter = createTRPCRouter({
       include: {
         experience: {
           include: {
-            profile: true
+            profile: true,
           }
         }
       },
@@ -41,7 +41,7 @@ export const experienceRouter = createTRPCRouter({
     return await ctx.prisma.experience.findMany({
       where: { authorId: ctx.userId },
       include: {
-        profile: true
+        profile: true,
       }
     });
   }),

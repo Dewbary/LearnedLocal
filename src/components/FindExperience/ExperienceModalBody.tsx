@@ -36,10 +36,8 @@ export default function ExperienceModalBody({
     day: "numeric",
   } as const;
 
-  const getRegistrantCount =
-    api.registration.registrantCountByExperience.useQuery(experience.id);
-
   const router = useRouter();
+  const registrantCount = api.registration.registrantCountByExperience.useQuery(experience.id);
 
   const goToViewPage = async function (experienceId: number) {
     await router.push(`/experience/view/${experienceId}`);
@@ -110,7 +108,7 @@ export default function ExperienceModalBody({
         <div className="">
           <UserIcon className="mr-2 inline w-4 rounded-full border border-black lg:w-5" />
           <span className="lg:text-md text-sm">
-            {getRegistrantCount.data}/{experience.maxAttendees} Spots Filled
+            {registrantCount.data}/{experience.maxAttendees} Spots Filled
           </span>
         </div>
         {modalActionButton ? (
@@ -124,7 +122,7 @@ export default function ExperienceModalBody({
           </>
         ) : (
           <button
-            disabled={(getRegistrantCount.data || 0) >= experience.maxAttendees}
+            disabled={(registrantCount.data || 0) >= experience.maxAttendees}
             className={
               "rounded-lg bg-amber-400 p-3 text-white disabled:cursor-not-allowed disabled:bg-gray-500"
             }

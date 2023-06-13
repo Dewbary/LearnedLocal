@@ -121,7 +121,10 @@ export default function MyExperiences() {
               key={registration.experience.id}
               experience={registration.experience}
               hostProfile={registration.experience.profile}
-              showDetails={true}
+              enableModal={true}
+              enableFullBanner={false}
+              showDate={true}
+              showLocation={true}
               modalButtonText="Details"
               modalHeaderContent={
                 <ExperienceModalHeader
@@ -162,8 +165,10 @@ export default function MyExperiences() {
               key={experience.id}
               experience={experience}
               hostProfile={experience.profile}
-              showPrice={false}
-              showDetails={false}
+              showLocation={false}
+              showDate={true}
+              enableModal={true}
+              enableFullBanner={false}
               actionButtonList={[
                 {
                   buttonText: "View",

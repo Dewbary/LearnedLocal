@@ -1,9 +1,11 @@
 import Image from "next/image";
 import { useState } from "react";
 import styles from "./ExperienceCard.module.css";
-import { Experience, Profile } from "@prisma/client";
+import { Experience, Profile, Registration } from "@prisma/client";
 import profile_pic from "../../assets/profile_pic.png";
 import GenericModal from "../GenericModal";
+import { MapPinIcon } from "@heroicons/react/24/solid";
+import { api } from "~/utils/api";
 
 type ActionButton = {
   buttonText: string;
@@ -12,14 +14,18 @@ type ActionButton = {
 };
 
 type Props = {
-  experience: Experience;
+  experience: Experience & {
+    profile: Profile | null;
+  };
   actionButtonList?: ActionButton[];
   modalButtonText: string;
   modalHeaderContent: JSX.Element;
   modalBodyContent: JSX.Element;
-  showPrice?: boolean;
+  showLocation?: boolean;
+  showDate?: boolean;
   hostProfile?: Profile | null;
-  showDetails: boolean;
+  enableModal: boolean;
+  enableFullBanner: boolean;
 };
 
 export default function ExperienceCard({
@@ -28,9 +34,11 @@ export default function ExperienceCard({
   modalButtonText,
   modalHeaderContent,
   modalBodyContent,
-  showPrice,
+  showLocation,
+  showDate,
   hostProfile,
-  showDetails,
+  enableModal,
+  enableFullBanner,
 }: Props) {
   const [modalHidden, setModalHidden] = useState(true);
 
@@ -46,6 +54,8 @@ export default function ExperienceCard({
   const hideModal = function () {
     setModalHidden(true);
   };
+
+  const registrantCount = api.registration.registrantCountByExperience.useQuery(experience.id);
 
   return (
     <>
@@ -73,7 +83,7 @@ export default function ExperienceCard({
               />
             )}
           </div>
-          {showDetails && (
+          {showDate && (
             <h2 className="text-4xl font-bold">
               {experience.date
                 .toLocaleDateString("en-US", dateDisplayOptions)
@@ -90,6 +100,13 @@ export default function ExperienceCard({
             className="absolute object-cover"
             fill
           />
+          {(enableFullBanner && (registrantCount.data || 0) >= experience.maxAttendees) &&
+            <div className="absolute bg-black bg-opacity-70 h-full w-full flex items-center justify-center">
+              <div className="bg-red-400 w-full flex justify-center py-5">
+                <h3 className="text-white font-bold text-3xl">FULL</h3>
+              </div>
+            </div>
+          }
         </div>
 
         {/* DESCRIPTION BOX */}
@@ -102,12 +119,20 @@ export default function ExperienceCard({
 
         {/* BOTTOM BAR */}
         <div className="flex items-center justify-between px-3 pb-3">
-          {/* PRICE TAG */}
 
+          {/* LOCATION TEXT */}
+          {showLocation == true &&
+            <div className="flex flex-row gap-1">
+              <MapPinIcon className="w-5" />
+              <h2 className="text-lg">{experience.city}</h2>
+            </div>
+          }
+          
+          {/* PRICE TAG
           {showPrice === true ||
             (showPrice === undefined && showDetails && (
               <h2 className="text-xl font-bold">${experience.price}</h2>
-            ))}
+            ))} */}
 
           {/* ACTION BUTTON LIST */}
           <div className="flex flex-row gap-2">
@@ -125,7 +150,7 @@ export default function ExperienceCard({
           </div>
 
           {/* MODAL BUTTON */}
-          {showDetails && (
+          {enableModal && (
             <div className="">
               <button
                 className="rounded-lg bg-amber-400 p-2 text-white drop-shadow-md"

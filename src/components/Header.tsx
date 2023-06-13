@@ -8,6 +8,7 @@ const Header = () => {
   };
 
   return (
+    /*
     <div className="-mt-[4rem] grid place-items-center items-end bg-amber-400 pt-20 text-primary-content">
       <div className="hero-content col-start-1 row-start-1 w-full max-w-7xl flex-col justify-between gap-10 pb-20 lg:pb-10 lg:flex-row lg:items-end lg:gap-0 xl:gap-20">
         <div className="lg:pl-10 lg:pb-32">
@@ -58,6 +59,38 @@ const Header = () => {
       >
         <path d="M0 338L53.3 349.2C106.7 360.3 213.3 382.7 320 393.8C426.7 405 533.3 405 640 359.3C746.7 313.7 853.3 222.3 960 189.2C1066.7 156 1173.3 181 1280 159.2C1386.7 137.3 1493.3 68.7 1546.7 34.3L1600 0V595H1546.7C1493.3 595 1386.7 595 1280 595C1173.3 595 1066.7 595 960 595C853.3 595 746.7 595 640 595C533.3 595 426.7 595 320 595C213.3 595 106.7 595 53.3 595H0V338Z"></path>
       </svg>
+    </div>
+    */
+    <div className="bg-gradient-to-br from-primary to-secondary text-primary-content flex flex-col lg:flex-row items-center justify-center pt-10 lg:pt-0 text-center gap-10">
+        <div className="flex flex-col gap-2 items-center">
+            <h1 className="font-title text-4xl font-extrabold sm:text-5xl lg:text-6xl">
+              Learned Local
+            </h1>
+            <h2 className="font-title text-lg sm:text-xl lg:text-2xl">
+              Share a hobby, Find a hidden talent.
+            </h2>
+            <div className="flex flex-col lg:flex-row w-full justify-center">
+              <button
+                onClick={() => scrollToHref("aboutlearnedlocal")}
+                className="btn-primary btn mb-3 normal-case drop-shadow-md"
+              >
+                About Learned Local
+              </button>
+              <button
+                onClick={() => scrollToHref("hostexperience")}
+                className="btn normal-case lg:ml-3 drop-shadow-md"
+              >
+                Host an Experience
+              </button>
+            </div>
+        </div>
+        <div className="">
+          <Image
+            className="w-72"
+            src={sapiens}
+            alt="experience"
+          />
+        </div>
     </div>
   );
 };

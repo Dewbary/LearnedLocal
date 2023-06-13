@@ -1,5 +1,5 @@
 import ExperienceCard from "~/components/FindExperience/ExperienceCard";
-import { Experience, Profile } from "@prisma/client";
+import { Experience, Profile, Registration } from "@prisma/client";
 import { api } from "~/utils/api";
 import { useUser } from "@clerk/nextjs";
 import Header from "~/components/Header";
@@ -58,16 +58,16 @@ const HomePage = () => {
 
   return (
     <>
-      <NavBar isSignedIn={user.isSignedIn ?? false} className="bg-amber-400" />
+      <NavBar isSignedIn={user.isSignedIn ?? false} className="bg-white drop-shadow-lg"/>
 
       <div className="pt-16 md:pt-0">
         <Header />
 
         <span id="viewexperiences" />
 
-        <div className="mx-10 my-10 flex flex-col items-center">
+        {/* <div className="mx-10 my-10 flex flex-col items-center">
           <h2 className="text-5xl font-bold lg:text-7xl">
-            Experience Your Community
+            Experience Community
           </h2>
           <h2 className="mt-6 text-center text-xl lg:mx-24">
             Having a hard time thinking of date night ideas? Looking for fun
@@ -76,6 +76,12 @@ const HomePage = () => {
             experience and create a memory with us while building a stronger
             sense of community!
           </h2>
+        </div> */}
+
+        <div>
+          <div className="mt-4 text-center text-3xl font-bold">
+            <h2>Available Experiences</h2>
+          </div>
         </div>
 
         {experiencesQuery.data?.length === 0 && (
@@ -87,9 +93,9 @@ const HomePage = () => {
           </div>
         )}
 
-        <div className="mb-20 grid grid-cols-1 justify-items-stretch gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <div className="mb-10 grid grid-cols-1 justify-items-stretch gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {currentExperiences.map(
-            (experience: Experience & { profile: Profile | null }) =>
+            (experience) =>
               renderExperienceCard(experience, true)
           )}
           {currentExperiences.length > 0 && (
@@ -101,7 +107,7 @@ const HomePage = () => {
             </div>
           )}
           {upcomingExperiences.map(
-            (experience: Experience & { profile: Profile | null }) =>
+            (experience) =>
               renderExperienceCard(experience, false)
           )}
           {currentExperiences.length > 0 && (
@@ -113,12 +119,12 @@ const HomePage = () => {
             </div>
           )}
           {pastExperiences.map(
-            (experience: Experience & { profile: Profile | null }) =>
+            (experience) =>
               renderExperienceCard(experience, false)
           )}
         </div>
         <div className="flex flex-col items-center justify-center">
-          <p className="mx-24 mb-4 text-center text-3xl lg:text-2xl">
+          <p className="mb-4 text-center text-2xl lg:text-2xl">
             Not seeing an experience? Get notified when there are new
             experiences in your area!
           </p>
@@ -154,10 +160,18 @@ const HomePage = () => {
         </div>
 
         <div className="mx-10 my-10 flex flex-col items-center">
-          <h2 className="text-5xl font-bold lg:text-7xl">
+          <span id="aboutlearnedlocal" />
+          <h2 className="text-4xl font-bold lg:text-7xl text-center">
             What is Learned Local?
           </h2>
-          <h3 className="mt-6 text-center text-xl lg:mx-24">
+          <p className="mt-6 text-left text-xl lg:mx-24">
+            Having a hard time thinking of date night ideas? Looking for fun
+            things to do in Utah and Provo? Why not learn a new hobby from a
+            talented individual or business right where you live? Come find an
+            experience and create a memory with us while building a stronger
+            sense of community!
+          </p>
+          <p className="mt-6 text-left text-xl lg:mx-24">
             We believe that everyone has hobbies, passions, and interests that
             makes them unique. We made Learned Local as a place for members of
             your community to come together and share these interests with each
@@ -165,7 +179,7 @@ const HomePage = () => {
             the way, you&apos;ll forge friendships, create memories, and
             discover that you have a lot more in common with the people around
             you than you think. Sign up for an experience today!
-          </h3>
+          </p>
           <video
             src="/learnedlocalvid.mp4"
             controls
@@ -213,7 +227,10 @@ const renderExperienceCard = (
     <ExperienceCard
       experience={experience}
       hostProfile={experience.profile}
-      showDetails={showDetails}
+      enableModal={showDetails}
+      showDate={showDetails}
+      showLocation={showDetails}
+      enableFullBanner={showDetails}
       modalButtonText="Details"
       modalHeaderContent={
         <ExperienceModalHeader
