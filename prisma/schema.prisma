@@ -97,6 +97,8 @@ model Experience {
   stripeProductId    String
   stripePriceId      String
   verified           Boolean  @default(false)
+  isFutureExperience    Boolean @default(false)
+  notifyIFrameLink      String?
 
   profileId         String?
   profile           Profile? @relation(fields: [profileId], references: [id])

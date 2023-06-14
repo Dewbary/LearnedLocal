@@ -36,24 +36,22 @@ const HomePage = () => {
   const today = new Date();
   today.setHours(0, 0, 0, 0); // set to the start of the day
 
-  const upcomingExperienceIds = [30, 32, 33, 34];
-
   const currentExperiences =
     experiencesQuery.data
       ?.filter((experience) => new Date(experience.date) >= today)
-      .filter((experience) => !upcomingExperienceIds.includes(experience.id)) ||
+      .filter((experience) => !experience.isFutureExperience) ||
     [];
 
   const upcomingExperiences =
     experiencesQuery.data?.filter((experience) =>
-      upcomingExperienceIds.includes(experience.id)
+      experience.isFutureExperience
     ) || [];
 
   const pastExperiences =
     experiencesQuery.data?.filter(
       (experience) =>
         new Date(experience.date) < today &&
-        !upcomingExperienceIds.includes(experience.id)
+        !experience.isFutureExperience
     ) || [];
 
   return (
@@ -138,17 +136,17 @@ const HomePage = () => {
           <ReactModal
             isOpen={modalIsOpen}
             contentLabel="Minimal Modal Example"
-            className="fixed flex items-center justify-center rounded-xl bg-white"
+            className="fixed flex items-center justify-center rounded-xl bg-white w-full lg:w-1/2 h-3/4 lg:h-5/6"
             overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
           >
             <iframe
               src="https://cdn.forms-content.sg-form.com/c47b4367-ff5d-11ed-ac99-0292391286ae"
               title="Subscription Form"
-              className="h-96 w-96 px-4"
+              className="w-full h-full pr-4"
             />
             <button
               onClick={closeModal}
-              className="btn-sm btn-circle btn absolute right-2 top-2"
+              className="btn-md btn-circle btn absolute right-8 lg:right-2 top-2 z-50"
             >
               ✕
             </button>
@@ -180,11 +178,12 @@ const HomePage = () => {
             discover that you have a lot more in common with the people around
             you than you think. Sign up for an experience today!
           </p>
-          <video
-            src="/learnedlocalvid.mp4"
-            controls
-            className="pt-8 md:pl-16 md:pr-16 md:pt-8 md:pb-8 lg:pl-48 lg:pr-48 lg:pt-16 lg:pb-16"
-          />
+          <div className="mt-10 w-full lg:px-72">
+            <div className="w-full aspect-w-16 aspect-h-9">
+              <iframe src="https://www.youtube.com/embed/leKfHxT_6II" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+            </div>
+          </div>
+          
         </div>
 
         <div className="flex justify-center">
@@ -222,29 +221,59 @@ const renderExperienceCard = (
     profile: Profile | null;
   },
   showDetails: boolean
-) => (
-  <div key={experience.id} className="card-component my-8 flex justify-center">
-    <ExperienceCard
-      experience={experience}
-      hostProfile={experience.profile}
-      enableModal={showDetails}
-      showDate={showDetails}
-      showLocation={showDetails}
-      enableFullBanner={showDetails}
-      modalButtonText="Details"
-      modalHeaderContent={
-        <ExperienceModalHeader
+) => {
+  if (!experience.isFutureExperience) {
+      return (
+        <div key={experience.id} className="card-component my-8 flex justify-center">
+        <ExperienceCard
           experience={experience}
           hostProfile={experience.profile}
+          enableModal={showDetails}
+          showDate={showDetails}
+          showLocation={showDetails}
+          enableFullBanner={showDetails}
+          modalButtonText="Details"
+          modalHeaderContent={
+            <ExperienceModalHeader
+              experience={experience}
+              hostProfile={experience.profile}
+            />
+          }
+          modalBodyContent={
+            <ExperienceModalBody
+              experience={experience}
+              hostProfile={experience.profile}
+              registered={false}
+            />
+          }
         />
-      }
-      modalBodyContent={
-        <ExperienceModalBody
+      </div>
+    )
+  }
+  else {
+    return (
+      <div key={experience.id} className="card-component my-8 flex justify-center">
+        <ExperienceCard
           experience={experience}
           hostProfile={experience.profile}
-          registered={false}
+          enableModal={true}
+          showDate={showDetails}
+          showLocation={showDetails}
+          enableFullBanner={showDetails}
+          modalButtonText="Notify Me"
+          modalHeaderContent={
+            <h2 className="text-3xl font-bold">Get Notified for this Experience</h2>
+          }
+          modalBodyContent={
+            <iframe
+              src={experience.notifyIFrameLink || ""}
+              title="Subscription Form"
+              className="w-full h-full pr-4"
+            />
+          }
         />
-      }
-    />
-  </div>
-);
+      </div>
+    )
+  }
+  
+}

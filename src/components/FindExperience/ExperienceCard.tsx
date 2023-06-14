@@ -100,13 +100,13 @@ export default function ExperienceCard({
             className="absolute object-cover"
             fill
           />
-          {(enableFullBanner && (registrantCount.data || 0) >= experience.maxAttendees) &&
+          {/* {(enableFullBanner && (registrantCount.data || 0) >= experience.maxAttendees) &&
             <div className="absolute bg-black bg-opacity-70 h-full w-full flex items-center justify-center">
               <div className="bg-red-400 w-full flex justify-center py-5">
                 <h3 className="text-white font-bold text-3xl">FULL</h3>
               </div>
             </div>
-          }
+          } */}
         </div>
 
         {/* DESCRIPTION BOX */}
