@@ -14,7 +14,6 @@ Modal.setAppElement("#__next");
 
 const HomePage = () => {
   const user = useUser();
-  const experiencesQuery = api.experience.getAll.useQuery();
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const openModal = () => {
@@ -35,10 +34,7 @@ const HomePage = () => {
       <div className="pt-16 md:pt-0">
         <Header />
 
-        <ExperiencesDisplay
-          experiences={experiencesQuery.data ?? []}
-          today={today}
-        />
+        <ExperiencesDisplay today={today} />
 
         <EmailSignup
           modalIsOpen={modalIsOpen}
