@@ -78,8 +78,10 @@ export default function ExperienceCard({
               <div className="flex h-24 flex-1 flex-col justify-end">
                 <div className="flex items-center justify-between">
                   <div className="flex flex-1 items-center justify-between">
-                    <h2 className="text-xl font-bold">{experience.title}</h2>
-                    <div className="relative h-8 w-8 overflow-hidden rounded-full">
+                    <h2 className="text-left text-xl font-bold">
+                      {experience.title}
+                    </h2>
+                    <div className="relative h-8 w-8 flex-none overflow-hidden rounded-full">
                       {hostProfile?.profileImage ? (
                         <Image
                           src={hostProfile.profileImage}
