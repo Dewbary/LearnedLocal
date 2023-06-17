@@ -56,7 +56,7 @@ const HomePage = () => {
 
   return (
     <div className="flex min-h-screen w-full flex-col">
-      <NavBar isSignedIn={user.isSignedIn ?? false} className="" />
+      <NavBar isSignedIn={user.isSignedIn ?? false} className="bg-ll-gray" />
 
       <div className="pt-16 md:pt-0">
         {/* <Header /> */}

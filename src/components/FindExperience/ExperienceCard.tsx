@@ -49,92 +49,91 @@ export default function ExperienceCard({
 
   return (
     <>
-      <div
-        className={`${
-          styles["card-height"] ?? ""
-        }  flex w-72 flex-col rounded-2xl bg-white drop-shadow-xl`}
-      >
-        {/* TITLE BAR */}
-        <div className="flex w-full items-center justify-between rounded-t-2xl bg-gradient-to-br from-amber-300 to-ll-orange p-3">
-          <div className="relative h-12 w-12 overflow-hidden rounded-full">
-            {hostProfile?.profileImage ? (
-              <Image
-                src={hostProfile.profileImage}
-                alt="Profile Picture"
-                className="rounded-full object-cover"
-                fill
-              />
-            ) : (
-              <Image
-                src={profile_pic}
-                alt="Profile Picture Anonymous"
-                className="rounded-full object-cover"
-                fill
-              />
-            )}
-          </div>
-          {showDetails && (
-            <h2 className="text-4xl font-bold">
-              {experience.date
-                .toLocaleDateString("en-US", dateDisplayOptions)
-                .toLocaleUpperCase()}
-            </h2>
-          )}
-        </div>
+      <div className="relative flex h-96 w-72 flex-col overflow-hidden rounded-2xl">
+        <Image
+          src={experience.photos[0] || ""}
+          alt="experience image"
+          className="object-cover"
+          fill
+        />
 
-        {/* COVER IMAGE */}
-        <div className="relative h-56 w-full overflow-hidden">
-          <Image
-            src={experience.photos[0] || ""}
-            alt="experience image"
-            className="absolute object-cover"
-            fill
-          />
-        </div>
+        {/* Card content */}
+        <div className="absolute inset-0 flex flex-col justify-between ">
+          {/* TITLE BAR */}
+          <div className="flex items-center justify-between"></div>
 
-        {/* DESCRIPTION BOX */}
-        <div className="px-3">
-          <h2 className="text-2xl font-bold">{experience.title}</h2>
-          <p className="h-10 overflow-hidden text-sm">
-            {experience.description}
-          </p>
-        </div>
+          {/* BOTTOM BAR */}
+          <div className="flex h-40 flex-col justify-between bg-opacity-0 bg-gradient-to-t from-black p-4 text-white">
+            <div className="flex h-24 flex-1 flex-col justify-end">
+              {/* DESCRIPTION BOX */}
+              <div className="flex items-center justify-between">
+                <div className="relative h-12 w-12 overflow-hidden rounded-full">
+                  {hostProfile?.profileImage ? (
+                    <Image
+                      src={hostProfile.profileImage}
+                      alt="Profile Picture"
+                      className="rounded-full object-cover"
+                      layout="fill"
+                    />
+                  ) : (
+                    <Image
+                      src={profile_pic}
+                      alt="Profile Picture Anonymous"
+                      className="rounded-full object-cover"
+                      layout="fill"
+                    />
+                  )}
+                </div>
+                {showDetails && (
+                  <h2 className="text-2xl font-bold uppercase">
+                    {experience.date.toLocaleDateString(
+                      "en-US",
+                      dateDisplayOptions
+                    )}
+                  </h2>
+                )}
+              </div>
+              <div className=" ">
+                <h2 className="text-xl font-bold">{experience.title}</h2>
+                {/* <p className="h-10 overflow-hidden text-sm">
+                {experience.description}
+              </p> */}
+              </div>
 
-        {/* BOTTOM BAR */}
-        <div className="flex items-center justify-between px-3 pb-3">
-          {/* PRICE TAG */}
+              <div className="flex flex-row justify-between">
+                {/* PRICE TAG */}
+                {(showPrice === true ||
+                  (showPrice === undefined && showDetails)) && (
+                  <h2 className="text-lg font-bold">${experience.price}</h2>
+                )}
 
-          {showPrice === true ||
-            (showPrice === undefined && showDetails && (
-              <h2 className="text-xl font-bold">${experience.price}</h2>
-            ))}
+                {/* ACTION BUTTON LIST */}
+                <div className="flex gap-2">
+                  {actionButtonList?.map((actionButton, i) => {
+                    return (
+                      <button
+                        className={`rounded py-1 px-2 text-white ${actionButton.buttonColor} shadow-md`}
+                        onClick={() => actionButton.buttonAction()}
+                        key={i}
+                      >
+                        {actionButton.buttonText}
+                      </button>
+                    );
+                  })}
+                </div>
 
-          {/* ACTION BUTTON LIST */}
-          <div className="flex flex-row gap-2">
-            {actionButtonList?.map((actionButton, i) => {
-              return (
-                <button
-                  className={`rounded-lg ${actionButton.buttonColor} p-2 text-white drop-shadow-md`}
-                  onClick={() => actionButton.buttonAction()}
-                  key={i}
-                >
-                  {actionButton.buttonText}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* MODAL BUTTON */}
-          {showDetails && (
-            <div className="">
-              <button
-                className="rounded-lg bg-amber-400 p-2 text-white drop-shadow-md"
-                onClick={() => showModal()}
-              >
-                {modalButtonText}
-              </button>
+                {/* MODAL BUTTON */}
+                {showDetails && (
+                  <button
+                    className="rounded bg-yellow-300 py-1 px-2 text-white shadow-md"
+                    onClick={() => showModal()}
+                  >
+                    {modalButtonText}
+                  </button>
+                )}
+              </div>
             </div>
-          )}
+          </div>
         </div>
       </div>
 
