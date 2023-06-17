@@ -66,7 +66,15 @@ const HomePage = () => {
             you than you think. Sign up for an experience today!
           </p>
 
-          <VideoPlayer />
+          <div className="mt-10 flex w-full items-center justify-center">
+            <div className="aspect-w-16 aspect-h-9 flex w-full items-center justify-center">
+              <iframe
+                src="https://www.youtube.com/embed/leKfHxT_6II"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              ></iframe>
+            </div>
+          </div>
         </div>
 
         <div className="divider px-16"></div>
