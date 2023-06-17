@@ -2,8 +2,8 @@ import Image from "next/image";
 import { useState } from "react";
 import styles from "./ExperienceCard.module.css";
 import { Experience, Profile, Registration } from "@prisma/client";
-import profile_pic from "../../assets/profile_pic.png";
-import GenericModal from "../GenericModal";
+import profile_pic from "../../../assets/profile_pic.png";
+import GenericModal from "../../GenericModal";
 import { MapPinIcon } from "@heroicons/react/24/solid";
 import { api } from "~/utils/api";
 
@@ -129,18 +129,6 @@ export default function ExperienceCard({
                     );
                   })}
                 </div>
-
-                {/* MODAL BUTTON */}
-                {/* {enableModal && (
-                  <div className="">
-                    <button
-                      className="rounded-lg bg-amber-400 p-2 text-white drop-shadow-md"
-                      onClick={() => showModal()}
-                    >
-                      {modalButtonText}
-                    </button>
-                  </div>
-                )} */}
               </div>
             </div>
           </div>

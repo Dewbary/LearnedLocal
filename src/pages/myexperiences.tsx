@@ -1,7 +1,7 @@
 import { RedirectToSignIn, SignedIn, SignedOut, useUser } from "@clerk/nextjs";
 import { api } from "~/utils/api";
 import NavBar from "~/components/NavBar/NavBar";
-import ExperienceCard from "~/components/FindExperience/ExperienceCard";
+import ExperienceCard from "~/components/FindExperience/ExperienceCard/ExperienceCard";
 import Image from "next/image";
 import sapiens from "../../public/sapiens.png";
 import ExperienceModalHeader from "~/components/FindExperience/ExperienceModalHeader";

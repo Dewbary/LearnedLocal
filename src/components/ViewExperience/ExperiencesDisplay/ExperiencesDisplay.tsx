@@ -1,15 +1,20 @@
 import * as React from "react";
 import ExperienceCard from "~/components/FindExperience/ExperienceCard";
+import ExperienceCardPlaceholder from "~/components/FindExperience/ExperienceCardPlaceholder";
 import ExperienceModalBody from "~/components/FindExperience/ExperienceModalBody";
 import ExperienceModalHeader from "~/components/FindExperience/ExperienceModalHeader";
 import { ExperienceInfo } from "~/components/types";
+import { api } from "~/utils/api";
 
 type Props = {
-  experiences: ExperienceInfo[];
   today: Date;
 };
 
-const ExperiencesDisplay = ({ experiences, today }: Props) => {
+const ExperiencesDisplay = ({ today }: Props) => {
+  const experiencesQuery = api.experience.getAll.useQuery();
+
+  const experiences = experiencesQuery.data || [];
+
   const currentExperiences =
     experiences
       .filter((experience) => new Date(experience.date) >= today)
@@ -27,22 +32,32 @@ const ExperiencesDisplay = ({ experiences, today }: Props) => {
   return (
     <div>
       <span id="viewexperiences" />
-
       <div>
         <div className="mt-4 text-center text-3xl font-bold">
           <h2>Available Experiences</h2>
         </div>
       </div>
-
-      {experiences.length === 0 && (
+      {/* {experiences.length === 0 && (
         <div className="flex items-center justify-center bg-slate-200 py-10">
           <p>
             There are currently no experiences hosted in your area. Why not host
             one yourself?
           </p>
         </div>
-      )}
+      )} */}
 
+      {experiencesQuery.isLoading && (
+        <div className="mb-10 grid grid-cols-1 justify-items-stretch gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <ExperienceCardPlaceholder />
+          <ExperienceCardPlaceholder />
+          <ExperienceCardPlaceholder />
+          <ExperienceCardPlaceholder />
+          <ExperienceCardPlaceholder />
+          <ExperienceCardPlaceholder />
+          <ExperienceCardPlaceholder />
+          <ExperienceCardPlaceholder />
+        </div>
+      )}
       <div className="mb-10 grid grid-cols-1 justify-items-stretch gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {currentExperiences.map((experience) =>
           renderExperienceCard(experience, true)
