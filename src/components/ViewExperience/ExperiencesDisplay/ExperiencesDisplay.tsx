@@ -32,11 +32,11 @@ const ExperiencesDisplay = ({ today }: Props) => {
   return (
     <div>
       <span id="viewexperiences" />
-      <div>
+      {/* <div>
         <div className="mt-4 text-center text-3xl font-bold">
           <h2>Available Experiences</h2>
         </div>
-      </div>
+      </div> */}
       {/* {experiences.length === 0 && (
         <div className="flex items-center justify-center bg-slate-200 py-10">
           <p>
@@ -58,7 +58,7 @@ const ExperiencesDisplay = ({ today }: Props) => {
           <ExperienceCardPlaceholder />
         </div>
       )}
-      <div className="mb-10 grid grid-cols-1 justify-items-stretch gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div className="mb-10 grid grid-cols-1 justify-items-stretch sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {currentExperiences.map((experience) =>
           renderExperienceCard(experience, true)
         )}

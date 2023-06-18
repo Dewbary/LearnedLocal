@@ -13,7 +13,26 @@ const NavBar = ({ isSignedIn, className }: Props) => {
   return (
     <div className={`navbar fixed z-10 h-16 md:relative ${className ?? ""} `}>
       <div className="navbar-start">
-        <div className="dropdown">
+        <Link href="/" className="btn-ghost btn text-xl normal-case">
+          <Image
+            src={logo_white}
+            alt="company logo"
+            className="mr-3 hidden w-10 lg:block"
+          />
+          Learned Local
+        </Link>
+      </div>
+
+      {/* <div className="navbar-center">
+        <input
+          type="text"
+          placeholder="Search"
+          className="w-full max-w-xs rounded-3xl border-2 p-2 px-6"
+        />
+      </div> */}
+
+      <div className="navbar-end">
+        <div className="dropdown dropdown-bottom dropdown-end">
           <label tabIndex={0} className="btn-ghost btn-circle btn">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -46,30 +65,21 @@ const NavBar = ({ isSignedIn, className }: Props) => {
             <li>
               <Link href="/profile">My Profile</Link>
             </li>
+            <li>
+              {isSignedIn ? (
+                <Link
+                  className="btn-primary btn mb-2 hidden lg:flex"
+                  href={`/myexperiences`}
+                >
+                  My Experiences
+                </Link>
+              ) : null}
+            </li>
+            <li>
+              <SignInArea isSignedIn={isSignedIn} />
+            </li>
           </ul>
         </div>
-      </div>
-      <div className="navbar-center">
-        <Link href="/" className="btn-ghost btn text-xl normal-case">
-          <Image
-            src={logo_white}
-            alt="company logo"
-            className="mr-3 hidden w-10 lg:block"
-          />
-          Learned Local
-        </Link>
-      </div>
-      <div className="navbar-end">
-        {isSignedIn ? (
-          <Link
-            className="btn-primary btn mr-3 hidden lg:flex"
-            href={`/myexperiences`}
-          >
-            My Experiences
-          </Link>
-        ) : null}
-
-        <SignInArea isSignedIn={isSignedIn} />
       </div>
     </div>
   );
