@@ -8,7 +8,9 @@ type State = {
 
 const initialState: State = {
   filteredExperiences: [],
-  setFilteredExperiences: () => {},
+  setFilteredExperiences: (experiences: ExperienceInfo[]) => {
+    return;
+  },
 };
 
 const FilteredExperiencesContext = React.createContext(initialState);
