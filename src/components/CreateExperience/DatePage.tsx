@@ -4,6 +4,7 @@ import { FormLabel } from "./Form/FormLabel";
 import Calendar from "./Calendar";
 import FormPageHeader from "./Typography/Typography";
 import TimeSelect from "./TimeSelect";
+import DateAndTimePicker from "../DateAndTimePicker";
 
 type Props = {
   selectedDay: Date;
@@ -27,7 +28,7 @@ const DatePage = ({
       />
 
       <div className="space-y-8 rounded-lg bg-white p-8 shadow-lg">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+        {/* <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           <div className="w-full max-w-xl flex-grow">
             <Field
               name="date"
@@ -54,7 +55,8 @@ const DatePage = ({
               <TimeSelect label="End Time" name="endTime" />
             </div>
           </div>
-        </div>
+        </div> */}
+        <DateAndTimePicker />
         <div>
           <FormLabel text="Timeline" className="text-gray-600" />
           <Field
