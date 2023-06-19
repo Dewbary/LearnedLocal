@@ -11,15 +11,17 @@ type Props = {
 
 const NavBar = ({ isSignedIn, className }: Props) => {
   return (
-    <div className={`navbar fixed z-10 h-16 md:relative ${className ?? ""} `}>
+    <div
+      className={`navbar fixed z-10 h-16 border-b-2 border-b-slate-100 md:relative ${
+        className ?? ""
+      } `}
+    >
       <div className="navbar-start">
         <Link href="/" className="btn-ghost btn text-xl normal-case">
-          <Image
-            src={logo_white}
-            alt="company logo"
-            className="mr-3 hidden w-10 lg:block"
-          />
-          Learned Local
+          <Image src={logo_white} alt="company logo" className="mr-3 w-10" />
+          <div className="font-poppins font-black text-gray-800">
+            Learned Local
+          </div>
         </Link>
       </div>
 
@@ -32,7 +34,7 @@ const NavBar = ({ isSignedIn, className }: Props) => {
       </div> */}
 
       <div className="navbar-end">
-        <div className="dropdown dropdown-bottom dropdown-end">
+        <div className="dropdown-bottom dropdown-end dropdown">
           <label tabIndex={0} className="btn-ghost btn-circle btn">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -58,6 +60,9 @@ const NavBar = ({ isSignedIn, className }: Props) => {
             </li>
             <li>
               <Link href="/myexperiences">My Experiences</Link>
+            </li>
+            <li>
+              <Link href="/about">About Us</Link>
             </li>
             <li>
               <Link href="/host">About Hosting</Link>

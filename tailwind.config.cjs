@@ -19,12 +19,16 @@ const config = {
         "ll-blue": "#02747A",
         "ll-gray": "#EEEAE6",
       },
+      fontFamily: {
+        poppins: ["Poppins", "sans-serif"],
+      },
+      fontWeight: {
+        regular: "400",
+        black: "900",
+      },
     },
   },
-  plugins: [
-    require("@tailwindcss/typography"),
-    require("daisyui"),
-  ],
+  plugins: [require("@tailwindcss/typography"), require("daisyui")],
 };
 
 module.exports = config;

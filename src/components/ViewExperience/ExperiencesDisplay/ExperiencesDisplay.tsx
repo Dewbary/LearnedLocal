@@ -4,33 +4,18 @@ import ExperienceCardPlaceholder from "~/components/FindExperience/ExperienceCar
 import ExperienceModalBody from "~/components/FindExperience/ExperienceModalBody";
 import ExperienceModalHeader from "~/components/FindExperience/ExperienceModalHeader";
 import { ExperienceInfo } from "~/components/types";
-import { api } from "~/utils/api";
+import FilteredExperiencesContext from "../FilteredExperiencesContext";
 
 type Props = {
-  today: Date;
+  experiences: ExperienceInfo[];
+  isLoading: boolean;
 };
 
-const ExperiencesDisplay = ({ today }: Props) => {
-  const experiencesQuery = api.experience.getAll.useQuery();
-
-  const experiences = experiencesQuery.data || [];
-
-  const currentExperiences =
-    experiences
-      .filter((experience) => new Date(experience.date) >= today)
-      .filter((experience) => !experience.isFutureExperience) || [];
-
-  const upcomingExperiences =
-    experiences.filter((experience) => experience.isFutureExperience) || [];
-
-  const pastExperiences =
-    experiences.filter(
-      (experience) =>
-        new Date(experience.date) < today && !experience.isFutureExperience
-    ) || [];
+const ExperiencesDisplay = ({ experiences, isLoading }: Props) => {
+  const { filteredExperiences } = React.useContext(FilteredExperiencesContext);
 
   return (
-    <div>
+    <div className="">
       <span id="viewexperiences" />
       {/* <div>
         <div className="mt-4 text-center text-3xl font-bold">
@@ -46,7 +31,7 @@ const ExperiencesDisplay = ({ today }: Props) => {
         </div>
       )} */}
 
-      {experiencesQuery.isLoading && (
+      {isLoading && (
         <div className="mb-10 grid grid-cols-1 justify-items-stretch gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           <ExperienceCardPlaceholder />
           <ExperienceCardPlaceholder />
@@ -59,10 +44,10 @@ const ExperiencesDisplay = ({ today }: Props) => {
         </div>
       )}
       <div className="mb-10 grid grid-cols-1 justify-items-stretch sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {currentExperiences.map((experience) =>
+        {filteredExperiences.map((experience) =>
           renderExperienceCard(experience, true)
         )}
-        {currentExperiences.length > 0 && (
+        {/* {currentExperiences.length > 0 && (
           <div className="col-span-1 flex flex-col justify-center md:col-span-3 lg:col-span-4">
             <div className="h-1 border-b border-gray-300" />
             <div className="my-4 text-center text-3xl font-bold">
@@ -83,7 +68,7 @@ const ExperiencesDisplay = ({ today }: Props) => {
         )}
         {pastExperiences.map((experience) =>
           renderExperienceCard(experience, true)
-        )}
+        )} */}
       </div>
     </div>
   );
@@ -99,7 +84,7 @@ const renderExperienceCard = (
     return (
       <div
         key={experience.id}
-        className="card-component my-8 flex justify-center"
+        className="card-component my-8 mx-2 flex justify-center"
       >
         <ExperienceCard
           experience={experience}
@@ -129,7 +114,7 @@ const renderExperienceCard = (
     return (
       <div
         key={experience.id}
-        className="card-component my-8 flex justify-center"
+        className="card-component my-8 mx-2 flex justify-center"
       >
         <ExperienceCard
           experience={experience}

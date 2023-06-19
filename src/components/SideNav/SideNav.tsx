@@ -10,72 +10,79 @@ import {
   MapPinIcon,
   ClipboardDocumentCheckIcon,
   ChevronRightIcon,
+  HeartIcon,
+  PaintBrushIcon,
+  CakeIcon,
+  PhotoIcon,
+  BackwardIcon,
+  CalendarDaysIcon,
+  RectangleStackIcon,
 } from "@heroicons/react/24/solid";
+import { ExperienceInfo } from "../types";
+import { getExperiences } from "../ViewExperience/ViewExperienceUtils";
+import FilteredExperiencesContext from "../ViewExperience/FilteredExperiencesContext";
 
-const SideNav = () => {
+type Props = {
+  experiences: ExperienceInfo[];
+  onSetExperiences: (experiences: ExperienceInfo[]) => void;
+};
+
+const SideNav = ({ experiences, onSetExperiences }: Props) => {
+  const { filteredExperiences, setFilteredExperiences } = React.useContext(
+    FilteredExperiencesContext
+  );
+
   const [open, setOpen] = React.useState(true);
   const Menus = [
-    { title: "Current", icon: <HomeIcon className="h-6 w-6" /> },
+    { title: "Current", icon: <CalendarDaysIcon className="h-6 w-6" /> },
     { title: "Upcoming", icon: <CalendarIcon className="h-6 w-6" /> },
-    { title: "Past", icon: <CogIcon className="h-6 w-6" /> },
+    { title: "Past", icon: <BackwardIcon className="h-6 w-6" /> },
     {
       title: "Outdoors",
-      icon: <CheckCircleIcon className="h-6 w-6" />,
+      icon: <PhotoIcon className="h-6 w-6" />,
       gap: true,
     },
-    { title: "Culinary", icon: <MapPinIcon className="h-6 w-6" /> },
-    { title: "Art", icon: <UserIcon className="h-6 w-6" /> },
-    { title: "Sports", icon: <CameraIcon className="h-6 w-6" /> },
-    { title: "All", icon: <CalendarIcon className="h-6 w-6" /> },
+    { title: "Culinary", icon: <CakeIcon className="h-6 w-6" /> },
+    { title: "Art", icon: <PaintBrushIcon className="h-6 w-6" /> },
+    { title: "Health & Wellness", icon: <HeartIcon className="h-6 w-6" /> },
+    { title: "All", icon: <RectangleStackIcon className="h-6 w-6" /> },
   ];
 
   return (
-    <div
-      className={` ${
-        open ? "w-72" : "w-20 "
-      } relative  h-screen border-t-2 border-r-2 border-r-slate-100 border-t-slate-100 p-5 pt-8 duration-300`}
-    >
+    <div className="relative md:border-r-2 md:border-r-slate-100">
       <ChevronRightIcon
-        className={`absolute -right-3 top-9 h-8 w-8 cursor-pointer rounded-full bg-slate-100 p-2  ${
+        className={`absolute top-4 -right-3 z-10 hidden h-8 w-8 cursor-pointer rounded-full bg-slate-100 p-2 md:block ${
           !open && "rotate-180"
         }`}
         onClick={() => setOpen(!open)}
       />
-      {/* <img
-        src="./src/assets/control.png"
-        className={`border-dark-purple absolute -right-3 top-9 w-7 cursor-pointer
-           rounded-full border-2  ${!open && "rotate-180"}`}
-        onClick={() => setOpen(!open)}
-      /> */}
-      {/* <div className="flex items-center gap-x-4">
-        <img
-          src="./src/assets/logo.png"
-          className={`cursor-pointer duration-500 ${open && "rotate-[360deg]"}`}
-        />
-        <h1
-          className={`origin-left text-xl font-medium text-white duration-200 ${
-            !open && "scale-0"
-          }`}
-        >
-          Designer
-        </h1>
-      </div> */}
-      <ul className="">
-        {Menus.map((Menu, index) => (
-          <li
-            key={index}
-            className={`hover:bg-light-white  flex cursor-pointer items-center gap-x-4 rounded-md px-2 py-6 text-sm text-gray-300 
-              ${Menu.gap ? "mt-9" : "mt-2"} ${
-              index === 0 && "bg-light-white"
-            } `}
-          >
-            {Menu.icon}
-            <span className={`${!open && "hidden"} origin-left duration-200`}>
-              {Menu.title}
-            </span>
-          </li>
-        ))}
-      </ul>
+      <div
+        className={` ${
+          open ? "w-screen md:w-72" : "w-screen md:w-20 "
+        } relative overflow-y-hidden overflow-x-scroll duration-300 md:overflow-x-hidden md:px-5`}
+      >
+        <ul className="flex md:flex-col">
+          {Menus.map((Menu, index) => (
+            <li
+              key={index}
+              className={`hover:bg-light-white flex cursor-pointer items-center gap-x-4 rounded-md px-6 text-sm text-gray-500 md:px-2 md:py-6 
+              ${Menu.gap ? "mt-4 md:mt-9" : "mt-4 md:mt-2"} ${
+                index === 0 && "bg-light-white"
+              }`}
+              onClick={() => {
+                setFilteredExperiences(getExperiences(Menu.title, experiences));
+              }}
+            >
+              {Menu.icon}
+              <span
+                className={`${!open && "md:hidden"} origin-left duration-200`}
+              >
+                {Menu.title}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
