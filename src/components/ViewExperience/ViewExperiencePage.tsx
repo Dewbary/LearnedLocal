@@ -164,7 +164,7 @@ export default function ViewExperiencePage() {
                   rel="noopener noreferrer"
                   className="text-blue-500 underline"
                 >
-                  View Experience Location
+                  {experienceData?.city || "View Experience Location"}
                 </a>
               </span>
               <CalendarIcon className="w-5" />{" "}
