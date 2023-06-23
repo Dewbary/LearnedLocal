@@ -9,10 +9,8 @@ export const getExperiences = (
 ): ExperienceInfo[] => {
   switch (category) {
     case "Current":
-      return (
-        experiences
-          .filter((experience) => new Date(experience.date) >= today)
-          .filter((experience) => !experience.isFutureExperience) || []
+      return experiences.filter(
+        (experience) => new Date(experience.date) >= today
       );
     case "Upcoming":
       return (
