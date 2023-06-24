@@ -45,7 +45,11 @@ const renderExperienceCard = (
   experience: ExperienceInfo,
   showDetails: boolean
 ) => {
-  if (!experience.isFutureExperience) {
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // set to the start of the day
+
+  if (!experience.isFutureExperience && new Date(experience.date) >= today) {
     return (
       <div
         key={experience.id}

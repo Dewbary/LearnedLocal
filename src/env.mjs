@@ -23,6 +23,7 @@ const client = z.object({
   NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_URL: z.string().min(1),
   NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_NAME: z.string().min(1),
   NEXT_PUBLIC_STRIPE_PUBLIC_KEY: z.string().min(1),
+  SUPABASE_PROJECT_REF: z.string().min(1),
 });
 
 /**
@@ -43,6 +44,7 @@ const processEnv = {
   STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
   STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
   SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
+  SUPABASE_PROJECT_REF: process.env.SUPABASE_PROJECT_REF
 };
 
 // Don't touch the part below
