@@ -1,5 +1,6 @@
 import * as React from "react";
 import ReactModal from "react-modal";
+import { InboxArrowDownIcon } from "@heroicons/react/24/solid";
 
 type Props = {
   modalIsOpen: boolean;
@@ -9,15 +10,16 @@ type Props = {
 
 const EmailSignup = ({ modalIsOpen, openModal, closeModal }: Props) => {
   return (
+    <>
     <div className="flex flex-col items-center justify-center">
-      <p className="mb-4 text-center text-2xl lg:text-2xl">
-        Not seeing an experience? Get notified when there are new experiences in
-        your area!
-      </p>
-
-      <button onClick={openModal} className="btn-outline btn-ghost btn mb-8">
-        Subscribe For Experience Updates
-      </button>
+      <div onClick={openModal} className="bg-gradient-to-br from-amber-400 to-amber-500 p-4 drop-shadow-md rounded-full fixed bottom-3 right-3 lg:bottom-10 lg:right-10 flex flex-row justify-center items-center gap-3 hover:cursor-pointer hover:from-amber-300 hover:to-amber-300">
+        <div className="hidden lg:flex pl-2 font-3xl font-bold text-white">
+          Subscribe for experience updates!
+        </div>
+        <div className="p-2 rounded-full bg-white">
+          <InboxArrowDownIcon className="w-5"/>
+        </div>
+      </div>
       <ReactModal
         isOpen={modalIsOpen}
         contentLabel="Minimal Modal Example"
@@ -37,6 +39,7 @@ const EmailSignup = ({ modalIsOpen, openModal, closeModal }: Props) => {
         </button>
       </ReactModal>
     </div>
+    </>
   );
 };
 
