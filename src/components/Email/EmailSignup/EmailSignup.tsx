@@ -1,6 +1,6 @@
 import * as React from "react";
 import ReactModal from "react-modal";
-import { InboxArrowDownIcon } from "@heroicons/react/24/solid";
+import { InboxArrowDownIcon, EnvelopeIcon } from "@heroicons/react/24/solid";
 
 type Props = {
   modalIsOpen: boolean;
@@ -17,7 +17,7 @@ const EmailSignup = ({ modalIsOpen, openModal, closeModal }: Props) => {
           Subscribe for experience updates!
         </div>
         <div className="p-2 rounded-full bg-white">
-          <InboxArrowDownIcon className="w-5"/>
+          <EnvelopeIcon className="w-5 text-amber-500"/>
         </div>
       </div>
       <ReactModal
