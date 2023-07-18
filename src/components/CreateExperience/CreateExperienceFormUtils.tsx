@@ -43,9 +43,7 @@ export const initialValues: FormValues = {
   title: "",
   description: "",
   timeline: "",
-  date: "",
-  startTime: "",
-  endTime: "",
+  availability: [],
   city: "",
   location: { lat: 40.2518, lng: -111.6493 },
   locationDescription: "",
@@ -172,10 +170,9 @@ export const uploadImages = async (
 export const getUpdateExperienceObject = (
   values: FormValues,
   experienceId: string,
-  date: Date,
   filePathArray: string[],
   slug: string,
-  hostProfileId: string,
+  hostProfileId: string
 ) => {
   // Update the experience
   return {
@@ -183,9 +180,6 @@ export const getUpdateExperienceObject = (
     title: values.title,
     description: values.description,
     price: values.price,
-    date: date,
-    startTime: values.startTime,
-    endTime: values.endTime,
     timeline: values.timeline,
     city: values.city,
     location: values.location,
@@ -200,24 +194,20 @@ export const getUpdateExperienceObject = (
     photos: filePathArray,
     slugId: slug,
     categoryId: values.categoryId,
-    profileId: hostProfileId
+    profileId: hostProfileId,
   };
 };
 
 export const getCreateExperienceObject = (
   values: FormValues,
-  date: Date,
   filePathArray: string[],
   slug: string,
-  hostProfileId: string,
+  hostProfileId: string
 ) => {
   return {
     title: values.title,
     description: values.description,
     price: values.price,
-    date: date,
-    startTime: values.startTime,
-    endTime: values.endTime,
     timeline: values.timeline,
     city: values.city,
     location: values.location,
@@ -232,7 +222,7 @@ export const getCreateExperienceObject = (
     photos: filePathArray,
     slugId: slug,
     categoryId: values.categoryId,
-    profileId: hostProfileId
+    profileId: hostProfileId,
   };
 };
 
@@ -247,7 +237,6 @@ export const getInitialFormValues = (
 
     return {
       ...experience,
-      date: experience.date.toISOString(),
       location: experience.location as Pin,
       photos: photoData,
     };

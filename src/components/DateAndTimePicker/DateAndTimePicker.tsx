@@ -2,103 +2,70 @@ import React, { useState } from "react";
 import DatePicker, { registerLocale } from "react-datepicker";
 import { enGB } from "date-fns/locale";
 import "react-datepicker/dist/react-datepicker.css";
-import TimeSelection from "./TimeSelection";
-import { format, startOfDay } from "date-fns";
+import { startOfDay } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
+import type { ExperienceAvailability } from "../CreateExperience/types";
+import DateTimePickerHeader from "./DateTimePickerHeader";
+import TimeConfiguration from "./TimeConfiguration";
+import {
+  getActiveDateIndex,
+  getSelectedDateIndex,
+  updateDatesList,
+} from "./DateAndTimeUtils";
 
 registerLocale("enGB", enGB);
 
-export interface DateData {
-  date: Date;
-  startTime: Date | null;
-  endTime: Date | null;
-}
+type Props = {
+  datesList: ExperienceAvailability[];
+  setDatesList: (value: ExperienceAvailability[]) => void;
+};
 
-const DateAndTimePicker: React.FC = () => {
-  const [datesData, setDatesData] = useState<DateData[]>([]);
+const DateAndTimePicker = ({ datesList, setDatesList }: Props) => {
   const [activeDateIndex, setActiveDateIndex] = useState<number | null>(null);
 
-  const handleDateChange = (date: Date | null) => {
-    if (date) {
-      const dateIndex = datesData.findIndex(
-        (dateData) =>
-          dateData.date.getDate() === date.getDate() &&
-          dateData.date.getMonth() === date.getMonth() &&
-          dateData.date.getFullYear() === date.getFullYear()
-      );
+  const handleDateSelect = (selectedDate: Date | null) => {
+    if (!selectedDate) return;
 
-      let newDatesArray: DateData[];
-      if (dateIndex === -1) {
-        newDatesArray = [
-          ...datesData,
-          { date, startTime: null, endTime: null },
-        ];
-      } else {
-        newDatesArray = datesData.filter((_, index) => index !== dateIndex);
-        if (activeDateIndex === dateIndex) {
-          setActiveDateIndex(null);
-        } else if (activeDateIndex! > dateIndex) {
-          setActiveDateIndex(activeDateIndex! - 1);
-        }
-      }
+    const selectedDateIndex = getSelectedDateIndex(selectedDate, datesList);
+    const updatedDatesList = updateDatesList(
+      selectedDate,
+      selectedDateIndex,
+      datesList
+    );
+    setDatesList(updatedDatesList);
 
-      setDatesData(newDatesArray);
-    }
+    const updatedActiveDateIndex = getActiveDateIndex(
+      activeDateIndex,
+      selectedDateIndex
+    );
+    setActiveDateIndex(updatedActiveDateIndex);
   };
 
   return (
     <div className="container mx-auto p-4">
-      <div className="flex">
-        <h1 className="mb-2 w-1/2 text-lg font-bold">Select Dates</h1>
-        <h1 className="mb-2 w-1/2 text-lg font-bold">Select Times</h1>
-      </div>
+      <DateTimePickerHeader />
+
       <div className="flex overflow-hidden rounded-lg shadow-lg">
         <div className="w-1/2 bg-white py-4">
           <DatePicker
             selected={
-              activeDateIndex !== null ? datesData[activeDateIndex]?.date : null
+              activeDateIndex !== null ? datesList[activeDateIndex]?.date : null
             }
-            onChange={handleDateChange}
+            onChange={handleDateSelect}
             inline
             locale="enGB"
-            highlightDates={datesData.map((data) => data.date)}
+            highlightDates={datesList.map((data) => data.date)}
             minDate={startOfDay(new Date())}
             className="border-none"
           />
         </div>
-        <div className="w-1/2 bg-gray-100 p-4">
-          {[...datesData]
-            .sort((a, b) => a.date.getTime() - b.date.getTime())
-            .map((dateData, index) => (
-              <button
-                key={index}
-                type="button"
-                className={`m-1 inline-flex items-center justify-center rounded-full px-2 py-1 text-xs font-medium ${
-                  activeDateIndex === index
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-300 text-gray-800"
-                }`}
-                onClick={() => setActiveDateIndex(index)}
-              >
-                {format(dateData.date, "MMM dd, yyyy")}
-              </button>
-            ))}
-          {activeDateIndex !== null && (
-            <TimeSelection
-              dateData={datesData[activeDateIndex]}
-              onTimeChange={(startTime, endTime) => {
-                let newDatesData = [...datesData];
-                newDatesData[activeDateIndex] = {
-                  ...newDatesData[activeDateIndex],
-                  startTime,
-                  endTime,
-                  date: newDatesData[activeDateIndex]?.date!,
-                };
-                setDatesData(newDatesData);
-              }}
-            />
-          )}
-        </div>
+
+        <TimeConfiguration
+          datesList={datesList}
+          activeDateIndex={activeDateIndex}
+          setActiveDateIndex={setActiveDateIndex}
+          setDatesList={setDatesList}
+        />
       </div>
     </div>
   );

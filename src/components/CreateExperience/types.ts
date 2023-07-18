@@ -2,13 +2,17 @@ import { FormikProps } from "formik";
 import { Pin } from "./LocationPicker/LocationPicker";
 import { ImageListType } from "react-images-uploading";
 
+export type ExperienceAvailability = {
+  date: Date;
+  startTime: Date | null;
+  endTime: Date | null;
+};
+
 export type FormValues = {
   title: string;
   description: string;
   timeline: string;
-  date: string;
-  startTime: string;
-  endTime: string;
+  availability: ExperienceAvailability[];
   city: string | null;
   location: Pin;
   locationDescription: string;

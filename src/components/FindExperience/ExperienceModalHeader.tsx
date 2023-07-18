@@ -4,10 +4,12 @@ import Image from "next/image";
 type Props = {
   experience: Experience;
   hostProfile?: Profile | null;
-}
+};
 
-export default function ExperienceModalHeader({ experience, hostProfile } : Props) {
-  
+export default function ExperienceModalHeader({
+  experience,
+  hostProfile,
+}: Props) {
   const dateDisplayOptions = {
     weekday: "long",
     month: "short",
@@ -35,9 +37,9 @@ export default function ExperienceModalHeader({ experience, hostProfile } : Prop
         </p>
       </div>
       <div className="flex">
-        <h1 className="mr-3 text-lg lg:text-2xl">
+        {/* <h1 className="mr-3 text-lg lg:text-2xl">
           {experience.date.toLocaleDateString("en-US", dateDisplayOptions)}
-        </h1>
+        </h1> */}
       </div>
     </div>
   );

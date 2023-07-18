@@ -17,7 +17,8 @@ Modal.setAppElement("#__next");
 
 const HomePage = () => {
   const user = useUser();
-  const experiencesQuery = api.experience.getAll.useQuery();
+  // const experiencesQuery = api.experience.getAll.useQuery();
+  const experiencesQuery = api.experience.getCurrent.useQuery();
 
   const [experiences, setExperiences] = useState(experiencesQuery.data ?? []);
   const [filteredExperiences, setFilteredExperiences] = useState(
@@ -25,11 +26,11 @@ const HomePage = () => {
   );
 
   React.useEffect(() => {
-    console.log(experiencesQuery.data);
     setExperiences(experiencesQuery.data ?? []);
-    setFilteredExperiences(
-      getExperiences("Current", experiencesQuery.data ?? [])
-    );
+    // setFilteredExperiences(
+    //   getExperiences("Current", experiencesQuery.data ?? [])
+    // );
+    setFilteredExperiences(experiencesQuery.data ?? []);
   }, [experiencesQuery.isLoading]);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);

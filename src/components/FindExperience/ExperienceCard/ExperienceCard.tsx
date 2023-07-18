@@ -107,12 +107,12 @@ export default function ExperienceCard({
                       <h2 className="text-lg">{experience.city}</h2>
                     </div>
                   )}
-                  <h2 className="font-bold uppercase">
+                  {/* <h2 className="font-bold uppercase">
                     {experience.date.toLocaleDateString(
                       "en-US",
                       dateDisplayOptions
                     )}
-                  </h2>
+                  </h2> */}
                 </div>
 
                 {/* ACTION BUTTON LIST */}

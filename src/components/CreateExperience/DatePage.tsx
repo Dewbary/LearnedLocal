@@ -1,24 +1,11 @@
 import { Field, FieldProps } from "formik";
 import React from "react";
 import { FormLabel } from "./Form/FormLabel";
-import Calendar from "./Calendar";
 import FormPageHeader from "./Typography/Typography";
-import TimeSelect from "./TimeSelect";
 import DateAndTimePicker from "../DateAndTimePicker";
+import { ExperienceAvailability } from "./types";
 
-type Props = {
-  selectedDay: Date;
-  setSelectedDay: (date: Date) => void;
-  selectedMonth: string;
-  setSelectedMonth: (month: string) => void;
-};
-
-const DatePage = ({
-  selectedDay,
-  setSelectedDay,
-  selectedMonth,
-  setSelectedMonth,
-}: Props) => {
+const DatePage = () => {
   return (
     <div className="mx-auto max-w-4xl py-10 px-4">
       <FormPageHeader
@@ -28,35 +15,16 @@ const DatePage = ({
       />
 
       <div className="space-y-8 rounded-lg bg-white p-8 shadow-lg">
-        {/* <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-          <div className="w-full max-w-xl flex-grow">
-            <Field
-              name="date"
-              component={({ field, form, meta }: FieldProps) => (
-                <Calendar
-                  field={field}
-                  form={form}
-                  meta={meta}
-                  selectedDay={selectedDay}
-                  setSelectedDay={setSelectedDay}
-                  currentMonth={selectedMonth}
-                  setCurrentMonth={setSelectedMonth}
-                />
-              )}
+        <Field name="availability">
+          {({ field, form }: FieldProps<ExperienceAvailability[]>) => (
+            <DateAndTimePicker
+              datesList={field.value}
+              setDatesList={(datesList: ExperienceAvailability[]) => {
+                form.setFieldValue("availability", datesList);
+              }}
             />
-          </div>
-          <div className="space-y-8">
-            <div>
-              <FormLabel text="Start Time" className="text-gray-600" />
-              <TimeSelect label="Start Time" name="startTime" />
-            </div>
-            <div>
-              <FormLabel text="End Time" className="text-gray-600" />
-              <TimeSelect label="End Time" name="endTime" />
-            </div>
-          </div>
-        </div> */}
-        <DateAndTimePicker />
+          )}
+        </Field>
         <div>
           <FormLabel text="Timeline" className="text-gray-600" />
           <Field
