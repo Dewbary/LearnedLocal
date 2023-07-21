@@ -1,5 +1,8 @@
 import { prisma } from "~/server/db";
-import { sendConfirmationEmail, sendSignupNotificationEmail } from "~/utils/sendgrid";
+import {
+  sendConfirmationEmail,
+  sendSignupNotificationEmail,
+} from "~/utils/sendgrid";
 import getRawBody from "raw-body";
 import { env } from "~/env.mjs";
 
@@ -102,6 +105,7 @@ const handler = async (
         // Registration successfully created, let's send a confirmation email to the user
         const experience = await prisma.experience.findFirst({
           where: { id: experienceId },
+          include: { availability: true, profile: true },
         });
 
         const hostProfile = await prisma.profile.findFirst({
@@ -118,10 +122,9 @@ const handler = async (
           await sendSignupNotificationEmail({
             recipientEmail: metadata.email,
             experience: experience,
-            registration: registrationResult
-          })
+            registration: registrationResult,
+          });
         }
-        
       } catch (error) {
         console.error("Error creating registration:", error);
       }

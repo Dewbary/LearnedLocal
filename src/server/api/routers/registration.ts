@@ -34,6 +34,7 @@ export const registrationRouter = createTRPCRouter({
 
       const experience = await ctx.prisma.experience.findFirst({
         where: { id: deletedRegistration.experienceId },
+        include: { availability: true, profile: true },
       });
 
       const hostProfile = await ctx.prisma.profile.findFirst({

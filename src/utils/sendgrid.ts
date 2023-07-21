@@ -3,18 +3,23 @@ import sgMail from "@sendgrid/mail";
 import { Pin } from "~/components/CreateExperience/LocationPicker/LocationPicker";
 import { env } from "~/env.mjs";
 import { format } from "date-fns";
+import { ExperienceInfo } from "~/components/types";
 
 type Props = {
   recipientEmail: string;
-  experience: Experience;
+  experience: ExperienceInfo;
   hostProfile?: Profile;
   registration?: Registration;
 };
 
 sgMail.setApiKey(env.SENDGRID_API_KEY);
 
-const sendConfirmationEmail = async ({ recipientEmail, experience, hostProfile }: Props) => {
-
+const sendConfirmationEmail = async ({
+  recipientEmail,
+  experience,
+  registration,
+  hostProfile,
+}: Props) => {
   if (!hostProfile) {
     return;
   }
@@ -23,7 +28,17 @@ const sendConfirmationEmail = async ({ recipientEmail, experience, hostProfile }
   const lat = location.lat;
   const lng = location.lng;
 
-  const experienceDateTime = format(experience.date, "EEEE, MMM Lo 'at' h:mm a");
+  const experienceDate = experience.availability.filter((date) => {
+    date.id === registration?.availabilityId;
+  });
+
+  if (!experienceDate || !experienceDate[0] || !experienceDate[0].date) {
+    return;
+  }
+  const experienceDateTime = format(
+    experienceDate[0].date,
+    "EEEE, MMM Lo 'at' h:mm a"
+  );
 
   const msg = {
     to: recipientEmail,
@@ -49,8 +64,11 @@ const sendConfirmationEmail = async ({ recipientEmail, experience, hostProfile }
   }
 };
 
-const sendCancelationEmail = async ({ recipientEmail, experience, hostProfile }: Props) => {
-
+const sendCancelationEmail = async ({
+  recipientEmail,
+  experience,
+  hostProfile,
+}: Props) => {
   if (!hostProfile) {
     return;
   }
@@ -73,7 +91,11 @@ const sendCancelationEmail = async ({ recipientEmail, experience, hostProfile }:
   }
 };
 
-const sendSignupNotificationEmail = async ({ recipientEmail, experience, registration }: Props) => {
+const sendSignupNotificationEmail = async ({
+  recipientEmail,
+  experience,
+  registration,
+}: Props) => {
   if (!registration) {
     return;
   }
@@ -88,15 +110,19 @@ const sendSignupNotificationEmail = async ({ recipientEmail, experience, registr
       registrantLast: registration.registrantLastName,
       registrantEmail: registration.email,
       registrantPhone: registration.phone,
-      partySize: registration.partySize
-    }
-  }
+      partySize: registration.partySize,
+    },
+  };
 
   try {
     await sgMail.send(msg);
   } catch (error) {
     console.error(error);
   }
-}
+};
 
-export { sendConfirmationEmail, sendCancelationEmail, sendSignupNotificationEmail };
+export {
+  sendConfirmationEmail,
+  sendCancelationEmail,
+  sendSignupNotificationEmail,
+};
