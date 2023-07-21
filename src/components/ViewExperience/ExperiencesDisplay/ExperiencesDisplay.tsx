@@ -7,15 +7,17 @@ import { ExperienceInfo } from "~/components/types";
 import FilteredExperiencesContext from "../FilteredExperiencesContext";
 
 type Props = {
+  experiences: ExperienceInfo[];
   isLoading: boolean;
 };
 
-const ExperiencesDisplay = ({ isLoading }: Props) => {
+const ExperiencesDisplay = ({ experiences, isLoading }: Props) => {
   const { filteredExperiences } = React.useContext(FilteredExperiencesContext);
 
   return (
     <div className="">
       <span id="viewexperiences" />
+
       {isLoading && (
         <div className="mb-10 grid grid-cols-1 justify-items-stretch gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           <ExperienceCardPlaceholder />
@@ -28,7 +30,7 @@ const ExperiencesDisplay = ({ isLoading }: Props) => {
           <ExperienceCardPlaceholder />
         </div>
       )}
-      <div className="mb-10 ml-10 grid grid-cols-1 justify-items-stretch sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div className="mb-10 grid grid-cols-1 justify-items-stretch sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {filteredExperiences.map((experience) =>
           renderExperienceCard(experience, true)
         )}
@@ -46,7 +48,13 @@ const renderExperienceCard = (
   const today = new Date();
   today.setHours(0, 0, 0, 0); // set to the start of the day
 
-  if (!experience.isFutureExperience && new Date(experience.date) >= today) {
+  if (
+    !experience.isFutureExperience &&
+    experience.availability.some((date) => {
+      if (!date.date) return false;
+      return date.date >= today;
+    })
+  ) {
     return (
       <div
         key={experience.id}
