@@ -3,7 +3,7 @@ import React from "react";
 import { FormLabel } from "./Form/FormLabel";
 import FormPageHeader from "./Typography/Typography";
 import DateAndTimePicker from "../DateAndTimePicker";
-import { ExperienceAvailability } from "./types";
+import { DateInfo } from "../types";
 
 const DatePage = () => {
   return (
@@ -16,10 +16,10 @@ const DatePage = () => {
 
       <div className="space-y-8 rounded-lg bg-white p-8 shadow-lg">
         <Field name="availability">
-          {({ field, form }: FieldProps<ExperienceAvailability[]>) => (
+          {({ field, form }: FieldProps<DateInfo[]>) => (
             <DateAndTimePicker
               datesList={field.value}
-              setDatesList={(datesList: ExperienceAvailability[]) => {
+              setDatesList={(datesList: DateInfo[]) => {
                 form.setFieldValue("availability", datesList);
               }}
             />

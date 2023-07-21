@@ -121,11 +121,7 @@ const CreateExperienceForm = () => {
                         <CreateExperienceFormArea
                           tabComponent={getTabComponent(
                             activeTab?.activeMatcher ?? "",
-                            !!experienceId,
-                            selectedDay,
-                            currentMonth,
-                            setSelectedDay,
-                            setCurrentMonth
+                            !!experienceId
                           )}
                           onNext={next}
                           onBack={back}

@@ -1,16 +1,16 @@
 import React from "react";
 import { format } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
-import { ExperienceAvailability } from "~/components/CreateExperience/types";
 import TimeSelect from "~/components/common/TimeSelect";
+import { DateInfo } from "~/components/types";
 
 type TimeSelectionProps = {
-  dateInfo: ExperienceAvailability | undefined;
+  dateInfo: DateInfo | undefined;
   onTimeSelect: (startTime: Date | null, endTime: Date | null) => void;
 };
 
 const TimeSelection = ({ dateInfo, onTimeSelect }: TimeSelectionProps) => {
-  if (!dateInfo) return null;
+  if (!dateInfo || !dateInfo.date) return null;
 
   return (
     <div className="mt-2">

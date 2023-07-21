@@ -4,7 +4,6 @@ import { enGB } from "date-fns/locale";
 import "react-datepicker/dist/react-datepicker.css";
 import { startOfDay } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
-import type { ExperienceAvailability } from "../CreateExperience/types";
 import DateTimePickerHeader from "./DateTimePickerHeader";
 import TimeConfiguration from "./TimeConfiguration";
 import {
@@ -12,12 +11,13 @@ import {
   getSelectedDateIndex,
   updateDatesList,
 } from "./DateAndTimeUtils";
+import { DateInfo } from "../types";
 
 registerLocale("enGB", enGB);
 
 type Props = {
-  datesList: ExperienceAvailability[];
-  setDatesList: (value: ExperienceAvailability[]) => void;
+  datesList: DateInfo[];
+  setDatesList: (value: DateInfo[]) => void;
 };
 
 const DateAndTimePicker = ({ datesList, setDatesList }: Props) => {
@@ -48,13 +48,12 @@ const DateAndTimePicker = ({ datesList, setDatesList }: Props) => {
       <div className="flex overflow-hidden rounded-lg shadow-lg">
         <div className="w-1/2 bg-white py-4">
           <DatePicker
-            selected={
-              activeDateIndex !== null ? datesList[activeDateIndex]?.date : null
-            }
             onChange={handleDateSelect}
             inline
             locale="enGB"
-            highlightDates={datesList.map((data) => data.date)}
+            highlightDates={datesList
+              .filter((data) => data.date)
+              .map((data) => data.date!)}
             minDate={startOfDay(new Date())}
             className="border-none"
           />

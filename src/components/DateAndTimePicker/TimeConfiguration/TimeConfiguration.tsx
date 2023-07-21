@@ -1,15 +1,16 @@
 import React from "react";
-import { ExperienceAvailability } from "~/components/CreateExperience/types";
+
 import TimeSelection from "../TimeSelection";
 import { format } from "date-fns";
 import PillButton from "~/components/common/PillButton";
 import { getUpdatedDatesList } from "../DateAndTimeUtils";
+import { DateInfo } from "~/components/types";
 
 type Props = {
-  datesList: ExperienceAvailability[];
+  datesList: DateInfo[];
   activeDateIndex: number | null;
   setActiveDateIndex: (index: number | null) => void;
-  setDatesList: (datesList: ExperienceAvailability[]) => void;
+  setDatesList: (datesList: DateInfo[]) => void;
 };
 
 const TimeConfiguration = ({
@@ -20,9 +21,10 @@ const TimeConfiguration = ({
 }: Props) => {
   if (!datesList) return null;
 
-  const sortedDatesList = datesList.sort(
-    (a, b) => a.date.getTime() - b.date.getTime()
-  );
+  const sortedDatesList = datesList.sort((a, b) => {
+    if (!a.date || !b.date) return 0;
+    return a.date.getTime() - b.date.getTime();
+  });
 
   const handleTimeSelect = (startTime: Date | null, endTime: Date | null) => {
     const updatedDatesList = getUpdatedDatesList(
@@ -36,18 +38,21 @@ const TimeConfiguration = ({
 
   return (
     <div className="w-1/2 bg-gray-100 p-4">
-      {sortedDatesList.map(({ date }, index) => (
-        <PillButton
-          key={date.toISOString()}
-          className={`${
-            activeDateIndex === index
-              ? "bg-blue-500 text-white"
-              : "bg-gray-300 text-gray-800"
-          }`}
-          title={format(date, "MMM dd, yyyy")}
-          onClick={() => setActiveDateIndex(index)}
-        />
-      ))}
+      {sortedDatesList.map(({ date }, index) => {
+        if (!date) return null;
+        return (
+          <PillButton
+            key={date.toISOString()}
+            className={`${
+              activeDateIndex === index
+                ? "bg-blue-500 text-white"
+                : "bg-gray-300 text-gray-800"
+            }`}
+            title={format(date, "MMM dd, yyyy")}
+            onClick={() => setActiveDateIndex(index)}
+          />
+        );
+      })}
 
       {activeDateIndex !== null && (
         <TimeSelection

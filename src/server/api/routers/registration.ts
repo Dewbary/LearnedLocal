@@ -37,14 +37,14 @@ export const registrationRouter = createTRPCRouter({
       });
 
       const hostProfile = await ctx.prisma.profile.findFirst({
-        where: { userId: experience?.authorId }
-      })
+        where: { userId: experience?.authorId },
+      });
 
       if (experience && hostProfile) {
         await sendCancelationEmail({
           recipientEmail: deletedRegistration.email,
           experience: experience,
-          hostProfile: hostProfile
+          hostProfile: hostProfile,
         });
       }
 
@@ -60,6 +60,7 @@ export const registrationRouter = createTRPCRouter({
         partySize: z.number(),
         email: z.string(),
         experienceId: z.number(),
+        availabilityId: z.number(),
         stripeCheckoutSessionId: z.string(),
         status: z.string(),
       })
@@ -73,6 +74,7 @@ export const registrationRouter = createTRPCRouter({
           partySize: input.partySize,
           email: input.email,
           experienceId: input.experienceId,
+          availabilityId: input.availabilityId,
           stripeCheckoutSessionId: input.stripeCheckoutSessionId,
           status: input.status,
         },

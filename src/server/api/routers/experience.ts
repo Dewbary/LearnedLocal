@@ -83,6 +83,7 @@ export const experienceRouter = createTRPCRouter({
         experience: {
           include: {
             profile: true,
+            availability: true,
           },
         },
       },
@@ -94,6 +95,7 @@ export const experienceRouter = createTRPCRouter({
       where: { authorId: ctx.userId },
       include: {
         profile: true,
+        availability: true,
       },
     });
   }),
@@ -103,6 +105,10 @@ export const experienceRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       return await ctx.prisma.experience.findFirst({
         where: { id: input },
+        include: {
+          profile: true,
+          availability: true,
+        },
       });
     }),
 

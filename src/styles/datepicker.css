@@ -50,11 +50,8 @@
 }
 .react-datepicker__day--highlighted,
 .react-datepicker__day--selected {
-  background-color: #4a56e2 !important;
+  background-color: #3c82f5 !important;
   border-radius: 50% !important;
-  /* width: 30px !important;
-  height: 30px !important;
-  line-height: 30px !important; */
 }
 
 .react-datepicker__day--today {
@@ -70,7 +67,6 @@
 }
 
 .react-datepicker__day--keyboard-selected {
-  /* background-color: white !important; */
   color: #fff !important;
 }
 

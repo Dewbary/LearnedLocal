@@ -1,5 +1,7 @@
 import { isEqual } from "lodash";
-import type { ExperienceAvailability } from "../CreateExperience/types";
+import { format } from "date-fns";
+import { ExperienceAvailability } from "@prisma/client";
+import { DateInfo } from "../types";
 
 const getISODateString = (date: Date): string | undefined => {
   return date.toISOString().split("T")[0];
@@ -7,20 +9,21 @@ const getISODateString = (date: Date): string | undefined => {
 
 export const getSelectedDateIndex = (
   selectedDate: Date,
-  dateList: ExperienceAvailability[]
+  dateList: DateInfo[]
 ): number => {
   const selectedDateString = getISODateString(selectedDate);
 
-  return dateList.findIndex((expDate) =>
-    isEqual(getISODateString(expDate.date), selectedDateString)
-  );
+  return dateList.findIndex((expDate) => {
+    if (!expDate.date) return false;
+    return isEqual(getISODateString(expDate.date), selectedDateString);
+  });
 };
 
 export const updateDatesList = (
   selectedDate: Date,
   selectedDateIndex: number,
-  datesList: ExperienceAvailability[]
-): ExperienceAvailability[] => {
+  datesList: DateInfo[]
+): DateInfo[] => {
   if (selectedDateIndex === -1) {
     return [
       ...datesList,
@@ -42,25 +45,30 @@ export const getActiveDateIndex = (
   } else if (activeDateIndex && activeDateIndex > selectedDateIndex) {
     return activeDateIndex - 1;
   }
-  return activeDateIndex;
+  return null;
 };
 
 export const getUpdatedDatesList = (
-  datesList: ExperienceAvailability[],
+  datesList: DateInfo[],
   activeDateIndex: number | null,
   startTime: Date | null,
   endTime: Date | null
-): ExperienceAvailability[] => {
+): DateInfo[] => {
   if (activeDateIndex === null) return datesList;
 
-  let newDatesData = [...datesList];
+  const newDatesData = [...datesList];
 
   newDatesData[activeDateIndex] = {
     ...newDatesData[activeDateIndex],
     startTime,
     endTime,
-    date: newDatesData[activeDateIndex]?.date!,
+    date: newDatesData[activeDateIndex]?.date ?? null,
   };
 
   return newDatesData;
+};
+
+export const getTime = (date: Date | null): string => {
+  if (!date) return "";
+  return format(date, "hh:mm a");
 };

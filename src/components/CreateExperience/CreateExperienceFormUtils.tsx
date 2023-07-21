@@ -25,6 +25,7 @@ import { NextRouter } from "next/router";
 import { Experience } from "@prisma/client";
 import { Pin } from "./LocationPicker/LocationPicker";
 import { format } from "date-fns";
+import { ExperienceInfo } from "../types";
 
 export const validationSchema = Yup.object({
   // firstName: Yup.string().required('First name is required'),
@@ -108,26 +109,12 @@ export const getTabInfos = (slug: string) => {
   ];
 };
 
-export const getTabComponent = (
-  activeTab: string,
-  isEditing: boolean,
-  selectedDay: Date,
-  currentMonth: string,
-  setSelectedDay: (day: Date) => void,
-  setCurrentMonth: (month: string) => void
-) => {
+export const getTabComponent = (activeTab: string, isEditing: boolean) => {
   switch (activeTab) {
     case "description":
       return <DescriptionPage />;
     case "date":
-      return (
-        <DatePage
-          selectedDay={selectedDay}
-          setSelectedDay={setSelectedDay}
-          selectedMonth={currentMonth}
-          setSelectedMonth={setCurrentMonth}
-        />
-      );
+      return <DatePage />;
     case "location":
       return <LocationPage />;
     case "requirements":
@@ -227,7 +214,7 @@ export const getCreateExperienceObject = (
 };
 
 export const getInitialFormValues = (
-  experience: Experience | undefined | null
+  experience: ExperienceInfo | undefined | null
 ): FormValues => {
   if (experience) {
     // update the initialValues with the experience data
@@ -237,6 +224,11 @@ export const getInitialFormValues = (
 
     return {
       ...experience,
+      availability: experience.availability.map((availability) => ({
+        date: availability.date,
+        startTime: availability.startTime,
+        endTime: availability.endTime,
+      })),
       location: experience.location as Pin,
       photos: photoData,
     };

@@ -179,7 +179,7 @@ type FormData = {
 
 const Checkout = () => {
   const router = useRouter();
-  const { experienceId } = router.query;
+  const { experienceId, availabilityId } = router.query;
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
@@ -204,6 +204,7 @@ const Checkout = () => {
     createCheckoutSession.mutate(
       {
         experienceId: parseInt(experienceId as string),
+        availabilityId: parseInt(availabilityId as string),
         userId: user.id,
         registrantFirstName: formData.firstName,
         registrantLastName: formData.lastName,

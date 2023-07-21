@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import { generateGoogleMapsURL } from "./FindExperienceUtils";
 import { Pin } from "../CreateExperience/LocationPicker/LocationPicker";
 import ExperienceImageDisplay from "../ExperienceImageDisplay";
+import { ExperienceInfo } from "../types";
 
 type ModalActionButton = {
   buttonText: string;
@@ -18,7 +19,7 @@ type ModalActionButton = {
 };
 
 type Props = {
-  experience: Experience;
+  experience: ExperienceInfo;
   registered: boolean;
   modalActionButton?: ModalActionButton;
   hostProfile?: Profile | null;
@@ -48,6 +49,8 @@ export default function ExperienceModalBody({
   const location: Pin = experience.location as Pin;
   const { lat, lng } = location;
 
+  const availableDates = experience.availability?.map((a) => a.date);
+
   return (
     <>
       {/* MAIN SCROLLABLE CONTENT */}
@@ -69,37 +72,6 @@ export default function ExperienceModalBody({
               <h3 className="text-xl font-bold">Description</h3>
               <p>{experience.description}</p>
             </div>
-            <div className="mb-5 grid basis-1/3 grid-cols-5 items-center gap-y-3 border-b-2 pb-5 md:h-full lg:order-2 lg:border-b-0 lg:border-l-2 lg:pl-5">
-              <ClockIcon className="w-5" />{" "}
-              {/* <span className="col-span-4">
-                {experience.startTime} - {experience.endTime}
-              </span> */}
-              <MapPinIcon className="w-5" />{" "}
-              <span className="col-span-4">
-                <a
-                  href={generateGoogleMapsURL(
-                    lat,
-                    lng,
-                    experience.city,
-                    registered
-                  )}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-500 underline"
-                >
-                  {registered ? "View Experience Location" : experience.city}
-                </a>
-              </span>
-              <CalendarIcon className="w-5" />{" "}
-              <span className="col-span-4">
-                {/* {experience.date.toLocaleDateString(
-                  "en-US",
-                  dateDisplayOptions
-                )} */}
-              </span>
-              <UserIcon className="w-5" />{" "}
-              <span className="col-span-4">Ages {experience.minAge}+</span>
-            </div>
           </div>
         </div>
       </div>
@@ -108,9 +80,9 @@ export default function ExperienceModalBody({
       <div className="flex items-center justify-between border-t py-4 pl-6 pr-6">
         <div className="text-3xl font-bold">${experience.price}</div>
         <div className="">
-          <UserIcon className="mr-2 inline w-4 rounded-full border border-black lg:w-5" />
+          {/* <UserIcon className="mr-2 inline w-4 rounded-full border border-black lg:w-5" /> */}
           <span className="lg:text-md text-sm">
-            {registrantCount.data}/{experience.maxAttendees} Spots Filled
+            {/* {registrantCount.data}/{experience.maxAttendees} Spots Filled */}
           </span>
         </div>
         {modalActionButton ? (

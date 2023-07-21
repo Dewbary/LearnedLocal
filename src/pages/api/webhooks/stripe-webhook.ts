@@ -70,12 +70,14 @@ const handler = async (
         !metadata.partySize ||
         !metadata.email ||
         !metadata.phone ||
-        !metadata.experienceId
+        !metadata.experienceId ||
+        !metadata.availabilityId
       ) {
         throw new Error("Metadata not found");
       }
 
       const experienceId = parseInt(metadata.experienceId);
+      const availabilityId = parseInt(metadata.availabilityId);
 
       // Start by creating the registration object in the database.
       const registrationData = {
@@ -86,6 +88,7 @@ const handler = async (
         email: metadata.email,
         phone: metadata.phone,
         experienceId: experienceId,
+        availabilityId: availabilityId,
         stripeCheckoutSessionId: session.id,
         status: session.status,
       };
@@ -102,14 +105,14 @@ const handler = async (
         });
 
         const hostProfile = await prisma.profile.findFirst({
-          where: { userId: experience?.authorId }
+          where: { userId: experience?.authorId },
         });
 
         if (experience && hostProfile) {
           await sendConfirmationEmail({
             recipientEmail: metadata.email,
             experience: experience,
-            hostProfile: hostProfile
+            hostProfile: hostProfile,
           });
 
           await sendSignupNotificationEmail({

@@ -1,8 +1,8 @@
 import React from "react";
-import { enGB } from "date-fns/locale";
+import { enUS } from "date-fns/locale";
 import DatePicker, { registerLocale } from "react-datepicker";
 
-registerLocale("enGB", enGB);
+registerLocale("enUS", enUS);
 
 type Props = {
   title: string;
@@ -21,6 +21,7 @@ const TimeSelect = ({ title, selectedTime, onChange }: Props) => {
         showTimeSelectOnly
         timeIntervals={15}
         timeCaption={title}
+        locale="enUS"
         dateFormat="h:mm aa"
         className="w-20 rounded-lg border p-2"
       />
