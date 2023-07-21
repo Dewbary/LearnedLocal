@@ -7,11 +7,10 @@ import { ExperienceInfo } from "~/components/types";
 import FilteredExperiencesContext from "../FilteredExperiencesContext";
 
 type Props = {
-  experiences: ExperienceInfo[];
   isLoading: boolean;
 };
 
-const ExperiencesDisplay = ({ experiences, isLoading }: Props) => {
+const ExperiencesDisplay = ({ isLoading }: Props) => {
   const { filteredExperiences } = React.useContext(FilteredExperiencesContext);
 
   return (
