@@ -12,24 +12,29 @@ import SideNav from "~/components/SideNav";
 import * as React from "react";
 import FilteredExperiencesContext from "~/components/ViewExperience/FilteredExperiencesContext";
 import { getExperiences } from "~/components/ViewExperience/ViewExperienceUtils";
+import { ExperienceInfo } from "~/components/types";
 
 Modal.setAppElement("#__next");
 
 const HomePage = () => {
   const user = useUser();
   const experiencesQuery = api.experience.getAll.useQuery();
+  // const experiencesQuery = api.experience.getCurrent.useQuery();
 
-  const [experiences, setExperiences] = useState(experiencesQuery.data ?? []);
-  const [filteredExperiences, setFilteredExperiences] = useState(
+  const [experiences, setExperiences] = useState<ExperienceInfo[]>(
     experiencesQuery.data ?? []
   );
+  const [filteredExperiences, setFilteredExperiences] = useState<
+    ExperienceInfo[]
+  >(experiencesQuery.data ?? []);
 
   React.useEffect(() => {
-    console.log(experiencesQuery.data);
     setExperiences(experiencesQuery.data ?? []);
+    console.log("experiencesQuery", experiencesQuery.data);
     setFilteredExperiences(
       getExperiences("Current", experiencesQuery.data ?? [])
     );
+    // setFilteredExperiences(experiencesQuery.data ?? []);
   }, [experiencesQuery.isLoading]);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -55,10 +60,7 @@ const HomePage = () => {
               onSetExperiences={setFilteredExperiences}
             />
             <div className="flex-1">
-              <ExperiencesDisplay
-                experiences={filteredExperiences}
-                isLoading={experiencesQuery.isLoading}
-              />
+              <ExperiencesDisplay isLoading={experiencesQuery.isLoading} />
               <EmailSignup
                 modalIsOpen={modalIsOpen}
                 openModal={openModal}

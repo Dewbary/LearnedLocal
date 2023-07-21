@@ -1,13 +1,16 @@
 import { Experience, Profile } from "@prisma/client";
 import Image from "next/image";
+import { ExperienceInfo } from "../types";
 
 type Props = {
-  experience: Experience;
+  experience: ExperienceInfo;
   hostProfile?: Profile | null;
-}
+};
 
-export default function ExperienceModalHeader({ experience, hostProfile } : Props) {
-  
+export default function ExperienceModalHeader({
+  experience,
+  hostProfile,
+}: Props) {
   const dateDisplayOptions = {
     weekday: "long",
     month: "short",
@@ -33,11 +36,6 @@ export default function ExperienceModalHeader({ experience, hostProfile } : Prop
             </span>
           </span>
         </p>
-      </div>
-      <div className="flex">
-        <h1 className="mr-3 text-lg lg:text-2xl">
-          {experience.date.toLocaleDateString("en-US", dateDisplayOptions)}
-        </h1>
       </div>
     </div>
   );

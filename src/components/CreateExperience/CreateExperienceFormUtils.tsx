@@ -25,6 +25,7 @@ import { NextRouter } from "next/router";
 import { Experience } from "@prisma/client";
 import { Pin } from "./LocationPicker/LocationPicker";
 import { format } from "date-fns";
+import { ExperienceInfo } from "../types";
 
 export const validationSchema = Yup.object({
   // firstName: Yup.string().required('First name is required'),
@@ -43,9 +44,7 @@ export const initialValues: FormValues = {
   title: "",
   description: "",
   timeline: "",
-  date: "",
-  startTime: "",
-  endTime: "",
+  availability: [],
   city: "",
   location: { lat: 40.2518, lng: -111.6493 },
   locationDescription: "",
@@ -110,26 +109,12 @@ export const getTabInfos = (slug: string) => {
   ];
 };
 
-export const getTabComponent = (
-  activeTab: string,
-  isEditing: boolean,
-  selectedDay: Date,
-  currentMonth: string,
-  setSelectedDay: (day: Date) => void,
-  setCurrentMonth: (month: string) => void
-) => {
+export const getTabComponent = (activeTab: string, isEditing: boolean) => {
   switch (activeTab) {
     case "description":
       return <DescriptionPage />;
     case "date":
-      return (
-        <DatePage
-          selectedDay={selectedDay}
-          setSelectedDay={setSelectedDay}
-          selectedMonth={currentMonth}
-          setSelectedMonth={setCurrentMonth}
-        />
-      );
+      return <DatePage />;
     case "location":
       return <LocationPage />;
     case "requirements":
@@ -172,10 +157,9 @@ export const uploadImages = async (
 export const getUpdateExperienceObject = (
   values: FormValues,
   experienceId: string,
-  date: Date,
   filePathArray: string[],
   slug: string,
-  hostProfileId: string,
+  hostProfileId: string
 ) => {
   // Update the experience
   return {
@@ -183,9 +167,6 @@ export const getUpdateExperienceObject = (
     title: values.title,
     description: values.description,
     price: values.price,
-    date: date,
-    startTime: values.startTime,
-    endTime: values.endTime,
     timeline: values.timeline,
     city: values.city,
     location: values.location,
@@ -200,24 +181,20 @@ export const getUpdateExperienceObject = (
     photos: filePathArray,
     slugId: slug,
     categoryId: values.categoryId,
-    profileId: hostProfileId
+    profileId: hostProfileId,
   };
 };
 
 export const getCreateExperienceObject = (
   values: FormValues,
-  date: Date,
   filePathArray: string[],
   slug: string,
-  hostProfileId: string,
+  hostProfileId: string
 ) => {
   return {
     title: values.title,
     description: values.description,
     price: values.price,
-    date: date,
-    startTime: values.startTime,
-    endTime: values.endTime,
     timeline: values.timeline,
     city: values.city,
     location: values.location,
@@ -232,12 +209,12 @@ export const getCreateExperienceObject = (
     photos: filePathArray,
     slugId: slug,
     categoryId: values.categoryId,
-    profileId: hostProfileId
+    profileId: hostProfileId,
   };
 };
 
 export const getInitialFormValues = (
-  experience: Experience | undefined | null
+  experience: ExperienceInfo | undefined | null
 ): FormValues => {
   if (experience) {
     // update the initialValues with the experience data
@@ -247,7 +224,11 @@ export const getInitialFormValues = (
 
     return {
       ...experience,
-      date: experience.date.toISOString(),
+      availability: experience.availability.map((availability) => ({
+        date: availability.date,
+        startTime: availability.startTime,
+        endTime: availability.endTime,
+      })),
       location: experience.location as Pin,
       photos: photoData,
     };

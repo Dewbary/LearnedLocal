@@ -75,9 +75,6 @@ model Experience {
   title              String
   description        String
   price              Float
-  date               DateTime
-  startTime          String
-  endTime            String
   timeline           String
   city               String?
   location           Json
@@ -107,8 +104,18 @@ model Experience {
   category           Category @relation(fields: [categoryId], references: [id])
 
   registration      Registration[] // Relation field
+  availability      ExperienceAvailability[] // Relation field
 
   @@index([authorId])
+}
+
+model ExperienceAvailability {
+  id          Int       @id @default(autoincrement())
+  experienceId Int
+  date        DateTime? 
+  startTime   DateTime?
+  endTime     DateTime?
+  Experience  Experience @relation(fields: [experienceId], references: [id])
 }
 
 model Category {
@@ -126,6 +133,7 @@ model Registration {
     email        String
     phone        String?
     experienceId Int
+    availabilityId Int
     stripeCheckoutSessionId String
     status       String?
     createdAt    DateTime @default(now())

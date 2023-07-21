@@ -15,11 +15,63 @@ export const experienceRouter = createTRPCRouter({
       },
       include: {
         profile: true,
-      },
-      orderBy: {
-        date: "asc",
+        availability: true,
       },
     });
+  }),
+
+  getCurrent: protectedProcedure.query(async ({ ctx }) => {
+    const currentDate = new Date();
+
+    let experiences = await ctx.prisma.experience.findMany({
+      where: {
+        availability: {
+          some: {
+            date: {
+              gte: currentDate,
+            },
+          },
+        },
+      },
+      include: {
+        profile: true,
+        availability: true,
+      },
+    });
+
+    // Filter out past availabilities
+    experiences = experiences.map((experience) => ({
+      ...experience,
+      ExperienceAvailability: experience.availability.filter(
+        (availability) => !availability.date || availability.date >= currentDate
+      ),
+    }));
+
+    // Sort experiences based on the earliest upcoming availability
+    experiences.sort((a, b) => {
+      const earliestA = a.availability
+        .filter((avail) => avail.date && avail.date !== null)
+        .reduce((prev, curr) => {
+          if (!prev) return curr;
+          if (!prev.date) return curr;
+          if (!curr.date) return prev;
+          return prev.date < curr.date ? prev : curr;
+        }, a.availability[0]);
+      const earliestB = b.availability.reduce((prev, curr) => {
+        if (!prev) return curr;
+        if (!prev.date) return curr;
+        if (!curr.date) return prev;
+        return prev.date < curr.date ? prev : curr;
+      }, b.availability[0]);
+
+      if (!earliestA || !earliestA.date || !earliestB || !earliestB.date) {
+        return 0;
+      }
+
+      return earliestA.date.getTime() - earliestB.date.getTime();
+    });
+
+    return experiences;
   }),
 
   getRegistered: protectedProcedure.query(async ({ ctx }) => {
@@ -31,8 +83,9 @@ export const experienceRouter = createTRPCRouter({
         experience: {
           include: {
             profile: true,
-          }
-        }
+            availability: true,
+          },
+        },
       },
     });
   }),
@@ -42,7 +95,8 @@ export const experienceRouter = createTRPCRouter({
       where: { authorId: ctx.userId },
       include: {
         profile: true,
-      }
+        availability: true,
+      },
     });
   }),
 
@@ -51,6 +105,10 @@ export const experienceRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       return await ctx.prisma.experience.findFirst({
         where: { id: input },
+        include: {
+          profile: true,
+          availability: true,
+        },
       });
     }),
 
@@ -77,9 +135,6 @@ export const experienceRouter = createTRPCRouter({
         title: z.string(),
         description: z.string(),
         price: z.number(),
-        date: z.date(),
-        startTime: z.string(),
-        endTime: z.string(),
         timeline: z.string(),
         city: z.string().nullable(),
         location: z.object({ lat: z.number(), lng: z.number() }),
@@ -105,9 +160,6 @@ export const experienceRouter = createTRPCRouter({
           description: input.description,
           price: input.price,
           categoryId: input.categoryId,
-          date: input.date,
-          startTime: input.startTime,
-          endTime: input.endTime,
           timeline: input.timeline,
           city: input.city,
           location: input.location,
@@ -121,7 +173,7 @@ export const experienceRouter = createTRPCRouter({
           maxAttendees: input.maxAttendees,
           photos: input.photos,
           slugId: input.slugId,
-          profileId: input.profileId
+          profileId: input.profileId,
         },
       });
     }),
@@ -132,9 +184,6 @@ export const experienceRouter = createTRPCRouter({
         title: z.string(),
         description: z.string(),
         price: z.number(),
-        date: z.date(),
-        startTime: z.string(),
-        endTime: z.string(),
         timeline: z.string(),
         city: z.string().nullable(),
         location: z.object({ lat: z.number(), lng: z.number() }),
@@ -167,9 +216,6 @@ export const experienceRouter = createTRPCRouter({
           description: input.description,
           price: input.price,
           categoryId: input.categoryId,
-          date: input.date,
-          startTime: input.startTime,
-          endTime: input.endTime,
           timeline: input.timeline,
           city: input.city,
           location: input.location,
@@ -185,7 +231,7 @@ export const experienceRouter = createTRPCRouter({
           slugId: input.slugId,
           stripeProductId: productId,
           stripePriceId: priceId,
-          profileId: input.profileId
+          profileId: input.profileId,
         },
       });
     }),

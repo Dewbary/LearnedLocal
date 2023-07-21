@@ -9,8 +9,11 @@ export const getExperiences = (
 ): ExperienceInfo[] => {
   switch (category) {
     case "Current":
-      return experiences.filter(
-        (experience) => new Date(experience.date) >= today
+      return experiences.filter((experience) =>
+        experience.availability.some((availableDate) => {
+          if (!availableDate.date) return false;
+          return availableDate?.date >= today;
+        })
       );
     case "Upcoming":
       return (
@@ -18,11 +21,11 @@ export const getExperiences = (
       );
 
     case "Past":
-      return (
-        experiences.filter(
-          (experience) =>
-            new Date(experience.date) < today && !experience.isFutureExperience
-        ) || []
+      return experiences.filter((experience) =>
+        experience.availability.every((availableDate) => {
+          if (!availableDate.date) return false;
+          return availableDate.date < today;
+        })
       );
     case "Outdoors":
       return experiences.filter((experience) => experience.categoryId === 3);
@@ -35,10 +38,6 @@ export const getExperiences = (
     case "All":
       return experiences;
     default:
-      return (
-        experiences
-          .filter((experience) => new Date(experience.date) >= today)
-          .filter((experience) => !experience.isFutureExperience) || []
-      );
+      return experiences;
   }
 };

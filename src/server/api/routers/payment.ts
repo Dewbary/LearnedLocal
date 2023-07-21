@@ -12,6 +12,7 @@ export const paymentRouter = createTRPCRouter({
     .input(
       z.object({
         experienceId: z.number(),
+        availabilityId: z.number(),
         userId: z.string(),
         registrantFirstName: z.string(),
         registrantLastName: z.string(),
@@ -36,7 +37,10 @@ export const paymentRouter = createTRPCRouter({
       // Check to make sure they're not exceeding the max attendees limit
 
       const registrations = await ctx.prisma.registration.findMany({
-        where: { experienceId: input.experienceId },
+        where: {
+          experienceId: input.experienceId,
+          availabilityId: input.availabilityId,
+        },
       });
 
       let totalRegistrants = 0;
@@ -80,6 +84,7 @@ export const paymentRouter = createTRPCRouter({
           email: input.email,
           phone: input.phone,
           experienceId: input.experienceId,
+          availabilityId: input.availabilityId,
         },
       });
 

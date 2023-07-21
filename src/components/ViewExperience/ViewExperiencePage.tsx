@@ -18,12 +18,14 @@ import { generateGoogleMapsURL } from "../FindExperience/FindExperienceUtils";
 import { Pin } from "../CreateExperience/LocationPicker/LocationPicker";
 import ShareExperienceComponent from "./ShareExperienceComponent";
 import { Facebook, Instagram } from "react-feather";
+import { ExperienceInfo } from "../types";
+import ExperienceDateSelection from "./ExperiencesDisplay/ExperienceDateSelection";
 
 export default function ViewExperiencePage() {
   const router = useRouter();
   const user = useUser();
 
-  const [experience, setExperience] = useState({} as Experience);
+  const [experience, setExperience] = useState<ExperienceInfo | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [location, setLocation] = useState({} as Pin);
   const [lat, setLat] = useState(0);
@@ -46,13 +48,12 @@ export default function ViewExperiencePage() {
   );
 
   const { data: profileData } = api.profile.getPublicProfile.useQuery({
-    userId: experienceData?.authorId || ""
+    userId: experienceData?.authorId || "",
   });
 
-  const getRegistrantCount =
-    api.registration.registrantCountByExperience.useQuery(
-      parseInt(experienceId)
-    );
+  const getRegistrantCount = api.registration.byExperience.useQuery(
+    parseInt(experienceId)
+  );
 
   useEffect(() => {
     if (experienceData) {
@@ -73,9 +74,15 @@ export default function ViewExperiencePage() {
     day: "numeric",
   } as const;
 
-  const goToCheckoutPage = async function () {
-    await router.push(`/experience/checkout?experienceId=${experienceId}`);
+  const goToCheckoutPage = async function (availabilityId: number | null) {
+    if (!availabilityId) return;
+
+    await router.push(
+      `/experience/checkout?experienceId=${experienceId}&availabilityId=${availabilityId}`
+    );
   };
+
+  if (!experience) return null;
 
   return (
     <>
@@ -96,7 +103,7 @@ export default function ViewExperiencePage() {
           {/* EXPERIENCE TITLE AND HEADER */}
           <div className="flex items-center justify-between rounded-t-lg bg-gradient-to-r from-amber-400 via-amber-200 to-white p-3 lg:p-7">
             <div>
-              <h1 className="text-2xl font-bold lg:text-5xl lg:mb-2">
+              <h1 className="text-2xl font-bold lg:mb-2 lg:text-5xl">
                 {experience.title}
               </h1>
               <div>
@@ -116,41 +123,36 @@ export default function ViewExperiencePage() {
           </div>
 
           <div className="flex flex-col gap-10 lg:mx-10 lg:flex-row">
-
             {/* ACTION BUTTON BOX */}
 
-            <div className="flex h-fit w-full flex-col gap-5 rounded-xl border bg-white p-5 drop-shadow-lg lg:order-3 lg:basis-1/4">
+            <div className="flex h-fit w-full flex-col rounded-xl border bg-white p-5 drop-shadow-lg lg:order-3 lg:basis-1/4">
               <div>
                 <span className="text-3xl font-bold">${experience.price}</span>
                 <span> / person</span>
               </div>
-              <div className="">
+              {/* <div className="">
                 <UserIcon className="mr-2 inline w-5 rounded-full border border-black" />
                 <span>
                   {getRegistrantCount.data}/{experience.maxAttendees} Spots
                   Filled
                 </span>
-              </div>
-              <div>
-                <button
-                  disabled={
-                    (getRegistrantCount.data || 0) >= experience.maxAttendees
-                  }
-                  className="w-full rounded-lg bg-amber-400 p-2 font-bold text-white drop-shadow-sm disabled:cursor-not-allowed disabled:bg-gray-500"
-                  onClick={() => goToCheckoutPage()}
-                >
-                  Sign Up Now
-                </button>
-              </div>
+              </div> */}
+
+              <ExperienceDateSelection
+                availableDates={experience.availability}
+                registrationsCount={getRegistrantCount.data}
+                availableSpots={experience.maxAttendees}
+                onSignUp={goToCheckoutPage}
+              />
             </div>
 
             {/* ICON DETAILS GRID */}
 
             <div className="grid h-fit basis-1/3 grid-cols-5 items-center gap-y-3 lg:order-2 lg:basis-1/4">
-              <ClockIcon className="w-5" />{" "}
+              {/* <ClockIcon className="w-5" />{" "}
               <span className="col-span-4">
                 {experience.startTime} - {experience.endTime}
-              </span>
+              </span> */}
               <MapPinIcon className="w-5" />{" "}
               <span className="col-span-4">
                 <a
@@ -167,13 +169,13 @@ export default function ViewExperiencePage() {
                   {experienceData?.city || "View Experience Location"}
                 </a>
               </span>
-              <CalendarIcon className="w-5" />{" "}
+              {/* <CalendarIcon className="w-5" />{" "}
               <span className="col-span-4">
                 {experience.date.toLocaleDateString(
                   "en-US",
                   dateDisplayOptions
                 )}
-              </span>
+              </span> */}
               <UserIcon className="w-5" />{" "}
               <span className="col-span-4">Ages {experience.minAge}+</span>
             </div>
@@ -227,30 +229,43 @@ export default function ViewExperiencePage() {
           </div>
 
           {/* ABOUT THE HOST */}
-          <div className="flex flex-col gap-5 lg:mx-10 my-10 items-center">
-              <div className="flex flex-col lg:flex-row lg:gap-3">
-                <h3 className="text-3xl">About your Host:</h3>
-                <h3 className="text-3xl font-bold">{profileData?.firstName} {profileData?.lastName}</h3>
+          <div className="my-10 flex flex-col items-center gap-5 lg:mx-10">
+            <div className="flex flex-col lg:flex-row lg:gap-3">
+              <h3 className="text-3xl">About your Host:</h3>
+              <h3 className="text-3xl font-bold">
+                {profileData?.firstName} {profileData?.lastName}
+              </h3>
+            </div>
+            <div className="flex flex-col items-center gap-5 lg:flex-row">
+              <div className="overflow-hidden">
+                <img
+                  src={profileData?.profileImage || ""}
+                  alt="Profile Image"
+                  className="w-72 rounded-full"
+                />
               </div>
-              <div className="flex flex-col lg:flex-row gap-5 items-center">
-                <div className="overflow-hidden">
-                  <img src={profileData?.profileImage || ""} alt="Profile Image" className="w-72 rounded-full"/>
-                </div>
-                <div className="flex flex-col gap-3">
-                  <p>{profileData?.bio || <i>This host has not added a bio to their profile.</i>}</p>
-                  <div className="flex items-start gap-3 flex-col">
-                    {profileData?.social &&
-                      <div>
-                        <p>Social Media:</p>
-                        <a href={profileData?.social} className="flex flex-row gap-1 items-center hover:text-blue-400">{profileData?.social}</a>
-                      </div>
-                    }
-                  </div>
+              <div className="flex flex-col gap-3">
+                <p>
+                  {profileData?.bio || (
+                    <i>This host has not added a bio to their profile.</i>
+                  )}
+                </p>
+                <div className="flex flex-col items-start gap-3">
+                  {profileData?.social && (
+                    <div>
+                      <p>Social Media:</p>
+                      <a
+                        href={profileData?.social}
+                        className="flex flex-row items-center gap-1 hover:text-blue-400"
+                      >
+                        {profileData?.social}
+                      </a>
+                    </div>
+                  )}
                 </div>
               </div>
-              
+            </div>
           </div>
-
         </div>
       )}
       <Footer />
