@@ -34,6 +34,9 @@ dependencies:
   '@heroicons/react':
     specifier: ^2.0.16
     version: 2.0.16(react@18.2.0)
+  '@hotjar/browser':
+    specifier: ^1.0.9
+    version: 1.0.9
   '@mui/base':
     specifier: 5.0.0-alpha.122
     version: 5.0.0-alpha.122(@types/react@18.0.28)(react-dom@18.2.0)(react@18.2.0)
@@ -1848,6 +1851,10 @@ packages:
       react: '>= 16'
     dependencies:
       react: 18.2.0
+    dev: false
+
+  /@hotjar/browser@1.0.9:
+    resolution: {integrity: sha512-n9akDMod8BLGpYEQCrHwlYWWd63c1HlhUSXNIDfClZtKYXbUjIUOFlNZNNcUxgHTCsi4l2i+SWKsGsO0t93S8w==}
     dev: false
 
   /@humanwhocodes/config-array@0.11.8:
