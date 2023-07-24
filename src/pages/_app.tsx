@@ -11,7 +11,6 @@ import "~/styles/datepicker.css";
 import Layout from "~/components/layout/Layout";
 import { loadStripe } from "@stripe/stripe-js";
 import Script from "next/script";
-import { hotjar } from "react-hotjar";
 import { useEffect } from "react";
 
 const stripePromise = loadStripe(
@@ -22,10 +21,6 @@ const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
-  useEffect(() => {
-    hotjar.initialize(3574769, 6);
-  }, []);
-
   return (
     <>
       {/* The following content enables google analytics on our website: */}
