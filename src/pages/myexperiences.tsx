@@ -15,12 +15,6 @@ import CreateExperienceButton from "~/components/CreateExperienceButton";
 import Link from "next/link";
 import Footer from "~/components/Footer/Footer";
 import Head from "next/head";
-import Hotjar from "@hotjar/browser";
-
-const siteId = 3574769;
-const hotjarVersion = 6;
-
-Hotjar.init(siteId, hotjarVersion);
 
 export default function MyExperiences() {
   const [showErrorModal, setShowErrorModal] = useState(false);
