@@ -56,7 +56,7 @@ export const paymentRouter = createTRPCRouter({
         throw new Error("TOO_MANY_IN_PARTY");
       }
 
-      const successUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/success/success`;
+      const successUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/checkout/success`;
       const cancelUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/`;
 
       const session = await stripe.checkout.sessions.create({

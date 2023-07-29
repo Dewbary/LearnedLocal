@@ -1,8 +1,6 @@
 import * as React from "react";
-import SignInArea from "../SignInArea/SignInArea";
 import Link from "next/link";
-import Image from "next/image";
-import logo_white from "../../assets/logo_white_bg.png";
+import SignInArea from "../common/SignInArea";
 
 type Props = {
   isSignedIn: boolean;
@@ -18,20 +16,16 @@ const NavBar = ({ isSignedIn, className }: Props) => {
     >
       <div className="navbar-start">
         <Link href="/" className="btn-ghost btn text-xl normal-case">
-          <Image src={logo_white} alt="company logo" className="mr-3 w-10" />
+          <img
+            src="logo_white_bg.png"
+            alt="company logo"
+            className="mr-3 w-10"
+          />
           <div className="font-poppins font-black text-gray-800">
             Learned Local
           </div>
         </Link>
       </div>
-
-      {/* <div className="navbar-center">
-        <input
-          type="text"
-          placeholder="Search"
-          className="w-full max-w-xs rounded-3xl border-2 p-2 px-6"
-        />
-      </div> */}
 
       <div className="navbar-end">
         <div className="dropdown-bottom dropdown-end dropdown">

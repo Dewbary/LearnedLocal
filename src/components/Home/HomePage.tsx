@@ -1,16 +1,15 @@
 import { api } from "~/utils/api";
 import { useUser } from "@clerk/nextjs";
-import Header from "~/components/Header";
 import NavBar from "~/components/NavBar/NavBar";
 import Footer from "~/components/Footer/Footer";
 import Modal from "react-modal";
 import { useState } from "react";
-import ExperiencesDisplay from "~/components/ViewExperience/ExperiencesDisplay";
+import ExperiencesDisplay from "~/components/ExperiencesDisplay";
 import EmailSignup from "~/components/Email/EmailSignup";
 import Register from "~/components/Register";
-import SideNav from "~/components/SideNav";
+import SideNav from "~/components/Home/SideNav";
 import * as React from "react";
-import FilteredExperiencesContext from "~/components/ViewExperience/FilteredExperiencesContext";
+import FilteredExperiencesContext from "~/components/Home/FilteredExperiencesContext";
 import { getExperiences } from "~/components/ViewExperience/ViewExperienceUtils";
 import { ExperienceInfo } from "~/components/types";
 

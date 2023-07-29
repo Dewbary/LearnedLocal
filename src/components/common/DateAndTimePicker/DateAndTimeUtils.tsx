@@ -1,7 +1,7 @@
 import { isEqual } from "lodash";
 import { format } from "date-fns";
 import { ExperienceAvailability } from "@prisma/client";
-import { DateInfo } from "../types";
+import { DateInfo } from "../../types";
 
 const getISODateString = (date: Date): string | undefined => {
   return date.toISOString().split("T")[0];

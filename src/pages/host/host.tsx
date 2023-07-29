@@ -3,7 +3,7 @@ import Head from "next/head";
 import NavBar from "~/components/NavBar/NavBar";
 import Image from "next/image";
 import Footer from "~/components/Footer/Footer";
-import CreateExperienceButton from "~/components/CreateExperienceButton";
+import CreateExperienceButton from "~/components/common/CreateExperienceButton/CreateExperienceButton";
 
 export default function Host() {
   const user = useUser();

@@ -2,7 +2,7 @@ import { Field, FieldProps } from "formik";
 import React from "react";
 import { FormLabel } from "./Form/FormLabel";
 import FormPageHeader from "./Typography/Typography";
-import DateAndTimePicker from "../DateAndTimePicker";
+import DateAndTimePicker from "../common/DateAndTimePicker";
 import { DateInfo } from "../types";
 
 const DatePage = () => {

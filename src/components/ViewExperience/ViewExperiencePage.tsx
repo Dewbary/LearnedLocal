@@ -6,7 +6,7 @@ import Head from "next/head";
 import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import { Experience } from "@prisma/client";
-import ExperienceImageDisplay from "../ExperienceImageDisplay";
+import ExperienceImageDisplay from "../common/ExperienceImageDisplay/ExperienceImageDisplay";
 import {
   CalendarIcon,
   ClockIcon,
@@ -16,10 +16,10 @@ import {
 } from "@heroicons/react/24/solid";
 import { generateGoogleMapsURL } from "../FindExperience/FindExperienceUtils";
 import { Pin } from "../CreateExperience/LocationPicker/LocationPicker";
-import ShareExperienceComponent from "./ShareExperienceComponent";
+import ShareExperienceComponent from "../common/ShareExperienceComponent/ShareExperienceComponent";
 import { Facebook, Instagram } from "react-feather";
 import { ExperienceInfo } from "../types";
-import ExperienceDateSelection from "./ExperiencesDisplay/ExperienceDateSelection";
+import ExperienceDateSelection from "../ExperiencesDisplay/ExperienceDateSelection";
 
 export default function ViewExperiencePage() {
   const router = useRouter();
@@ -78,7 +78,7 @@ export default function ViewExperiencePage() {
     if (!availabilityId) return;
 
     await router.push(
-      `/experience/checkout?experienceId=${experienceId}&availabilityId=${availabilityId}`
+      `/checkout?experienceId=${experienceId}&availabilityId=${availabilityId}`
     );
   };
 
