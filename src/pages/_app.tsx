@@ -8,10 +8,8 @@ import { api } from "~/utils/api";
 
 import "~/styles/globals.css";
 import "~/styles/datepicker.css";
-import Layout from "~/components/layout/Layout";
 import { loadStripe } from "@stripe/stripe-js";
 import Script from "next/script";
-import { useEffect } from "react";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string
@@ -48,9 +46,8 @@ const MyApp: AppType<{ session: Session | null }> = ({
             height={7}
             showOnShallow={false}
           />
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+
+          <Component {...pageProps} />
         </Elements>
       </ClerkProvider>
     </>

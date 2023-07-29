@@ -1,6 +1,6 @@
 import { ExperienceAvailability, Registration } from "@prisma/client";
 import React from "react";
-import { getTime } from "~/components/DateAndTimePicker/DateAndTimeUtils";
+import { getTime } from "~/components/common/DateAndTimePicker/DateAndTimeUtils";
 
 type Props = {
   availableDates: ExperienceAvailability[] | null;

@@ -2,7 +2,6 @@ import Image from "next/image";
 import { useState } from "react";
 import styles from "./ExperienceCard.module.css";
 import { Experience, Profile, Registration } from "@prisma/client";
-import profile_pic from "../../../assets/profile_pic.png";
 import GenericModal from "../../GenericModal";
 import { MapPinIcon } from "@heroicons/react/24/solid";
 import { api } from "~/utils/api";
@@ -88,11 +87,10 @@ export default function ExperienceCard({
                   fill
                 />
               ) : (
-                <Image
-                  src={profile_pic}
+                <img
+                  src="/profile_pic.png"
                   alt="Profile Picture Anonymous"
                   className="rounded-full object-cover"
-                  fill
                 />
               )}
             </div>

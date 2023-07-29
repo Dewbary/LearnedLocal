@@ -4,7 +4,7 @@ import ExperienceCardPlaceholder from "~/components/FindExperience/ExperienceCar
 import ExperienceModalBody from "~/components/FindExperience/ExperienceModalBody";
 import ExperienceModalHeader from "~/components/FindExperience/ExperienceModalHeader";
 import { ExperienceInfo } from "~/components/types";
-import FilteredExperiencesContext from "../FilteredExperiencesContext";
+import FilteredExperiencesContext from "../Home/FilteredExperiencesContext";
 
 type Props = {
   isLoading: boolean;

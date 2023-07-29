@@ -11,7 +11,7 @@ import GuestListModalBody from "~/components/FindExperience/GuestListModalBody";
 import { useRouter } from "next/router";
 import { Experience, Registration } from "@prisma/client";
 import { useState } from "react";
-import CreateExperienceButton from "~/components/CreateExperienceButton";
+import CreateExperienceButton from "~/components/common/CreateExperienceButton/CreateExperienceButton";
 import Link from "next/link";
 import Footer from "~/components/Footer/Footer";
 import Head from "next/head";

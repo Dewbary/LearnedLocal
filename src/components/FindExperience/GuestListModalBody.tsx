@@ -1,5 +1,3 @@
-import Image from "next/image";
-import profile_pic from "../../assets/profile_pic.png";
 import { api } from "~/utils/api";
 import { Experience } from "@prisma/client";
 
@@ -39,8 +37,8 @@ export default function GuestListModalBody({ experience }: Props) {
               className="flex items-center justify-between border-b bg-slate-100 p-3"
             >
               <div className="flex items-center justify-start gap-3">
-                <Image
-                  src={profile_pic}
+                <img
+                  src="/profile_pic.png"
                   alt="Profile Picture Anonymous"
                   width={40}
                   className="w-auto rounded-full"

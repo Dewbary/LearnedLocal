@@ -9,7 +9,7 @@ import { api } from "~/utils/api";
 import { useRouter } from "next/router";
 import { generateGoogleMapsURL } from "./FindExperienceUtils";
 import { Pin } from "../CreateExperience/LocationPicker/LocationPicker";
-import ExperienceImageDisplay from "../ExperienceImageDisplay";
+import ExperienceImageDisplay from "../common/ExperienceImageDisplay/ExperienceImageDisplay";
 import { ExperienceInfo } from "../types";
 
 type ModalActionButton = {

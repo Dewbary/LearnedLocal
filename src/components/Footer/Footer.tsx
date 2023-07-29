@@ -1,4 +1,3 @@
-import logo from "../../assets/logo_color.png";
 import Image from "next/image";
 
 import React from "react";
@@ -10,7 +9,7 @@ const Footer = () => {
       <div className="">
         <span className="footer-title">About us</span>
         <div className="flex gap-3">
-          <Image src={logo} alt="website logo" className="w-10" />
+          <img src="logo_color.png" alt="website logo" className="w-10" />
           <p>
             Learned Local
             <br />

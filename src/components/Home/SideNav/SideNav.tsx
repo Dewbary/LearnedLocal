@@ -18,9 +18,9 @@ import {
   CalendarDaysIcon,
   RectangleStackIcon,
 } from "@heroicons/react/24/solid";
-import { ExperienceInfo } from "../types";
-import { getExperiences } from "../ViewExperience/ViewExperienceUtils";
-import FilteredExperiencesContext from "../ViewExperience/FilteredExperiencesContext";
+import { ExperienceInfo } from "../../types";
+import { getExperiences } from "../../ViewExperience/ViewExperienceUtils";
+import FilteredExperiencesContext from "../FilteredExperiencesContext";
 
 type Props = {
   experiences: ExperienceInfo[];

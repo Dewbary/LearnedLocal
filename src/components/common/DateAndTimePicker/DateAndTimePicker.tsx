@@ -11,7 +11,7 @@ import {
   getSelectedDateIndex,
   updateDatesList,
 } from "./DateAndTimeUtils";
-import { DateInfo } from "../types";
+import { DateInfo } from "../../types";
 
 registerLocale("enGB", enGB);
 
