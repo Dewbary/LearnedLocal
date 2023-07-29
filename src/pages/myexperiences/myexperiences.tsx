@@ -2,8 +2,6 @@ import { RedirectToSignIn, SignedIn, SignedOut, useUser } from "@clerk/nextjs";
 import { api } from "~/utils/api";
 import NavBar from "~/components/NavBar/NavBar";
 import ExperienceCard from "~/components/FindExperience/ExperienceCard/ExperienceCard";
-import Image from "next/image";
-import sapiens from "../../public/sapiens.png";
 import ExperienceModalHeader from "~/components/FindExperience/ExperienceModalHeader";
 import ExperienceModalBody from "~/components/FindExperience/ExperienceModalBody";
 import GuestListModalHeader from "~/components/FindExperience/GuestListModalHeader";
@@ -79,9 +77,9 @@ export default function MyExperiences() {
       <div className="grid place-items-center items-end bg-gradient-to-br from-primary to-secondary pt-10 text-primary-content lg:pt-0">
         <div className="hero-content col-start-1 row-start-1 w-full max-w-7xl flex-col justify-between lg:flex-row lg:gap-0 xl:gap-20">
           <div className="flex-1">
-            <Image
+            <img
               className="w-full object-cover"
-              src={sapiens}
+              src="sapiens.png"
               alt="experience"
             />
           </div>
