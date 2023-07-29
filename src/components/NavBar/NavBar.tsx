@@ -17,7 +17,7 @@ const NavBar = ({ isSignedIn, className }: Props) => {
       <div className="navbar-start">
         <Link href="/" className="btn-ghost btn text-xl normal-case">
           <img
-            src="logo_white_bg.png"
+            src="/logo_white_bg.png"
             alt="company logo"
             className="mr-3 w-10"
           />
