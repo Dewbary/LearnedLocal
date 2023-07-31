@@ -19,7 +19,7 @@ import {
   RectangleStackIcon,
 } from "@heroicons/react/24/solid";
 import { ExperienceInfo } from "../../types";
-import { getExperiences } from "../../ViewExperience/ViewExperienceUtils";
+import { getExperiences } from "../HomePageUtils";
 import FilteredExperiencesContext from "../FilteredExperiencesContext";
 
 type Props = {

@@ -81,7 +81,7 @@ export default function ExperienceImageDisplay({ photos }: Props) {
                     </div>
                   </>
                 )}
-                {!photos[i] && <div className="h-full w-full bg-white" />}
+                {!photos[i] && <div className="h-full w-full bg-white bg-opacity-0" />}
               </div>
             </>
           );

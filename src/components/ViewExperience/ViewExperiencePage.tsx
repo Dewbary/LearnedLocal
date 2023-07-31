@@ -5,19 +5,14 @@ import Footer from "../Footer/Footer";
 import Head from "next/head";
 import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
-import { Experience } from "@prisma/client";
-import ExperienceImageDisplay from "../common/ExperienceImageDisplay/ExperienceImageDisplay";
+import ExperienceImageDisplay from "../common/ExperienceImageDisplay";
 import {
-  CalendarIcon,
-  ClockIcon,
   MapPinIcon,
   UserIcon,
-  ShareIcon,
 } from "@heroicons/react/24/solid";
-import { generateGoogleMapsURL } from "../FindExperience/FindExperienceUtils";
+import { generateGoogleMapsURL } from "./ViewExperienceUtils";
 import { Pin } from "../CreateExperience/LocationPicker/LocationPicker";
-import ShareExperienceComponent from "../common/ShareExperienceComponent/ShareExperienceComponent";
-import { Facebook, Instagram } from "react-feather";
+import ShareExperienceComponent from "../common/ShareExperienceComponent";
 import { ExperienceInfo } from "../types";
 import ExperienceDateSelection from "../ExperiencesDisplay/ExperienceDateSelection";
 
@@ -67,12 +62,6 @@ export default function ViewExperiencePage() {
     setLat(location.lat);
     setLng(location.lng);
   }, [location]);
-
-  const dateDisplayOptions = {
-    weekday: "long",
-    month: "short",
-    day: "numeric",
-  } as const;
 
   const goToCheckoutPage = async function (availabilityId: number | null) {
     if (!availabilityId) return;

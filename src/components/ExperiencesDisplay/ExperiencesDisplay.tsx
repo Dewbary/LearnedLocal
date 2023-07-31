@@ -1,10 +1,11 @@
 import * as React from "react";
-import ExperienceCard from "~/components/FindExperience/ExperienceCard";
-import ExperienceCardPlaceholder from "~/components/FindExperience/ExperienceCardPlaceholder";
-import ExperienceModalBody from "~/components/FindExperience/ExperienceModalBody";
-import ExperienceModalHeader from "~/components/FindExperience/ExperienceModalHeader";
+import ExperienceCardPlaceholder from "~/components/ExperiencesDisplay/ExperienceCardPlaceholder";
 import { ExperienceInfo } from "~/components/types";
 import FilteredExperiencesContext from "../Home/FilteredExperiencesContext";
+import ExperienceCard from "../common/ExperienceCard/ExperienceCard";
+import CustomModal from "../common/CustomModal/CustomModal";
+import ExperienceDetailModalContents from "../common/ExperienceDetailModalContents";
+import ExperienceSubscribeModalContents from "../common/ExperienceSubscribeModalContents";
 
 type Props = {
   isLoading: boolean;
@@ -31,7 +32,7 @@ const ExperiencesDisplay = ({ isLoading }: Props) => {
       )}
       <div className="mb-10 grid grid-cols-1 justify-items-stretch sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {filteredExperiences.map((experience) =>
-          renderExperienceCard(experience, true)
+          renderExperienceCard(experience)
         )}
       </div>
     </div>
@@ -40,77 +41,43 @@ const ExperiencesDisplay = ({ isLoading }: Props) => {
 
 export default ExperiencesDisplay;
 
-const renderExperienceCard = (
-  experience: ExperienceInfo,
-  showDetails: boolean
-) => {
+const renderExperienceCard = function (experience: ExperienceInfo) {
+
   const today = new Date();
   today.setHours(0, 0, 0, 0); // set to the start of the day
 
-  if (
-    !experience.isFutureExperience &&
+  const experienceIsCurrent = !experience.isFutureExperience &&
     experience.availability.some((date) => {
       if (!date.date) return false;
       return date.date >= today;
-    })
-  ) {
-    return (
-      <div
-        key={experience.id}
-        className="card-component my-8 mx-2 flex justify-center"
+    });
+
+  return (
+    <div key={experience.id} className="card-component my-8 mx-2 flex justify-center">
+      <ExperienceCard 
+        experienceInfo={experience} 
+        showDateAndLocation={experienceIsCurrent}
+        onClickModal={
+          <CustomModal
+            button={<button className="absolute w-full h-full z-10 hover:bg-black hover:bg-opacity-25"></button>}
+          >
+            {experienceIsCurrent ? 
+              (
+                <ExperienceDetailModalContents 
+                  experienceInfo={experience} 
+                  showRegisteredDetails={false} 
+                />
+              ) : (
+                <ExperienceSubscribeModalContents
+                  experienceInfo={experience}
+                />
+              )
+            }
+            
+          </CustomModal>
+        }
       >
-        <ExperienceCard
-          experience={experience}
-          hostProfile={experience.profile}
-          enableModal={showDetails}
-          showDate={showDetails}
-          showLocation={showDetails}
-          enableFullBanner={showDetails}
-          modalButtonText="Details"
-          modalHeaderContent={
-            <ExperienceModalHeader
-              experience={experience}
-              hostProfile={experience.profile}
-            />
-          }
-          modalBodyContent={
-            <ExperienceModalBody
-              experience={experience}
-              hostProfile={experience.profile}
-              registered={false}
-            />
-          }
-        />
-      </div>
-    );
-  } else {
-    return (
-      <div
-        key={experience.id}
-        className="card-component my-8 mx-2 flex justify-center"
-      >
-        <ExperienceCard
-          experience={experience}
-          hostProfile={experience.profile}
-          enableModal={true}
-          showDate={showDetails}
-          showLocation={showDetails}
-          enableFullBanner={showDetails}
-          modalButtonText="Notify Me"
-          modalHeaderContent={
-            <h2 className="text-3xl font-bold">
-              Get Notified for this Experience
-            </h2>
-          }
-          modalBodyContent={
-            <iframe
-              src={experience.notifyIFrameLink || ""}
-              title="Subscription Form"
-              className="h-full w-full pr-4"
-            />
-          }
-        />
-      </div>
-    );
-  }
-};
+      </ExperienceCard>
+    </div>
+  )
+}

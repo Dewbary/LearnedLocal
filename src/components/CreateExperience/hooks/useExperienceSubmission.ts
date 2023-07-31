@@ -61,6 +61,7 @@ export const useExperienceSubmission = (
 
       await router.push("/experience/success");
     } catch (error) {
+      console.log(error);
       await router.push("/experience/failure");
     } finally {
       helpers.setSubmitting(false);

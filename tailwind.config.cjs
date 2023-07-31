@@ -4,6 +4,9 @@ const config = {
     "./src/**/*.{js,ts,jsx,tsx}",
     "./node_modules/react-tailwindcss-datepicker/dist/index.esm.js",
   ],
+  corePlugins: {
+    filter: false,
+  },
   theme: {
     extend: {
       gridTemplateColumns: {

@@ -5,12 +5,12 @@ import Footer from "~/components/Footer/Footer";
 import Modal from "react-modal";
 import { useState } from "react";
 import ExperiencesDisplay from "~/components/ExperiencesDisplay";
-import EmailSignup from "~/components/Email/EmailSignup";
-import Register from "~/components/Register";
+import EmailSignup from "~/components/Home/EmailSignup";
+import Register from "~/components/Home/Register";
 import SideNav from "~/components/Home/SideNav";
 import * as React from "react";
 import FilteredExperiencesContext from "~/components/Home/FilteredExperiencesContext";
-import { getExperiences } from "~/components/ViewExperience/ViewExperienceUtils";
+import { getExperiences } from "~/components/Home/HomePageUtils";
 import { ExperienceInfo } from "~/components/types";
 
 Modal.setAppElement("#__next");
@@ -18,7 +18,6 @@ Modal.setAppElement("#__next");
 const HomePage = () => {
   const user = useUser();
   const experiencesQuery = api.experience.getAll.useQuery();
-  // const experiencesQuery = api.experience.getCurrent.useQuery();
 
   const [experiences, setExperiences] = useState<ExperienceInfo[]>(
     experiencesQuery.data ?? []
@@ -33,17 +32,7 @@ const HomePage = () => {
     setFilteredExperiences(
       getExperiences("Current", experiencesQuery.data ?? [])
     );
-    // setFilteredExperiences(experiencesQuery.data ?? []);
   }, [experiencesQuery.isLoading]);
-
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const openModal = () => {
-    setModalIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalIsOpen(false);
-  };
 
   return (
     <FilteredExperiencesContext.Provider
@@ -60,11 +49,7 @@ const HomePage = () => {
             />
             <div className="flex-1">
               <ExperiencesDisplay isLoading={experiencesQuery.isLoading} />
-              <EmailSignup
-                modalIsOpen={modalIsOpen}
-                openModal={openModal}
-                closeModal={closeModal}
-              />
+              <EmailSignup />
             </div>
           </div>
           <div className="border-t-2 border-t-slate-100 pt-4">

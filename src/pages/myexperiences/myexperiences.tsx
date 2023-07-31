@@ -1,18 +1,17 @@
 import { RedirectToSignIn, SignedIn, SignedOut, useUser } from "@clerk/nextjs";
 import { api } from "~/utils/api";
 import NavBar from "~/components/NavBar/NavBar";
-import ExperienceCard from "~/components/FindExperience/ExperienceCard/ExperienceCard";
-import ExperienceModalHeader from "~/components/FindExperience/ExperienceModalHeader";
-import ExperienceModalBody from "~/components/FindExperience/ExperienceModalBody";
-import GuestListModalHeader from "~/components/FindExperience/GuestListModalHeader";
-import GuestListModalBody from "~/components/FindExperience/GuestListModalBody";
 import { useRouter } from "next/router";
 import { Experience, Registration } from "@prisma/client";
 import { useState } from "react";
-import CreateExperienceButton from "~/components/common/CreateExperienceButton/CreateExperienceButton";
+import CreateExperienceButton from "~/components/common/CreateExperienceButton";
 import Link from "next/link";
 import Footer from "~/components/Footer/Footer";
 import Head from "next/head";
+import ExperienceCard from "~/components/common/ExperienceCard";
+import CustomModal from "~/components/common/CustomModal";
+import ExperienceDetailModalContents from "~/components/common/ExperienceDetailModalContents";
+import GuestListModalContents from "~/components/common/GuestListModalContents";
 
 export default function MyExperiences() {
   const [showErrorModal, setShowErrorModal] = useState(false);
@@ -117,32 +116,21 @@ export default function MyExperiences() {
           {userJoinedExperiences.data?.map((registration) => (
             <ExperienceCard
               key={registration.experience.id}
-              experience={registration.experience}
-              hostProfile={registration.experience.profile}
-              enableModal={true}
-              enableFullBanner={false}
-              showDate={true}
-              showLocation={true}
-              modalButtonText="Details"
-              modalHeaderContent={
-                <ExperienceModalHeader
-                  experience={registration.experience}
-                  hostProfile={registration.experience.profile}
-                />
+              experienceInfo={registration.experience}
+              showDateAndLocation={true}
+              onClickModal={
+                <CustomModal
+                  button={<button className="absolute w-full h-full z-10 hover:bg-black hover:bg-opacity-25"></button>}
+                >
+                  <ExperienceDetailModalContents 
+                    experienceInfo={registration.experience} 
+                    showRegisteredDetails={true} 
+                  />
+                </CustomModal>
               }
-              modalBodyContent={
-                <ExperienceModalBody
-                  experience={registration.experience}
-                  hostProfile={registration.experience.profile}
-                  registered={true}
-                  modalActionButton={{
-                    buttonText: "Cancel Registration",
-                    buttonColor: "bg-red-400",
-                    buttonAction: () => deleteRegistration(registration),
-                  }}
-                />
-              }
-            />
+            >
+              <button onClick={() => deleteRegistration(registration)} className="p-2 text-white drop-shadow-md bg-red-400 z-30 rounded-lg hover:bg-red-500">Cancel Reservation</button>
+            </ExperienceCard>
           ))}
         </div>
 
@@ -159,43 +147,34 @@ export default function MyExperiences() {
         )}
         <div className="grid p-10 lg:grid-cols-4">
           {userCreatedExperiences.data?.map((experience) => (
-            <ExperienceCard
-              key={experience.id}
-              experience={experience}
-              hostProfile={experience.profile}
-              showLocation={false}
-              showDate={true}
-              enableModal={true}
-              enableFullBanner={false}
-              actionButtonList={[
-                {
-                  buttonText: "View",
-                  buttonColor: "bg-amber-400",
-                  buttonAction: () => {
-                    void goToExperienceView(experience.id);
-                  },
-                },
-                {
-                  buttonText: "Edit",
-                  buttonColor: "bg-blue-400",
-                  buttonAction: () => {
-                    void goToEditPage(experience.slugId, experience.id);
-                  },
-                },
-                {
-                  buttonText: "Delete",
-                  buttonColor: "bg-red-400",
-                  buttonAction: () => {
-                    void deleteExperience(experience);
-                  },
-                },
-              ]}
-              modalButtonText="Manage"
-              modalHeaderContent={
-                <GuestListModalHeader experience={experience} />
-              }
-              modalBodyContent={<GuestListModalBody experience={experience} />}
-            />
+            <>
+              <ExperienceCard
+                experienceInfo={experience}
+                showDateAndLocation={true}
+                onClickModal={
+                  <CustomModal
+                    button={<button className="absolute w-full h-full z-10 hover:bg-black hover:bg-opacity-25"></button>}
+                  >
+                    <ExperienceDetailModalContents 
+                      experienceInfo={experience} 
+                      showRegisteredDetails={true} 
+                    />
+                  </CustomModal>
+                }
+              >
+                <CustomModal
+                  button={<button className="p-2 text-white drop-shadow-md bg-green-400 z-30 rounded-lg hover:bg-green-500 relative">Guests</button>}
+                >
+                  <GuestListModalContents
+                    experienceInfo={experience}
+                  />
+                </CustomModal>
+
+                <button onClick={() => goToExperienceView(experience.id)} className="p-2 text-white drop-shadow-md bg-amber-400 z-30 rounded-lg hover:bg-amber-500">View</button>
+                <button onClick={() => goToEditPage(experience.slugId, experience.id)} className="p-2 text-white drop-shadow-md bg-blue-400 z-30 rounded-lg hover:bg-blue-500">Edit</button>
+                <button onClick={() => deleteExperience(experience)} className="p-2 text-white drop-shadow-md bg-red-400 z-30 rounded-lg hover:bg-red-500">Delete</button>
+              </ExperienceCard>
+            </>
           ))}
         </div>
 
