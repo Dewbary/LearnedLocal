@@ -129,7 +129,7 @@ export default function MyExperiences() {
                 </CustomModal>
               }
             >
-              <button onClick={() => deleteRegistration(registration)} className="p-2 text-white drop-shadow-md bg-red-400 z-30 rounded-lg hover:bg-red-500">Cancel Reservation</button>
+              <button onClick={() => deleteRegistration(registration)} className="p-2 text-white drop-shadow-md bg-red-400 z-20 rounded-lg hover:bg-red-500">Cancel Reservation</button>
             </ExperienceCard>
           ))}
         </div>
@@ -163,16 +163,16 @@ export default function MyExperiences() {
                 }
               >
                 <CustomModal
-                  button={<button className="p-2 text-white drop-shadow-md bg-green-400 z-30 rounded-lg hover:bg-green-500 relative">Guests</button>}
+                  button={<button className="p-2 text-white drop-shadow-md bg-green-400 z-20 rounded-lg hover:bg-green-500 relative">Guests</button>}
                 >
                   <GuestListModalContents
                     experienceInfo={experience}
                   />
                 </CustomModal>
 
-                <button onClick={() => goToExperienceView(experience.id)} className="p-2 text-white drop-shadow-md bg-amber-400 z-30 rounded-lg hover:bg-amber-500">View</button>
-                <button onClick={() => goToEditPage(experience.slugId, experience.id)} className="p-2 text-white drop-shadow-md bg-blue-400 z-30 rounded-lg hover:bg-blue-500">Edit</button>
-                <button onClick={() => deleteExperience(experience)} className="p-2 text-white drop-shadow-md bg-red-400 z-30 rounded-lg hover:bg-red-500">Delete</button>
+                <button onClick={() => goToExperienceView(experience.id)} className="p-2 text-white drop-shadow-md bg-amber-400 z-20 rounded-lg hover:bg-amber-500">View</button>
+                <button onClick={() => goToEditPage(experience.slugId, experience.id)} className="p-2 text-white drop-shadow-md bg-blue-400 z-20 rounded-lg hover:bg-blue-500">Edit</button>
+                <button onClick={() => deleteExperience(experience)} className="p-2 text-white drop-shadow-md bg-red-400 z-20 rounded-lg hover:bg-red-500">Delete</button>
               </ExperienceCard>
             </>
           ))}

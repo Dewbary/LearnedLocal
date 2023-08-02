@@ -10,7 +10,7 @@ type Props = {
 const NavBar = ({ isSignedIn, className }: Props) => {
   return (
     <div
-      className={`navbar fixed z-10 h-16 border-b-2 border-b-slate-100 md:relative ${
+      className={`navbar fixed top-0 left-0 z-30 h-16 border-b-2 border-b-slate-100 md:relative ${
         className ?? ""
       } `}
     >
