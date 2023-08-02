@@ -182,6 +182,7 @@ export const getUpdateExperienceObject = (
     slugId: slug,
     categoryId: values.categoryId,
     profileId: hostProfileId,
+    availability: values.availability,
   };
 };
 
@@ -210,6 +211,7 @@ export const getCreateExperienceObject = (
     slugId: slug,
     categoryId: values.categoryId,
     profileId: hostProfileId,
+    availability: values.availability,
   };
 };
 
@@ -224,11 +226,6 @@ export const getInitialFormValues = (
 
     return {
       ...experience,
-      availability: experience.availability.map((availability) => ({
-        date: availability.date,
-        startTime: availability.startTime,
-        endTime: availability.endTime,
-      })),
       location: experience.location as Pin,
       photos: photoData,
     };

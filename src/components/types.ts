@@ -6,6 +6,7 @@ export type ExperienceInfo = Experience & {
 };
 
 export type DateInfo = {
+  id?: number;
   date: Date | null;
   startTime: Date | null;
   endTime: Date | null;
