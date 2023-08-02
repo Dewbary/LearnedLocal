@@ -3,9 +3,16 @@ import sgMail from "@sendgrid/mail";
 import { Pin } from "~/components/CreateExperience/LocationPicker/LocationPicker";
 import { env } from "~/env.mjs";
 import { format } from "date-fns";
-import { ExperienceInfo } from "~/components/types";
+import type { AvailabilityInfo, ExperienceInfo } from "~/components/types";
 
 type Props = {
+  recipientEmail: string;
+  availabilityInfo: AvailabilityInfo;
+  hostProfile?: Profile;
+  registration?: Registration;
+};
+
+type CancellationProps = {
   recipientEmail: string;
   experience: ExperienceInfo;
   hostProfile?: Profile;
@@ -16,29 +23,23 @@ sgMail.setApiKey(env.SENDGRID_API_KEY);
 
 const sendConfirmationEmail = async ({
   recipientEmail,
-  experience,
+  availabilityInfo,
   registration,
   hostProfile,
 }: Props) => {
-  if (!hostProfile) {
+  if (!hostProfile || !availabilityInfo) {
     return;
   }
 
-  const location = experience.location as Pin;
+  const location = availabilityInfo.experience?.location as Pin;
   const lat = location.lat;
   const lng = location.lng;
 
-  const experienceDate = experience.availability.filter((date) => {
-    date.id === registration?.availabilityId;
-  });
+  const experienceDate = availabilityInfo?.date;
 
-  if (!experienceDate || !experienceDate[0] || !experienceDate[0].date) {
-    return;
-  }
-  const experienceDateTime = format(
-    experienceDate[0].date,
-    "EEEE, MMM Lo 'at' h:mm a"
-  );
+  if (!experienceDate) return;
+
+  const experienceDateTime = format(experienceDate, "EEEE, MMM Lo 'at' h:mm a");
 
   const msg = {
     to: recipientEmail,
@@ -47,7 +48,7 @@ const sendConfirmationEmail = async ({
     dynamicTemplateData: {
       hostFirstName: hostProfile.firstName,
       hostLastName: hostProfile.lastName,
-      experienceTitle: experience.title,
+      experienceTitle: availabilityInfo.experience?.title,
       hostEmail: hostProfile.email,
       experienceDate: experienceDateTime,
       experienceLocation:
@@ -68,7 +69,7 @@ const sendCancelationEmail = async ({
   recipientEmail,
   experience,
   hostProfile,
-}: Props) => {
+}: CancellationProps) => {
   if (!hostProfile) {
     return;
   }
@@ -93,7 +94,7 @@ const sendCancelationEmail = async ({
 
 const sendSignupNotificationEmail = async ({
   recipientEmail,
-  experience,
+  availabilityInfo,
   registration,
 }: Props) => {
   if (!registration) {
@@ -105,7 +106,7 @@ const sendSignupNotificationEmail = async ({
     from: "learnedlocal.app@gmail.com",
     templateId: "d-385cc172217743aebdff2213838f01d8",
     dynamicTemplateData: {
-      experienceTitle: experience.title,
+      experienceTitle: availabilityInfo?.experience?.title,
       registrantFirst: registration.registrantFirstName,
       registrantLast: registration.registrantLastName,
       registrantEmail: registration.email,
