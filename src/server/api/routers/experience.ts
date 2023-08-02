@@ -150,10 +150,18 @@ export const experienceRouter = createTRPCRouter({
         slugId: z.string(),
         categoryId: z.number(),
         profileId: z.string(),
+        availability: z.array(
+          z.object({
+            id: z.number().optional(),
+            date: z.date().nullable(),
+            startTime: z.date().nullable(),
+            endTime: z.date().nullable(),
+          })
+        ),
       })
     )
     .mutation(async ({ ctx, input }) => {
-      return await ctx.prisma.experience.update({
+      const updatedExperience = await ctx.prisma.experience.update({
         where: { id: input.id },
         data: {
           title: input.title,
@@ -175,7 +183,12 @@ export const experienceRouter = createTRPCRouter({
           slugId: input.slugId,
           profileId: input.profileId,
         },
+        include: {
+          availability: true,
+        },
       });
+
+      return updatedExperience;
     }),
 
   create: protectedProcedure
@@ -199,6 +212,14 @@ export const experienceRouter = createTRPCRouter({
         slugId: z.string(),
         categoryId: z.number(),
         profileId: z.string(),
+        availability: z.array(
+          z.object({
+            id: z.number().optional(),
+            date: z.date().nullable(),
+            startTime: z.date().nullable(),
+            endTime: z.date().nullable(),
+          })
+        ),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -232,6 +253,16 @@ export const experienceRouter = createTRPCRouter({
           stripeProductId: productId,
           stripePriceId: priceId,
           profileId: input.profileId,
+          availability: {
+            create: input.availability.map((a) => ({
+              date: a.date,
+              startTime: a.startTime,
+              endTime: a.endTime,
+            })),
+          },
+        },
+        include: {
+          availability: true,
         },
       });
     }),

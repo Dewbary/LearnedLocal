@@ -19,7 +19,8 @@ export const useExperienceSubmission = (
   const router = useRouter();
   const createExperience = api.experience.create.useMutation();
   const updateExperience = api.experience.update.useMutation();
-  const createAvailability = api.availability.createBatch.useMutation();
+  const replaceAvailabilities =
+    api.availability.updateAvailabilities.useMutation();
 
   const handleSubmit = async (
     values: FormValues,
@@ -34,26 +35,23 @@ export const useExperienceSubmission = (
       await uploadImages(filePathArray, values.photos, user.user.id);
 
       if (experienceId && hostProfileId) {
-        await updateExperience.mutateAsync(
-          getUpdateExperienceObject(
-            values,
-            experienceId,
-            filePathArray,
-            slug,
-            hostProfileId
-          )
+        const updatedExperience = getUpdateExperienceObject(
+          values,
+          experienceId,
+          filePathArray,
+          slug,
+          hostProfileId
         );
+
+        await replaceAvailabilities.mutateAsync({
+          experienceId: updatedExperience.id,
+          availabilities: updatedExperience.availability,
+        });
+
+        await updateExperience.mutateAsync(updatedExperience);
       } else if (hostProfileId) {
         const newExperience = await createExperience.mutateAsync(
           getCreateExperienceObject(values, filePathArray, slug, hostProfileId)
-        );
-        await createAvailability.mutateAsync(
-          values.availability.map((a) => ({
-            experienceId: newExperience.id,
-            date: a.date,
-            startTime: a.startTime,
-            endTime: a.endTime,
-          }))
         );
       } else {
         throw "No profile has been created";
