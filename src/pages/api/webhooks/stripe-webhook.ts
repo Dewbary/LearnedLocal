@@ -120,7 +120,7 @@ const handler = async (
           });
 
           await sendSignupNotificationEmail({
-            recipientEmail: metadata.email,
+            recipientEmail: hostProfile.email ?? "",
             experience: experience,
             registration: registrationResult,
           });
