@@ -125,7 +125,11 @@ const handler = async (
 
           await sendSignupNotificationEmail({
             recipientEmail: hostProfile.email ?? "",
+<<<<<<< HEAD
             availabilityInfo,
+=======
+            experience: experience,
+>>>>>>> main
             registration: registrationResult,
           });
         }
