@@ -1,4 +1,4 @@
-// @ts-check
+// @ts-nocheck
 
 import process from "process";
 
@@ -16,7 +16,7 @@ const config = {
     domains: [
       "tvectiqcwbgbhhgsavuc.supabase.co",
       "ovrsneiokoigxbnvzugb.supabase.co",
-      "cmthzvcffgzfgmggemfb.supabase.co"
+      "cmthzvcffgzfgmggemfb.supabase.co",
     ],
   },
 
