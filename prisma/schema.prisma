@@ -115,7 +115,9 @@ model ExperienceAvailability {
   date        DateTime? 
   startTime   DateTime?
   endTime     DateTime?
-  Experience  Experience @relation(fields: [experienceId], references: [id])
+  experience  Experience @relation(fields: [experienceId], references: [id])
+
+  @@index([experienceId])
 }
 
 model Category {

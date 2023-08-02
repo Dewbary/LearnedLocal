@@ -103,25 +103,29 @@ const handler = async (
         console.log(`Registration created with ID: ${registrationResult.id}`);
 
         // Registration successfully created, let's send a confirmation email to the user
-        const experience = await prisma.experience.findFirst({
-          where: { id: experienceId },
-          include: { availability: true, profile: true },
+        const availabilityInfo = await prisma.experienceAvailability.findFirst({
+          where: { id: availabilityId },
+          include: {
+            experience: {
+              include: { profile: true },
+            },
+          },
         });
 
         const hostProfile = await prisma.profile.findFirst({
-          where: { userId: experience?.authorId },
+          where: { userId: availabilityInfo?.experience?.authorId },
         });
 
-        if (experience && hostProfile) {
+        if (availabilityInfo && hostProfile) {
           await sendConfirmationEmail({
             recipientEmail: metadata.email,
-            experience: experience,
+            availabilityInfo,
             hostProfile: hostProfile,
           });
 
           await sendSignupNotificationEmail({
             recipientEmail: hostProfile.email ?? "",
-            experience: experience,
+            availabilityInfo,
             registration: registrationResult,
           });
         }

@@ -5,6 +5,14 @@ export type ExperienceInfo = Experience & {
   availability: ExperienceAvailability[];
 };
 
+export type AvailabilityInfo =
+  | (ExperienceAvailability & {
+      experience: Experience & {
+        profile: Profile | null;
+      };
+    })
+  | null;
+
 export type DateInfo = {
   id?: number;
   date: Date | null;
