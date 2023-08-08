@@ -34,7 +34,9 @@ const NavBar = ({
       </div>
 
       <div className="navbar-end">
-        {showCreateExperienceButton && <CreateExperienceButton />}
+        {showCreateExperienceButton && (
+          <CreateExperienceButton className="rounded-full border-none bg-gradient-to-br from-amber-400 to-amber-500 p-4 font-bold text-white drop-shadow-md hover:cursor-pointer hover:from-amber-300 hover:to-amber-300" />
+        )}
         <div className="dropdown-bottom dropdown-end dropdown">
           <label tabIndex={0} className="btn-ghost btn-circle btn">
             <svg
@@ -58,9 +60,6 @@ const NavBar = ({
           >
             <li>
               <Link href="/">Home</Link>
-            </li>
-            <li>
-              <Link href="/myexperiences">My Experiences</Link>
             </li>
             <li>
               <Link href="/about">About Us</Link>
