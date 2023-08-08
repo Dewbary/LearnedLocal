@@ -39,7 +39,11 @@ const HomePage = () => {
       value={{ filteredExperiences, setFilteredExperiences }}
     >
       <div className="flex min-h-screen w-full flex-col bg-white">
-        <NavBar isSignedIn={user.isSignedIn ?? false} className="bg-white" />
+        <NavBar
+          isSignedIn={user.isSignedIn ?? false}
+          showCreateExperienceButton={true}
+          className="bg-white"
+        />
 
         <div className="flex flex-col pt-16 md:pt-0">
           <div className="flex flex-col md:flex-row">

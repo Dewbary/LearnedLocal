@@ -1,13 +1,19 @@
 import * as React from "react";
 import Link from "next/link";
 import SignInArea from "../common/SignInArea";
+import CreateExperienceButton from "../common/CreateExperienceButton";
 
 type Props = {
   isSignedIn: boolean;
+  showCreateExperienceButton?: boolean;
   className?: string;
 };
 
-const NavBar = ({ isSignedIn, className }: Props) => {
+const NavBar = ({
+  isSignedIn,
+  showCreateExperienceButton,
+  className,
+}: Props) => {
   return (
     <div
       className={`navbar fixed top-0 left-0 z-30 h-16 border-b-2 border-b-slate-100 md:relative ${
@@ -28,6 +34,7 @@ const NavBar = ({ isSignedIn, className }: Props) => {
       </div>
 
       <div className="navbar-end">
+        {showCreateExperienceButton && <CreateExperienceButton />}
         <div className="dropdown-bottom dropdown-end dropdown">
           <label tabIndex={0} className="btn-ghost btn-circle btn">
             <svg
