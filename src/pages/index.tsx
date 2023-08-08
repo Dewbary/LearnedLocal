@@ -14,6 +14,10 @@ const Home: NextPage = () => {
         />
         <meta name="robots" content="index, follow" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+          name="p:domain_verify"
+          content="8bf5b0989b5c6f95babbbf49bcf00700"
+        />
       </Head>
 
       <main>
