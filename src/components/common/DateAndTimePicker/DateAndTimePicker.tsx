@@ -42,11 +42,11 @@ const DateAndTimePicker = ({ datesList, setDatesList }: Props) => {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <DateTimePickerHeader />
+    <div className="flex h-full w-full flex-col lg:flex-row">
+      <div className="card rounded-box flex h-32 place-items-center bg-base-300">
+        <div className="">
+          <h1 className="mb-2 pl-4 text-lg font-bold">Select Dates</h1>
 
-      <div className="flex overflow-hidden rounded-lg shadow-lg">
-        <div className="w-1/2 bg-white py-4">
           <DatePicker
             onChange={handleDateSelect}
             inline
@@ -58,13 +58,19 @@ const DateAndTimePicker = ({ datesList, setDatesList }: Props) => {
             className="border-none"
           />
         </div>
+      </div>
+      <div className="divider lg:divider-horizontal"></div>
+      <div className="card rounded-box flex h-32 place-items-center bg-base-300">
+        <div className="">
+          <h1 className="mb-2 pl-4 text-lg font-bold">Select Times</h1>
 
-        <TimeConfiguration
-          datesList={datesList}
-          activeDateIndex={activeDateIndex}
-          setActiveDateIndex={setActiveDateIndex}
-          setDatesList={setDatesList}
-        />
+          <TimeConfiguration
+            datesList={datesList}
+            activeDateIndex={activeDateIndex}
+            setActiveDateIndex={setActiveDateIndex}
+            setDatesList={setDatesList}
+          />
+        </div>
       </div>
     </div>
   );

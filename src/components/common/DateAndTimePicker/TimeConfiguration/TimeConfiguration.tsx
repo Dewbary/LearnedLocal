@@ -37,7 +37,7 @@ const TimeConfiguration = ({
   };
 
   return (
-    <div className="w-1/2 bg-gray-100 p-4">
+    <div className="h-full w-full bg-gray-100 p-4">
       {sortedDatesList.map(({ date }, index) => {
         if (!date) return null;
         return (

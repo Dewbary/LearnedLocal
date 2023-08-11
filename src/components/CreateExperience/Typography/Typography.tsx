@@ -15,7 +15,7 @@ const FormPageHeader = ({ step, title, subtitle }: FormPageHeaderProps) => {
         <h1 className="my-2 text-3xl font-bold">{title}</h1>
         <p className=" text-sm tracking-wide text-gray-700">{subtitle}</p>
       </article>
-      <div className="my-5" />
+      {/* <div className="my-5" /> */}
     </>
   );
 };

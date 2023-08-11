@@ -1,9 +1,15 @@
 import React from "react";
 import { Instagram, Facebook, Home, Phone } from "react-feather";
 
-const Footer = () => {
+type Props = {
+  className?: string;
+};
+
+const Footer = ({ className }: Props) => {
   return (
-    <footer className="footer bg-slate-700 px-10 py-5 text-white">
+    <footer
+      className={`footer ${className ?? ""} bg-slate-700 px-10 py-5 text-white`}
+    >
       <div className="">
         <span className="footer-title">About us</span>
         <div className="flex gap-3">
