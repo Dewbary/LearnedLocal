@@ -12,10 +12,17 @@ import * as React from "react";
 import FilteredExperiencesContext from "~/components/Home/FilteredExperiencesContext";
 import { getExperiences } from "~/components/Home/HomePageUtils";
 import { ExperienceInfo } from "~/components/types";
+import AnnouncementWidget from "../common/AnnouncementWidget/AnnouncementWidget";
 
 Modal.setAppElement("#__next");
 
 const HomePage = () => {
+
+  const sampleAnnouncements = [
+    'Get 25% off when you use the code FIRST_EXPERIENCE on any experience!',
+    'You have 5 unread messages.'
+  ];
+
   const user = useUser();
   const experiencesQuery = api.experience.getAll.useQuery();
 
@@ -46,6 +53,7 @@ const HomePage = () => {
         />
 
         <div className="flex flex-col pt-16 md:pt-0">
+          <AnnouncementWidget announcements={sampleAnnouncements}/>
           <div className="flex flex-col md:flex-row">
             <SideNav
               experiences={experiences}
