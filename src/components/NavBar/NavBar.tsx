@@ -35,7 +35,7 @@ const NavBar = ({
 
       <div className="navbar-end">
         {showCreateExperienceButton && (
-          <CreateExperienceButton className="rounded-full border-none bg-gradient-to-br from-amber-400 to-amber-500 p-4 font-bold text-white drop-shadow-md hover:cursor-pointer hover:from-amber-300 hover:to-amber-300" />
+          <CreateExperienceButton className="invisible rounded-full border-none bg-gradient-to-br from-amber-400 to-amber-500 p-4 font-bold text-white drop-shadow-md hover:cursor-pointer hover:from-amber-300 hover:to-amber-300 md:visible" />
         )}
         <div className="dropdown-bottom dropdown-end dropdown">
           <label tabIndex={0} className="btn-ghost btn-circle btn">
@@ -79,6 +79,9 @@ const NavBar = ({
                   My Experiences
                 </Link>
               ) : null}
+            </li>
+            <li>
+              <CreateExperienceButton className="mb-2 rounded-full border-none bg-gradient-to-br from-amber-400 to-amber-500 p-2 font-bold text-white drop-shadow-md hover:cursor-pointer hover:from-amber-300 hover:to-amber-300" />
             </li>
             <li>
               <SignInArea isSignedIn={isSignedIn} />

@@ -11,12 +11,12 @@ import {
   ClipboardDocumentCheckIcon,
 } from "@heroicons/react/24/solid";
 import DescriptionPage from "./DescriptionPage/DescriptionPage";
-import DatePage from "./DatePage";
-import LocationPage from "./LocationPage";
-import RequirementsPage from "./RequirementsPage";
-import SettingsPage from "./SettingsPage";
-import PhotosPage from "./PhotosPage";
-import FinalStepsPage from "./FinalStepsPage";
+import DatePage from "./DatePage/DatePage";
+import LocationPage from "./LocationPage/LocationPage";
+import RequirementsPage from "./RequirementsPage/RequirementsPage";
+import SettingsPage from "./SettingsPage/SettingsPage";
+import PhotosPage from "./PhotosPage/PhotosPage";
+import FinalStepsPage from "./FinalStepsPage/FinalStepsPage";
 import StartPage from "./StartPage";
 import { ImageListType } from "react-images-uploading";
 import { uploadImageToBucket } from "~/utils/images";

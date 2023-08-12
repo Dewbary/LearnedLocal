@@ -4,7 +4,6 @@ import { enGB } from "date-fns/locale";
 import "react-datepicker/dist/react-datepicker.css";
 import { startOfDay } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
-import DateTimePickerHeader from "./DateTimePickerHeader";
 import TimeConfiguration from "./TimeConfiguration";
 import {
   getActiveDateIndex,
@@ -42,23 +41,21 @@ const DateAndTimePicker = ({ datesList, setDatesList }: Props) => {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <DateTimePickerHeader />
-
-      <div className="flex overflow-hidden rounded-lg shadow-lg">
-        <div className="w-1/2 bg-white py-4">
-          <DatePicker
-            onChange={handleDateSelect}
-            inline
-            locale="enGB"
-            highlightDates={datesList
-              .filter((data) => data.date)
-              .map((data) => data.date!)}
-            minDate={startOfDay(new Date())}
-            className="border-none"
-          />
-        </div>
-
+    <div className="flex flex-1 flex-col md:flex-row">
+      <div className="card flex place-items-center p-4 shadow-lg">
+        <DatePicker
+          onChange={handleDateSelect}
+          inline
+          locale="enGB"
+          highlightDates={datesList
+            .filter((data) => data.date)
+            .map((data) => data.date!)}
+          minDate={startOfDay(new Date())}
+          className="border-none"
+        />
+      </div>
+      <div className="m-2" />
+      <div className="card flex flex-1 place-items-center p-4 shadow-lg">
         <TimeConfiguration
           datesList={datesList}
           activeDateIndex={activeDateIndex}

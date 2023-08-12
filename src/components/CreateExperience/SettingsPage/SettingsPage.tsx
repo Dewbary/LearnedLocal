@@ -1,14 +1,14 @@
 import { ErrorMessage, Field } from "formik";
 import React from "react";
-import { FormLabel } from "./Form/FormLabel";
-import { InputField } from "./Form/InputField";
-import FormPageHeader from "./Typography/Typography";
+import { FormLabel } from "../Form/FormLabel";
+import { InputField } from "../Form/InputField";
+import FormPageHeader from "../Typography/Typography";
 
 const SettingsPage = () => {
   return (
-    <div className="mx-auto max-w-4xl py-10 px-4">
+    <div className="mx-auto flex max-w-3xl flex-1 flex-col px-4">
       <FormPageHeader
-        step={6}
+        step={5}
         title="Let's go through a few more details"
         subtitle="Remember to keep in mind your target audience"
       />

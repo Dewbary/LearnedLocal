@@ -1,9 +1,9 @@
 import React from "react";
-import { FormLabel } from "./Form/FormLabel";
-import FormPageHeader from "./Typography/Typography";
+import { FormLabel } from "../Form/FormLabel";
+import FormPageHeader from "../Typography/Typography";
 import { ImageListType } from "react-images-uploading";
 import { Field, FieldProps } from "formik";
-import ImgUploader from "./ImgUploader";
+import ImgUploader from "../ImgUploader";
 
 const PhotosPage = () => {
   const handleChange = (
@@ -15,9 +15,9 @@ const PhotosPage = () => {
   };
 
   return (
-    <div className="mx-auto max-w-4xl py-10 px-4">
+    <div className="mx-auto flex max-w-3xl flex-1 flex-col px-4">
       <FormPageHeader
-        step={7}
+        step={6}
         title="Show off your experience"
         subtitle="Trust us, people want to know what you can do"
       />

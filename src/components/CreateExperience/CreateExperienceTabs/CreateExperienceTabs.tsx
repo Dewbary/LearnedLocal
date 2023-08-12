@@ -6,15 +6,10 @@ import styles from "./CreateExperienceTabs.module.css";
 
 type Props = {
   tabInfoList: TabInfo[];
-  currentTab: string | undefined;
   onTabClick: (index: number) => void;
 };
 
-const CreateExperienceTabs = ({
-  tabInfoList,
-  currentTab,
-  onTabClick,
-}: Props) => {
+const CreateExperienceTabs = ({ tabInfoList, onTabClick }: Props) => {
   const router = useRouter();
   const [selectedTab, setSelectedTab] = useState("");
 
@@ -23,8 +18,8 @@ const CreateExperienceTabs = ({
   }, [router.asPath]);
 
   return (
-    <div className="hidden md:block">
-      <aside className="flex w-64 flex-col overflow-y-auto">
+    <div className="hidden lg:block">
+      <aside className="flex w-48 flex-col overflow-y-auto">
         <div className={`flex flex-grow flex-col items-end md:block`}>
           <ul className={`flex flex-col items-end`}>
             {tabInfoList.map((item, index, array) => {
@@ -32,14 +27,6 @@ const CreateExperienceTabs = ({
 
               return (
                 <li key={index} className={styles.progressItem}>
-                  {index < array.length - 1 && (
-                    <div
-                      className={`${styles.progressLine ?? ""} ${
-                        isSelected ? styles.progressLineSelected ?? "" : ""
-                      }`}
-                    />
-                  )}
-
                   <button
                     className={`flex w-full items-center rounded-lg p-2 ${
                       isSelected ? "bg-amber-500 text-white" : "bg-white"

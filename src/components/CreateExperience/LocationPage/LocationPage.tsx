@@ -1,14 +1,14 @@
 import React from "react";
 import { Field, FieldProps } from "formik";
-import LocationPicker, { Pin } from "./LocationPicker/LocationPicker";
-import { PinContextProvider } from "./LocationPicker/PinContext";
-import FormPageHeader from "./Typography/Typography";
+import LocationPicker, { Pin } from "../LocationPicker/LocationPicker";
+import { PinContextProvider } from "../LocationPicker/PinContext";
+import FormPageHeader from "../Typography/Typography";
 
 const LocationPage = () => {
   return (
-    <div className="mx-auto max-w-4xl py-10 px-4">
+    <div className="mx-auto flex max-w-3xl flex-1 flex-col px-4">
       <FormPageHeader
-        step={4}
+        step={3}
         title="Now let's pinpoint the exact location of your experience"
         subtitle="Make sure that it is in a location accessible to those participating"
       />

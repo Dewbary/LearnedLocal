@@ -1,20 +1,20 @@
 import { Field, FieldProps } from "formik";
 import React from "react";
-import { FormLabel } from "./Form/FormLabel";
-import FormPageHeader from "./Typography/Typography";
-import DateAndTimePicker from "../common/DateAndTimePicker";
-import { DateInfo } from "../types";
+import { FormLabel } from "../Form/FormLabel";
+import FormPageHeader from "../Typography/Typography";
+import DateAndTimePicker from "../../common/DateAndTimePicker";
+import { DateInfo } from "../../types";
 
 const DatePage = () => {
   return (
-    <div className="mx-auto max-w-4xl py-10 px-4">
+    <div className="mx-auto flex max-w-3xl flex-1 flex-col px-4">
       <FormPageHeader
-        step={3}
+        step={2}
         title="Select a Date and Time for your experience"
-        subtitle=""
+        subtitle="When and how often would you like to host your class?"
       />
 
-      <div className="space-y-8 rounded-lg bg-white p-8 shadow-lg">
+      <div className="flex flex-1 flex-col space-y-6 rounded-lg bg-white p-8 shadow-lg">
         <Field name="availability">
           {({ field, form }: FieldProps<DateInfo[]>) => (
             <DateAndTimePicker
@@ -25,7 +25,7 @@ const DatePage = () => {
             />
           )}
         </Field>
-        <div>
+        <div className="flex flex-1 flex-col">
           <FormLabel text="Timeline" className="text-gray-600" />
           <Field
             className="textarea-bordered textarea w-full"

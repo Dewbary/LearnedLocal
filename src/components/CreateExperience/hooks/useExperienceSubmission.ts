@@ -10,7 +10,7 @@ import {
 import type { FormValues } from "../types";
 
 export const useExperienceSubmission = (
-  experienceId: string,
+  experienceId: string | null,
   slug: string,
   setIsCreating: (isCreating: boolean) => void,
   hostProfileId: string | null | undefined
