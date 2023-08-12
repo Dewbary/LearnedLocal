@@ -18,7 +18,7 @@ const CreateExperienceTabs = ({ tabInfoList, onTabClick }: Props) => {
   }, [router.asPath]);
 
   return (
-    <div className="hidden md:block">
+    <div className="hidden lg:block">
       <aside className="flex w-48 flex-col overflow-y-auto">
         <div className={`flex flex-grow flex-col items-end md:block`}>
           <ul className={`flex flex-col items-end`}>

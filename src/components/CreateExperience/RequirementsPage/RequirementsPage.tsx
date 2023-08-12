@@ -1,13 +1,13 @@
 import React from "react";
-import { FormLabel } from "./Form/FormLabel";
-import { InputField } from "./Form/InputField";
-import FormPageHeader from "./Typography/Typography";
+import { FormLabel } from "../Form/FormLabel";
+import { InputField } from "../Form/InputField";
+import FormPageHeader from "../Typography/Typography";
 
 const RequirementsPage = () => {
   return (
-    <div className="mx-auto max-w-4xl py-10 px-4">
+    <div className="mx-auto flex max-w-3xl flex-1 flex-col px-4">
       <FormPageHeader
-        step={5}
+        step={4}
         title="How should your guests prepare for the experience?"
         subtitle="This will ensure that they can get the most out of the experience"
       />

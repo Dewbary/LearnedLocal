@@ -42,35 +42,27 @@ const DateAndTimePicker = ({ datesList, setDatesList }: Props) => {
   };
 
   return (
-    <div className="flex h-full w-full flex-col lg:flex-row">
-      <div className="card rounded-box flex h-32 place-items-center bg-base-300">
-        <div className="">
-          <h1 className="mb-2 pl-4 text-lg font-bold">Select Dates</h1>
-
-          <DatePicker
-            onChange={handleDateSelect}
-            inline
-            locale="enGB"
-            highlightDates={datesList
-              .filter((data) => data.date)
-              .map((data) => data.date!)}
-            minDate={startOfDay(new Date())}
-            className="border-none"
-          />
-        </div>
+    <div className="flex flex-1 flex-col md:flex-row">
+      <div className="card flex place-items-center p-4 shadow-lg">
+        <DatePicker
+          onChange={handleDateSelect}
+          inline
+          locale="enGB"
+          highlightDates={datesList
+            .filter((data) => data.date)
+            .map((data) => data.date!)}
+          minDate={startOfDay(new Date())}
+          className="border-none"
+        />
       </div>
-      <div className="divider lg:divider-horizontal"></div>
-      <div className="card rounded-box flex h-32 place-items-center bg-base-300">
-        <div className="">
-          <h1 className="mb-2 pl-4 text-lg font-bold">Select Times</h1>
-
-          <TimeConfiguration
-            datesList={datesList}
-            activeDateIndex={activeDateIndex}
-            setActiveDateIndex={setActiveDateIndex}
-            setDatesList={setDatesList}
-          />
-        </div>
+      <div className="m-2" />
+      <div className="card flex flex-1 place-items-center p-4 shadow-lg">
+        <TimeConfiguration
+          datesList={datesList}
+          activeDateIndex={activeDateIndex}
+          setActiveDateIndex={setActiveDateIndex}
+          setDatesList={setDatesList}
+        />
       </div>
     </div>
   );

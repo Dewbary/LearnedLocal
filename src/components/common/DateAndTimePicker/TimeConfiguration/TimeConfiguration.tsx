@@ -37,23 +37,24 @@ const TimeConfiguration = ({
   };
 
   return (
-    <div className="h-full w-full bg-gray-100 p-4">
-      {sortedDatesList.map(({ date }, index) => {
-        if (!date) return null;
-        return (
-          <PillButton
-            key={date.toISOString()}
-            className={`${
-              activeDateIndex === index
-                ? "bg-blue-500 text-white"
-                : "bg-gray-300 text-gray-800"
-            }`}
-            title={format(date, "MMM dd, yyyy")}
-            onClick={() => setActiveDateIndex(index)}
-          />
-        );
-      })}
-
+    <div className="flex flex-1 flex-col">
+      <div className="grid grid-cols-2 lg:grid-cols-3">
+        {sortedDatesList.map(({ date }, index) => {
+          if (!date) return null;
+          return (
+            <PillButton
+              key={date.toISOString()}
+              className={`${
+                activeDateIndex === index
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-300 text-gray-800"
+              }`}
+              title={format(date, "MMM dd, yyyy")}
+              onClick={() => setActiveDateIndex(index)}
+            />
+          );
+        })}
+      </div>
       {activeDateIndex !== null && (
         <TimeSelection
           dateInfo={datesList[activeDateIndex]}

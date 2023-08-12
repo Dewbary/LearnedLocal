@@ -65,7 +65,7 @@ const CreateExperienceFormArea = ({
           onSubmit={(values, helpers) => handleSubmit(values, helpers)}
           enableReinitialize
         >
-          <Form className="h-full w-full">
+          <Form className="flex flex-1">
             <CreateExperienceFormLayout
               tabComponent={getTabComponent(
                 activeTab?.activeMatcher ?? "",
@@ -79,7 +79,7 @@ const CreateExperienceFormArea = ({
           </Form>
         </Formik>
       ) : (
-        <div className="flex h-full w-full flex-col items-center justify-center gap-5">
+        <div className="flex flex-1 flex-col items-center justify-center gap-5">
           <p>
             You need to create a profile before creating your first experience.
           </p>

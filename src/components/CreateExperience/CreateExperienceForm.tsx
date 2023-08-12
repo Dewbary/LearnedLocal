@@ -54,7 +54,7 @@ const CreateExperienceForm = () => {
       <div className="mt-4 flex flex-1 flex-col md:flex-row">
         <SignedIn>
           {showLoading ? (
-            <div className="flex h-screen items-center justify-center">
+            <div className="flex flex-1 items-center justify-center">
               <BounceLoader color="#FFC107" />
             </div>
           ) : (
