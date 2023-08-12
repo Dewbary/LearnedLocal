@@ -4,7 +4,6 @@ import { enGB } from "date-fns/locale";
 import "react-datepicker/dist/react-datepicker.css";
 import { startOfDay } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
-import DateTimePickerHeader from "./DateTimePickerHeader";
 import TimeConfiguration from "./TimeConfiguration";
 import {
   getActiveDateIndex,

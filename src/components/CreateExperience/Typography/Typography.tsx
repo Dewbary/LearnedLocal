@@ -8,7 +8,7 @@ type FormPageHeaderProps = {
 
 const FormPageHeader = ({ step, title, subtitle }: FormPageHeaderProps) => {
   return (
-    <article className={`mb-4 ${styles.prose}`}>
+    <article className={`mb-4 ${styles.prose ?? ""}`}>
       <p className="text-lg">Step {step}</p>
 
       <h1 className="my-2 text-3xl font-bold">{title}</h1>
