@@ -119,13 +119,6 @@ export default function ViewExperiencePage() {
                 <span className="text-3xl font-bold">${experience.price}</span>
                 <span> / person</span>
               </div>
-              {/* <div className="">
-                <UserIcon className="mr-2 inline w-5 rounded-full border border-black" />
-                <span>
-                  {getRegistrantCount.data}/{experience.maxAttendees} Spots
-                  Filled
-                </span>
-              </div> */}
 
               <ExperienceDateSelection
                 availableDates={experience.availability}
@@ -178,11 +171,6 @@ export default function ViewExperiencePage() {
                 <p>{experience.description}</p>
               </div>
               <div className="my-3 flex flex-col gap-2">
-                <div>
-                  <h3 className="text-xl font-bold">Qualifications</h3>
-                  <hr className="w-64" />
-                  <p>{experience.qualifications}</p>
-                </div>
                 <div>
                   <h3 className="text-xl font-bold">Details</h3>
                   <hr className="w-64" />
