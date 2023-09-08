@@ -30,7 +30,7 @@ const HomePage = () => {
     setExperiences(experiencesQuery.data ?? []);
     console.log("experiencesQuery", experiencesQuery.data);
     setFilteredExperiences(
-      getExperiences("Current", experiencesQuery.data ?? [])
+      getExperiences("All", experiencesQuery.data ?? [])
     );
   }, [experiencesQuery.isLoading]);
 

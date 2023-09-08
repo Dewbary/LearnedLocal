@@ -1,5 +1,5 @@
 import { Registration } from "@prisma/client";
-import { z } from "zod";
+import { date, z } from "zod";
 import {
   createTRPCRouter,
   publicProcedure,
@@ -15,7 +15,11 @@ export const experienceRouter = createTRPCRouter({
       },
       include: {
         profile: true,
-        availability: true,
+        availability: {
+          orderBy: {
+            date: 'desc'
+          }
+        },
       },
     });
   }),
