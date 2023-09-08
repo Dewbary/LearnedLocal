@@ -17,6 +17,7 @@ export type FormValues = {
   guestRequirements: string;
   minAge: number;
   price: number;
+  free: boolean;
   activityLevel: string;
   skillLevel: string;
   photos: ImageListType;

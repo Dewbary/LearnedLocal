@@ -1,5 +1,4 @@
-import { Registration } from "@prisma/client";
-import { date, z } from "zod";
+import { z } from "zod";
 import {
   createTRPCRouter,
   publicProcedure,
@@ -17,8 +16,8 @@ export const experienceRouter = createTRPCRouter({
         profile: true,
         availability: {
           orderBy: {
-            date: 'desc'
-          }
+            date: "desc",
+          },
         },
       },
     });
@@ -139,6 +138,7 @@ export const experienceRouter = createTRPCRouter({
         title: z.string(),
         description: z.string(),
         price: z.number(),
+        free: z.boolean(),
         timeline: z.string(),
         city: z.string().nullable(),
         location: z.object({ lat: z.number(), lng: z.number() }),
@@ -171,6 +171,7 @@ export const experienceRouter = createTRPCRouter({
           title: input.title,
           description: input.description,
           price: input.price,
+          free: input.free,
           categoryId: input.categoryId,
           timeline: input.timeline,
           city: input.city,
@@ -201,6 +202,7 @@ export const experienceRouter = createTRPCRouter({
         title: z.string(),
         description: z.string(),
         price: z.number(),
+        free: z.boolean(),
         timeline: z.string(),
         city: z.string().nullable(),
         location: z.object({ lat: z.number(), lng: z.number() }),
@@ -240,6 +242,7 @@ export const experienceRouter = createTRPCRouter({
           title: input.title,
           description: input.description,
           price: input.price,
+          free: input.free,
           categoryId: input.categoryId,
           timeline: input.timeline,
           city: input.city,

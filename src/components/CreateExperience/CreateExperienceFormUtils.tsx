@@ -20,8 +20,6 @@ import StartPage from "./StartPage";
 import { ImageListType } from "react-images-uploading";
 import { uploadImageToBucket } from "~/utils/images";
 import { env } from "~/env.mjs";
-import { NextRouter } from "next/router";
-import { Experience } from "@prisma/client";
 import { Pin } from "./LocationPicker/LocationPicker";
 import { ExperienceInfo } from "../types";
 
@@ -36,7 +34,7 @@ export const validationSchema = Yup.object().shape({
       })
     )
     .required("Availability is required"),
-  price: Yup.number().min(0).required("Price is required"),
+  price: Yup.number().min(1).required("Price is required"),
 });
 
 export const initialValues: FormValues = {
@@ -53,7 +51,8 @@ export const initialValues: FormValues = {
   activityLevel: "",
   skillLevel: "",
   minAge: 0,
-  price: 0,
+  price: 1,
+  free: false,
   maxAttendees: 1,
   photos: [],
   categoryId: 0,
@@ -165,7 +164,8 @@ export const getUpdateExperienceObject = (
     id: parseInt(experienceId),
     title: values.title,
     description: values.description,
-    price: values.price,
+    price: values.free ? 0.0 : values.price,
+    free: values.free,
     timeline: values.timeline,
     city: values.city,
     location: values.location,
@@ -194,7 +194,8 @@ export const getCreateExperienceObject = (
   return {
     title: values.title,
     description: values.description,
-    price: values.price,
+    price: values.free ? 0.0 : values.price,
+    free: values.free,
     timeline: values.timeline,
     city: values.city,
     location: values.location,
