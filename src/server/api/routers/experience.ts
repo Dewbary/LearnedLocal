@@ -5,6 +5,7 @@ import {
   publicProcedure,
   protectedProcedure,
 } from "~/server/api/trpc";
+import { sendExperienceCreationEmail } from "~/utils/sendgrid";
 import { createExperienceAndPrice } from "~/utils/stripe";
 
 export const experienceRouter = createTRPCRouter({
@@ -234,7 +235,9 @@ export const experienceRouter = createTRPCRouter({
         currency: "usd",
       });
 
-      return ctx.prisma.experience.create({
+
+
+      const newExperience = await ctx.prisma.experience.create({
         data: {
           authorId: ctx.userId,
           title: input.title,
@@ -269,5 +272,24 @@ export const experienceRouter = createTRPCRouter({
           availability: true,
         },
       });
+
+      const newExperienceInfo = await ctx.prisma.experience.findFirst({
+        where: { id: newExperience.id },
+        include: {
+          profile: true,
+          availability: {
+            orderBy: {
+              startTime: 'asc'
+            },
+            take: 1,
+          }
+        },
+      });
+
+      if (newExperienceInfo) {
+        await sendExperienceCreationEmail({experience: newExperienceInfo});
+      }
+
+      return newExperience;
     }),
 });
