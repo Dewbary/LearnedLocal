@@ -1,13 +1,9 @@
-import { prisma } from "~/server/db";
-import {
-  sendConfirmationEmail,
-  sendSignupNotificationEmail,
-} from "~/utils/sendgrid";
 import getRawBody from "raw-body";
 import { env } from "~/env.mjs";
 
 import Stripe from "stripe";
 import { NextApiRequest, NextApiResponse } from "next";
+import { RegistrationInfo, register } from "~/utils/registration";
 
 const handler = async (
   req: NextApiRequest,
@@ -83,7 +79,7 @@ const handler = async (
       const availabilityId = parseInt(metadata.availabilityId);
 
       // Start by creating the registration object in the database.
-      const registrationData = {
+      const registrationInfo: RegistrationInfo = {
         userId: metadata.userId,
         registrantFirstName: metadata.registrantFirstName,
         registrantLastName: metadata.registrantLastName,
@@ -96,42 +92,7 @@ const handler = async (
         status: session.status,
       };
 
-      try {
-        const registrationResult = await prisma.registration.create({
-          data: registrationData,
-        });
-        console.log(`Registration created with ID: ${registrationResult.id}`);
-
-        // Registration successfully created, let's send a confirmation email to the user
-        const availabilityInfo = await prisma.experienceAvailability.findFirst({
-          where: { id: availabilityId },
-          include: {
-            experience: {
-              include: { profile: true },
-            },
-          },
-        });
-
-        const hostProfile = await prisma.profile.findFirst({
-          where: { userId: availabilityInfo?.experience?.authorId },
-        });
-
-        if (availabilityInfo && hostProfile) {
-          await sendConfirmationEmail({
-            recipientEmail: metadata.email,
-            availabilityInfo,
-            hostProfile: hostProfile,
-          });
-
-          await sendSignupNotificationEmail({
-            recipientEmail: hostProfile.email ?? "",
-            availabilityInfo,
-            registration: registrationResult,
-          });
-        }
-      } catch (error) {
-        console.error("Error creating registration:", error);
-      }
+      await register(registrationInfo, availabilityId, metadata.email);
 
       console.log(`Payment was successful for session ID: ${session.id}`);
     } else {
@@ -150,22 +111,6 @@ export const config = {
   api: {
     bodyParser: false,
   },
-};
-
-const buffer = (req: NextApiRequest) => {
-  return new Promise<Buffer>((resolve, reject) => {
-    const chunks: Buffer[] = [];
-
-    req.on("data", (chunk: Buffer) => {
-      chunks.push(chunk);
-    });
-
-    req.on("end", () => {
-      resolve(Buffer.concat(chunks));
-    });
-
-    req.on("error", reject);
-  });
 };
 
 export default handler;

@@ -2,6 +2,7 @@ import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 import Stripe from "stripe";
 import { env } from "~/env.mjs";
+import { RegistrationInfo, register } from "~/utils/registration";
 
 const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
   apiVersion: "2022-11-15",
@@ -58,6 +59,24 @@ export const paymentRouter = createTRPCRouter({
 
       const successUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/checkout/success`;
       const cancelUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/`;
+
+      if (experience.free) {
+        const registrationInfo: RegistrationInfo = {
+          userId: input.userId,
+          registrantFirstName: input.registrantFirstName,
+          registrantLastName: input.registrantLastName,
+          partySize: input.partySize,
+          email: input.email,
+          phone: input.phone,
+          experienceId: input.experienceId,
+          availabilityId: input.availabilityId,
+          stripeCheckoutSessionId: "free",
+          status: null,
+        };
+
+        await register(registrationInfo, input.availabilityId, input.email);
+        return;
+      }
 
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],

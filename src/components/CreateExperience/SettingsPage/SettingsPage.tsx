@@ -3,6 +3,7 @@ import React from "react";
 import { FormLabel } from "../Form/FormLabel";
 import { InputField } from "../Form/InputField";
 import FormPageHeader from "../Typography/Typography";
+import PriceField from "./PriceField";
 
 const SettingsPage = () => {
   return (
@@ -28,23 +29,7 @@ const SettingsPage = () => {
         />
         <ErrorMessage name="minAge" component="div" className="text-red-500" />
 
-        <FormLabel text="Experience Price" />
-        <label className="input-group">
-          <Field
-            name="price"
-            type="number"
-            placeholder="0"
-            min={0}
-            className="input-bordered input mb-5"
-            validate={(value: number) => {
-              if (value < 0) {
-                return "Price must be 0 or more";
-              }
-            }}
-          />
-          <span className="mb-5">USD</span>
-        </label>
-        <ErrorMessage name="price" component="div" className="text-red-500" />
+        <PriceField />
 
         <FormLabel text="Max Attendees" />
         <InputField

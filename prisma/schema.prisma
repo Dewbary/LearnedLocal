@@ -75,6 +75,7 @@ model Experience {
   title              String
   description        String
   price              Float
+  free               Boolean @default(false)
   timeline           String
   city               String?
   location           Json
