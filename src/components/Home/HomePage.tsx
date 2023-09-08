@@ -28,7 +28,6 @@ const HomePage = () => {
 
   React.useEffect(() => {
     setExperiences(experiencesQuery.data ?? []);
-    console.log("experiencesQuery", experiencesQuery.data);
     setFilteredExperiences(
       getExperiences("All", experiencesQuery.data ?? [])
     );

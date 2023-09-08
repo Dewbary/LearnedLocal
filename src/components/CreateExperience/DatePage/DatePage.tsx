@@ -1,9 +1,8 @@
-import { Field, FieldProps } from "formik";
+import { Field } from "formik";
 import React from "react";
 import { FormLabel } from "../Form/FormLabel";
 import FormPageHeader from "../Typography/Typography";
 import DateAndTimePicker from "../../common/DateAndTimePicker";
-import { DateInfo } from "../../types";
 
 const DatePage = () => {
   return (
@@ -15,16 +14,7 @@ const DatePage = () => {
       />
 
       <div className="flex flex-1 flex-col space-y-6 rounded-lg bg-white p-8 shadow-lg">
-        <Field name="availability">
-          {({ field, form }: FieldProps<DateInfo[]>) => (
-            <DateAndTimePicker
-              datesList={field.value}
-              setDatesList={(datesList: DateInfo[]) => {
-                form.setFieldValue("availability", datesList);
-              }}
-            />
-          )}
-        </Field>
+        <DateAndTimePicker />
         <div className="flex flex-1 flex-col">
           <FormLabel text="Timeline" className="text-gray-600" />
           <Field

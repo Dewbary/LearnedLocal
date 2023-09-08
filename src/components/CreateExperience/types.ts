@@ -1,4 +1,4 @@
-import { FormikProps } from "formik";
+import { FormikErrors, FormikProps } from "formik";
 import { Pin } from "./LocationPicker/LocationPicker";
 import { ImageListType } from "react-images-uploading";
 
@@ -34,3 +34,9 @@ export type TabInfo = {
   activeMatcher: string;
   icon: React.ReactNode;
 };
+
+export type FormError =
+  | string
+  | string[]
+  | FormikErrors<DateInfo>[]
+  | undefined;

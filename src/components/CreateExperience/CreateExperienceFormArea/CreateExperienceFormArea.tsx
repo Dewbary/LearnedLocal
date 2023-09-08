@@ -1,10 +1,11 @@
-import { Form, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useRouter } from "next/router";
 import * as React from "react";
 import { api } from "~/utils/api";
 import {
   getInitialFormValues,
   getTabComponent,
+  validationSchema,
 } from "../CreateExperienceFormUtils";
 import { ExperienceInfo } from "~/components/types";
 import { useExperienceSubmission } from "../hooks/useExperienceSubmission";
@@ -57,12 +58,16 @@ const CreateExperienceFormArea = ({
     profile?.id
   );
 
+  const initialValues = getInitialFormValues(experience);
+
   return (
     <div className="flex flex-1 rounded-lg bg-gradient-to-r from-amber-400 via-amber-200 to-slate-50 px-4 pb-12 pt-20 md:mx-4 md:mb-4 md:p-8">
       {profileExists === "yes" || profileExists === "loading" ? (
         <Formik
-          initialValues={getInitialFormValues(experience)}
+          key={slug}
+          initialValues={initialValues}
           onSubmit={(values, helpers) => handleSubmit(values, helpers)}
+          validationSchema={validationSchema}
           enableReinitialize
         >
           <Form className="flex flex-1">

@@ -28,6 +28,7 @@ const CreateExperienceForm = () => {
   const [experienceIdStr, setExperienceIdStr] = React.useState<string>( // TODO: can we remove this?
     experienceId ?? ""
   );
+
   const tabInfoList: TabInfo[] = getTabInfos(slug);
 
   const { next, back, goToStep, activeTab, step } = useNavigation(

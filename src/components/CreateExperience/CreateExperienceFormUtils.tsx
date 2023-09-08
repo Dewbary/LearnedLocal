@@ -1,12 +1,11 @@
 import * as Yup from "yup";
-import { FormValues, TabInfo } from "./types";
+import { FormValues } from "./types";
 import {
   HomeIcon,
   CalendarIcon,
   CogIcon,
   CameraIcon,
   CheckCircleIcon,
-  UserIcon,
   MapPinIcon,
   ClipboardDocumentCheckIcon,
 } from "@heroicons/react/24/solid";
@@ -24,19 +23,19 @@ import { env } from "~/env.mjs";
 import { NextRouter } from "next/router";
 import { Experience } from "@prisma/client";
 import { Pin } from "./LocationPicker/LocationPicker";
-import { format } from "date-fns";
 import { ExperienceInfo } from "../types";
 
-export const validationSchema = Yup.object({
-  // firstName: Yup.string().required('First name is required'),
-  // lastName: Yup.string().required('Last name is required'),
-  // email: Yup.string().email('Invalid email address').required('Email is required'),
-  // password: Yup.string().min(8, 'Password must be at least 8 characters').required('Password is required'),
-  // confirmPassword: Yup.string().oneOf([Yup.ref('password')], 'Passwords must match').required('Confirm password is required'),
-  // address: Yup.string().required('Address is required'),
-  // city: Yup.string().required('City is required'),
-  // state: Yup.string().required('State is required'),
-  // zip: Yup.string().required('Zip code is required'),
+export const validationSchema = Yup.object().shape({
+  title: Yup.string().required("Title is required"),
+  availability: Yup.array()
+    .of(
+      Yup.object().shape({
+        date: Yup.date().required("Date is required"),
+        startTime: Yup.string().required("required"),
+        endTime: Yup.string().nullable().required("required2"),
+      })
+    )
+    .required("Availability is required"),
   price: Yup.number().min(0).required("Price is required"),
 });
 

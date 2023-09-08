@@ -1,4 +1,4 @@
-import { Field, useFormikContext } from "formik";
+import { ErrorMessage, Field, useFormikContext } from "formik";
 import React, { useEffect } from "react";
 import { FormLabel } from "../Form/FormLabel";
 import { InputField } from "../Form/InputField";
@@ -36,7 +36,7 @@ const DescriptionPage = () => {
             placeholder="Experience title"
             className="w-full"
           />
-
+          <ErrorMessage name="title" component="div" />
           <FormLabel text="Select a theme" className="mt-4" />
           <Field
             name="categoryId"
