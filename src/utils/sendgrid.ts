@@ -2,7 +2,7 @@ import { Experience, Profile, Registration } from "@prisma/client";
 import sgMail from "@sendgrid/mail";
 import { Pin } from "~/components/CreateExperience/LocationPicker/LocationPicker";
 import { env } from "~/env.mjs";
-import { format } from "date-fns";
+import { format, startOfToday } from "date-fns";
 import type { AvailabilityInfo, ExperienceInfo } from "~/components/types";
 
 type Props = {
@@ -18,6 +18,10 @@ type CancellationProps = {
   hostProfile?: Profile;
   registration?: Registration;
 };
+
+type NewExperienceNotificationProps = {
+  experience: ExperienceInfo;
+}
 
 sgMail.setApiKey(env.SENDGRID_API_KEY);
 
@@ -39,7 +43,7 @@ const sendConfirmationEmail = async ({
 
   if (!experienceDate) return;
 
-  const experienceDateTime = format(experienceDate, "EEEE, MMM Lo 'at' h:mm a");
+  const experienceDateTime = format(experienceDate, "EEEE, MMM do 'at' h:mm a");
 
   const msg = {
     to: recipientEmail,
@@ -122,8 +126,45 @@ const sendSignupNotificationEmail = async ({
   }
 };
 
+const sendExperienceCreationEmail = async (props: NewExperienceNotificationProps) => {
+  try {
+    if (!props.experience) throw "No experience passed to sendExperienceCreationEmail";
+    if (props.experience.availability.length <= 0) throw "No availabilities with this experience in sendExperienceCreationEmail";
+
+    const experienceDate = props.experience.availability.at(0)?.date;
+    if (experienceDate === undefined || experienceDate === null) throw "No time associated with availibility from sendExperienceCreationEmail";
+
+    const millisUntilExperience = experienceDate.getTime() - startOfToday().getTime();
+    const daysUntilExperience = Math.ceil(millisUntilExperience / ( 1000 * 60 * 60 * 24 ));
+
+    const experienceDateTimeString = format(experienceDate, "EEEE, MMM do");
+
+    const msg = {
+      to: "learnedlocal.app@gmail.com",
+      from: "learnedlocal.app@gmail.com",
+      templateId: "d-eb7a4533678c4ffa81f9aab80bafaa7b",
+      dynamicTemplateData: {
+        firstname: props.experience.profile?.firstName,
+        lastname: props.experience.profile?.lastName,
+        title: props.experience.title,
+        date: `${experienceDateTimeString} (in ${daysUntilExperience} days)`
+      },
+    };
+
+    try {
+      await sgMail.send(msg);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  catch (error) {
+    console.error(error);
+  }
+};
+
 export {
   sendConfirmationEmail,
   sendCancelationEmail,
   sendSignupNotificationEmail,
+  sendExperienceCreationEmail
 };
