@@ -45,7 +45,10 @@ const sendConfirmationEmail = async ({
   if (!experienceDate || !experienceStartTime) return;
 
   const combinedDate = combineDates(experienceDate, experienceStartTime);
-  const experienceDateTime = format(combinedDate, "EEEE, MMM do 'at' h:mm a");
+
+  const experienceDateTime = combinedDate.toLocaleString();
+
+  // format(combinedDate, "EEEE, MMM do 'at' h:mm a");
 
   const msg = {
     to: recipientEmail,
@@ -151,7 +154,8 @@ const sendExperienceCreationEmail = async (
       millisUntilExperience / (1000 * 60 * 60 * 24)
     );
 
-    const experienceDateTimeString = format(combinedDate, "EEEE, MMM do");
+    const experienceDateTimeString = combinedDate.toLocaleString();
+    // const experienceDateTimeString = format(combinedDate, "EEEE, MMM do");
 
     const msg = {
       to: "learnedlocal.app@gmail.com",
