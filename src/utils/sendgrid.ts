@@ -4,6 +4,7 @@ import { Pin } from "~/components/CreateExperience/LocationPicker/LocationPicker
 import { env } from "~/env.mjs";
 import { format, startOfToday } from "date-fns";
 import type { AvailabilityInfo, ExperienceInfo } from "~/components/types";
+import { registerLocale } from "react-datepicker";
 
 type Props = {
   recipientEmail: string;
@@ -46,9 +47,13 @@ const sendConfirmationEmail = async ({
 
   const combinedDate = combineDates(experienceDate, experienceStartTime);
 
-  const experienceDateTime = combinedDate.toLocaleString();
-
-  // format(combinedDate, "EEEE, MMM do 'at' h:mm a");
+  const experienceDateTime = combinedDate.toLocaleString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  });
 
   const msg = {
     to: recipientEmail,
@@ -154,8 +159,13 @@ const sendExperienceCreationEmail = async (
       millisUntilExperience / (1000 * 60 * 60 * 24)
     );
 
-    const experienceDateTimeString = combinedDate.toLocaleString();
-    // const experienceDateTimeString = format(combinedDate, "EEEE, MMM do");
+    const experienceDateTimeString = combinedDate.toLocaleString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+    });
 
     const msg = {
       to: "learnedlocal.app@gmail.com",
