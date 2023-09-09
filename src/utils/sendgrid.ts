@@ -21,7 +21,7 @@ type CancellationProps = {
 
 type NewExperienceNotificationProps = {
   experience: ExperienceInfo;
-}
+};
 
 sgMail.setApiKey(env.SENDGRID_API_KEY);
 
@@ -40,10 +40,12 @@ const sendConfirmationEmail = async ({
   const lng = location.lng;
 
   const experienceDate = availabilityInfo?.date;
+  const experienceStartTime = availabilityInfo?.startTime;
 
-  if (!experienceDate) return;
+  if (!experienceDate || !experienceStartTime) return;
 
-  const experienceDateTime = format(experienceDate, "EEEE, MMM do 'at' h:mm a");
+  const combinedDate = combineDates(experienceDate, experienceStartTime);
+  const experienceDateTime = format(combinedDate, "EEEE, MMM do 'at' h:mm a");
 
   const msg = {
     to: recipientEmail,
@@ -126,18 +128,30 @@ const sendSignupNotificationEmail = async ({
   }
 };
 
-const sendExperienceCreationEmail = async (props: NewExperienceNotificationProps) => {
+const sendExperienceCreationEmail = async (
+  props: NewExperienceNotificationProps
+) => {
   try {
-    if (!props.experience) throw "No experience passed to sendExperienceCreationEmail";
-    if (props.experience.availability.length <= 0) throw "No availabilities with this experience in sendExperienceCreationEmail";
+    if (!props.experience)
+      throw "No experience passed to sendExperienceCreationEmail";
+    if (props.experience.availability.length <= 0)
+      throw "No availabilities with this experience in sendExperienceCreationEmail";
 
     const experienceDate = props.experience.availability.at(0)?.date;
-    if (experienceDate === undefined || experienceDate === null) throw "No time associated with availibility from sendExperienceCreationEmail";
+    const experienceStartTime = props.experience.availability.at(0)?.startTime;
 
-    const millisUntilExperience = experienceDate.getTime() - startOfToday().getTime();
-    const daysUntilExperience = Math.ceil(millisUntilExperience / ( 1000 * 60 * 60 * 24 ));
+    if (!experienceDate || !experienceStartTime)
+      throw "No time associated with availibility from sendExperienceCreationEmail";
 
-    const experienceDateTimeString = format(experienceDate, "EEEE, MMM do");
+    const combinedDate = combineDates(experienceDate, experienceStartTime);
+
+    const millisUntilExperience =
+      combinedDate.getTime() - startOfToday().getTime();
+    const daysUntilExperience = Math.ceil(
+      millisUntilExperience / (1000 * 60 * 60 * 24)
+    );
+
+    const experienceDateTimeString = format(combinedDate, "EEEE, MMM do");
 
     const msg = {
       to: "learnedlocal.app@gmail.com",
@@ -147,7 +161,7 @@ const sendExperienceCreationEmail = async (props: NewExperienceNotificationProps
         firstname: props.experience.profile?.firstName,
         lastname: props.experience.profile?.lastName,
         title: props.experience.title,
-        date: `${experienceDateTimeString} (in ${daysUntilExperience} days)`
+        date: `${experienceDateTimeString} (in ${daysUntilExperience} days)`,
       },
     };
 
@@ -156,15 +170,27 @@ const sendExperienceCreationEmail = async (props: NewExperienceNotificationProps
     } catch (error) {
       console.error(error);
     }
-  }
-  catch (error) {
+  } catch (error) {
     console.error(error);
   }
+};
+
+const combineDates = (experienceDate: Date, experienceStartTime: Date) => {
+  const year = experienceDate.getFullYear();
+  const month = experienceDate.getMonth();
+  const day = experienceDate.getDate();
+
+  const hours = experienceStartTime.getHours();
+  const minutes = experienceStartTime.getMinutes();
+  const seconds = experienceStartTime.getSeconds();
+  const milliseconds = experienceStartTime.getMilliseconds();
+
+  return new Date(year, month, day, hours, minutes, seconds, milliseconds);
 };
 
 export {
   sendConfirmationEmail,
   sendCancelationEmail,
   sendSignupNotificationEmail,
-  sendExperienceCreationEmail
+  sendExperienceCreationEmail,
 };
