@@ -14,7 +14,7 @@ const Privacy = () => {
             Privacy Policy for Learned Local
           </h1>
           <p>
-            <strong>Last Updated: [Date]</strong>
+            <strong>Last Updated: September 12, 2023</strong>
           </p>
 
           <div className="divider"></div>
@@ -94,7 +94,7 @@ const Privacy = () => {
           <h2 className="text-xl">Contact Us</h2>
           <p>
             If you have any questions about this Privacy Policy, please contact
-            us at [Contact Information].
+            us at 435-730-6750.
           </p>
         </div>
       </div>
