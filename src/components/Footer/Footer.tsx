@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import { Instagram, Facebook, Home, Phone } from "react-feather";
 
@@ -34,6 +35,9 @@ const Footer = ({ className }: Props) => {
         <div className="flex items-center gap-2">
           <Phone />
           <p>(385) 268-0372</p>
+        </div>
+        <div>
+          <Link href="/privacy">Privacy Policy</Link>
         </div>
       </div>
       <div>
