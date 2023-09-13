@@ -40,8 +40,8 @@ const Privacy = () => {
           <h3 className="text-lg">Usage Data</h3>
           <p>
             We collect information on how our website is accessed and used. This
-            may include your computer's Internet Protocol address, browser type,
-            and the pages you visit.
+            may include your computer&rsquo;s Internet Protocol address, browser
+            type, and the pages you visit.
           </p>
 
           <div className="divider"></div>
