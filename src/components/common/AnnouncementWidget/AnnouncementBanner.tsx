@@ -13,7 +13,7 @@ export default function AnnouncementBanner (props: Props) {
     }
 
     return (
-        <div className={`${isVisible ? "flex" : "hidden"} flex-row justify-between items-center bg-gradient-to-br from-amber-300 to-amber-400 gap-3 px-2 py-2 lg:pl-5 font-bold`}>
+        <div className={`${isVisible ? "flex" : "hidden"} flex-row justify-center items-center bg-amber-100 gap-3 px-2 py-2 lg:pl-5 font-semibold`}>
             <div className="flex flex-row justify-start gap-3 items-center">
                 <img
                     src="/logo_white_bg.png"

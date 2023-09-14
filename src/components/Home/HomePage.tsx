@@ -18,9 +18,8 @@ Modal.setAppElement("#__next");
 
 const HomePage = () => {
 
-  const sampleAnnouncements = [
-    'Get 25% off when you use the code FIRST_EXPERIENCE on any experience!',
-    'You have 5 unread messages.'
+  const couponCodeAnnouncement = [
+    'Get 15% off your first experience when you use the code COMMUNITY15'
   ];
 
   const user = useUser();
@@ -52,7 +51,7 @@ const HomePage = () => {
         />
 
         <div className="flex flex-col pt-16 md:pt-0">
-          <AnnouncementWidget announcements={sampleAnnouncements}/>
+          <AnnouncementWidget announcements={couponCodeAnnouncement}/>
           <div className="flex flex-col md:flex-row">
             <SideNav
               experiences={experiences}
