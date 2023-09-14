@@ -1,14 +1,15 @@
 import { ErrorMessage, Field } from "formik";
 import React from "react";
-import { FormLabel } from "./Form/FormLabel";
-import { InputField } from "./Form/InputField";
-import FormPageHeader from "./Typography/Typography";
+import { FormLabel } from "../Form/FormLabel";
+import { InputField } from "../Form/InputField";
+import FormPageHeader from "../Typography/Typography";
+import PriceField from "./PriceField";
 
 const SettingsPage = () => {
   return (
-    <div className="mx-auto max-w-4xl py-10 px-4">
+    <div className="mx-auto flex max-w-3xl flex-1 flex-col px-4">
       <FormPageHeader
-        step={6}
+        step={5}
         title="Let's go through a few more details"
         subtitle="Remember to keep in mind your target audience"
       />
@@ -28,23 +29,7 @@ const SettingsPage = () => {
         />
         <ErrorMessage name="minAge" component="div" className="text-red-500" />
 
-        <FormLabel text="Experience Price" />
-        <label className="input-group">
-          <Field
-            name="price"
-            type="number"
-            placeholder="0"
-            min={0}
-            className="input-bordered input mb-5"
-            validate={(value: number) => {
-              if (value < 0) {
-                return "Price must be 0 or more";
-              }
-            }}
-          />
-          <span className="mb-5">USD</span>
-        </label>
-        <ErrorMessage name="price" component="div" className="text-red-500" />
+        <PriceField />
 
         <FormLabel text="Max Attendees" />
         <InputField

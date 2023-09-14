@@ -35,11 +35,18 @@ const ExperienceDateSelection = ({
                 Sign Up
               </button>
               <div className="prose text-xs uppercase">
-                {
+                { 
+                  registrationsCount?.filter(
+                    (registration) => registration.availabilityId === date.id
+                  ).reduce(
+                    (accumulator, registration) => accumulator + registration.partySize, 0
+                  )
+                }
+                {/* {
                   registrationsCount?.filter(
                     (registration) => registration.availabilityId === date.id
                   ).length
-                }
+                } */}
                 /{availableSpots} Spots Filled
               </div>
             </div>

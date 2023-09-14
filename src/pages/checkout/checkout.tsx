@@ -61,6 +61,8 @@ const Checkout = () => {
             } else {
               console.error("Stripe failed to initialize");
             }
+          } else {
+            await router.push("/");
           }
         },
         onError: (error) => {

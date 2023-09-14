@@ -1,29 +1,39 @@
 import React from "react";
 import { enUS } from "date-fns/locale";
 import DatePicker, { registerLocale } from "react-datepicker";
+import { format } from "date-fns";
 
 registerLocale("enUS", enUS);
 
 type Props = {
   title: string;
   selectedTime: Date | null;
+  error?: boolean;
   onChange: (time: Date | null) => void;
 };
 
-const TimeSelect = ({ title, selectedTime, onChange }: Props) => {
+const TimeSelect = ({
+  title,
+  selectedTime,
+  error = false,
+  onChange,
+}: Props) => {
   return (
     <div>
-      <h4 className="text-sm font-medium">{title}</h4>
       <DatePicker
         selected={selectedTime}
+        value={selectedTime ? format(selectedTime, "h:mm aa") : undefined}
         onChange={onChange}
         showTimeSelect
         showTimeSelectOnly
         timeIntervals={15}
-        timeCaption={title}
+        timeCaption={""}
+        placeholderText={title}
         locale="enUS"
         dateFormat="h:mm aa"
-        className="w-20 rounded-lg border p-2"
+        className={`w-20 rounded-lg border ${
+          error ? "border-red-500" : ""
+        } p-2 text-sm`}
       />
     </div>
   );

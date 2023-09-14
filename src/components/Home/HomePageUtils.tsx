@@ -22,10 +22,13 @@ export const getExperiences = (
 
     case "Past":
       return experiences.filter((experience) =>
-        experience.availability.every((availableDate) => {
+      {
+        if (experience.isFutureExperience) return false;
+        return experience.availability.every((availableDate) => {
           if (!availableDate.date) return false;
           return availableDate.date < today;
         })
+      }
       );
     case "Outdoors":
       return experiences.filter((experience) => experience.categoryId === 3);

@@ -1,10 +1,16 @@
 import { isEqual } from "lodash";
 import { format } from "date-fns";
-import { ExperienceAvailability } from "@prisma/client";
 import { DateInfo } from "../../types";
 
 const getISODateString = (date: Date): string | undefined => {
   return date.toISOString().split("T")[0];
+};
+
+export const sortByDate = (dates: DateInfo[]) => {
+  return [...dates].sort((a, b) => {
+    if (!a.date || !b.date) return 0;
+    return a.date.getTime() - b.date.getTime();
+  });
 };
 
 export const getSelectedDateIndex = (

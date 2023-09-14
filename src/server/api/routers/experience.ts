@@ -1,10 +1,10 @@
-import { Registration } from "@prisma/client";
 import { z } from "zod";
 import {
   createTRPCRouter,
   publicProcedure,
   protectedProcedure,
 } from "~/server/api/trpc";
+import { sendExperienceCreationEmail } from "~/utils/sendgrid";
 import { createExperienceAndPrice } from "~/utils/stripe";
 
 export const experienceRouter = createTRPCRouter({
@@ -15,7 +15,11 @@ export const experienceRouter = createTRPCRouter({
       },
       include: {
         profile: true,
-        availability: true,
+        availability: {
+          orderBy: {
+            date: "desc",
+          },
+        },
       },
     });
   }),
@@ -135,6 +139,7 @@ export const experienceRouter = createTRPCRouter({
         title: z.string(),
         description: z.string(),
         price: z.number(),
+        free: z.boolean(),
         timeline: z.string(),
         city: z.string().nullable(),
         location: z.object({ lat: z.number(), lng: z.number() }),
@@ -167,6 +172,7 @@ export const experienceRouter = createTRPCRouter({
           title: input.title,
           description: input.description,
           price: input.price,
+          free: input.free,
           categoryId: input.categoryId,
           timeline: input.timeline,
           city: input.city,
@@ -197,6 +203,7 @@ export const experienceRouter = createTRPCRouter({
         title: z.string(),
         description: z.string(),
         price: z.number(),
+        free: z.boolean(),
         timeline: z.string(),
         city: z.string().nullable(),
         location: z.object({ lat: z.number(), lng: z.number() }),
@@ -230,12 +237,15 @@ export const experienceRouter = createTRPCRouter({
         currency: "usd",
       });
 
-      return ctx.prisma.experience.create({
+
+
+      const newExperience = await ctx.prisma.experience.create({
         data: {
           authorId: ctx.userId,
           title: input.title,
           description: input.description,
           price: input.price,
+          free: input.free,
           categoryId: input.categoryId,
           timeline: input.timeline,
           city: input.city,
@@ -265,5 +275,24 @@ export const experienceRouter = createTRPCRouter({
           availability: true,
         },
       });
+
+      const newExperienceInfo = await ctx.prisma.experience.findFirst({
+        where: { id: newExperience.id },
+        include: {
+          profile: true,
+          availability: {
+            orderBy: {
+              startTime: 'asc'
+            },
+            take: 1,
+          }
+        },
+      });
+
+      if (newExperienceInfo) {
+        await sendExperienceCreationEmail({experience: newExperienceInfo});
+      }
+
+      return newExperience;
     }),
 });

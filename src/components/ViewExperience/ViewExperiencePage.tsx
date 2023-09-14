@@ -6,10 +6,7 @@ import Head from "next/head";
 import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import ExperienceImageDisplay from "../common/ExperienceImageDisplay";
-import {
-  MapPinIcon,
-  UserIcon,
-} from "@heroicons/react/24/solid";
+import { MapPinIcon, UserIcon } from "@heroicons/react/24/solid";
 import { generateGoogleMapsURL } from "./ViewExperienceUtils";
 import { Pin } from "../CreateExperience/LocationPicker/LocationPicker";
 import ShareExperienceComponent from "../common/ShareExperienceComponent";
@@ -116,16 +113,11 @@ export default function ViewExperiencePage() {
 
             <div className="flex h-fit w-full flex-col rounded-xl border bg-white p-5 drop-shadow-lg lg:order-3 lg:basis-1/4">
               <div>
-                <span className="text-3xl font-bold">${experience.price}</span>
+                <span className="text-3xl font-bold">
+                  {experience.free ? "Free" : `$${experience.price}`}
+                </span>
                 <span> / person</span>
               </div>
-              {/* <div className="">
-                <UserIcon className="mr-2 inline w-5 rounded-full border border-black" />
-                <span>
-                  {getRegistrantCount.data}/{experience.maxAttendees} Spots
-                  Filled
-                </span>
-              </div> */}
 
               <ExperienceDateSelection
                 availableDates={experience.availability}
@@ -178,11 +170,6 @@ export default function ViewExperiencePage() {
                 <p>{experience.description}</p>
               </div>
               <div className="my-3 flex flex-col gap-2">
-                <div>
-                  <h3 className="text-xl font-bold">Qualifications</h3>
-                  <hr className="w-64" />
-                  <p>{experience.qualifications}</p>
-                </div>
                 <div>
                   <h3 className="text-xl font-bold">Details</h3>
                   <hr className="w-64" />

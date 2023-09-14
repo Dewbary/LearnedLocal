@@ -1,43 +1,40 @@
 import * as Yup from "yup";
-import { FormValues, TabInfo } from "./types";
+import { FormValues } from "./types";
 import {
   HomeIcon,
   CalendarIcon,
   CogIcon,
   CameraIcon,
   CheckCircleIcon,
-  UserIcon,
   MapPinIcon,
   ClipboardDocumentCheckIcon,
 } from "@heroicons/react/24/solid";
 import DescriptionPage from "./DescriptionPage/DescriptionPage";
-import DatePage from "./DatePage";
-import LocationPage from "./LocationPage";
-import RequirementsPage from "./RequirementsPage";
-import SettingsPage from "./SettingsPage";
-import PhotosPage from "./PhotosPage";
-import FinalStepsPage from "./FinalStepsPage";
+import DatePage from "./DatePage/DatePage";
+import LocationPage from "./LocationPage/LocationPage";
+import RequirementsPage from "./RequirementsPage/RequirementsPage";
+import SettingsPage from "./SettingsPage/SettingsPage";
+import PhotosPage from "./PhotosPage/PhotosPage";
+import FinalStepsPage from "./FinalStepsPage/FinalStepsPage";
 import StartPage from "./StartPage";
 import { ImageListType } from "react-images-uploading";
 import { uploadImageToBucket } from "~/utils/images";
 import { env } from "~/env.mjs";
-import { NextRouter } from "next/router";
-import { Experience } from "@prisma/client";
 import { Pin } from "./LocationPicker/LocationPicker";
-import { format } from "date-fns";
 import { ExperienceInfo } from "../types";
 
-export const validationSchema = Yup.object({
-  // firstName: Yup.string().required('First name is required'),
-  // lastName: Yup.string().required('Last name is required'),
-  // email: Yup.string().email('Invalid email address').required('Email is required'),
-  // password: Yup.string().min(8, 'Password must be at least 8 characters').required('Password is required'),
-  // confirmPassword: Yup.string().oneOf([Yup.ref('password')], 'Passwords must match').required('Confirm password is required'),
-  // address: Yup.string().required('Address is required'),
-  // city: Yup.string().required('City is required'),
-  // state: Yup.string().required('State is required'),
-  // zip: Yup.string().required('Zip code is required'),
-  price: Yup.number().min(0).required("Price is required"),
+export const validationSchema = Yup.object().shape({
+  title: Yup.string().required("Title is required"),
+  availability: Yup.array()
+    .of(
+      Yup.object().shape({
+        date: Yup.date().required("Date is required"),
+        startTime: Yup.string().required("required"),
+        endTime: Yup.string().nullable().required("required2"),
+      })
+    )
+    .required("Availability is required"),
+  price: Yup.number().min(1).required("Price is required"),
 });
 
 export const initialValues: FormValues = {
@@ -54,7 +51,8 @@ export const initialValues: FormValues = {
   activityLevel: "",
   skillLevel: "",
   minAge: 0,
-  price: 0,
+  price: 1,
+  free: false,
   maxAttendees: 1,
   photos: [],
   categoryId: 0,
@@ -166,7 +164,8 @@ export const getUpdateExperienceObject = (
     id: parseInt(experienceId),
     title: values.title,
     description: values.description,
-    price: values.price,
+    price: values.free ? 0.0 : values.price,
+    free: values.free,
     timeline: values.timeline,
     city: values.city,
     location: values.location,
@@ -195,7 +194,8 @@ export const getCreateExperienceObject = (
   return {
     title: values.title,
     description: values.description,
-    price: values.price,
+    price: values.free ? 0.0 : values.price,
+    free: values.free,
     timeline: values.timeline,
     city: values.city,
     location: values.location,
