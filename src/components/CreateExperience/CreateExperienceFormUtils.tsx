@@ -194,7 +194,7 @@ export const getCreateExperienceObject = (
   return {
     title: values.title,
     description: values.description,
-    price: values.free ? 0.0 : values.price,
+    price: values.free ? 1.0 : values.price,
     free: values.free,
     timeline: values.timeline,
     city: values.city,
