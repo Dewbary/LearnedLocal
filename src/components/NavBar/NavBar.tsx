@@ -71,7 +71,7 @@ const NavBar = ({
             <li>
               {isSignedIn ? (
                 <Link
-                  className="btn-primary btn mb-2 hidden lg:flex"
+                  className="btn-primary btn mb-2 lg:flex"
                   href={`/myexperiences`}
                 >
                   My Experiences
