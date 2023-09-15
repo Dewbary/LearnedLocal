@@ -12,6 +12,8 @@ import ExperienceCard from "~/components/common/ExperienceCard";
 import CustomModal from "~/components/common/CustomModal";
 import ExperienceDetailModalContents from "~/components/common/ExperienceDetailModalContents";
 import GuestListModalContents from "~/components/common/GuestListModalContents";
+import Image from "next/image";
+import sapiens from "../../public/sapiens.png";
 
 export default function MyExperiences() {
   const [showErrorModal, setShowErrorModal] = useState(false);
@@ -76,9 +78,9 @@ export default function MyExperiences() {
       <div className="grid place-items-center items-end bg-gradient-to-br from-primary to-secondary pt-10 text-primary-content lg:pt-0">
         <div className="hero-content col-start-1 row-start-1 w-full max-w-7xl flex-col justify-between lg:flex-row lg:gap-0 xl:gap-20">
           <div className="flex-1">
-            <img
+            <Image
               className="w-full object-cover"
-              src="sapiens.png"
+              src={sapiens}
               alt="experience"
             />
           </div>
@@ -120,16 +122,23 @@ export default function MyExperiences() {
               showDateAndLocation={true}
               onClickModal={
                 <CustomModal
-                  button={<button className="absolute w-full h-full z-10 hover:bg-black hover:bg-opacity-25"></button>}
+                  button={
+                    <button className="absolute z-10 h-full w-full hover:bg-black hover:bg-opacity-25"></button>
+                  }
                 >
-                  <ExperienceDetailModalContents 
-                    experienceInfo={registration.experience} 
-                    showRegisteredDetails={true} 
+                  <ExperienceDetailModalContents
+                    experienceInfo={registration.experience}
+                    showRegisteredDetails={true}
                   />
                 </CustomModal>
               }
             >
-              <button onClick={() => deleteRegistration(registration)} className="p-2 text-white drop-shadow-md bg-red-400 z-20 rounded-lg hover:bg-red-500">Cancel Reservation</button>
+              <button
+                onClick={() => deleteRegistration(registration)}
+                className="z-20 rounded-lg bg-red-400 p-2 text-white drop-shadow-md hover:bg-red-500"
+              >
+                Cancel Reservation
+              </button>
             </ExperienceCard>
           ))}
         </div>
@@ -153,26 +162,45 @@ export default function MyExperiences() {
                 showDateAndLocation={true}
                 onClickModal={
                   <CustomModal
-                    button={<button className="absolute w-full h-full z-10 hover:bg-black hover:bg-opacity-25"></button>}
+                    button={
+                      <button className="absolute z-10 h-full w-full hover:bg-black hover:bg-opacity-25"></button>
+                    }
                   >
-                    <ExperienceDetailModalContents 
-                      experienceInfo={experience} 
-                      showRegisteredDetails={true} 
+                    <ExperienceDetailModalContents
+                      experienceInfo={experience}
+                      showRegisteredDetails={true}
                     />
                   </CustomModal>
                 }
               >
                 <CustomModal
-                  button={<button className="p-2 text-white drop-shadow-md bg-green-400 z-20 rounded-lg hover:bg-green-500 relative">Guests</button>}
+                  button={
+                    <button className="relative z-20 rounded-lg bg-green-400 p-2 text-white drop-shadow-md hover:bg-green-500">
+                      Guests
+                    </button>
+                  }
                 >
-                  <GuestListModalContents
-                    experienceInfo={experience}
-                  />
+                  <GuestListModalContents experienceInfo={experience} />
                 </CustomModal>
 
-                <button onClick={() => goToExperienceView(experience.id)} className="p-2 text-white drop-shadow-md bg-amber-400 z-20 rounded-lg hover:bg-amber-500">View</button>
-                <button onClick={() => goToEditPage(experience.slugId, experience.id)} className="p-2 text-white drop-shadow-md bg-blue-400 z-20 rounded-lg hover:bg-blue-500">Edit</button>
-                <button onClick={() => deleteExperience(experience)} className="p-2 text-white drop-shadow-md bg-red-400 z-20 rounded-lg hover:bg-red-500">Delete</button>
+                <button
+                  onClick={() => goToExperienceView(experience.id)}
+                  className="z-20 rounded-lg bg-amber-400 p-2 text-white drop-shadow-md hover:bg-amber-500"
+                >
+                  View
+                </button>
+                <button
+                  onClick={() => goToEditPage(experience.slugId, experience.id)}
+                  className="z-20 rounded-lg bg-blue-400 p-2 text-white drop-shadow-md hover:bg-blue-500"
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => deleteExperience(experience)}
+                  className="z-20 rounded-lg bg-red-400 p-2 text-white drop-shadow-md hover:bg-red-500"
+                >
+                  Delete
+                </button>
               </ExperienceCard>
             </>
           ))}

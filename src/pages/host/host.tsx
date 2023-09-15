@@ -4,6 +4,10 @@ import NavBar from "~/components/NavBar/NavBar";
 import Image from "next/image";
 import Footer from "~/components/Footer/Footer";
 import CreateExperienceButton from "~/components/common/CreateExperienceButton/CreateExperienceButton";
+import sapiens_2 from "../../public/sapiens_2.png";
+import rock_climbing from "../../public/rock_climbing.png";
+import pottery from "../../public/pottery.png";
+import art_class from "../../public/art_class.png";
 
 export default function Host() {
   const user = useUser();
@@ -40,7 +44,7 @@ export default function Host() {
               Help build your community while getting paid to do what you love
             </p>
           </div>
-          <img src="/sapiens_2.png" className="w-96" />
+          <Image src={sapiens_2} alt="sapiens" className="w-96" />
         </div>
       </div>
 
@@ -61,8 +65,8 @@ export default function Host() {
           </p>
         </div>
         <div className="relative lg:basis-1/2 lg:p-16">
-          <img
-            src="/art_class.png"
+          <Image
+            src={art_class}
             alt="art class at Learned Local"
             className="rounded-3xl drop-shadow-lg"
           />
@@ -87,8 +91,8 @@ export default function Host() {
           </ul>
         </div>
         <div className="relative lg:basis-1/2 lg:p-16">
-          <img
-            src="/rock_climbing.png"
+          <Image
+            src={rock_climbing}
             alt="rock climbing class at Learned Local"
             className="rounded-3xl drop-shadow-lg"
           />
@@ -118,8 +122,8 @@ export default function Host() {
           </ol>
         </div>
         <div className="relative lg:basis-1/2 lg:p-16">
-          <img
-            src="/pottery.png"
+          <Image
+            src={pottery}
             alt="pottery class at Learned Local"
             className="rounded-3xl drop-shadow-lg"
           />
