@@ -3,6 +3,7 @@ import Link from "next/link";
 import SignInArea from "../common/SignInArea";
 import CreateExperienceButton from "../common/CreateExperienceButton";
 import Image from "next/image";
+import white_logo from "../../public/logo_white_bg.png";
 
 type Props = {
   isSignedIn: boolean;
@@ -23,13 +24,7 @@ const NavBar = ({
     >
       <div className="navbar-start">
         <Link href="/" className="btn-ghost btn text-xl normal-case">
-          <Image
-            src="/logo_white_bg.png"
-            alt="company logo"
-            width={200}
-            height={200}
-            className="mr-3 w-10"
-          />
+          <Image src={white_logo} alt="company logo" className="mr-3 w-10" />
           <div className="font-poppins font-black text-gray-800">
             Learned Local
           </div>

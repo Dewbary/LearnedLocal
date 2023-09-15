@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Image from "next/image";
+import white_logo from "../../../public/logo_white_bg.png";
 
 type Props = {
   text: string;
@@ -19,13 +20,7 @@ export default function AnnouncementBanner(props: Props) {
       } flex-row items-center justify-center gap-3 bg-amber-100 px-2 py-2 font-semibold lg:pl-5`}
     >
       <div className="flex flex-row items-center justify-start gap-3">
-        <Image
-          src="/logo_white_bg.png"
-          alt="company logo"
-          width={200}
-          height={200}
-          className="w-9"
-        />
+        <Image src={white_logo} alt="company logo" className="w-9" />
         {props.text}
       </div>
       <div>
