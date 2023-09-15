@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import { Instagram, Facebook, Home, Phone } from "react-feather";
+import Image from "next/image";
 
 type Props = {
   className?: string;
@@ -14,7 +15,13 @@ const Footer = ({ className }: Props) => {
       <div className="">
         <span className="footer-title">About us</span>
         <div className="flex gap-3">
-          <img src="logo_color.png" alt="website logo" className="w-10" />
+          <Image
+            src="/logo_color.png"
+            alt="website logo"
+            width={200}
+            height={200}
+            className="w-10"
+          />
           <p>
             Learned Local
             <br />
