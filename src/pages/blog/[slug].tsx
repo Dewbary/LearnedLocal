@@ -48,6 +48,7 @@ export const getStaticProps = async ({
     props: {
       blogPost: { ...blogPost, body: blogPost?.body[0]?.children[0]?.text },
     },
+    revalidate: 10,
   };
 };
 
