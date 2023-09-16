@@ -1,4 +1,5 @@
 import * as React from "react";
+import BlogPage from "~/components/BlogPage";
 
 type Props = {
   posts: Post[];
@@ -10,20 +11,14 @@ export type Post = {
   slug?: {
     current: string;
   };
+  body: any;
 };
 
 const Blog = ({ posts }: Props) => {
+  console.log(posts);
   if (!posts) return <div>Loading...</div>;
 
-  return (
-    <ul>
-      {posts.map((post) => (
-        <li key={post._id}>
-          <a href={`blog/${post?.slug?.current ?? ""}`}>{post?.title}</a>
-        </li>
-      ))}
-    </ul>
-  );
+  return <BlogPage posts={posts} />;
 };
 
 export default Blog;
