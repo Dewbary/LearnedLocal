@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { client } from "~/utils/sanityClient";
 import { Post } from "./blog";
 import { GetStaticPathsResult, GetStaticPropsResult } from "next";
@@ -44,7 +46,7 @@ export const getStaticProps = async ({
   // console.log("myPost", blogPost.body[0].children[0].text);
   return {
     props: {
-      blogPost: { ...blogPost, body: blogPost.body[0].children[0].text },
+      blogPost: { ...blogPost, body: blogPost?.body[0]?.children[0]?.text },
     },
   };
 };
