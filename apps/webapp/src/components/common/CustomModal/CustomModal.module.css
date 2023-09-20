@@ -1,0 +1,7 @@
+.modal-visible {
+    display: block;
+  }
+  
+  .modal-hidden {
+    display: none;
+  }
