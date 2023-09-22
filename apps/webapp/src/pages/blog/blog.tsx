@@ -15,7 +15,6 @@ export type Post = {
 };
 
 const Blog = ({ posts }: Props) => {
-  console.log(posts);
   if (!posts) return <div>Loading...</div>;
 
   return <BlogPage posts={posts} />;

@@ -1,9 +1,8 @@
 {
-  "name": "learnedlocal",
-  "private": true,
+  "name": "@learnedlocal/studio",
   "version": "1.0.0",
-  "main": "package.json",
-  "license": "UNLICENSED",
+  "private": true,
+  "type": "module",
   "scripts": {
     "dev": "sanity dev",
     "start": "sanity start",

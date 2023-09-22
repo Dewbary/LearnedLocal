@@ -19,7 +19,7 @@
     "typeRoots": ["./types", "./node_modules/@types"],
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./apps/webapp/src/*"]
+      "~/*": ["./apps/webapp/src/*", "./apps/studio/*"]
     }
   },
   "include": [
