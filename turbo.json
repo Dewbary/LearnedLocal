@@ -9,6 +9,42 @@
         "dev": {
             "cache": false,
             "persistent": true
+        },
+        "webapp#build": {
+            "dependsOn": [
+              "^build"
+            ],
+            "env": [
+              "DATABASE_URL",
+              "NEXT_PUBLIC_BASE_URL",
+              "NEXT_PUBLIC_SUPABASE_URL",
+              "NEXT_PUBLIC_SUPABASE_KEY",
+              "NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_URL",
+              "NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_NAME",
+              "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
+              "CLERK_SECRET_KEY",
+              "NEXT_PUBLIC_STRIPE_PUBLIC_KEY",
+              "STRIPE_SECRET_KEY",
+              "STRIPE_WEBHOOK_SECRET",
+              "SENDGRID_API_KEY",
+              "TWILIO_AUTH_TOKEN",
+              "TWILIO_ACCOUNT_SID",
+              "TWILIO_ACCOUNT_PHONE",
+              "EDGE_FUNCTION_VERIFICATION_TOKEN",
+              "NEXT_PUBLIC_SANITY_PROJECT_ID",
+              "NEXT_PUBLIC_SANITY_DATASET",
+              "NEXT_PUBLIC_SANITY_API_VERSION"
+            ],
+            "outputs": [".next/**", "!.next/cache/**"]
+        },
+        "studio#build": {
+            "dependsOn": [
+              "^build"
+            ],
+            "env": [
+              "SOME_OTHER_ENV_VAR"
+            ],
+            "outputs": [".next/**", "!.next/cache/**"]
         }
       }
   }
