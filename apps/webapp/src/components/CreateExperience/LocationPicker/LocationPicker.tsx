@@ -49,11 +49,9 @@ const LocationPicker = ({ value, onLocationChange }: LocationPickerProps) => {
     setPinData([]);
   }, []);
 
-  // @ts-ignore
   const handlePlaceSelected = (place: google.maps.places.PlaceResult) => {
     if (!place.geometry || !place.geometry.location) return;
 
-    // @ts-ignore
     const cityComponent = place.address_components?.find((component) =>
       component.types.includes("locality")
     );
