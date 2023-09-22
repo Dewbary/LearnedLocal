@@ -22,9 +22,7 @@ const Map = ({
 }: GoogleMapProps) => {
   const { pinMode } = usePinContext(); // Use the context
   const mapRef = useRef<HTMLDivElement>(null);
-  // @ts-ignore
   const googleMapRef = useRef<google.maps.Map | null>(null);
-  // @ts-ignore
   const markersRef = useRef<google.maps.Marker[]>([]);
 
   useEffect(() => {
@@ -33,7 +31,6 @@ const Map = ({
     }
 
     if (!googleMapRef.current) {
-      // @ts-ignore
       const map = new google.maps.Map(mapRef.current, {
         center,
         zoom,
@@ -67,7 +64,6 @@ const Map = ({
       );
 
       return () => {
-        // @ts-ignore
         google.maps.event.removeListener(clickListener);
       };
     }
@@ -90,7 +86,6 @@ const Map = ({
 
     // Add new markers to the map and to the markersRef array
     markers.forEach((marker) => {
-      // @ts-ignore
       const markerInstance = new google.maps.Marker({
         position: marker,
         map,
