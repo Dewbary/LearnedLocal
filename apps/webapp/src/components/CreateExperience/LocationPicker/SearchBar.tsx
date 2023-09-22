@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
-import "google.maps";
 
 type SearchBarProps = {
+  // @ts-ignore
   onPlaceSelected: (place: google.maps.places.PlaceResult) => void;
   onApiReady: () => void;
 };
@@ -14,6 +14,7 @@ const SearchBar = ({ onPlaceSelected, onApiReady }: SearchBarProps) => {
       return;
     }
 
+    // @ts-ignore
     const searchBox = new google.maps.places.SearchBox(searchBoxRef.current);
     searchBox.addListener("places_changed", () => {
       const places = searchBox.getPlaces();
