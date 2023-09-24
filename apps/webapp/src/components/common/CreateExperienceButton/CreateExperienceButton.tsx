@@ -1,17 +1,22 @@
+import * as React from "react";
 import Link from "next/link";
-import { v4 as uuidv4 } from "uuid";
+import { getUniqueSlug } from "./CreateExperienceUtils";
 
 type Props = {
   className?: string;
 };
 
 const CreateExperienceButton = ({ className }: Props) => {
-  const uniqueSlug = uuidv4();
+  const [slug, setSlug] = React.useState("");
+
+  React.useEffect(() => {
+    setSlug(getUniqueSlug());
+  }, []);
 
   return (
     <Link
       className={`${className ?? ""} btn-primary btn`}
-      href={`experience/create/${uniqueSlug}`}
+      href={`experience/create/${slug}`}
     >
       Create an Experience
     </Link>

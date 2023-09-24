@@ -1,8 +1,52 @@
-import { type NextPage } from "next";
+import { GetStaticProps } from "next";
 import Head from "next/head";
+import { createServerSideHelpers } from "@trpc/react-query/server";
 import HomePage from "../components/Home/HomePage";
+import { appRouter } from "packages/api";
+import superjson from "superjson";
+import prisma from "packages/api/db";
+import type {
+  ExperienceInfo,
+  SerializedExperienceInfo,
+} from "~/components/types";
+import { deserialize } from "~/utils/experience";
 
-const Home: NextPage = () => {
+export const getStaticProps: GetStaticProps = async () => {
+  const helpers = createServerSideHelpers({
+    router: appRouter,
+    ctx: {
+      prisma: prisma,
+      userId: null,
+    },
+    transformer: superjson,
+  });
+
+  const experiences: ExperienceInfo[] = await helpers.experience.getAll.fetch();
+
+  const serializedExperiences = experiences.map((experience) => {
+    return {
+      ...experience,
+      createdAt: experience.createdAt.toISOString(),
+      updatedAt: experience.updatedAt.toISOString(),
+      availability: experience.availability.map((availability) => {
+        return {
+          ...availability,
+          date: availability.date?.toISOString() ?? null,
+          startTime: availability.startTime?.toISOString() ?? null,
+          endTime: availability.endTime?.toISOString() ?? null,
+        };
+      }),
+    };
+  });
+
+  return {
+    props: {
+      experiences: serializedExperiences,
+    },
+  };
+};
+
+const Home = ({ experiences }: { experiences: SerializedExperienceInfo[] }) => {
   return (
     <>
       <Head>
@@ -21,7 +65,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main>
-        <HomePage />
+        <HomePage experiences={deserialize(experiences)} />
       </main>
     </>
   );

@@ -12,15 +12,14 @@ const config = {
 
   images: {
     domains: [
+      "bit.ly",
       "tvectiqcwbgbhhgsavuc.supabase.co",
       "ovrsneiokoigxbnvzugb.supabase.co",
       "cmthzvcffgzfgmggemfb.supabase.co",
     ],
   },
 
-  transpilePackages: [
-    "@learnedlocal/api",
-  ],
+  transpilePackages: ["@learnedlocal/api"],
 
   /**
    * If you have the "experimental: { appDir: true }" setting enabled, then you

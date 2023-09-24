@@ -1,6 +1,11 @@
 import { isEqual } from "lodash";
 import { format } from "date-fns";
-import { DateInfo } from "../../types";
+import { DateInfo, ExperienceInfo } from "../../types";
+
+const dateDisplayOptions = {
+  month: "short",
+  day: "2-digit",
+} as const;
 
 const getISODateString = (date: Date): string | undefined => {
   return date.toISOString().split("T")[0];
@@ -77,4 +82,39 @@ export const getUpdatedDatesList = (
 export const getTime = (date: Date | null): string => {
   if (!date) return "";
   return format(date, "hh:mm a");
+};
+
+export const getDateToDisplay = (experience: ExperienceInfo): string => {
+  if (experience.isFutureExperience) {
+    return "Coming Soon";
+  }
+
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  yesterday.setHours(0, 0, 0, 0);
+
+  const availableDates = experience.availability
+    ?.map((a) => {
+      return a.date;
+    })
+    .filter((a) => {
+      return a && a.getTime() > yesterday.getTime();
+    });
+
+  if (availableDates) {
+    if (availableDates.length > 1) {
+      return (
+        `${
+          availableDates
+            .at(0)
+            ?.toLocaleDateString("en-US", dateDisplayOptions) ?? ""
+        } + more` ?? ""
+      );
+    }
+    return (
+      availableDates.at(0)?.toLocaleDateString("en-US", dateDisplayOptions) ??
+      ""
+    );
+  }
+  return "";
 };

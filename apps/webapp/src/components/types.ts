@@ -19,3 +19,16 @@ export type DateInfo = {
   startTime: Date | null;
   endTime: Date | null;
 };
+
+type ReplaceDateWithString<T> = {
+  [K in keyof T]: T[K] extends Date ? string : T[K];
+};
+
+export type SerializedExperienceInfo = SerializedExperience & {
+  profile: Profile | null;
+  availability: SerializedExperienceAvailability[];
+};
+
+type SerializedExperience = ReplaceDateWithString<Experience>;
+type SerializedExperienceAvailability =
+  ReplaceDateWithString<ExperienceAvailability>;

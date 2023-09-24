@@ -10,34 +10,20 @@ import Register from "~/components/Home/Register";
 import SideNav from "~/components/Home/SideNav";
 import * as React from "react";
 import FilteredExperiencesContext from "~/components/Home/FilteredExperiencesContext";
-import { getExperiences } from "~/components/Home/HomePageUtils";
 import { ExperienceInfo } from "~/components/types";
 import AnnouncementWidget from "../common/AnnouncementWidget/AnnouncementWidget";
 
 Modal.setAppElement("#__next");
 
-const HomePage = () => {
+const couponCodeAnnouncement = [
+  "Get 15% off your first experience when you use the code COMMUNITY15",
+];
 
-  const couponCodeAnnouncement = [
-    'Get 15% off your first experience when you use the code COMMUNITY15'
-  ];
-
+const HomePage = ({ experiences }: { experiences: ExperienceInfo[] }) => {
   const user = useUser();
-  const experiencesQuery = api.experience.getAll.useQuery();
 
-  const [experiences, setExperiences] = useState<ExperienceInfo[]>(
-    experiencesQuery.data ?? []
-  );
-  const [filteredExperiences, setFilteredExperiences] = useState<
-    ExperienceInfo[]
-  >(experiencesQuery.data ?? []);
-
-  React.useEffect(() => {
-    setExperiences(experiencesQuery.data ?? []);
-    setFilteredExperiences(
-      getExperiences("All", experiencesQuery.data ?? [])
-    );
-  }, [experiencesQuery.isLoading]);
+  const [filteredExperiences, setFilteredExperiences] =
+    useState<ExperienceInfo[]>(experiences);
 
   return (
     <FilteredExperiencesContext.Provider
@@ -51,14 +37,14 @@ const HomePage = () => {
         />
 
         <div className="flex flex-col pt-16 md:pt-0">
-          <AnnouncementWidget announcements={couponCodeAnnouncement}/>
+          <AnnouncementWidget announcements={couponCodeAnnouncement} />
           <div className="flex flex-col md:flex-row">
             <SideNav
               experiences={experiences}
               onSetExperiences={setFilteredExperiences}
             />
             <div className="flex-1">
-              <ExperiencesDisplay isLoading={experiencesQuery.isLoading} />
+              <ExperiencesDisplay />
               <EmailSignup />
             </div>
           </div>

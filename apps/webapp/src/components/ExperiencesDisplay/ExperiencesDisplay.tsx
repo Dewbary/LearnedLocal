@@ -1,24 +1,17 @@
 import * as React from "react";
 import ExperienceCardPlaceholder from "~/components/ExperiencesDisplay/ExperienceCardPlaceholder";
-import { ExperienceInfo } from "~/components/types";
 import FilteredExperiencesContext from "../Home/FilteredExperiencesContext";
 import ExperienceCard from "../common/ExperienceCard/ExperienceCard";
-import CustomModal from "../common/CustomModal/CustomModal";
-import ExperienceDetailModalContents from "../common/ExperienceDetailModalContents";
-import ExperienceSubscribeModalContents from "../common/ExperienceSubscribeModalContents";
+import styles from "./ExperiencesDisplay.module.css";
 
-type Props = {
-  isLoading: boolean;
-};
-
-const ExperiencesDisplay = ({ isLoading }: Props) => {
+const ExperiencesDisplay = () => {
   const { filteredExperiences } = React.useContext(FilteredExperiencesContext);
 
   return (
-    <div className="">
+    <div>
       <span id="viewexperiences" />
 
-      {isLoading && (
+      {/* {isLoading && (
         <div className="mb-10 grid grid-cols-1 justify-items-stretch gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           <ExperienceCardPlaceholder />
           <ExperienceCardPlaceholder />
@@ -29,55 +22,21 @@ const ExperiencesDisplay = ({ isLoading }: Props) => {
           <ExperienceCardPlaceholder />
           <ExperienceCardPlaceholder />
         </div>
-      )}
-      <div className="mb-10 grid grid-cols-1 justify-items-stretch sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {filteredExperiences.map((experience) =>
-          renderExperienceCard(experience)
-        )}
+      )} */}
+      <div className="mx-auto mt-4 mb-4 max-w-2xl px-8 sm:px-4 md:mb-8 md:px-0 lg:max-w-full lg:px-8">
+        <div
+          className={`grid grid-cols-1 gap-y-10 gap-x-6 ${
+            styles.autofit ?? ""
+          } xl:gap-x-8`}
+        >
+          {filteredExperiences &&
+            filteredExperiences.map((experience) => (
+              <ExperienceCard key={experience.id} experience={experience} />
+            ))}
+        </div>
       </div>
     </div>
   );
 };
 
 export default ExperiencesDisplay;
-
-const renderExperienceCard = function (experience: ExperienceInfo) {
-
-  const today = new Date();
-  today.setHours(0, 0, 0, 0); // set to the start of the day
-
-  const experienceIsCurrent = !experience.isFutureExperience &&
-    experience.availability.some((date) => {
-      if (!date.date) return false;
-      return date.date >= today;
-    });
-
-  return (
-    <div key={experience.id} className="card-component my-8 mx-2 flex justify-center">
-      <ExperienceCard 
-        experienceInfo={experience} 
-        showDateAndLocation={experienceIsCurrent}
-        onClickModal={
-          <CustomModal
-            button={<button className="absolute w-full h-full z-10 hover:bg-black hover:bg-opacity-25"></button>}
-          >
-            {experienceIsCurrent ? 
-              (
-                <ExperienceDetailModalContents 
-                  experienceInfo={experience} 
-                  showRegisteredDetails={false} 
-                />
-              ) : (
-                <ExperienceSubscribeModalContents
-                  experienceInfo={experience}
-                />
-              )
-            }
-            
-          </CustomModal>
-        }
-      >
-      </ExperienceCard>
-    </div>
-  )
-}

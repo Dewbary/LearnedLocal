@@ -5,6 +5,10 @@ type Props = {
   photos: string[];
 };
 
+function cn(...classes: string[]) {
+  return classes.filter(Boolean).join(" ");
+}
+
 export default function ExperienceImageDisplay({ photos }: Props) {
   const [overlayImageIndex, setOverlayImageIndex] = useState(0);
   const [showOverlay, setShowOverlay] = useState(false);
@@ -41,9 +45,13 @@ export default function ExperienceImageDisplay({ photos }: Props) {
           <Image
             src={photos[0] ?? ""}
             alt="experience photo"
-            className="max-h-96 object-contain"
             onClick={() => handleClickImage(0)}
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className={cn(
+              "max-h-96 object-cover",
+              "duration-700 ease-in-out group-hover:opacity-75"
+            )}
           />
 
           <div
@@ -67,9 +75,13 @@ export default function ExperienceImageDisplay({ photos }: Props) {
                     <Image
                       src={photos[i] ?? ""}
                       alt="experience photo"
-                      className="max-h-48 object-cover"
+                      className={cn(
+                        "max-h-48 object-cover",
+                        "duration-700 ease-in-out group-hover:opacity-75"
+                      )}
                       onClick={() => handleClickImage(i)}
                       fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                     <div
                       className="absolute inset-0 hidden cursor-pointer items-center justify-center bg-black bg-opacity-30 opacity-0 transition-opacity hover:opacity-100 lg:flex"
@@ -81,7 +93,9 @@ export default function ExperienceImageDisplay({ photos }: Props) {
                     </div>
                   </>
                 )}
-                {!photos[i] && <div className="h-full w-full bg-white bg-opacity-0" />}
+                {!photos[i] && (
+                  <div className="h-full w-full bg-white bg-opacity-0" />
+                )}
               </div>
             </>
           );

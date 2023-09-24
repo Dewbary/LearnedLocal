@@ -10,10 +10,10 @@ import Footer from "~/components/Footer/Footer";
 import Head from "next/head";
 import ExperienceCard from "~/components/common/ExperienceCard";
 import CustomModal from "~/components/common/CustomModal";
-import ExperienceDetailModalContents from "~/components/common/ExperienceDetailModalContents";
 import GuestListModalContents from "~/components/common/GuestListModalContents";
 import Image from "next/image";
 import sapiens from "../../public/sapiens.png";
+import styles from "../../components/ExperiencesDisplay/ExperiencesDisplay.module.css";
 
 export default function MyExperiences() {
   const [showErrorModal, setShowErrorModal] = useState(false);
@@ -114,24 +114,16 @@ export default function MyExperiences() {
             </Link>
           </div>
         )}
-        <div className="grid gap-4 p-10 lg:grid-cols-4">
+        <div
+          className={`grid grid-cols-1 gap-y-10 gap-x-6 ${
+            styles.autofit ?? ""
+          } xl:gap-x-8`}
+        >
           {userJoinedExperiences.data?.map((registration) => (
             <ExperienceCard
               key={registration.experience.id}
-              experienceInfo={registration.experience}
-              showDateAndLocation={true}
-              onClickModal={
-                <CustomModal
-                  button={
-                    <button className="absolute z-10 h-full w-full hover:bg-black hover:bg-opacity-25"></button>
-                  }
-                >
-                  <ExperienceDetailModalContents
-                    experienceInfo={registration.experience}
-                    showRegisteredDetails={true}
-                  />
-                </CustomModal>
-              }
+              experience={registration.experience}
+              registered={true}
             >
               <button
                 onClick={() => deleteRegistration(registration)}
@@ -154,25 +146,14 @@ export default function MyExperiences() {
             <h1>You&apos;re not currently hosting any experiences.</h1>
           </div>
         )}
-        <div className="grid p-10 lg:grid-cols-4">
+        <div
+          className={`grid grid-cols-1 gap-y-10 gap-x-6 ${
+            styles.autofit ?? ""
+          } xl:gap-x-8`}
+        >
           {userCreatedExperiences.data?.map((experience) => (
             <>
-              <ExperienceCard
-                experienceInfo={experience}
-                showDateAndLocation={true}
-                onClickModal={
-                  <CustomModal
-                    button={
-                      <button className="absolute z-10 h-full w-full hover:bg-black hover:bg-opacity-25"></button>
-                    }
-                  >
-                    <ExperienceDetailModalContents
-                      experienceInfo={experience}
-                      showRegisteredDetails={true}
-                    />
-                  </CustomModal>
-                }
-              >
+              <ExperienceCard experience={experience} registered={false}>
                 <CustomModal
                   button={
                     <button className="relative z-20 rounded-lg bg-green-400 p-2 text-white drop-shadow-md hover:bg-green-500">

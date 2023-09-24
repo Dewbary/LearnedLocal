@@ -2,6 +2,16 @@ import * as React from "react";
 import ContentLoader from "react-content-loader";
 
 const ExperienceCardPlaceholder = () => {
+  const [isMounted, setIsMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
+
   return (
     <div className="card-component my-8 flex justify-center">
       <ContentLoader
