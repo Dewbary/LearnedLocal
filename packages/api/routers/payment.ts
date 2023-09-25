@@ -20,6 +20,7 @@ export const paymentRouter = createTRPCRouter({
         partySize: z.number(),
         email: z.string(),
         phone: z.string(),
+        textNotifications: z.boolean(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -68,6 +69,7 @@ export const paymentRouter = createTRPCRouter({
           partySize: input.partySize,
           email: input.email,
           phone: input.phone,
+          textNotificationsEnabled: input.textNotifications,
           experienceId: input.experienceId,
           availabilityId: input.availabilityId,
           stripeCheckoutSessionId: "free",

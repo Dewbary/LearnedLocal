@@ -1,6 +1,7 @@
 import prisma from "../db";
 import { sendConfirmationEmail, sendSignupNotificationEmail } from "./sendgrid";
 import Stripe from "stripe";
+import sendTextMessage from "./twilio";
 
 export type RegistrationInfo = {
   userId: string;
@@ -9,6 +10,7 @@ export type RegistrationInfo = {
   partySize: number;
   email: string;
   phone: string;
+  textNotificationsEnabled: boolean;
   experienceId: number;
   availabilityId: number;
   stripeCheckoutSessionId: string;
@@ -53,6 +55,10 @@ export const register = async (
         registration: registrationResult,
       });
     }
+
+    const reminderSignupMessage = `Thanks for signing up for ${hostProfile?.firstName || ""}'s experience, ${availabilityInfo?.experience.title || ""}! You'll receive reminders about this experience from this number.`;
+    await sendTextMessage(registrationResult.phone, reminderSignupMessage);
+
   } catch (error) {
     console.error("Error creating registration:", error);
   }

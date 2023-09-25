@@ -13,6 +13,7 @@ type FormData = {
   partySize: string;
   email: string;
   phone: string;
+  textNotifications: boolean;
 };
 
 const Checkout = () => {
@@ -24,6 +25,7 @@ const Checkout = () => {
     partySize: "1",
     email: "",
     phone: "",
+    textNotifications: true,
   });
 
   const createCheckoutSession = api.payment.createCheckoutSession.useMutation();
@@ -49,6 +51,7 @@ const Checkout = () => {
         partySize: parseInt(formData.partySize),
         email: formData.email,
         phone: formData.phone,
+        textNotifications: formData.textNotifications,
       },
       {
         onSuccess: async (data) => {
@@ -82,6 +85,10 @@ const Checkout = () => {
     const { name, value } = e.currentTarget;
     setFormData({ ...formData, [name]: value });
   };
+
+  const handleTextReminderChange = () => {
+    setFormData({ ...formData, textNotifications: !formData.textNotifications});
+  }
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -179,6 +186,18 @@ const Checkout = () => {
                   onChange={handleChange}
                   required
                   className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
+                />
+              </div>
+              <div className="mb-6 flex flex-row gap-3 items-center">
+                <label className="text-sm font-bold text-gray-700">
+                  Receive text reminders for this experience
+                </label>
+                <input
+                  type="checkbox"
+                  name="textNotifications"
+                  checked={formData.textNotifications}
+                  onChange={handleTextReminderChange}
+                  className="w-4 h-4"
                 />
               </div>
               <button type="submit" className="btn-primary btn">

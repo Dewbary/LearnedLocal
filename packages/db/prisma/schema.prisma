@@ -117,6 +117,7 @@ model ExperienceAvailability {
   startTime   DateTime?
   endTime     DateTime?
   experience  Experience @relation(fields: [experienceId], references: [id])
+  registrations Registration[] // Relation field
 
   @@index([experienceId])
 }
@@ -135,6 +136,7 @@ model Registration {
     partySize    Int
     email        String
     phone        String?
+    textNotificationsEnabled    Boolean @default(false)
     experienceId Int
     availabilityId Int
     stripeCheckoutSessionId String
@@ -143,6 +145,7 @@ model Registration {
     updatedAt    DateTime @updatedAt
 
     experience   Experience @relation(fields: [experienceId], references: [id])
+    availability    ExperienceAvailability @relation(fields: [availabilityId], references: [id])
 
     @@index([userId])
     @@index([experienceId])
