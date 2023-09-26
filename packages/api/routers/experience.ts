@@ -6,6 +6,7 @@ import {
 } from "packages/api/trpc";
 import { sendExperienceCreationEmail } from "packages/api/utils/sendgrid";
 import { createExperienceAndPrice } from "~/utils/stripe";
+import { startOfToday } from "date-fns";
 
 export const experienceRouter = createTRPCRouter({
   getAll: publicProcedure.query(({ ctx }) => {
@@ -114,6 +115,40 @@ export const experienceRouter = createTRPCRouter({
           availability: true,
         },
       });
+    }),
+
+  viewByExperienceId: publicProcedure
+    .input(z.number())
+    .query(async ({ ctx, input }) => {
+      const queryResult = await ctx.prisma.experience.findFirst({
+        where: { id: input },
+        include: {
+          profile: true,
+          availability: true,
+        },
+      });
+
+      if (!queryResult) return null;
+      
+      const lastAvailability = queryResult.availability.reduce((prev, curr) => {
+        if (prev.date && curr.date) {
+          if (prev.date > curr.date) return prev; else return curr;
+        }
+        else {
+          return prev;
+        }
+      });
+
+      const experiencePassed = lastAvailability.date && (lastAvailability.date < startOfToday());
+      const experienceVerified = queryResult.verified;
+      const experienceOwnerLoggedIn = (queryResult.authorId === ctx.userId);
+
+      if (!experienceOwnerLoggedIn && (experiencePassed || !experienceVerified)) {
+        return null;
+      }
+      else {
+        return queryResult;
+      }
     }),
 
   byCategory: publicProcedure

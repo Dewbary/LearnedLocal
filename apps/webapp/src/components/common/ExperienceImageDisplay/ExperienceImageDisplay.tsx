@@ -65,39 +65,37 @@ export default function ExperienceImageDisplay({ photos }: Props) {
         </div>
         {[1, 2, 3, 4].map((i, index) => {
           return (
-            <>
-              <div
-                key={index}
-                className={`relative flex h-24 items-center justify-center overflow-hidden md:h-48`}
-              >
-                {photos[i] && (
-                  <>
-                    <Image
-                      src={photos[i] ?? ""}
-                      alt="experience photo"
-                      className={cn(
-                        "max-h-48 object-cover",
-                        "duration-700 ease-in-out group-hover:opacity-75"
-                      )}
-                      onClick={() => handleClickImage(i)}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    />
-                    <div
-                      className="absolute inset-0 hidden cursor-pointer items-center justify-center bg-black bg-opacity-30 opacity-0 transition-opacity hover:opacity-100 lg:flex"
-                      onClick={() => handleClickImage(i)}
-                    >
-                      <span className="text-center text-lg font-semibold text-white">
-                        View Larger Image
-                      </span>
-                    </div>
-                  </>
-                )}
-                {!photos[i] && (
-                  <div className="h-full w-full bg-white bg-opacity-0" />
-                )}
-              </div>
-            </>
+            <div
+              key={index}
+              className={`relative flex h-24 items-center justify-center overflow-hidden md:h-48`}
+            >
+              {photos[i] && (
+                <>
+                  <Image
+                    src={photos[i] ?? ""}
+                    alt="experience photo"
+                    className={cn(
+                      "max-h-48 object-cover",
+                      "duration-700 ease-in-out group-hover:opacity-75"
+                    )}
+                    onClick={() => handleClickImage(i)}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                  <div
+                    className="absolute inset-0 hidden cursor-pointer items-center justify-center bg-black bg-opacity-30 opacity-0 transition-opacity hover:opacity-100 lg:flex"
+                    onClick={() => handleClickImage(i)}
+                  >
+                    <span className="text-center text-lg font-semibold text-white">
+                      View Larger Image
+                    </span>
+                  </div>
+                </>
+              )}
+              {!photos[i] && (
+                <div className="h-full w-full bg-white bg-opacity-0" />
+              )}
+            </div>
           );
         })}
       </div>

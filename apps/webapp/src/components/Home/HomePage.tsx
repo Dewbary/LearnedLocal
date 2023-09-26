@@ -15,9 +15,7 @@ import AnnouncementWidget from "../common/AnnouncementWidget/AnnouncementWidget"
 
 Modal.setAppElement("#__next");
 
-const couponCodeAnnouncement = [
-  "Get 15% off your first experience when you use the code COMMUNITY15",
-];
+const couponCodeAnnouncement = [] as string[];
 
 const HomePage = ({ experiences }: { experiences: ExperienceInfo[] }) => {
   const user = useUser();

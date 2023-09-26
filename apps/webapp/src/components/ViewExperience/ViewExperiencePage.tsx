@@ -32,7 +32,7 @@ export default function ViewExperiencePage() {
     experienceId = router.query.slug[0];
   }
 
-  const { data: experienceData } = api.experience.byExperienceId.useQuery(
+  const { data: experienceData } = api.experience.viewByExperienceId.useQuery(
     parseInt(experienceId),
     {
       enabled: !!experienceId,

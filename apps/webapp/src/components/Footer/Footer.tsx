@@ -29,14 +29,14 @@ const Footer = ({ className }: Props) => {
         <div className="flex items-center gap-2">
           <Home />
           <p>
-            580 S 100 W St
+            11124 N 6000 W
             <br />
-            Provo, UT 84601
+            Highland, UT 84003
           </p>
         </div>
         <div className="flex items-center gap-2">
           <Phone />
-          <p>(385) 268-0372</p>
+          <p>(385) 309-3194</p>
         </div>
         <div>
           <Link href="/privacy">Privacy Policy</Link>
