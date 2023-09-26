@@ -52,31 +52,39 @@ export const getStaticProps: GetStaticProps = async () => {
 };
 
 const calculateExperiencePriorityScore = (exp:ExperienceInfo) => {
-  const nearestAvail = exp.availability.reduce((acc, curr) => {
-    if (curr.date === null || acc.date === null) {
-      return acc;
-    }
+  if (exp.availability && exp.availability.length > 0) {
+    const nearestAvail = exp.availability.reduce((acc, curr) => {
+      if (curr.date === null || acc.date === null) {
+        return acc;
+      }
+  
+      if (curr.date < acc.date && curr.date > startOfToday()) {
+        return curr;
+      }
+      else {
+        return acc;
+      }
+    });
 
-    if (curr.date < acc.date && curr.date > startOfToday()) {
-      return curr;
+    if (nearestAvail.date === null) return 0;
+
+    if (!(nearestAvail.date > startOfToday())) {
+      if (exp.isFutureExperience) {
+        return 1;
+      }
+      else {
+        return 0;
+      }
     }
     else {
-      return acc;
-    }
-  });
-
-  if (nearestAvail.date === null) return 0;
-
-  if (!(nearestAvail.date > startOfToday())) {
-    if (exp.isFutureExperience) {
-      return 1;
-    }
-    else {
-      return 0;
+      return (3005700800011 - nearestAvail.date.getTime());
     }
   }
+  else if (exp.isFutureExperience) {
+    return 1;
+  }
   else {
-    return (3005700800011 - nearestAvail.date.getTime());
+    return 0;
   }
 }
 
