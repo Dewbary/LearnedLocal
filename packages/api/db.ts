@@ -1,7 +1,33 @@
 import { PrismaClient } from '@learnedlocal/db';
+import { env } from '~/env.mjs';
 
 const prismaClientSingleton = () => {
-  return new PrismaClient()
+  const prismaClient = new PrismaClient();
+
+  prismaClient.$use(async (params, next) => {
+
+    if (
+      (params.model === "Experience" 
+        || params.model === "ExperienceAvailability" 
+        || params.model === "Profile") 
+      && (params.action === "create" 
+        || params.action === "createMany" 
+        || params.action === "delete" 
+        || params.action === "deleteMany" 
+        || params.action === "update" 
+        || params.action === "updateMany" 
+        || params.action === "upsert")) {
+
+          fetch(`https://learnedlocal.app/api/webhooks/revalidate-site?secret=${env.EDGE_FUNCTION_VERIFICATION_TOKEN}`);
+
+          console.log("Revalidating homepage");
+
+      }
+
+    return next(params);
+  });
+
+  return prismaClient;
 }
 
 type PrismaClientSingleton = ReturnType<typeof prismaClientSingleton>
