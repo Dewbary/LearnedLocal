@@ -10,6 +10,7 @@ import type {
   SerializedExperienceInfo,
 } from "~/components/types";
 import { deserialize } from "~/utils/experience";
+import { startOfToday } from "date-fns";
 
 export const getStaticProps: GetStaticProps = async () => {
   const helpers = createServerSideHelpers({
@@ -22,6 +23,10 @@ export const getStaticProps: GetStaticProps = async () => {
   });
 
   const experiences: ExperienceInfo[] = await helpers.experience.getAll.fetch();
+
+  experiences.sort((a, b) => {
+    return calculateExperiencePriorityScore(b) - calculateExperiencePriorityScore(a);
+  });
 
   const serializedExperiences = experiences.map((experience) => {
     return {
@@ -45,6 +50,35 @@ export const getStaticProps: GetStaticProps = async () => {
     },
   };
 };
+
+const calculateExperiencePriorityScore = (exp:ExperienceInfo) => {
+  const nearestAvail = exp.availability.reduce((acc, curr) => {
+    if (curr.date === null || acc.date === null) {
+      return acc;
+    }
+
+    if (curr.date < acc.date && curr.date > startOfToday()) {
+      return curr;
+    }
+    else {
+      return acc;
+    }
+  });
+
+  if (nearestAvail.date === null) return 0;
+
+  if (!(nearestAvail.date > startOfToday())) {
+    if (exp.isFutureExperience) {
+      return 1;
+    }
+    else {
+      return 0;
+    }
+  }
+  else {
+    return (3005700800011 - nearestAvail.date.getTime());
+  }
+}
 
 const Home = ({ experiences }: { experiences: SerializedExperienceInfo[] }) => {
   return (
