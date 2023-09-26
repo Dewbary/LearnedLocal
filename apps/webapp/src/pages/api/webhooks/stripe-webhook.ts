@@ -69,6 +69,7 @@ const handler = async (
         !metadata.partySize ||
         !metadata.email ||
         !metadata.phone ||
+        !metadata.textNotifications ||
         !metadata.experienceId ||
         !metadata.availabilityId
       ) {
@@ -77,6 +78,7 @@ const handler = async (
 
       const experienceId = parseInt(metadata.experienceId);
       const availabilityId = parseInt(metadata.availabilityId);
+      const textNotifications = metadata.textNotifications === "true";
 
       // Start by creating the registration object in the database.
       const registrationInfo: RegistrationInfo = {
@@ -86,6 +88,7 @@ const handler = async (
         partySize: parseInt(metadata.partySize),
         email: metadata.email,
         phone: metadata.phone,
+        textNotificationsEnabled: textNotifications,
         experienceId: experienceId,
         availabilityId: availabilityId,
         stripeCheckoutSessionId: session.id,
