@@ -11,7 +11,8 @@ type Props = {
 export default function ExperienceDetailModalContents(props: Props) {
   const router = useRouter();
 
-  const goToViewPage = async function (experienceId: number) {
+  const handleViewPageClick = async function (experienceId: number) {
+    window.gtag("event", "view_details");
     await router.push(`/experience/view/${experienceId}`);
   };
 
@@ -80,7 +81,7 @@ export default function ExperienceDetailModalContents(props: Props) {
           className={
             "rounded-lg bg-amber-400 p-3 text-white disabled:cursor-not-allowed disabled:bg-gray-500"
           }
-          onClick={() => goToViewPage(props.experienceInfo.id)}
+          onClick={() => handleViewPageClick(props.experienceInfo.id)}
         >
           View Details
         </button>
