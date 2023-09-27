@@ -50,7 +50,7 @@ export default function ExperienceImageDisplay({ photos }: Props) {
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className={cn(
               "max-h-96 object-cover",
-              "duration-700 ease-in-out group-hover:opacity-75"
+              "duration-700 ease-in-out"
             )}
           />
 
@@ -76,7 +76,7 @@ export default function ExperienceImageDisplay({ photos }: Props) {
                     alt="experience photo"
                     className={cn(
                       "max-h-48 object-cover",
-                      "duration-700 ease-in-out group-hover:opacity-75"
+                      "duration-700 ease-in-out"
                     )}
                     onClick={() => handleClickImage(i)}
                     fill

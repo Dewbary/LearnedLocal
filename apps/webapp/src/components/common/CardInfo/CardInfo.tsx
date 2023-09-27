@@ -4,11 +4,12 @@ import { getDateToDisplay } from "../DateAndTimePicker/DateAndTimeUtils";
 
 type Props = {
   experience: ExperienceInfo;
+  className?: string;
 };
 
-const CardInfo = ({ experience }: Props) => {
+const CardInfo = ({ experience, className }: Props) => {
   return (
-    <div>
+    <div className={className}>
       <div className="flex flex-col">
         <div className="mt-4 flex justify-between">
           <h3 className="truncate text-sm text-gray-700">

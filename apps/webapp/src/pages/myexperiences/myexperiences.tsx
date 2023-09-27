@@ -156,7 +156,7 @@ export default function MyExperiences() {
               <ExperienceCard experience={experience} registered={false}>
                 <CustomModal
                   button={
-                    <button className="relative z-20 rounded-lg bg-green-400 p-2 text-white drop-shadow-md hover:bg-green-500">
+                    <button className="z-20 rounded-lg bg-green-400 p-2 text-white drop-shadow-md hover:bg-green-500">
                       Guests
                     </button>
                   }
