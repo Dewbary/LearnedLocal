@@ -56,8 +56,10 @@ export const register = async (
       });
     }
 
-    const reminderSignupMessage = `Thanks for signing up for ${hostProfile?.firstName || ""}'s experience, ${availabilityInfo?.experience.title || ""}! You'll receive reminders about this experience from this number.`;
-    await sendTextMessage(registrationResult.phone, reminderSignupMessage);
+    if (registrationData.textNotificationsEnabled) {
+      const reminderSignupMessage = `Thanks for signing up for ${hostProfile?.firstName || ""}'s experience, ${availabilityInfo?.experience.title || ""}! You'll receive reminders about this experience from this number.`;
+      await sendTextMessage(registrationResult.phone, reminderSignupMessage);
+    }    
 
   } catch (error) {
     console.error("Error creating registration:", error);

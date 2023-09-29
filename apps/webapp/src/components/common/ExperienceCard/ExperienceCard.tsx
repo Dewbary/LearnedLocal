@@ -51,7 +51,7 @@ export default function ExperienceCard({
             {getModalImpl(experience, registered)}
           </CustomModal>
         
-        <div className="flex flex-row">
+        <div className="flex flex-row justify-between gap-2 mt-3">
           {children}
         </div>
       </div>

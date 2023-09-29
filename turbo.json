@@ -1,18 +1,44 @@
 {
     "$schema": "https://turborepo.org/schema.json",
-    "globalDependencies": ["**/.env"],
+    "globalDotEnv": [".env"],
     "pipeline": {
         "build": {
+            "dotEnv": [".env"],
             "outputs": [".next/**", "!.next/cache/**"]
         },
         "lint": {},
         "dev": {
+            "dotEnv": [".env"],
             "cache": false,
-            "persistent": true
+            "persistent": true,
+            "env": [
+              "DATABASE_URL",
+              "NEXT_PUBLIC_BASE_URL",
+              "NEXT_PUBLIC_SUPABASE_URL",
+              "NEXT_PUBLIC_SUPABASE_KEY",
+              "NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_URL",
+              "NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_NAME",
+              "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
+              "CLERK_SECRET_KEY",
+              "NEXT_PUBLIC_STRIPE_PUBLIC_KEY",
+              "STRIPE_SECRET_KEY",
+              "STRIPE_WEBHOOK_SECRET",
+              "SENDGRID_API_KEY",
+              "TWILIO_AUTH_TOKEN",
+              "TWILIO_ACCOUNT_SID",
+              "TWILIO_ACCOUNT_PHONE",
+              "EDGE_FUNCTION_VERIFICATION_TOKEN",
+              "NEXT_PUBLIC_SANITY_PROJECT_ID",
+              "NEXT_PUBLIC_SANITY_DATASET",
+              "NEXT_PUBLIC_SANITY_API_VERSION"
+            ]
         },
         "start": {
           "cache": true,
           "persistent": true
+        },
+        "db:push": {
+          "cache": false
         },
         "webapp#build": {
             "dependsOn": [
@@ -45,6 +71,7 @@
             "dependsOn": [
               "^build"
             ],
+            "dotEnv": [".env"],
             "env": [
               "SOME_OTHER_ENV_VAR"
             ],

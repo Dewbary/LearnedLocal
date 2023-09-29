@@ -39,12 +39,11 @@ export default function MyExperiences() {
     await router.push(`/experience/view/${experienceId}`);
   };
 
-  const deleteExperience = async function (experience: Experience) {
+  const deleteExperience = function (experience: Experience) {
     if (confirm("Are you sure you want to delete this experience?") === true) {
       experienceDeleter.mutate(experience.id);
       setShowErrorModal(true);
-      await userCreatedExperiences.refetch();
-      await userJoinedExperiences.refetch();
+      router.reload();
     }
   };
 
@@ -147,7 +146,7 @@ export default function MyExperiences() {
           </div>
         )}
         <div
-          className={`grid grid-cols-1 gap-y-10 gap-x-6 ${
+          className={`grid grid-cols-1 gap-y-10 gap-x-6 m-10 ${
             styles.autofit ?? ""
           } xl:gap-x-8`}
         >

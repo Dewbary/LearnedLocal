@@ -1,3 +1,5 @@
+import { Registration } from "packages/db";
+import { useEffect, useState } from "react";
 import { ExperienceInfo } from "~/components/types";
 import { api } from "~/utils/api";
 
@@ -7,21 +9,35 @@ type Props = {
 
 export default function GuestListModalContents (props: Props) {
 
-    const removeGuest = async function (guestId: string) {
+  const [registrantList, setRegistrantList] = useState([] as Registration[] | undefined);
+
+    const removeGuest = function (guestId: string) {
       if (
         confirm(
           "Are you sure you want to remove this guest? They will be refunded for their purchase."
         ) === true
       ) {
         removeRegistrant.mutate(guestId);
-        await eventRegistrations.refetch();
       }
     };
 
+    const utils = api.useContext();
+
     const eventRegistrations = api.registration.byExperience.useQuery(
-        props.experienceInfo.id
+        props.experienceInfo.id,
       );
-    const removeRegistrant = api.registration.removeRegistrant.useMutation();
+    
+    const removeRegistrant = api.registration.removeRegistrant.useMutation(
+      {
+        onSuccess: async () => {
+          await utils.registration.byExperience.invalidate();
+        }
+      }
+    );
+
+    useEffect(() => {
+      setRegistrantList(eventRegistrations.data);
+    }, [eventRegistrations.isFetching]);
 
     return (
 
@@ -35,12 +51,12 @@ export default function GuestListModalContents (props: Props) {
         <div className="flex flex-1 flex-col gap-7 overflow-scroll p-7 lg:flex-row lg:overflow-auto text-black">
           <div className="flex flex-1 flex-col justify-between lg:basis-1/2">
             <div className="h-96 overflow-y-scroll">
-              {eventRegistrations.data?.length === 0 && (
+              {registrantList?.length === 0 && (
                 <div className="flex h-full w-full items-center justify-center">
                   <h1>No guests signed up for this experience yet.</h1>
                 </div>
               )}
-              {eventRegistrations.data?.map((registration) => (
+              {registrantList?.map((registration) => (
                 <div
                   key={registration.id}
                   className="flex items-center justify-between border-b bg-slate-100 p-3"
