@@ -45,6 +45,7 @@ model Experience {
   stripePriceId      String
   verified           Boolean  @default(false)
   isFutureExperience    Boolean @default(false)
+  isExternalListing     Boolean @default(false)
   notifyIFrameLink      String?
 
   profileId         String?

@@ -7,6 +7,7 @@ import {
 import { sendExperienceCreationEmail } from "packages/api/utils/sendgrid";
 import { createExperienceAndPrice } from "~/utils/stripe";
 import { startOfToday } from "date-fns";
+import { env } from "~/env.mjs";
 
 export const experienceRouter = createTRPCRouter({
   getAll: publicProcedure.query(({ ctx }) => {
@@ -92,6 +93,23 @@ export const experienceRouter = createTRPCRouter({
           },
         },
       },
+    });
+  }),
+
+  getExternalListings: protectedProcedure.query(async ({ ctx }) => {
+    if (ctx.userId !== env.ADMIN_USER_ID) {
+      console.log("Incorrect user ID:", ctx.userId);
+      return;
+    }
+
+    return await ctx.prisma.experience.findMany({
+      where: {
+        isExternalListing: true,
+      },
+      include: {
+        availability: true,
+        profile: true
+      }
     });
   }),
 
@@ -330,4 +348,56 @@ export const experienceRouter = createTRPCRouter({
 
       return newExperience;
     }),
+
+  createExternalListing: protectedProcedure
+    .input(
+      z.object({
+        title: z.string(),
+        description: z.string(),
+        price: z.number(),
+        free: z.boolean(),
+        city: z.string().nullable(),
+        photos: z.array(z.string()),
+        categoryId: z.number(),
+        profileId: z.string(),
+        availabilityDate: z.date(),
+        availabilityStartTime: z.date(),
+        availabilityEndTime: z.date()
+      })
+    )
+    .mutation(async ({ctx, input}) => {
+      await ctx.prisma.experience.create({
+        data: {
+          authorId: ctx.userId,
+          title: input.title,
+          description: input.description,
+          price: input.price,
+          free: input.free,
+          categoryId: input.categoryId,
+          timeline: "EXTERNAL_LISTING",
+          city: input.city,
+          location: '{"lat":0,"lng":0}',
+          locationDescription: "EXTERNAL_LISTING",
+          qualifications: "EXTERNAL_LISTING",
+          provided: "EXTERNAL_LISTING",
+          guestRequirements: "EXTERNAL_LISTING",
+          minAge: 0,
+          activityLevel: "EXTERNAL_LISTING",
+          skillLevel: "EXTERNAL_LISTING",
+          maxAttendees: 1000,
+          photos: input.photos,
+          slugId: "EXTERNAL_LISTING",
+          stripeProductId: "EXTERNAL_LISTING",
+          stripePriceId: "EXTERNAL_LISTING",
+          profileId: input.profileId,
+          availability: {
+            create: {
+              date: input.availabilityDate,
+              startTime: input.availabilityStartTime,
+              endTime: input.availabilityEndTime,
+            },
+          },
+        }
+      })
+    })
 });
