@@ -26,6 +26,21 @@ export const experienceRouter = createTRPCRouter({
     });
   }),
 
+  getAllAdmin: protectedProcedure.query(({ ctx }) => {
+    if (ctx.userId !== env.ADMIN_USER_ID) {
+      return;
+    }
+    return ctx.prisma.experience.findMany({
+      include: {
+        profile: true,
+        availability: true
+      },
+      orderBy: {
+        id: "desc"
+      }
+    });
+  }),
+
   getCurrent: protectedProcedure.query(async ({ ctx }) => {
     const currentDate = new Date();
 
@@ -93,23 +108,6 @@ export const experienceRouter = createTRPCRouter({
           },
         },
       },
-    });
-  }),
-
-  getExternalListings: protectedProcedure.query(async ({ ctx }) => {
-    if (ctx.userId !== env.ADMIN_USER_ID) {
-      console.log("Incorrect user ID:", ctx.userId);
-      return;
-    }
-
-    return await ctx.prisma.experience.findMany({
-      where: {
-        isExternalListing: true,
-      },
-      include: {
-        availability: true,
-        profile: true
-      }
     });
   }),
 
@@ -349,6 +347,35 @@ export const experienceRouter = createTRPCRouter({
       return newExperience;
     }),
 
+    administerExperience: protectedProcedure
+      .input(
+        z.object({
+          experienceId: z.number(),
+          verify: z.boolean(),
+          externalListing: z.boolean(),
+          externalListingLink: z.string().nullable(),
+          externalHostName: z.string().nullable()
+        })
+      )
+      .mutation(async ({ctx, input}) => {
+        if (ctx.userId !== env.ADMIN_USER_ID) {
+          return;
+        }
+
+        return await ctx.prisma.experience.update({
+          where: {
+            id: input.experienceId
+          },
+          data: {
+            verified: input.verify,
+            isExternalListing: input.externalListing,
+            externalListingLink: input.externalListingLink,
+            externalHostName: input.externalHostName
+          }
+        })
+      })
+
+  /*
   createExternalListing: protectedProcedure
     .input(
       z.object({
@@ -400,4 +427,5 @@ export const experienceRouter = createTRPCRouter({
         }
       })
     })
+    */
 });

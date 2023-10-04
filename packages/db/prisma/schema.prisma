@@ -46,6 +46,8 @@ model Experience {
   verified           Boolean  @default(false)
   isFutureExperience    Boolean @default(false)
   isExternalListing     Boolean @default(false)
+  externalListingLink   String ?
+  externalHostName      String ?
   notifyIFrameLink      String?
 
   profileId         String?
