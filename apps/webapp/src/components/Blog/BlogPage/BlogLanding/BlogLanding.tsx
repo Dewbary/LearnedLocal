@@ -7,6 +7,7 @@ import HeroPost from "./HeroPost";
 import MoreStories from "./MoreStories";
 import { PostInfo } from "~/components/types";
 import Link from "next/link";
+import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 
 type Props = {
   posts: PostInfo[];
@@ -20,7 +21,10 @@ const BlogLanding = ({ posts }: Props) => {
         <Head>
           <title>{`Learned Local Blog`}</title>
         </Head>
-        <Link href="/">{"<- Back To Home"}</Link>
+        <Link href="/" className="flex flex-row items-center pt-4 pl-4">
+          <ChevronLeftIcon className="mr-2 h-5 w-5" />
+          {"Back to Learned Local"}
+        </Link>
         <Container>
           <Intro />
           {heroPost && (

@@ -31,12 +31,9 @@ export default function Post({ data = { post: null } }: Props) {
 
   if (!post) return <div>empty post</div>;
 
-  console.log(post);
-
   return (
     <BlogLayout>
       <Container>
-        <NavBar isSignedIn={false} />
         {router.isFallback ? (
           <PostTitle>Loading…</PostTitle>
         ) : (

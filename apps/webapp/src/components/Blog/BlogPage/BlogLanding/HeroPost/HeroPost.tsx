@@ -36,7 +36,7 @@ export default function HeroPost({
             {date && <Date dateString={date} />}
           </div>
         </div>
-        <div>
+        <div className="md:self-end">
           <p className="mb-4 text-lg leading-relaxed">{excerpt}</p>
           {author && <div className="text-xl font-bold">{author}</div>}
         </div>

@@ -9,6 +9,9 @@ type Props = {
   slug?: string;
   image: CoverImageInfo | undefined;
   priority?: boolean;
+  width?: number;
+  height?: number;
+  className?: string;
 };
 
 export default function CoverImage({
@@ -16,6 +19,9 @@ export default function CoverImage({
   slug,
   image: source,
   priority = false,
+  width = 2000,
+  height = 1000,
+  className,
 }: Props) {
   const image =
     source != source?.asset?._ref ? (
@@ -26,9 +32,9 @@ export default function CoverImage({
       >
         {source && (
           <Image
-            className="h-auto w-full"
-            width={2000}
-            height={1000}
+            className={`h-auto w-full object-contain ${className ?? ""}`}
+            width={width}
+            height={height}
             alt={`Cover Image for ${title}`}
             src={urlForImage(source).height(1000).width(2000).url()}
             sizes="100vw"
