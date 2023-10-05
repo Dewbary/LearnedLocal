@@ -1,24 +1,63 @@
-/* eslint-disable */
-
 import { client } from "~/utils/sanityClient";
-import { Post } from "./blog";
-import { GetStaticPathsResult, GetStaticPropsResult } from "next";
+import Post from "~/components/Blog/Post";
+import {
+  GetStaticPathsResult,
+  GetStaticProps,
+  GetStaticPropsContext,
+  GetStaticPropsResult,
+} from "next";
+import { PostInfo } from "~/components/types";
 
 type Props = {
-  blogPost: Post;
+  data: {
+    post: PostInfo;
+  };
 };
 
-const Post = ({ blogPost }: Props) => {
+const PostPage = ({ data }: Props) => {
   return (
-    <div className="h-full w-full">
-      <div>{blogPost.title}</div>
-      <div>{blogPost.body}</div>
+    <div>
+      <Post data={data} />
     </div>
   );
 };
 
+const postFields = `
+  _id,
+  name,
+  title,
+  date,
+  excerpt,
+  content,
+  coverImage,
+  "slug": slug.current,
+  "author": author->{name, picture},
+`;
+
+const postQuery = `*[_type == "post" && slug.current == $slug][0] {${postFields}}`;
+
+export const getStaticProps = async ({
+  params,
+}: GetStaticPropsContext): Promise<GetStaticPropsResult<Props>> => {
+  const blogPost: PostInfo = await client.fetch(postQuery, {
+    slug: params?.slug,
+  });
+
+  const data = {
+    post: blogPost,
+  };
+
+  console.log(data);
+  return {
+    props: {
+      data,
+    },
+    revalidate: 10,
+  };
+};
+
 export const getStaticPaths = async (): Promise<GetStaticPathsResult> => {
-  const slugs = await client.fetch(`*[_type == "post"].slug.current`);
+  const slugs: string[] = await client.fetch(`*[_type == "post"].slug.current`);
 
   const paths = slugs.map((slug: string) => ({
     params: { slug },
@@ -30,26 +69,4 @@ export const getStaticPaths = async (): Promise<GetStaticPathsResult> => {
   };
 };
 
-export const getStaticProps = async ({
-  params,
-}: any): Promise<GetStaticPropsResult<Props>> => {
-  const { slug } = params;
-
-  const query = `*[_type == "post" && slug.current == $slug][0] {
-    _id,
-    title,
-    body
-  }`;
-
-  const blogPost: Post = await client.fetch(query, { slug });
-
-  // console.log("myPost", blogPost.body[0].children[0].text);
-  return {
-    props: {
-      blogPost: { ...blogPost, body: blogPost?.body[0]?.children[0]?.text },
-    },
-    revalidate: 10,
-  };
-};
-
-export default Post;
+export default PostPage;

@@ -1,17 +1,9 @@
 import * as React from "react";
-import BlogPage from "~/components/BlogPage";
+import BlogPage from "~/components/Blog/BlogPage";
+import { PostInfo } from "~/components/types";
 
 type Props = {
-  posts: Post[];
-};
-
-export type Post = {
-  _id: string;
-  title?: string;
-  slug?: {
-    current: string;
-  };
-  body: any;
+  posts: PostInfo[];
 };
 
 const Blog = ({ posts }: Props) => {

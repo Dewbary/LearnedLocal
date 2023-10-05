@@ -16,6 +16,7 @@ const config = {
       "tvectiqcwbgbhhgsavuc.supabase.co",
       "ovrsneiokoigxbnvzugb.supabase.co",
       "cmthzvcffgzfgmggemfb.supabase.co",
+      "cdn.sanity.io",
     ],
   },
 

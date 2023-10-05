@@ -29,8 +29,10 @@
     "@mui/system": "^5.11.14",
     "@mui/x-date-pickers": "^6.0.2",
     "@next-auth/prisma-adapter": "^1.0.5",
+    "@portabletext/react": "^3.0.9",
     "@react-google-maps/api": "^2.18.1",
     "@sanity/client": "^6.4.12",
+    "@sanity/image-url": "^1.0.2",
     "@stripe/react-stripe-js": "^2.1.0",
     "@stripe/stripe-js": "^1.52.1",
     "@supabase/supabase-js": "^2.20.0",
@@ -120,6 +122,7 @@
     "prettier": "^2.8.1",
     "prettier-plugin-tailwindcss": "^0.2.1",
     "react-mobile-share": "^1.0.30",
+    "sanity-codegen": "^0.9.8",
     "tailwindcss": "^3.2.7",
     "typescript": "^4.9.5"
   },

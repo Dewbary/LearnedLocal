@@ -1,11 +1,11 @@
 import { GetStaticProps } from "next";
+import { PostInfo } from "~/components/types";
 import { client } from "~/utils/sanityClient";
-import { Post } from "./blog";
 
 export const getStaticProps: GetStaticProps = async () => {
-  const posts = await client.fetch<Post[]>(`*[_type == "post"]`);
-
-  // console.log("posts", posts);
+  const posts = await client.fetch<PostInfo[]>(
+    `*[_type == "post"]{title, slug, content, excerpt, coverImage, author->, categories, publishedAt}`
+  );
 
   return {
     props: {
