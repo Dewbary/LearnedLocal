@@ -1,18 +1,3 @@
-import {defineConfig} from 'sanity'
-import {deskTool} from 'sanity/desk'
-import {visionTool} from '@sanity/vision'
-import {schemaTypes} from './schemas'
+import * as sanity from '@learnedlocal/sanity'
 
-export default defineConfig({
-  name: 'default',
-  title: 'LearnedLocal',
-
-  projectId: '4gjyci47',
-  dataset: 'production',
-
-  plugins: [deskTool(), visionTool()],
-
-  schema: {
-    types: schemaTypes,
-  },
-})
+export default sanity

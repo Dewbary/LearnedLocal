@@ -10,6 +10,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@learnedlocal/sanity": "workspace:*",
     "@chakra-ui/react": "^2.5.2",
     "@clerk/nextjs": "^4.16.0",
     "@emotion/react": "^11.10.6",
