@@ -12,14 +12,14 @@ const server = z.object({
   STRIPE_SECRET_KEY: z.string().min(1),
   STRIPE_WEBHOOK_SECRET: z.string().min(1),
   SENDGRID_API_KEY: z.string().min(1),
-  NEXT_PUBLIC_SANITY_PROJECT_ID: z.string().min(1),
-  NEXT_PUBLIC_SANITY_DATASET: z.string().min(1),
-  NEXT_PUBLIC_SANITY_API_VERSION: z.string().min(1),
+  SANITY_STUDIO_PROJECT_ID: z.string().min(1),
+  SANITY_STUDIO_DATASET: z.string().min(1),
+  SANITY_STUDIO_API_VERSION: z.string().min(1),
   TWILIO_ACCOUNT_SID: z.string().min(1),
   TWILIO_AUTH_TOKEN: z.string().min(1),
   TWILIO_ACCOUNT_PHONE: z.string().min(1),
   EDGE_FUNCTION_VERIFICATION_TOKEN: z.string().min(1),
-  ADMIN_USER_ID: z.string().min(1)
+  ADMIN_USER_ID: z.string().min(1),
 });
 
 /**
@@ -31,7 +31,7 @@ const client = z.object({
   NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_URL: z.string().min(1),
   NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_NAME: z.string().min(1),
   NEXT_PUBLIC_STRIPE_PUBLIC_KEY: z.string().min(1),
-  NEXT_PUBLIC_GA4_DEBUG_TRUE: z.string().min(1)
+  NEXT_PUBLIC_GA4_DEBUG_TRUE: z.string().min(1),
 });
 
 /**
@@ -52,15 +52,16 @@ const processEnv = {
   STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
   STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
   SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
-  NEXT_PUBLIC_SANITY_PROJECT_ID: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-  NEXT_PUBLIC_SANITY_DATASET: process.env.NEXT_PUBLIC_SANITY_DATASET,
-  NEXT_PUBLIC_SANITY_API_VERSION: process.env.NEXT_PUBLIC_SANITY_API_VERSION,
+  SANITY_STUDIO_PROJECT_ID: process.env.SANITY_STUDIO_PROJECT_ID,
+  SANITY_STUDIO_DATASET: process.env.SANITY_STUDIO_DATASET,
+  SANITY_STUDIO_API_VERSION: process.env.SANITY_STUDIO_API_VERSION,
   TWILIO_ACCOUNT_SID: process.env.TWILIO_ACCOUNT_SID,
   TWILIO_AUTH_TOKEN: process.env.TWILIO_AUTH_TOKEN,
   TWILIO_ACCOUNT_PHONE: process.env.TWILIO_ACCOUNT_PHONE,
-  EDGE_FUNCTION_VERIFICATION_TOKEN: process.env.EDGE_FUNCTION_VERIFICATION_TOKEN,
+  EDGE_FUNCTION_VERIFICATION_TOKEN:
+    process.env.EDGE_FUNCTION_VERIFICATION_TOKEN,
   NEXT_PUBLIC_GA4_DEBUG_TRUE: process.env.NEXT_PUBLIC_GA4_DEBUG_TRUE,
-  ADMIN_USER_ID: process.env.ADMIN_USER_ID
+  ADMIN_USER_ID: process.env.ADMIN_USER_ID,
 };
 
 // Don't touch the part below
@@ -107,7 +108,6 @@ if (!!process.env.SKIP_ENV_VALIDATION == false) {
     },
   });
   /* eslint-enable */
-
 }
 
 export { env };

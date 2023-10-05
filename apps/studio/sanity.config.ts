@@ -1,3 +1,3 @@
-import * as sanity from '@learnedlocal/sanity'
+import defineConfig from '@learnedlocal/sanity'
 
-export default sanity
+export default defineConfig
