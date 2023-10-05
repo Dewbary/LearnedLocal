@@ -39,7 +39,7 @@ export default function Admin() {
 
     return (
         <div>
-            <div className={`${styles.csstable} border-2 ${loading ? "opacity-80 disabled" : ""}`}>
+            <div className={`${styles.csstable ?? ""} border-2 ${loading ? "opacity-80 disabled" : ""}`}>
                 <div>
                     <div>Title</div>
                     <div>Host</div>
