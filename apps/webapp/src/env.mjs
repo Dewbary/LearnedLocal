@@ -18,7 +18,8 @@ const server = z.object({
   TWILIO_ACCOUNT_SID: z.string().min(1),
   TWILIO_AUTH_TOKEN: z.string().min(1),
   TWILIO_ACCOUNT_PHONE: z.string().min(1),
-  EDGE_FUNCTION_VERIFICATION_TOKEN: z.string().min(1)
+  EDGE_FUNCTION_VERIFICATION_TOKEN: z.string().min(1),
+  ADMIN_USER_ID: z.string().min(1)
 });
 
 /**
@@ -58,7 +59,8 @@ const processEnv = {
   TWILIO_AUTH_TOKEN: process.env.TWILIO_AUTH_TOKEN,
   TWILIO_ACCOUNT_PHONE: process.env.TWILIO_ACCOUNT_PHONE,
   EDGE_FUNCTION_VERIFICATION_TOKEN: process.env.EDGE_FUNCTION_VERIFICATION_TOKEN,
-  NEXT_PUBLIC_GA4_DEBUG_TRUE: process.env.NEXT_PUBLIC_GA4_DEBUG_TRUE
+  NEXT_PUBLIC_GA4_DEBUG_TRUE: process.env.NEXT_PUBLIC_GA4_DEBUG_TRUE,
+  ADMIN_USER_ID: process.env.ADMIN_USER_ID
 };
 
 // Don't touch the part below

@@ -11,11 +11,17 @@ type Props = {
 export default function ExperienceDetailModalContents(props: Props) {
   const router = useRouter();
 
-  const handleViewPageClick = async function (experienceId: number, experienceTitle: string) {
+  const handleViewPageClick = async function () {
     window.gtag("event", "view_details", {
-      "experience_title": experienceTitle
+      "experience_title": props.experienceInfo.title
     });
-    await router.push(`/experience/view/${experienceId}`);
+
+    if (props.experienceInfo.isExternalListing && props.experienceInfo.externalListingLink !== null) {
+      window.location.assign(props.experienceInfo.externalListingLink);
+    }
+    else {
+      await router.push(`/experience/view/${props.experienceInfo.id}`);
+    }
   };
 
   return (
@@ -83,7 +89,7 @@ export default function ExperienceDetailModalContents(props: Props) {
           className={
             "rounded-lg bg-amber-400 p-3 text-white disabled:cursor-not-allowed disabled:bg-gray-500"
           }
-          onClick={() => handleViewPageClick(props.experienceInfo.id, props.experienceInfo.title)}
+          onClick={() => handleViewPageClick()}
         >
           View Details
         </button>

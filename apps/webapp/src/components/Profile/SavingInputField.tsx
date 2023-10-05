@@ -4,10 +4,11 @@ import { Dispatch, SetStateAction, useState } from "react";
 type Props = {
     label: string,
     savedValue: string,
-    setSavedValue: Dispatch<SetStateAction<string>>
+    setSavedValue: Dispatch<SetStateAction<string>>,
+    placeholder?: string
 }
 
-export default function SavingInputField({label, savedValue, setSavedValue}: Props) {
+export default function SavingInputField({label, savedValue, setSavedValue, placeholder}: Props) {
 
     const [editModeActive, setEditModeActive] = useState(false);
     const [newValue, setNewValue] = useState(savedValue);
@@ -47,7 +48,7 @@ export default function SavingInputField({label, savedValue, setSavedValue}: Pro
                     </p>
                     <div className={`${editModeActive ? "flex" : "hidden"} flex items-center gap-2`}>
                         <input 
-                            placeholder={label}
+                            placeholder={(placeholder ? placeholder : label)}
                             className="border-2 border-slate-500 rounded-md py-1 px-2"
                             value={newValue}
                             onChange={e => setNewValue(e.target.value)}

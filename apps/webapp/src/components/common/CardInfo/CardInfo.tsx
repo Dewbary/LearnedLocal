@@ -8,15 +8,26 @@ type Props = {
 };
 
 const CardInfo = ({ experience, className }: Props) => {
+
+  let hostName : string | null;
+  
+  if (experience.isExternalListing) {
+    hostName = experience.externalHostName;
+  }
+  else {
+    hostName = experience.profile?.firstName || "";
+    hostName += " ";
+    hostName += experience.profile?.lastName || "";
+  }
+
+  const displayHostName = hostName;
+
   return (
     <div className={className}>
       <div className="flex flex-col">
         <div className="mt-4 flex justify-between">
           <h3 className="truncate text-sm text-gray-700">
-            {`${experience.profile?.firstName ?? ""} ${
-              experience.profile?.lastName ?? ""
-            }`}{" "}
-            • {experience.city}
+            {displayHostName}{" "} • {experience.city}
           </h3>
 
           <p className="text-right text-sm font-medium text-gray-900">
