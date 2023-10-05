@@ -82,7 +82,7 @@ export default function BasicInfo(
             </div>
 
             <SavingTextArea label="Biography / About You" savedValue={bio} setSavedValue={setBio} /> 
-            <SavingInputField label="Social Media" savedValue={social} setSavedValue={setSocial} />
+            <SavingInputField label="Social Media" savedValue={social} setSavedValue={setSocial} placeholder="https://instagram.com/your_profile_link"/>
         </div>
     )
 }

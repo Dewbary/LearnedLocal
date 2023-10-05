@@ -9,7 +9,7 @@ const RequirementsPage = () => {
       <FormPageHeader
         step={4}
         title="How should your guests prepare for the experience?"
-        subtitle="This will ensure that they can get the most out of the experience"
+        subtitle="This will ensure that they can get the most out of the experience. These fields are optional!"
       />
       <div className="rounded-lg bg-white p-8 shadow-md">
         <FormLabel text="Provided Materials" />
@@ -17,7 +17,7 @@ const RequirementsPage = () => {
           id="provided"
           name="provided"
           type="text"
-          placeholder="What materials will you provide?"
+          placeholder="What materials will you provide, if any?"
           className="w-full"
         />
 
@@ -44,7 +44,7 @@ const RequirementsPage = () => {
           id="activityLevel"
           name="activityLevel"
           type="text"
-          placeholder="What activity level does this experience involve?"
+          placeholder="How physically intense is this experience? E.g. carry 30 lb objects, stand for 3 hours, etc."
           className="w-full"
         />
 
@@ -53,7 +53,7 @@ const RequirementsPage = () => {
           id="skillLevel"
           name="skillLevel"
           type="text"
-          placeholder="What skill level does this experience involve?"
+          placeholder="E.g. 'Beginner friendly', 'Some artistic experience required', or 'Seasoned chess veterans'"
           className="w-full"
         />
       </div>
