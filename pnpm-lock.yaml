@@ -67,9 +67,6 @@ importers:
       prettier:
         specifier: ^3.0.2
         version: 3.0.3
-      sanity-codegen:
-        specifier: ^0.9.8
-        version: 0.9.8(@babel/core@7.22.20)(@babel/preset-env@7.22.20)(@babel/preset-react@7.22.15)(@babel/preset-typescript@7.23.0)(jsdom@20.0.3)(prettier@3.0.3)
       typescript:
         specifier: ^5.1.6
         version: 5.2.2
@@ -493,6 +490,10 @@ importers:
       sanity:
         specifier: ^3.16.7
         version: 3.16.7(@types/node@18.14.0)(@types/react@18.0.28)(react-dom@18.2.0)(react@18.2.0)(styled-components@5.3.9)
+    devDependencies:
+      sanity-codegen:
+        specifier: ^0.9.8
+        version: 0.9.8(@babel/core@7.22.20)(@babel/preset-env@7.22.20)(@babel/preset-react@7.22.15)(@babel/preset-typescript@7.23.0)(jsdom@20.0.3)(prettier@2.8.1)
 
 packages:
 
@@ -12038,37 +12039,6 @@ packages:
       babel-plugin-module-resolver: 4.1.0
       jsdom-global: 3.0.2(jsdom@20.0.3)
       prettier: 2.8.1
-      regenerator-runtime: 0.13.9
-    transitivePeerDependencies:
-      - jsdom
-      - supports-color
-    dev: true
-
-  /sanity-codegen@0.9.8(@babel/core@7.22.20)(@babel/preset-env@7.22.20)(@babel/preset-react@7.22.15)(@babel/preset-typescript@7.23.0)(jsdom@20.0.3)(prettier@3.0.3):
-    resolution: {integrity: sha512-kwyBQioWD4UJBgi1RJx8J/HQ4i753yLgnL5MUwbuAyJZrO9W33anNNawbtcePw9PK+5+IovbSLOs+xicULb2hA==}
-    hasBin: true
-    peerDependencies:
-      '@babel/core': ^7.0.0
-      '@babel/preset-env': ^7.0.0
-      '@babel/preset-react': ^7.0.0
-      '@babel/preset-typescript': ^7.0.0
-      prettier: ^2.0.0
-    dependencies:
-      '@babel/core': 7.22.20
-      '@babel/plugin-proposal-class-properties': 7.16.0(@babel/core@7.22.20)
-      '@babel/plugin-proposal-nullish-coalescing-operator': 7.16.0(@babel/core@7.22.20)
-      '@babel/plugin-proposal-numeric-separator': 7.16.0(@babel/core@7.22.20)
-      '@babel/plugin-proposal-optional-chaining': 7.16.0(@babel/core@7.22.20)
-      '@babel/plugin-transform-runtime': 7.16.0(@babel/core@7.22.20)
-      '@babel/preset-env': 7.22.20(@babel/core@7.22.20)
-      '@babel/preset-react': 7.22.15(@babel/core@7.22.20)
-      '@babel/preset-typescript': 7.23.0(@babel/core@7.22.20)
-      '@babel/register': 7.16.0(@babel/core@7.22.20)
-      '@types/prettier': 2.4.1
-      babel-plugin-css-modules-transform: 1.6.2
-      babel-plugin-module-resolver: 4.1.0
-      jsdom-global: 3.0.2(jsdom@20.0.3)
-      prettier: 3.0.3
       regenerator-runtime: 0.13.9
     transitivePeerDependencies:
       - jsdom
