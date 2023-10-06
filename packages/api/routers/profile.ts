@@ -18,32 +18,38 @@ export const profileRouter = createTRPCRouter({
         });
     }),
 
-    getProfile: protectedProcedure.query(async ({ ctx }) => {
-        return await ctx.prisma.profile.findFirst({
-            where: {
-                userId: ctx.userId
-            }
-        });
-    }),
-
-    setProfile: protectedProcedure
+    createOrUpdateProfile: protectedProcedure
         .input(
             z.object({
                 firstName: z.string(),
                 lastName: z.string(),
-                bio: z.string(),
-                social: z.string(),
-                venmo: z.string(),
-                zelle: z.string(),
-                email: z.string(),
-                phone: z.string(),
-                profileImage: z.string(),
+                bio: z.string().nullable(),
+                social: z.string().nullable(),
+                venmo: z.string().nullable(),
+                zelle: z.string().nullable(),
+                email: z.string().nullable(),
+                phone: z.string().nullable(),
+                profileImage: z.string().nullable(),
             })
         )
         .mutation(async ({ ctx, input }) => {
-            return await ctx.prisma.profile.updateMany({
-                where: { userId: ctx.userId },
-                data: {
+            return await ctx.prisma.profile.upsert({
+                where: {
+                    userId: ctx.userId
+                },
+                update: {
+                    firstName: input.firstName,
+                    lastName: input.lastName,
+                    bio: input.bio,
+                    social: input.social,
+                    venmo: input.venmo,
+                    zelle: input.zelle,
+                    email: input.email,
+                    phone: input.phone,
+                    profileImage: input.profileImage
+                },
+                create: {
+                    userId: ctx.userId,
                     firstName: input.firstName,
                     lastName: input.lastName,
                     bio: input.bio,
@@ -55,47 +61,16 @@ export const profileRouter = createTRPCRouter({
                     profileImage: input.profileImage
                 }
             });
-    }),
+        }
+    ),
 
-    createProfile: protectedProcedure
-        .input(
-            z.object({
-                firstName: z.string().min(1),
-                lastName: z.string().min(1),
-                bio: z.string(),
-                social: z.string(),
-                venmo: z.string(),
-                zelle: z.string(),
-                email: z.string(),
-                phone: z.string(),
-                profileImage: z.string()
-            })
-        )
-        .mutation(async ({ ctx, input }) => {
-            const existingProfile = await ctx.prisma.profile.findFirst({
-                where: {userId: ctx.userId}
-            });
-            if (existingProfile) {
-                return false;
+    getProfile: protectedProcedure.query(async ({ ctx }) => {
+        return await ctx.prisma.profile.findFirst({
+            where: {
+                userId: ctx.userId
             }
-            else {
-                await ctx.prisma.profile.create({
-                    data: {
-                        userId: ctx.userId,
-                        firstName: input.firstName,
-                        lastName: input.lastName,
-                        bio: input.bio,
-                        social: input.social,
-                        venmo: input.venmo,
-                        zelle: input.zelle,
-                        email: input.email,
-                        phone: input.phone,
-                        profileImage: input.profileImage
-                    }
-                });
-                return true;
-            }
-        }),
+        });
+    }),
 
     deleteUser: protectedProcedure
         .mutation(async ({ctx}) => {
