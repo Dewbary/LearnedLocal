@@ -105,7 +105,7 @@ model Registration {
 
 model Profile {
     id          String  @id @default(cuid())
-    userId      String
+    userId      String  @unique
     firstName   String?
     lastName    String?
     bio         String?
