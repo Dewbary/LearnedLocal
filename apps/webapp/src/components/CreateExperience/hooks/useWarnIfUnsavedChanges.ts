@@ -22,6 +22,7 @@ const useWarnIfUnsavedChanges = (
       router.events.emit("routeChangeError", "your error message", "your-url", {
         shallow: false,
       });
+      throw "routeChange aborted.";
     };
 
     window.addEventListener("beforeunload", handleWindowClose);
