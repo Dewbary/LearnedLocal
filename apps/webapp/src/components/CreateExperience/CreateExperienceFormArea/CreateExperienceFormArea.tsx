@@ -1,4 +1,4 @@
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
 import * as React from "react";
 import { api } from "~/utils/api";
@@ -78,6 +78,7 @@ const CreateExperienceFormArea = ({
               )}
               onNext={next}
               onBack={back}
+              slug={slug}
               isFirstStep={step === 0}
               isLastStep={step === tabInfoList.length - 1}
             />
