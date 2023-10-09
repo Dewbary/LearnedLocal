@@ -18,6 +18,9 @@ const ExperienceDateSelection = ({
   return (
     <div>
       <div className="divider"></div>
+      {availableDates?.length === 0 && (
+        <div>There are currently no availabilities for this experience.</div>
+      )}
       {availableDates?.map((date) => (
         <>
           <div className="flex justify-between">
