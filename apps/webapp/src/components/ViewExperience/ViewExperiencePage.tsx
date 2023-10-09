@@ -12,8 +12,12 @@ import { Pin } from "../CreateExperience/LocationPicker/LocationPicker";
 import ShareExperienceComponent from "../common/ShareExperienceComponent";
 import { ExperienceInfo } from "../types";
 import ExperienceDateSelection from "../ExperiencesDisplay/ExperienceDateSelection";
+import { InferGetServerSidePropsType } from "next";
+import { getServerSideProps } from "~/pages/experience/view/[...slug]";
 
-export default function ViewExperiencePage() {
+export default function ViewExperiencePage(
+  props: InferGetServerSidePropsType<typeof getServerSideProps>
+) {
   const router = useRouter();
   const user = useUser();
 
@@ -23,29 +27,9 @@ export default function ViewExperiencePage() {
   const [lat, setLat] = useState(0);
   const [lng, setLng] = useState(0);
 
-  let experienceId = "";
+  const { data: experienceData } = api.experience.viewByExperienceId.useQuery(props.experienceId);
 
-  if (
-    router.query.slug !== undefined &&
-    typeof router.query.slug[0] === "string"
-  ) {
-    experienceId = router.query.slug[0];
-  }
-
-  const { data: experienceData } = api.experience.viewByExperienceId.useQuery(
-    parseInt(experienceId),
-    {
-      enabled: !!experienceId,
-    }
-  );
-
-  const { data: profileData } = api.profile.getPublicProfile.useQuery({
-    userId: experienceData?.authorId || "",
-  });
-
-  const getRegistrantCount = api.registration.byExperience.useQuery(
-    parseInt(experienceId)
-  );
+  const { data: registrantCount } = api.registration.byExperience.useQuery(props.experienceId);
 
   useEffect(() => {
     if (experienceData) {
@@ -53,7 +37,7 @@ export default function ViewExperiencePage() {
       setLocation(experienceData.location as Pin);
       setIsLoading(false);
     }
-  }, [experienceData, experienceId]);
+  }, [experienceData]);
 
   useEffect(() => {
     setLat(location.lat);
@@ -64,7 +48,7 @@ export default function ViewExperiencePage() {
     if (!availabilityId) return;
 
     await router.push(
-      `/checkout?experienceId=${experienceId}&availabilityId=${availabilityId}`
+      `/checkout?experienceId=${props.experienceId}&availabilityId=${availabilityId}`
     );
   };
 
@@ -94,7 +78,7 @@ export default function ViewExperiencePage() {
                   </h1>
                   <div>
                     <span>
-                      Hosted By {profileData?.firstName} {profileData?.lastName}
+                      Hosted By {experience.profile?.firstName} {experience.profile?.lastName}
                     </span>
                   </div>
                 </div>
@@ -121,7 +105,7 @@ export default function ViewExperiencePage() {
 
                   <ExperienceDateSelection
                     availableDates={experience.availability}
-                    registrationsCount={getRegistrantCount.data}
+                    registrationsCount={registrantCount}
                     availableSpots={experience.maxAttendees}
                     onSignUp={goToCheckoutPage}
                   />
@@ -198,32 +182,32 @@ export default function ViewExperiencePage() {
                 <div className="flex flex-col lg:flex-row lg:gap-3">
                   <h3 className="text-3xl">About your Host:</h3>
                   <h3 className="text-3xl font-bold">
-                    {profileData?.firstName} {profileData?.lastName}
+                    {experience.profile?.firstName} {experience.profile?.lastName}
                   </h3>
                 </div>
                 <div className="flex flex-col items-center gap-5 lg:flex-row">
                   <div className="overflow-hidden">
                     <img
-                      src={profileData?.profileImage || ""}
+                      src={experience.profile?.profileImage || ""}
                       alt="Profile Image"
                       className="w-72 rounded-full"
                     />
                   </div>
                   <div className="flex flex-col gap-3">
                     <p>
-                      {profileData?.bio || (
+                      {experience.profile?.bio || (
                         <i>This host has not added a bio to their profile.</i>
                       )}
                     </p>
                     <div className="flex flex-col items-start gap-3">
-                      {profileData?.social && (
+                      {experience.profile?.social && (
                         <div>
                           <p>Social Media:</p>
                           <a
-                            href={profileData?.social}
+                            href={experience.profile?.social}
                             className="flex flex-row items-center gap-1 hover:text-blue-400"
                           >
-                            {profileData?.social}
+                            {experience.profile?.social}
                           </a>
                         </div>
                       )}
