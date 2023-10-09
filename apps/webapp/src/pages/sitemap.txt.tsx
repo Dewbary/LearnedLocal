@@ -14,7 +14,7 @@ https://www.learnedlocal.app/host
 https://www.learnedlocal.app/about`;
 
     availableExperiences.forEach(experience => {
-        siteMap = siteMap.concat('\n', `https://learnedlocal.app/experience/view/${experience.id}`);
+        siteMap = siteMap.concat('\n', `https://www.learnedlocal.app/experience/view/${experience.id}`);
     });
 
     return siteMap;
