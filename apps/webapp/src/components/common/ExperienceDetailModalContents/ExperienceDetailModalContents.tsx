@@ -43,9 +43,8 @@ export default function ExperienceDetailModalContents(props: Props) {
                   width={50}
                   height={50}
                 />
-                <span className="lg:text-md align-middle text-sm text-yellow-600">
-                  {props.experienceInfo.profile?.firstName}{" "}
-                  {props.experienceInfo.profile?.lastName}
+                <span className="lg:text-md align-middle text-sm text-yellow-700">
+                  {props.experienceInfo.isExternalListing ? props.experienceInfo.externalHostName : props.experienceInfo.profile?.firstName?.concat(" ", props.experienceInfo.profile?.lastName || "") }
                 </span>
               </span>
             </p>

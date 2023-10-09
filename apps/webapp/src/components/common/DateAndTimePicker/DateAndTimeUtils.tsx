@@ -103,6 +103,13 @@ export const getDateToDisplay = (experience: ExperienceInfo): string => {
 
   if (availableDates) {
     if (availableDates.length > 1) {
+
+      availableDates.sort((dateOne, dateTwo) => {
+        const timeOne = dateOne?.getTime() || 0;
+        const timeTwo = dateTwo?.getTime() || 0;
+        return timeOne - timeTwo;
+      })
+
       return (
         `${
           availableDates

@@ -156,7 +156,7 @@ export default function Host() {
           <p>
             You set the price per participant in your experience. You&apos;ll
             make 80% of the admissions to your experience that are sold through
-            Learned Local - the other 15% helps us cover transaction fees,
+            Learned Local - the other 20% helps us cover transaction fees,
             website hosting, and advertising costs.
           </p>
         </div>

@@ -145,25 +145,42 @@ export const experienceRouter = createTRPCRouter({
       });
 
       if (!queryResult) return null;
+
+      // First, remove all the availabilities that have already passed, put the remaining in an object
+      const availabilitiesFiltered = queryResult?.availability.filter((availability) => {
+          if (availability.date) {
+            return availability.date > startOfToday();
+          }
+          else {
+            return false;
+          }
+      });
+
+      // Second, reattach those availabilities to the main object
+      const filteredExperienceInfo = {
+        ...queryResult,
+        availability: availabilitiesFiltered
+      }
       
-      const lastAvailability = queryResult.availability.reduce((prev, curr) => {
-        if (prev.date && curr.date) {
-          if (prev.date > curr.date) return prev; else return curr;
+      // Third, sort the availabilities by their date
+      filteredExperienceInfo?.availability?.sort((a, b) => {
+        if ((a.date?.getTime() || 0) <= (b.date?.getTime() || 0)) {
+          return -1;
         }
         else {
-          return prev;
+          return 1;
         }
       });
 
-      const experiencePassed = lastAvailability.date && (lastAvailability.date < startOfToday());
-      const experienceVerified = queryResult.verified;
-      const experienceOwnerLoggedIn = (queryResult.authorId === ctx.userId);
+      // Finally, only allow the user to see the experience if it is verified or it is the experience author viewing the experience
+      const experienceVerified = filteredExperienceInfo.verified;
+      const experienceOwnerLoggedIn = (filteredExperienceInfo.authorId === ctx.userId);
 
-      if (!experienceOwnerLoggedIn && (experiencePassed || !experienceVerified)) {
-        return null;
+      if (experienceOwnerLoggedIn || experienceVerified) {
+        return filteredExperienceInfo;
       }
       else {
-        return queryResult;
+        return null;
       }
     }),
 
@@ -374,58 +391,4 @@ export const experienceRouter = createTRPCRouter({
           }
         })
       })
-
-  /*
-  createExternalListing: protectedProcedure
-    .input(
-      z.object({
-        title: z.string(),
-        description: z.string(),
-        price: z.number(),
-        free: z.boolean(),
-        city: z.string().nullable(),
-        photos: z.array(z.string()),
-        categoryId: z.number(),
-        profileId: z.string(),
-        availabilityDate: z.date(),
-        availabilityStartTime: z.date(),
-        availabilityEndTime: z.date()
-      })
-    )
-    .mutation(async ({ctx, input}) => {
-      await ctx.prisma.experience.create({
-        data: {
-          authorId: ctx.userId,
-          title: input.title,
-          description: input.description,
-          price: input.price,
-          free: input.free,
-          categoryId: input.categoryId,
-          timeline: "EXTERNAL_LISTING",
-          city: input.city,
-          location: '{"lat":0,"lng":0}',
-          locationDescription: "EXTERNAL_LISTING",
-          qualifications: "EXTERNAL_LISTING",
-          provided: "EXTERNAL_LISTING",
-          guestRequirements: "EXTERNAL_LISTING",
-          minAge: 0,
-          activityLevel: "EXTERNAL_LISTING",
-          skillLevel: "EXTERNAL_LISTING",
-          maxAttendees: 1000,
-          photos: input.photos,
-          slugId: "EXTERNAL_LISTING",
-          stripeProductId: "EXTERNAL_LISTING",
-          stripePriceId: "EXTERNAL_LISTING",
-          profileId: input.profileId,
-          availability: {
-            create: {
-              date: input.availabilityDate,
-              startTime: input.availabilityStartTime,
-              endTime: input.availabilityEndTime,
-            },
-          },
-        }
-      })
-    })
-    */
 });

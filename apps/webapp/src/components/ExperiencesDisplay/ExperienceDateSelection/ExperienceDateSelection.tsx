@@ -42,11 +42,6 @@ const ExperienceDateSelection = ({
                     (accumulator, registration) => accumulator + registration.partySize, 0
                   )
                 }
-                {/* {
-                  registrationsCount?.filter(
-                    (registration) => registration.availabilityId === date.id
-                  ).length
-                } */}
                 /{availableSpots} Spots Filled
               </div>
             </div>
