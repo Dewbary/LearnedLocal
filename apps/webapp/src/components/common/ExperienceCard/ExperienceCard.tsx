@@ -43,6 +43,11 @@ export default function ExperienceCard({
                     )}
                     onLoadingComplete={() => setLoading(false)}
                   />
+                  {experience.isFull && (
+                    <div>
+                      <div className=" bg-gradient-to-br from-amber-400 to-amber-500 absolute bottom-10 right-0 pr-6 py-2 pl-4 rounded-l-full text-lg text-white font-bold shadow-md">Experience Full</div>
+                    </div>
+                  )}
                 </div>
                 <CardInfo className="group-hover:cursor-pointer" experience={experience} />
               </>

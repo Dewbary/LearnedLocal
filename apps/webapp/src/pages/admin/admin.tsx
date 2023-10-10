@@ -7,6 +7,7 @@ import styles from "./admin.module.css";
 interface AdminUpdateValues {
     experienceId: number;
     verify: boolean;
+    markFull: boolean;
     externalListing: boolean;
     externalListingLink: string | null;
     externalHostName: string | null;
@@ -28,6 +29,7 @@ export default function Admin() {
         await administerExperienceMutation.mutateAsync({
             experienceId: values.experienceId,
             verify: values.verify,
+            isFull: values.markFull,
             externalListing: values.externalListing,
             externalListingLink: values.externalListingLink,
             externalHostName: values.externalHostName
@@ -46,6 +48,7 @@ export default function Admin() {
                     <div>Description</div>
                     <div>First Availability</div>
                     <div>Verified?</div>
+                    <div>Mark as Full?</div>
                     <div>External Listing?</div>
                     <div>External Host Name</div>
                     <div>External Listing Link</div>
@@ -59,7 +62,8 @@ export default function Admin() {
                             verify: listing.verified,
                             externalListing: listing.isExternalListing,
                             externalListingLink: listing.externalListingLink,
-                            externalHostName: listing.externalHostName
+                            externalHostName: listing.externalHostName,
+                            markFull: listing.isFull
                         }}
                         onSubmit={handleUpdateExperience}
                     >
@@ -71,6 +75,9 @@ export default function Admin() {
                                 <div>{listing.availability.at(0)?.date?.toDateString()}</div>
                                 <div>
                                     <Field name="verify" type="checkbox" />
+                                </div>
+                                <div>
+                                    <Field name="markFull" type="checkbox" />
                                 </div>
                                 <div>
                                     <Field name="externalListing" type="checkbox" />

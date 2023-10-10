@@ -371,7 +371,8 @@ export const experienceRouter = createTRPCRouter({
           verify: z.boolean(),
           externalListing: z.boolean(),
           externalListingLink: z.string().nullable(),
-          externalHostName: z.string().nullable()
+          externalHostName: z.string().nullable(),
+          isFull: z.boolean()
         })
       )
       .mutation(async ({ctx, input}) => {
@@ -387,7 +388,8 @@ export const experienceRouter = createTRPCRouter({
             verified: input.verify,
             isExternalListing: input.externalListing,
             externalListingLink: input.externalListingLink,
-            externalHostName: input.externalHostName
+            externalHostName: input.externalHostName,
+            isFull: input.isFull
           }
         })
       })
