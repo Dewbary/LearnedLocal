@@ -10,7 +10,6 @@
     "start": "next start"
   },
   "dependencies": {
-    "@learnedlocal/sanity": "workspace:*",
     "@chakra-ui/react": "^2.5.2",
     "@clerk/nextjs": "^4.16.0",
     "@emotion/react": "^11.10.6",
@@ -25,6 +24,7 @@
     "@hotjar/browser": "^1.0.9",
     "@learnedlocal/api": "workspace:*",
     "@learnedlocal/db": "workspace:*",
+    "@learnedlocal/sanity": "workspace:*",
     "@mui/base": "5.0.0-alpha.122",
     "@mui/material": "^5.11.14",
     "@mui/system": "^5.11.14",

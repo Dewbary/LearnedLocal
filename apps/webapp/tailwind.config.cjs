@@ -29,6 +29,9 @@ const config = {
         regular: "400",
         black: "900",
       },
+      spacing: {
+        '22': '5.5rem'
+      }
     },
   },
   plugins: [

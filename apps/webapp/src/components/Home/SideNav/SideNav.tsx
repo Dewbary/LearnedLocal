@@ -1,14 +1,7 @@
 import * as React from "react";
 
 import {
-  HomeIcon,
   CalendarIcon,
-  CogIcon,
-  CameraIcon,
-  CheckCircleIcon,
-  UserIcon,
-  MapPinIcon,
-  ClipboardDocumentCheckIcon,
   ChevronRightIcon,
   HeartIcon,
   PaintBrushIcon,
@@ -17,10 +10,12 @@ import {
   BackwardIcon,
   CalendarDaysIcon,
   RectangleStackIcon,
+  FaceSmileIcon,
 } from "@heroicons/react/24/solid";
 import { ExperienceInfo } from "../../types";
 import { getExperiences } from "../HomePageUtils";
 import FilteredExperiencesContext from "../FilteredExperiencesContext";
+import FavoritedExperiencesContext from "../FavoritedExperiencesContext";
 
 type Props = {
   experiences: ExperienceInfo[];
@@ -32,8 +27,13 @@ const SideNav = ({ experiences, onSetExperiences }: Props) => {
     FilteredExperiencesContext
   );
 
+  const { favoritedExperiences } = React.useContext(
+    FavoritedExperiencesContext
+  )
+
   const [open, setOpen] = React.useState(true);
   const Menus = [
+    { title: "Favorites", icon: <HeartIcon className="h-6 w-6" /> },
     { title: "Current", icon: <CalendarDaysIcon className="h-6 w-6" /> },
     { title: "Upcoming", icon: <CalendarIcon className="h-6 w-6" /> },
     { title: "Past", icon: <BackwardIcon className="h-6 w-6" /> },
@@ -44,7 +44,7 @@ const SideNav = ({ experiences, onSetExperiences }: Props) => {
     },
     { title: "Culinary", icon: <CakeIcon className="h-6 w-6" /> },
     { title: "Art", icon: <PaintBrushIcon className="h-6 w-6" /> },
-    { title: "Health & Wellness", icon: <HeartIcon className="h-6 w-6" /> },
+    { title: "Health & Wellness", icon: <FaceSmileIcon className="h-6 w-6" /> },
     { title: "All", icon: <RectangleStackIcon className="h-6 w-6" /> },
   ];
 
@@ -70,7 +70,7 @@ const SideNav = ({ experiences, onSetExperiences }: Props) => {
                 index === 0 ? "bg-light-white" : ""
               }`}
               onClick={() => {
-                setFilteredExperiences(getExperiences(Menu.title, experiences));
+                setFilteredExperiences(getExperiences(Menu.title, experiences, favoritedExperiences));
               }}
             >
               {Menu.icon}

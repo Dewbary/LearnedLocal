@@ -1,5 +1,6 @@
 import { Profile, Registration } from "@learnedlocal/db";
 import sgMail from "@sendgrid/mail";
+import sgClient from "@sendgrid/client";
 import { Pin } from "~/components/CreateExperience/LocationPicker/LocationPicker";
 import { env } from "~/env.mjs";
 import { startOfToday } from "date-fns";
@@ -24,6 +25,7 @@ type NewExperienceNotificationProps = {
 };
 
 sgMail.setApiKey(env.SENDGRID_API_KEY);
+sgClient.setApiKey(env.SENDGRID_API_KEY);
 
 const sendConfirmationEmail = async ({
   recipientEmail,
@@ -188,6 +190,35 @@ const sendExperienceCreationEmail = async (
   }
 };
 
+const addContactToListWithExperience = async (newContactEmail: string, experienceTitle: string) => {
+  const data = {
+    "list_ids": [
+      "37be6b20-29e5-40c3-ac3d-f06d53bd8373"
+    ],
+    "contacts": [
+      {
+        "email": newContactEmail,
+        "custom_fields": {
+          "remind_experience_title": experienceTitle
+        }
+      }
+    ]
+  };
+
+  await sgClient.request({
+    url: '/v3/marketing/contacts',
+    method: 'PUT',
+    body: data
+  })
+  .then(([response, body]) => {
+    console.log(response.statusCode);
+    console.log(response.body);
+  })
+  .catch(error => {
+    console.error(error);
+  });
+}
+
 const combineDates = (experienceDate: Date, experienceStartTime: Date) => {
   const year = experienceDate.getFullYear();
   const month = experienceDate.getMonth();
@@ -206,4 +237,5 @@ export {
   sendCancelationEmail,
   sendSignupNotificationEmail,
   sendExperienceCreationEmail,
+  addContactToListWithExperience
 };

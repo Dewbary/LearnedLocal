@@ -5,9 +5,14 @@ today.setHours(0, 0, 0, 0); // set to the start of the day
 
 export const getExperiences = (
   category: string,
-  experiences: ExperienceInfo[]
+  experiences: ExperienceInfo[],
+  favorites: number[],
 ): ExperienceInfo[] => {
   switch (category) {
+    case "Favorites":
+      return experiences.filter((experience) => 
+        favorites.find(id => experience.id === id) !== undefined
+      );
     case "Current":
       return experiences.filter((experience) =>
         experience.availability.some((availableDate) => {

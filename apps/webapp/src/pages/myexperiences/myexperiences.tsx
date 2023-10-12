@@ -123,6 +123,7 @@ export default function MyExperiences() {
               key={registration.experience.id}
               experience={registration.experience}
               registered={true}
+              isHomePageCard={false}
             >
               <button
                 onClick={() => deleteRegistration(registration)}
@@ -152,7 +153,7 @@ export default function MyExperiences() {
         >
           {userCreatedExperiences.data?.map((experience) => (
             <>
-              <ExperienceCard experience={experience} registered={false}>
+              <ExperienceCard experience={experience} registered={false} isHomePageCard={false}>
                 <CustomModal
                   button={
                     <button className="z-20 rounded-lg bg-green-400 p-2 text-white drop-shadow-md hover:bg-green-500">

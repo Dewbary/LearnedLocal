@@ -1,9 +1,5 @@
 lockfileVersion: '6.0'
 
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
-
 importers:
 
   .:
@@ -425,6 +421,9 @@ importers:
       '@learnedlocal/db':
         specifier: workspace:*
         version: link:../db
+      '@sendgrid/client':
+        specifier: ^7.7.0
+        version: 7.7.0
       '@sendgrid/mail':
         specifier: ^7.7.0
         version: 7.7.0
@@ -1318,20 +1317,8 @@ packages:
       '@babel/core': ^7.0.0-0
     dependencies:
       '@babel/core': 7.22.20
-      '@babel/helper-module-transforms': 7.22.20(@babel/core@7.22.20)
+      '@babel/helper-module-transforms': 7.23.0(@babel/core@7.22.20)
       '@babel/helper-plugin-utils': 7.22.5
-    dev: true
-
-  /@babel/plugin-transform-modules-commonjs@7.22.15(@babel/core@7.22.20):
-    resolution: {integrity: sha512-jWL4eh90w0HQOTKP2MoXXUpVxilxsB2Vl4ji69rSjS3EcZ/v4sBmn+A3NpepuJzBhOaEBbR7udonlHHn5DWidg==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/core': 7.22.20
-      '@babel/helper-module-transforms': 7.22.20(@babel/core@7.22.20)
-      '@babel/helper-plugin-utils': 7.22.5
-      '@babel/helper-simple-access': 7.22.5
     dev: true
 
   /@babel/plugin-transform-modules-commonjs@7.23.0(@babel/core@7.22.20):
@@ -1354,7 +1341,7 @@ packages:
     dependencies:
       '@babel/core': 7.22.20
       '@babel/helper-hoist-variables': 7.22.5
-      '@babel/helper-module-transforms': 7.22.20(@babel/core@7.22.20)
+      '@babel/helper-module-transforms': 7.23.0(@babel/core@7.22.20)
       '@babel/helper-plugin-utils': 7.22.5
       '@babel/helper-validator-identifier': 7.22.20
     dev: true
@@ -1366,7 +1353,7 @@ packages:
       '@babel/core': ^7.0.0-0
     dependencies:
       '@babel/core': 7.22.20
-      '@babel/helper-module-transforms': 7.22.20(@babel/core@7.22.20)
+      '@babel/helper-module-transforms': 7.23.0(@babel/core@7.22.20)
       '@babel/helper-plugin-utils': 7.22.5
     dev: true
 
@@ -1769,7 +1756,7 @@ packages:
       '@babel/plugin-transform-logical-assignment-operators': 7.22.11(@babel/core@7.22.20)
       '@babel/plugin-transform-member-expression-literals': 7.22.5(@babel/core@7.22.20)
       '@babel/plugin-transform-modules-amd': 7.22.5(@babel/core@7.22.20)
-      '@babel/plugin-transform-modules-commonjs': 7.22.15(@babel/core@7.22.20)
+      '@babel/plugin-transform-modules-commonjs': 7.23.0(@babel/core@7.22.20)
       '@babel/plugin-transform-modules-systemjs': 7.22.11(@babel/core@7.22.20)
       '@babel/plugin-transform-modules-umd': 7.22.5(@babel/core@7.22.20)
       '@babel/plugin-transform-named-capturing-groups-regex': 7.22.5(@babel/core@7.22.20)
@@ -13929,3 +13916,7 @@ packages:
   /zod@3.20.6:
     resolution: {integrity: sha512-oyu0m54SGCtzh6EClBVqDDlAYRz4jrVtKwQ7ZnsEmMI9HnzuZFj8QFwAY1M5uniIYACdGvv0PBWPF2kO0aNofA==}
     dev: false
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
