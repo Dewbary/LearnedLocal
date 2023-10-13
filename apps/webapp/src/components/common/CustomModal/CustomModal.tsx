@@ -1,12 +1,21 @@
-import { PropsWithChildren, ReactNode, useState } from "react";
+import { PropsWithChildren, ReactNode, useEffect, useState } from "react";
 import styles from "./CustomModal.module.css";
 
-type Props = {
+interface Props extends PropsWithChildren {
   button: ReactNode;
-};
+  visible?: boolean;
+}
 
-export default function CustomModal(props: PropsWithChildren<Props>) {
-  const [displayModal, setDisplayModal] = useState(false);
+export default function CustomModal({
+  button,
+  visible = false,
+  children,
+}: Props) {
+  const [displayModal, setDisplayModal] = useState(visible);
+
+  useEffect(() => {
+    setDisplayModal(visible);
+  }, [visible]);
 
   const hideModal = function () {
     setDisplayModal(false);
@@ -18,7 +27,7 @@ export default function CustomModal(props: PropsWithChildren<Props>) {
 
   return (
     <>
-      <div onClick={() => showModal()}>{props.button}</div>
+      <div onClick={() => showModal()}>{button}</div>
 
       <div
         className={`fixed inset-0 z-40 h-full w-full overflow-y-auto bg-gray-600 bg-opacity-50 ${
@@ -47,7 +56,7 @@ export default function CustomModal(props: PropsWithChildren<Props>) {
               </svg>
             </button>
 
-            {props.children}
+            {children}
           </div>
         </div>
       </div>

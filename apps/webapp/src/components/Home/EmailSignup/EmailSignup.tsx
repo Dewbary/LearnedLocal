@@ -1,9 +1,14 @@
 import { EnvelopeIcon } from "@heroicons/react/24/solid";
 import CustomModal from "~/components/common/CustomModal";
 
-const EmailSignup = () => {
+type Props = {
+  showSubscribeModal: boolean;
+};
+
+const EmailSignup = ({ showSubscribeModal }: Props) => {
   return (
     <CustomModal
+      visible={showSubscribeModal}
       button={
         <div className="fixed bottom-3 right-3 z-10 flex flex-row items-center justify-center gap-3 rounded-full bg-gradient-to-br from-amber-400 to-amber-500 p-4 drop-shadow-md hover:cursor-pointer hover:from-amber-300 hover:to-amber-300 lg:bottom-10 lg:right-10">
           <div className="font-3xl hidden pl-2 font-bold text-white lg:flex">

@@ -12,6 +12,7 @@ import FilteredExperiencesContext from "~/components/Home/FilteredExperiencesCon
 import { ExperienceInfo } from "~/components/types";
 import AnnouncementWidget from "../common/AnnouncementWidget/AnnouncementWidget";
 import FavoritedExperiencesContext from "./FavoritedExperiencesContext";
+import { useRouter } from "next/router";
 
 Modal.setAppElement("#__next");
 
@@ -19,13 +20,19 @@ const couponCodeAnnouncement = [] as string[];
 
 const HomePage = ({ experiences }: { experiences: ExperienceInfo[] }) => {
   const user = useUser();
+  const router = useRouter();
+  const { showSubscribeModal } = router.query;
 
-  const [filteredExperiences, setFilteredExperiences] = useState<ExperienceInfo[]>(experiences);
+  const [filteredExperiences, setFilteredExperiences] =
+    useState<ExperienceInfo[]>(experiences);
 
-  const [favoritedExperiences, setFavoritedExperiences] = useState([] as number[]);
+  const [favoritedExperiences, setFavoritedExperiences] = useState(
+    [] as number[]
+  );
   const [favoritesLoaded, setFavoritesLoaded] = useState(false);
   const [askForEmail, setAskForEmail] = useState(true);
-  const [firstExperienceIdOnDisplay, setFirstExperienceIdOnDisplay] = useState(0);
+  const [firstExperienceIdOnDisplay, setFirstExperienceIdOnDisplay] =
+    useState(0);
 
   React.useEffect(() => {
     const saved = localStorage.getItem("favoriteExperiences") as string;
@@ -36,7 +43,10 @@ const HomePage = ({ experiences }: { experiences: ExperienceInfo[] }) => {
 
   React.useEffect(() => {
     if (favoritesLoaded) {
-      localStorage.setItem("favoriteExperiences", JSON.stringify(favoritedExperiences));
+      localStorage.setItem(
+        "favoriteExperiences",
+        JSON.stringify(favoritedExperiences)
+      );
     }
   }, [favoritedExperiences]);
 
@@ -49,14 +59,20 @@ const HomePage = ({ experiences }: { experiences: ExperienceInfo[] }) => {
       value={{ filteredExperiences, setFilteredExperiences }}
     >
       <FavoritedExperiencesContext.Provider
-        value={{ favoritedExperiences, setFavoritedExperiences, askForEmail, setAskForEmail, firstExperienceIdOnDisplay }}
+        value={{
+          favoritedExperiences,
+          setFavoritedExperiences,
+          askForEmail,
+          setAskForEmail,
+          firstExperienceIdOnDisplay,
+        }}
       >
         <div className="flex min-h-screen w-full flex-col bg-white">
           <NavBar
             isSignedIn={user.isSignedIn ?? false}
             showCreateExperienceButton={true}
             className="bg-white"
-            />
+          />
 
           <div className="flex flex-col pt-16 md:pt-0">
             <AnnouncementWidget announcements={couponCodeAnnouncement} />
@@ -64,10 +80,10 @@ const HomePage = ({ experiences }: { experiences: ExperienceInfo[] }) => {
               <SideNav
                 experiences={experiences}
                 onSetExperiences={setFilteredExperiences}
-                />
+              />
               <div className="flex-1">
                 <ExperiencesDisplay />
-                <EmailSignup />
+                <EmailSignup showSubscribeModal={!!showSubscribeModal} />
               </div>
             </div>
             <div className="border-t-2 border-t-slate-100 pt-4">
