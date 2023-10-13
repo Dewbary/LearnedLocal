@@ -1,7 +1,9 @@
-.autofit {
-  grid-template-columns: repeat(auto-fit, minmax(250px, 0.5fr));
-}
+@media only screen and (min-width: 600px) {
+  .autofit {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 0.5fr));
+  }
 
-.autofitSmaller {
-  grid-template-columns: 0.25fr 0.25fr 0.25fr;
+  .autofitSmaller {
+    grid-template-columns: 0.25fr 0.25fr 0.25fr;
+  }
 }
