@@ -14,7 +14,7 @@ const EmailSignup = ({ showSubscribeModal }: Props) => {
           <div className="font-3xl hidden pl-2 font-bold text-white lg:flex">
             Subscribe for experience updates!
           </div>
-          <div className="rounded-full bg-white p-2">
+          <div className="z-20 rounded-full bg-white p-2">
             <EnvelopeIcon className="w-5 text-amber-500" />
           </div>
         </div>
