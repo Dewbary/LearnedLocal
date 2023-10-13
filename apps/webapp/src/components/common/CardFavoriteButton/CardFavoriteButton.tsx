@@ -96,7 +96,7 @@ export default function CardFavoriteButton(props: Props) {
                 handleRemindClick={handleRemindClick}
                 handleCloseClick={handleCloseClick}
             />
-            <div className={`transition-opacity ${remindToastVisible ? "opacity-100" : "opacity-0"} duration-1000 toast toast-center w-2/3 bg-gradient-to-br from-amber-400 to-amber-500 text-white rounded-lg bottom-8 z-30`}>
+            <div className={`transition-opacity ${remindToastVisible ? "opacity-100 flex" : "opacity-0 hidden"} duration-1000 toast toast-center w-2/3 bg-gradient-to-br from-amber-400 to-amber-500 text-white rounded-lg bottom-8 z-30`}>
                 <div>Success! You&apos;ll be reminded to sign up for {props.experienceTitle}.</div>
             </div>
         </>
