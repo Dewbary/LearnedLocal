@@ -108,6 +108,7 @@ export default function ViewExperiencePage(
                     registrationsCount={registrantCount}
                     availableSpots={experience.maxAttendees}
                     onSignUp={goToCheckoutPage}
+                    experienceIsFull={experience.isFull}
                   />
                 </div>
 

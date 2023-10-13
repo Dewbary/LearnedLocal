@@ -7,6 +7,7 @@ type Props = {
   registrationsCount: Registration[] | undefined;
   availableSpots: number | null;
   onSignUp: (availabilityId: number | null) => void;
+  experienceIsFull: boolean;
 };
 
 const ExperienceDateSelection = ({
@@ -14,44 +15,49 @@ const ExperienceDateSelection = ({
   registrationsCount,
   availableSpots,
   onSignUp,
+  experienceIsFull
 }: Props) => {
   return (
     <div>
       <div className="divider"></div>
-      {availableDates?.length === 0 && (
+      {(availableDates?.length === 0 || experienceIsFull) ? (
         <div>There are currently no availabilities for this experience.</div>
-      )}
-      {availableDates?.map((date) => (
+      ) : (
         <>
-          <div className="flex justify-between">
-            <div>
-              <div key={date.id}>{date.date?.toDateString()}</div>
-              <div className="prose text-xs uppercase">
-                {getTime(date.startTime)} - {getTime(date.endTime)}
+          {availableDates?.map((date) => (
+            <>
+              <div className="flex justify-between">
+                <div>
+                  <div key={date.id}>{date.date?.toDateString()}</div>
+                  <div className="prose text-xs uppercase">
+                    {getTime(date.startTime)} - {getTime(date.endTime)}
+                  </div>
+                </div>
+                <div>
+                  <button
+                    className="btn-primary btn-sm btn mb-2"
+                    onClick={() => onSignUp(date.id)}
+                  >
+                    Sign Up
+                  </button>
+                  <div className="prose text-xs uppercase">
+                    { 
+                      registrationsCount?.filter(
+                        (registration) => registration.availabilityId === date.id
+                      ).reduce(
+                        (accumulator, registration) => accumulator + registration.partySize, 0
+                      )
+                    }
+                    /{availableSpots} Spots Filled
+                  </div>
+                </div>
               </div>
-            </div>
-            <div>
-              <button
-                className="btn-primary btn-sm btn mb-2"
-                onClick={() => onSignUp(date.id)}
-              >
-                Sign Up
-              </button>
-              <div className="prose text-xs uppercase">
-                { 
-                  registrationsCount?.filter(
-                    (registration) => registration.availabilityId === date.id
-                  ).reduce(
-                    (accumulator, registration) => accumulator + registration.partySize, 0
-                  )
-                }
-                /{availableSpots} Spots Filled
-              </div>
-            </div>
-          </div>
-          <div className="divider"></div>
+              <div className="divider"></div>
+            </>
+          ))}
         </>
-      ))}
+      )}
+      
     </div>
   );
 };
