@@ -73,7 +73,8 @@ const handler = async (
         !metadata.experienceId ||
         !metadata.availabilityId
       ) {
-        throw new Error("Metadata not found");
+        console.log({ errorMessage: "error: metadata not constructed properly", metadata });
+        throw new Error("Metadata not properly constructed");
       }
 
       const experienceId = parseInt(metadata.experienceId);

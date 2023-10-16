@@ -106,6 +106,7 @@ export const paymentRouter = createTRPCRouter({
           phone: input.phone,
           experienceId: input.experienceId,
           availabilityId: input.availabilityId,
+          textNotifications: input.textNotifications ? "true" : "false"
         },
       });
 
