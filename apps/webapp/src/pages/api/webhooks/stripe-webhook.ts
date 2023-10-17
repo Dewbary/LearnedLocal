@@ -107,7 +107,7 @@ const handler = async (
     res.json({ received: true });
   } else {
     res.setHeader("Allow", "POST");
-    res.status(405).end("Method Not Allowed");
+    res.status(405).end(`Method Not Allowed. You used ${req.method || "[no method found]"}`);
   }
 };
 
