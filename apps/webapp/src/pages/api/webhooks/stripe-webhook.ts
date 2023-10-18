@@ -14,7 +14,6 @@ const handler = async (
   });
 
   const webhookSecret: string = env.STRIPE_WEBHOOK_SECRET;
-  console.log("WEBHOOK SECRET: ", webhookSecret);
 
   if (req.method === "POST") {
     const buf = await getRawBody(req);
@@ -73,7 +72,10 @@ const handler = async (
         !metadata.experienceId ||
         !metadata.availabilityId
       ) {
-        console.log({ errorMessage: "error: metadata not constructed properly", metadata });
+        console.log({
+          errorMessage: "error: metadata not constructed properly",
+          metadata,
+        });
         throw new Error("Metadata not properly constructed");
       }
 
@@ -107,7 +109,9 @@ const handler = async (
     res.json({ received: true });
   } else {
     res.setHeader("Allow", "POST");
-    res.status(405).end(`Method Not Allowed. You used ${req.method || "[no method found]"}`);
+    res
+      .status(405)
+      .end(`Method Not Allowed. You used ${req.method || "[no method found]"}`);
   }
 };
 

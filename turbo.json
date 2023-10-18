@@ -37,6 +37,10 @@
       "cache": true,
       "persistent": true
     },
+    "test": {
+      "outputs": ["coverage/**"],
+      "dependsOn": []
+    },
     "db:push": {
       "cache": false
     },

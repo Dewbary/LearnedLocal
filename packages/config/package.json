@@ -1,0 +1,11 @@
+{
+  "name": "@learnedlocal/config",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.ts",
+  "dependencies": {},
+  "devDependencies": {
+    "ts-jest": "^29.1.1",
+    "jest-environment-jsdom": "^29.7.0"
+  }
+}

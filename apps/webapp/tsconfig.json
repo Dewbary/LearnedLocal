@@ -2,7 +2,8 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "typeRoots": ["./node_modules/@types"],
-    "types": ["google.maps", "gtag.js"]
+    "types": ["google.maps", "gtag.js", "jest"],
+    "isolatedModules": false
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.mjs"]
 }
