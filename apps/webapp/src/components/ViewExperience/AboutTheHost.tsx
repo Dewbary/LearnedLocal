@@ -38,7 +38,7 @@ export default function AboutTheHost(props: Props) {
                             {props.profile.facebook && (
                                 <a href={fbLink} className="flex flex-row border-2 items-center gap-2 p-2 basis-1/2 flex-grow">
                                     <Facebook className="w-8 h-8"/>
-                                    <span>{props.profile.firstName}'s page</span>
+                                    <span>{props.profile.firstName}&apos;s page</span>
                                 </a>
                             )}
                         </div>
