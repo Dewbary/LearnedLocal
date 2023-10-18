@@ -15,12 +15,11 @@
  * These allow you to access things when processing a request, like the database, the session, etc.
  */
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
-import { type Session } from "next-auth";
 
 import prisma from "./db";
 
 type CreateContextOptions = {
-  session: Session | null;
+  userId: string | null;
 };
 
 /**
@@ -33,10 +32,10 @@ type CreateContextOptions = {
  *
  * @see https://create.t3.gg/en/usage/trpc#-servertrpccontextts
  */
-const createInnerTRPCContext = (opts: CreateContextOptions) => {
+export const createInnerTRPCContext = (opts: CreateContextOptions) => {
   return {
-    session: opts.session,
     prisma,
+    userId: opts.userId,
   };
 };
 
@@ -47,7 +46,9 @@ const createInnerTRPCContext = (opts: CreateContextOptions) => {
  * @see https://trpc.io/docs/context
  */
 // eslint-disable-next-line @typescript-eslint/require-await
-export const createTRPCContext = async (opts: CreateNextContextOptions) => {
+export const createTRPCContext = async (
+  opts: CreateNextContextOptions
+): Promise<AppContext> => {
   const { req } = opts;
   const sesh = getAuth(req);
 
@@ -67,6 +68,7 @@ export const createTRPCContext = async (opts: CreateNextContextOptions) => {
 import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import { getAuth } from "@clerk/nextjs/server";
+import { AppContext } from "./types";
 
 const t = initTRPC.context<typeof createTRPCContext>().create({
   transformer: superjson,
