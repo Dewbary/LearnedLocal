@@ -14,6 +14,7 @@ import { ExperienceInfo } from "../types";
 import ExperienceDateSelection from "../ExperiencesDisplay/ExperienceDateSelection";
 import { InferGetServerSidePropsType } from "next";
 import { getServerSideProps } from "~/pages/experience/view/[...slug]";
+import AboutTheHost from "./AboutTheHost";
 
 export default function ViewExperiencePage(
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -71,7 +72,7 @@ export default function ViewExperiencePage(
           {experience && (
             <div className="m-5 mt-20 lg:mx-20 lg:mt-10">
               {/* EXPERIENCE TITLE AND HEADER */}
-              <div className="flex items-center justify-between rounded-t-lg bg-gradient-to-r from-amber-400 via-amber-200 to-white p-3 lg:p-7">
+              <div className="flex items-center justify-between rounded-t-lg bg-gradient-to-br from-amber-300 to-amber-500 p-3 lg:p-7">
                 <div>
                   <h1 className="text-2xl font-bold lg:mb-2 lg:text-5xl">
                     {experience.title}
@@ -177,9 +178,15 @@ export default function ViewExperiencePage(
                   </div>
                 </div>
               </div>
+              
+              {experience.profile && (
+                <div className="w-full flex flex-col items-center">
+                  <AboutTheHost profile={experience.profile} className="mt-8"/>
+                </div>
+              )}
 
               {/* ABOUT THE HOST */}
-              <div className="my-10 flex flex-col items-center gap-5 lg:mx-10">
+              {/* <div className="my-10 flex flex-col items-center gap-5 lg:mx-10">
                 <div className="flex flex-col lg:flex-row lg:gap-3">
                   <h3 className="text-3xl">About your Host:</h3>
                   <h3 className="text-3xl font-bold">
@@ -215,7 +222,7 @@ export default function ViewExperiencePage(
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           )}
         </>

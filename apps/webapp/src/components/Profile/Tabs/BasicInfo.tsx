@@ -45,10 +45,17 @@ export default function BasicInfo() {
                 </div>
             </div>
             <div className="w-full flex flex-col">
-                <label htmlFor="social">Social Media Link</label>
-                <Field id="social" name="social" placeholder="https://instagram.com/your_profile_link" className="border-2 border-slate-500 rounded-md py-1 px-2"/>
+                <label htmlFor="insta">Instagram Handle</label>
+                <Field id="insta" name="insta" placeholder="@dj.cmax" className="border-2 border-slate-500 rounded-md py-1 px-2"/>
                 <div className="text-red-600">
-                    <ErrorMessage name="social"/>
+                    <ErrorMessage name="insta"/>
+                </div>
+            </div>
+            <div className="w-full flex flex-col">
+                <label htmlFor="facebook">Facebook Page or Profile Link</label>
+                <Field id="facebook" name="facebook" placeholder="https://facebook.com/your_page_link" className="border-2 border-slate-500 rounded-md py-1 px-2"/>
+                <div className="text-red-600">
+                    <ErrorMessage name="facebook"/>
                 </div>
             </div>
         </div>

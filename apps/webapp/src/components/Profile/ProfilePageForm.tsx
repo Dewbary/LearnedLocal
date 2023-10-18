@@ -14,6 +14,8 @@ interface FormValues {
     lastName: string;
     bio: string | null;
     social: string | null;
+    insta: string | null;
+    facebook: string | null;
     venmo: string | null;
     zelle: string | null;
     email: string | null;
@@ -85,6 +87,8 @@ export default function ProfilePageForm() {
                     lastName: profile?.lastName || "",
                     bio: profile?.bio || "",
                     social: profile?.social || "",
+                    insta: profile?.insta || "",
+                    facebook: profile?.facebook || "",
                     venmo: profile?.venmo || "",
                     zelle: profile?.zelle || "",
                     email: profile?.email || "",
@@ -99,6 +103,8 @@ export default function ProfilePageForm() {
                         .required("Last Name is a required field"),
                     bio: Yup.string().notRequired(),
                     social: Yup.string().notRequired(),
+                    insta: Yup.string().notRequired(),
+                    facebook: Yup.string().notRequired(),
                     venmo: Yup.string().notRequired(),
                     zelle: Yup.string().notRequired(),
                     email: Yup.string().email('Invalid email address').notRequired(),

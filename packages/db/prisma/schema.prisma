@@ -111,6 +111,8 @@ model Profile {
     lastName    String?
     bio         String?
     social      String?
+    insta       String?
+    facebook    String?
     venmo       String?
     zelle       String?
     email       String?
