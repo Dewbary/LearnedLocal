@@ -1,4 +1,5 @@
-import { PropsWithChildren, ReactNode, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import type { PropsWithChildren, ReactNode } from "react";
 import styles from "./CustomModal.module.css";
 
 interface Props extends PropsWithChildren {

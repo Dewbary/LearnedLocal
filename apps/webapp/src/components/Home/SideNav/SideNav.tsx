@@ -12,7 +12,7 @@ import {
   RectangleStackIcon,
   FaceSmileIcon,
 } from "@heroicons/react/24/solid";
-import { ExperienceInfo } from "../../types";
+import type { ExperienceInfo } from "@learnedlocal/db/types/types";
 import { getExperiences } from "../HomePageUtils";
 import FilteredExperiencesContext from "../FilteredExperiencesContext";
 import FavoritedExperiencesContext from "../FavoritedExperiencesContext";
@@ -29,7 +29,7 @@ const SideNav = ({ experiences, onSetExperiences }: Props) => {
 
   const { favoritedExperiences } = React.useContext(
     FavoritedExperiencesContext
-  )
+  );
 
   const [open, setOpen] = React.useState(true);
   const Menus = [
@@ -70,7 +70,9 @@ const SideNav = ({ experiences, onSetExperiences }: Props) => {
                 index === 0 ? "bg-light-white" : ""
               }`}
               onClick={() => {
-                setFilteredExperiences(getExperiences(Menu.title, experiences, favoritedExperiences));
+                setFilteredExperiences(
+                  getExperiences(Menu.title, experiences, favoritedExperiences)
+                );
               }}
             >
               {Menu.icon}

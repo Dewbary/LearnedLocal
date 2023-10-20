@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ExperienceInfo } from "../types";
+import type { ExperienceInfo } from "@learnedlocal/db/types/types";
 
 type State = {
   filteredExperiences: ExperienceInfo[];

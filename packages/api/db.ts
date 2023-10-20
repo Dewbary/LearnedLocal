@@ -1,5 +1,5 @@
 import { PrismaClient } from "@learnedlocal/db";
-import { env } from "~/env.mjs";
+import { env } from "@learnedlocal/config/env.mjs";
 
 const prismaClientSingleton = () => {
   const prismaClient = new PrismaClient();

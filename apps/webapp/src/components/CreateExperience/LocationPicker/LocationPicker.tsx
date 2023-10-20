@@ -3,15 +3,11 @@ import Map from "./Map";
 import PinButton from "./PinButton";
 import { usePinContext } from "./PinContext";
 import SearchBar from "./SearchBar";
+import type { Pin } from "@learnedlocal/db/types/types";
 
 // Default BYU
 const DEFAULT_LAT = 40;
 const DEFAULT_LNG = 111;
-
-export type Pin = {
-  lat: number;
-  lng: number;
-};
 
 type LocationPickerProps = {
   value: Pin | null;

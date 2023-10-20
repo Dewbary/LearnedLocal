@@ -9,7 +9,7 @@ import Register from "~/components/Home/Register";
 import SideNav from "~/components/Home/SideNav";
 import * as React from "react";
 import FilteredExperiencesContext from "~/components/Home/FilteredExperiencesContext";
-import { ExperienceInfo } from "~/components/types";
+import type { ExperienceInfo } from "@learnedlocal/db/types/types";
 import AnnouncementWidget from "../common/AnnouncementWidget/AnnouncementWidget";
 import FavoritedExperiencesContext from "./FavoritedExperiencesContext";
 import { useRouter } from "next/router";

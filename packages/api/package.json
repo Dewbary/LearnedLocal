@@ -2,13 +2,11 @@
   "name": "@learnedlocal/api",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "main": "./index.ts",
   "types": "./index.ts",
   "scripts": {
-    "test": "jest"
-  },
-  "jest": {
-    "preset": "@learnedlocal/config/jest/server"
+    "test": "vitest"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.16.0",
@@ -29,11 +27,11 @@
     "superjson": "1.9.1",
     "ts-loader": "^9.4.4",
     "twilio": "^4.18.0",
-    "zod": "^3.20.6"
+    "zod": "^3.20.6",
+    "vitest": "^0.34.6"
   },
   "devDependencies": {
     "date-fns": "^2.29.3",
-    "jest-mock-extended": "2.0.4",
     "typescript": "^4.9.5"
   }
 }

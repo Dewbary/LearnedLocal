@@ -1,8 +1,9 @@
 import React from "react";
 import { Field, FieldProps } from "formik";
-import LocationPicker, { Pin } from "../LocationPicker/LocationPicker";
+import LocationPicker from "../LocationPicker/LocationPicker";
 import { PinContextProvider } from "../LocationPicker/PinContext";
 import FormPageHeader from "../Typography/Typography";
+import { Pin } from "@learnedlocal/db/types/types";
 
 const LocationPage = () => {
   return (

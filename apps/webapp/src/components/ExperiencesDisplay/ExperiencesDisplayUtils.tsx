@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import ExperienceDetailModalContents from "../common/ExperienceDetailModalContents";
 import ExperienceSubscribeModalContents from "../common/ExperienceSubscribeModalContents";
-import { ExperienceInfo } from "../types";
+import type { ExperienceInfo } from "@learnedlocal/db/types/types";
 
 export const getToday = (): Date => {
   const today = new Date();

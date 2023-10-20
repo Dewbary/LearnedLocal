@@ -1,4 +1,5 @@
-import { ExperienceInfo, SerializedExperienceInfo } from "~/components/types";
+import type { SerializedExperienceInfo } from "~/components/types";
+import type { ExperienceInfo } from "@learnedlocal/db/types/types";
 
 export const deserialize = (
   experiences: SerializedExperienceInfo[]

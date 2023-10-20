@@ -1,10 +1,19 @@
-import { Profile, Registration } from "@learnedlocal/db";
+import {
+  Experience,
+  ExperienceAvailability,
+  Profile,
+  Registration,
+} from "@learnedlocal/db";
+import type {
+  ExperienceInfo,
+  AvailabilityInfo,
+  Pin,
+} from "@learnedlocal/db/types/types";
 import sgMail from "@sendgrid/mail";
 import sgClient from "@sendgrid/client";
-import { Pin } from "~/components/CreateExperience/LocationPicker/LocationPicker";
-import { env } from "~/env.mjs";
+// import { Pin } from "~/components/CreateExperience/LocationPicker/LocationPicker";
+import { env } from "@learnedlocal/config/env.mjs";
 import { startOfToday } from "date-fns";
-import type { AvailabilityInfo, ExperienceInfo } from "~/components/types";
 
 type Props = {
   recipientEmail: string;
@@ -24,8 +33,8 @@ type NewExperienceNotificationProps = {
   experience: ExperienceInfo;
 };
 
-sgMail.setApiKey(env.SENDGRID_API_KEY);
-sgClient.setApiKey(env.SENDGRID_API_KEY);
+sgMail.setApiKey(env.SENDGRID_API_KEY ?? "");
+sgClient.setApiKey(env.SENDGRID_API_KEY ?? "");
 
 const sendConfirmationEmail = async ({
   recipientEmail,
@@ -190,34 +199,36 @@ const sendExperienceCreationEmail = async (
   }
 };
 
-const addContactToListWithExperience = async (newContactEmail: string, experienceTitle: string) => {
+const addContactToListWithExperience = async (
+  newContactEmail: string,
+  experienceTitle: string
+) => {
   const data = {
-    "list_ids": [
-      "37be6b20-29e5-40c3-ac3d-f06d53bd8373"
-    ],
-    "contacts": [
+    list_ids: ["37be6b20-29e5-40c3-ac3d-f06d53bd8373"],
+    contacts: [
       {
-        "email": newContactEmail,
-        "custom_fields": {
-          "remind_experience_title": experienceTitle
-        }
-      }
-    ]
+        email: newContactEmail,
+        custom_fields: {
+          remind_experience_title: experienceTitle,
+        },
+      },
+    ],
   };
 
-  await sgClient.request({
-    url: '/v3/marketing/contacts',
-    method: 'PUT',
-    body: data
-  })
-  .then(([response, body]) => {
-    console.log(response.statusCode);
-    console.log(response.body);
-  })
-  .catch(error => {
-    console.error(error);
-  });
-}
+  await sgClient
+    .request({
+      url: "/v3/marketing/contacts",
+      method: "PUT",
+      body: data,
+    })
+    .then(([response, body]) => {
+      console.log(response.statusCode);
+      console.log(response.body);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
 
 const combineDates = (experienceDate: Date, experienceStartTime: Date) => {
   const year = experienceDate.getFullYear();
@@ -237,5 +248,5 @@ export {
   sendCancelationEmail,
   sendSignupNotificationEmail,
   sendExperienceCreationEmail,
-  addContactToListWithExperience
+  addContactToListWithExperience,
 };

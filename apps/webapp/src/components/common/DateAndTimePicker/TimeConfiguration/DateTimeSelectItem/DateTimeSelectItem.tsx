@@ -1,9 +1,10 @@
 import * as React from "react";
 import { format } from "date-fns";
-import { DateInfo } from "~/components/types";
-import { FieldArrayRenderProps, FormikErrors, useFormikContext } from "formik";
+import type { DateInfo } from "~/components/types";
+import { FormikErrors, useFormikContext } from "formik";
+import type { FieldArrayRenderProps } from "formik";
 import TimeSelect from "~/components/common/TimeSelect";
-import { FormValues } from "~/components/CreateExperience/types";
+import type { FormValues } from "~/components/CreateExperience/types";
 
 type Props = {
   dateIndex: number;

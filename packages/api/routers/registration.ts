@@ -1,6 +1,6 @@
-import { createTRPCRouter, publicProcedure } from "packages/api/trpc";
+import { createTRPCRouter, publicProcedure } from "../trpc";
 import { z } from "zod";
-import { sendCancelationEmail } from "packages/api/utils/sendgrid";
+import { sendCancelationEmail } from "../utils/sendgrid";
 
 export const registrationRouter = createTRPCRouter({
   byExperience: publicProcedure.input(z.number()).query(({ ctx, input }) => {

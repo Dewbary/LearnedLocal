@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Pin } from "./LocationPicker";
+import { Pin } from "@learnedlocal/db/types/types";
 import { usePinContext } from "./PinContext";
 
 type GoogleMapProps = {

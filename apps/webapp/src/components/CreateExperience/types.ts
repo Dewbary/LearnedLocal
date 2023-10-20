@@ -1,8 +1,8 @@
 import { FormikErrors, FormikProps } from "formik";
-import { Pin } from "./LocationPicker/LocationPicker";
 import { ImageListType } from "react-images-uploading";
 
 import { DateInfo } from "../types";
+import { Pin } from "@learnedlocal/db/types/types";
 
 export type FormValues = {
   title: string;
