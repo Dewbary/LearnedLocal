@@ -1,28 +1,27 @@
-import { FieldProps } from "formik";
+import { EllipsisHorizontalIcon } from "@heroicons/react/24/solid";
 import React from "react";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 
 type Props = {
   value: ImageListType;
-  form: FieldProps<ImageListType>["form"]; // Add form to the Props
-
   onChange: (
+    imageList: ImageListType
+  ) => void;
+  onChangeCoverImage: (
     imageList: ImageListType,
-    addUpdateIndex: number[] | undefined,
-    form: FieldProps<ImageListType>["form"]
+    coverIndex: number
   ) => void;
 };
 
 const maxFileSize = 10 * 1024 * 1024; // 10MB in bytes
 
-const ImgUploader = ({ value, form, onChange }: Props) => {
+const ImgUploader = ({ value, onChange, onChangeCoverImage }: Props) => {
+
   return (
     <ImageUploading
       multiple
       value={value}
-      onChange={(imageList, addUpdateIndex) =>
-        onChange(imageList, addUpdateIndex, form)
-      }
+      onChange={(imageList) => onChange(imageList)}
       maxNumber={5}
       maxFileSize={maxFileSize}
     >
@@ -36,10 +35,10 @@ const ImgUploader = ({ value, form, onChange }: Props) => {
         dragProps,
         errors,
       }) => (
-        <div className="upload__image-wrapper">
+        <div className="flex flex-col items-center mb-10">
           <button
             type="button"
-            className="flex cursor-pointer flex-col items-center justify-center rounded border border-dashed border-white p-8 py-10 text-center"
+            className="flex cursor-pointer flex-col items-center justify-center rounded border border-dashed border-gray-400 p-8 py-10 text-center w-full"
             {...dragProps}
             style={isDragging ? { color: "red" } : undefined}
             onClick={onImageUpload}
@@ -67,27 +66,42 @@ const ImgUploader = ({ value, form, onChange }: Props) => {
               )}
             </div>
           )}
-          &nbsp;
-          <div className="flex flex-row flex-wrap">
+          <div className="flex flex-row flex-wrap justify-center">
             {imageList.map((image, index) => (
               <div key={index} className="image-item p-4">
-                <img src={image.dataURL} alt="" width="100" />
-                <div className="image-item__btn-wrapper">
-                  <button
-                    type="button"
-                    className="btn-secondary btn-xs btn"
-                    onClick={() => onImageUpdate(index)}
-                  >
-                    Update
-                  </button>
-                  <button
-                    type="button"
-                    className="btn-secondary btn-xs btn"
-                    onClick={() => onImageRemove(index)}
-                  >
-                    Remove
-                  </button>
+                <div className="relative">
+                  <img src={image.dataURL} className="h-56 w-72 object-cover" />
+                  {(index === 0) && (
+                    <div className="absolute top-2 left-2 bg-gradient-to-br from-amber-300 to-amber-500 rounded-full px-3 py-1 text-white">
+                      Cover Image
+                    </div>
+                  )}
+                  <ul className="menu bg-gray-100 w-full absolute top-44 z-10">
+                    <li>
+                      <details>
+                        <summary>Options</summary>
+                        <ul>
+                          <li>
+                            <button type="button" onClick={() => onImageUpdate(index)}>
+                              Update
+                            </button>
+                          </li>
+                          <li>
+                            <button type="button" onClick={() => onImageRemove(index)}>
+                              Remove
+                            </button>
+                          </li>
+                          <li>
+                            <button type="button" onClick={() => onChangeCoverImage(imageList, index)}>
+                              Make Cover Image
+                            </button>
+                          </li>
+                        </ul>
+                      </details>
+                    </li>
+                  </ul>
                 </div>
+                
               </div>
             ))}
           </div>
