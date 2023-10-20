@@ -55,9 +55,6 @@ export const paymentRouter = createTRPCRouter({
       const session = await stripe.checkout.sessions.create(
         createCheckoutSessionObject(experience, input)
       );
-      const session = await stripe.checkout.sessions.create(
-        createCheckoutSessionObject(experience, input)
-      );
 
       return { sessionId: session.id };
     }),
