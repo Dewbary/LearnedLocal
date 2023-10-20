@@ -14,6 +14,8 @@ interface FormValues {
     lastName: string;
     bio: string | null;
     social: string | null;
+    insta: string | null;
+    facebook: string | null;
     venmo: string | null;
     zelle: string | null;
     email: string | null;
@@ -75,7 +77,7 @@ export default function ProfilePageForm() {
 
     return (
         <div className="flex flex-col w-full gap-10 min-h-screen pb-10 pt-14 lg:pt-0">
-            <div className="flex w-full justify-center py-10 bg-gradient-to-r from-amber-400 via-amber-200 to-amber-50">
+            <div className="flex w-full justify-center py-10 bg-gradient-to-br from-amber-300 to-amber-500">
                 <h1 className="text-3xl lg:text-5xl font-bold">Profile and Settings</h1>
             </div>
 
@@ -85,6 +87,8 @@ export default function ProfilePageForm() {
                     lastName: profile?.lastName || "",
                     bio: profile?.bio || "",
                     social: profile?.social || "",
+                    insta: profile?.insta || "",
+                    facebook: profile?.facebook || "",
                     venmo: profile?.venmo || "",
                     zelle: profile?.zelle || "",
                     email: profile?.email || "",
@@ -99,6 +103,8 @@ export default function ProfilePageForm() {
                         .required("Last Name is a required field"),
                     bio: Yup.string().notRequired(),
                     social: Yup.string().notRequired(),
+                    insta: Yup.string().notRequired(),
+                    facebook: Yup.string().notRequired(),
                     venmo: Yup.string().notRequired(),
                     zelle: Yup.string().notRequired(),
                     email: Yup.string().email('Invalid email address').notRequired(),

@@ -3,7 +3,7 @@ import React from "react";
 
 const Success = () => {
   return (
-    <div className="flex h-screen flex-col items-center justify-center bg-gradient-to-r from-amber-400 to-amber-600 text-white">
+    <div className="flex h-screen flex-col items-center justify-center bg-gradient-to-r from-amber-400 to-amber-600 text-white px-10">
       <h1 className="mb-4 text-5xl font-bold">
         Experience Submitted Successfully!
       </h1>

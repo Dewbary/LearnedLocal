@@ -33,7 +33,7 @@ export const validationSchema = Yup.object().shape({
       })
     )
     .required("Availability is required"),
-  price: Yup.number().min(1).required("Price is required"),
+  price: Yup.number().min(1).required("Price must be at least $1 if your experience is not free"),
 });
 
 export const initialValues: FormValues = {
@@ -162,7 +162,7 @@ export const getUpdateExperienceObject = (
     id: parseInt(experienceId),
     title: values.title,
     description: values.description,
-    price: values.free ? 0.0 : values.price,
+    price: values.free ? 1.0 : values.price,
     free: values.free,
     timeline: values.timeline,
     city: values.city,

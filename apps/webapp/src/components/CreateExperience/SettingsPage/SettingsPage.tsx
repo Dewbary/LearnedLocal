@@ -14,6 +14,7 @@ const SettingsPage = () => {
         subtitle="Remember to keep in mind your target audience"
       />
       <div className="rounded-lg bg-white p-8 shadow-md">
+        <PriceField />
         <FormLabel text="Minimum Age" />
         <InputField
           id="minAge"
@@ -28,8 +29,6 @@ const SettingsPage = () => {
           }}
         />
         <ErrorMessage name="minAge" component="div" className="text-red-500" />
-
-        <PriceField />
 
         <FormLabel text="Max Attendees" />
         <InputField

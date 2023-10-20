@@ -132,7 +132,7 @@ export default function Host() {
 
       <div className="sticky bottom-0 flex flex-col items-center gap-2 border-y-2 bg-white py-8 lg:flex-row lg:justify-center lg:gap-5">
         <p className="text-xl font-bold">Create an Experience today!</p>
-        <CreateExperienceButton />
+        <CreateExperienceButton className="btn bg-amber-500 text-white hover:bg-amber-300"/>
       </div>
 
       <div className="mx-5 mb-10 pt-10 lg:mx-20">
@@ -158,6 +158,13 @@ export default function Host() {
             make 80% of the admissions to your experience that are sold through
             Learned Local - the other 20% helps us cover transaction fees,
             website hosting, and advertising costs.
+          </p>
+          <h3 className="text-xl font-bold">
+            How will I get paid for teaching?
+          </h3>
+          <p>
+            We currently transfer through zelle and venmo. You&apos;ll receive payment
+            for teaching promptly after the experience has passed.
           </p>
         </div>
       </div>
