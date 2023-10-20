@@ -2,7 +2,7 @@ import React from "react";
 
 import DateTimeSelectItem from "./DateTimeSelectItem";
 import { FieldArray, useFormikContext } from "formik";
-import { FormValues } from "~/components/CreateExperience/types";
+import type { FormValues } from "~/components/CreateExperience/types";
 
 const TimeConfiguration = () => {
   const { values } = useFormikContext<FormValues>();

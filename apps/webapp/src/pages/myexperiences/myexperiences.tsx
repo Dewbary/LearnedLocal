@@ -2,7 +2,7 @@ import { RedirectToSignIn, SignedIn, SignedOut, useUser } from "@clerk/nextjs";
 import { api } from "~/utils/api";
 import NavBar from "~/components/NavBar/NavBar";
 import { useRouter } from "next/router";
-import { Experience, Registration } from "@learnedlocal/db";
+import type { Experience, Registration } from "@learnedlocal/db";
 import { useState } from "react";
 import CreateExperienceButton from "~/components/common/CreateExperienceButton";
 import Link from "next/link";
@@ -147,13 +147,17 @@ export default function MyExperiences() {
           </div>
         )}
         <div
-          className={`grid grid-cols-1 gap-y-10 gap-x-6 m-10 ${
+          className={`m-10 grid grid-cols-1 gap-y-10 gap-x-6 ${
             styles.autofit ?? ""
           } xl:gap-x-8`}
         >
           {userCreatedExperiences.data?.map((experience) => (
             <>
-              <ExperienceCard experience={experience} registered={false} isHomePageCard={false}>
+              <ExperienceCard
+                experience={experience}
+                registered={false}
+                isHomePageCard={false}
+              >
                 <CustomModal
                   button={
                     <button className="z-20 rounded-lg bg-green-400 p-2 text-white drop-shadow-md hover:bg-green-500">

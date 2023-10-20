@@ -1,19 +1,20 @@
 import getRawBody from "raw-body";
-import { env } from "~/env.mjs";
+import { env } from "@learnedlocal/config/env.mjs";
 
 import Stripe from "stripe";
-import { NextApiRequest, NextApiResponse } from "next";
-import { RegistrationInfo, register } from "@learnedlocal/api";
+import type { NextApiRequest, NextApiResponse } from "next";
+import type { RegistrationInfo } from "@learnedlocal/api";
+import { register } from "@learnedlocal/api";
 
 const handler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
-  const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
+  const stripe = new Stripe(env.STRIPE_SECRET_KEY ?? "", {
     apiVersion: "2022-11-15",
   });
 
-  const webhookSecret: string = env.STRIPE_WEBHOOK_SECRET;
+  const webhookSecret: string = env.STRIPE_WEBHOOK_SECRET ?? "";
 
   if (req.method === "POST") {
     const buf = await getRawBody(req);

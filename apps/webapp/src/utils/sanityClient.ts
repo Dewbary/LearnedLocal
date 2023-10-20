@@ -1,7 +1,7 @@
 import { createClient } from "next-sanity";
 import createImageUrlBuilder from "@sanity/image-url";
 import sanityConfig from "@learnedlocal/sanity";
-import { CoverImageInfo } from "~/components/types";
+import type { CoverImageInfo } from "~/components/types";
 
 export const client = createClient({
   projectId: "4gjyci47",

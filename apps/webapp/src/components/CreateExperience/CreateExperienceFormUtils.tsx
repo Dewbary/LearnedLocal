@@ -19,9 +19,8 @@ import FinalStepsPage from "./FinalStepsPage/FinalStepsPage";
 import StartPage from "./StartPage";
 import { ImageListType } from "react-images-uploading";
 import { uploadImageToBucket } from "~/utils/images";
-import { env } from "~/env.mjs";
-import { Pin } from "./LocationPicker/LocationPicker";
-import { ExperienceInfo } from "../types";
+import { env } from "@learnedlocal/config/env.mjs";
+import type { ExperienceInfo, Pin } from "@learnedlocal/db/types/types";
 
 export const validationSchema = Yup.object().shape({
   title: Yup.string().required("Title is required"),
@@ -143,10 +142,9 @@ export const uploadImages = async (
       }
       const path = await uploadImageToBucket(img.file, userId);
       const filePath =
-        env.NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_URL +
-        env.NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_NAME +
-        "/" +
-        path;
+        env.NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_URL ??
+        "" + env.NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_NAME ??
+        "" + "/" + path;
       filePathArray.push(filePath);
     })
   );

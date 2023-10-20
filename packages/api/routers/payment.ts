@@ -1,15 +1,15 @@
 import { z } from "zod";
-import { createTRPCRouter, protectedProcedure } from "packages/api/trpc";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 import Stripe from "stripe";
-import { env } from "~/env.mjs";
-import { register } from "packages/api/utils/registration";
+import { env } from "@learnedlocal/config/env.mjs";
+import { register } from "../utils/registration";
 import {
   checkMaxAttendeesLimit,
   createCheckoutSessionObject,
 } from "../utils/stripeUtils";
 import { createFreeRegistrationInfo } from "../utils/freeExpUtils";
 
-const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
+const stripe = new Stripe(env.STRIPE_SECRET_KEY ?? "", {
   apiVersion: "2022-11-15",
 });
 

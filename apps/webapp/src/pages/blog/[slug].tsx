@@ -1,12 +1,11 @@
 import { client } from "~/utils/sanityClient";
 import Post from "~/components/Blog/Post";
-import {
+import type {
   GetStaticPathsResult,
-  GetStaticProps,
   GetStaticPropsContext,
   GetStaticPropsResult,
 } from "next";
-import { PostInfo } from "~/components/types";
+import type { PostInfo } from "~/components/types";
 
 type Props = {
   data: {

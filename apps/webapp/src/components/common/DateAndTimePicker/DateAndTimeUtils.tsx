@@ -1,6 +1,7 @@
 import { isEqual } from "lodash";
 import { format } from "date-fns";
-import { DateInfo, ExperienceInfo } from "../../types";
+import type { DateInfo } from "../../types";
+import type { ExperienceInfo } from "@learnedlocal/db/types/types";
 
 const dateDisplayOptions = {
   month: "short",
@@ -103,12 +104,11 @@ export const getDateToDisplay = (experience: ExperienceInfo): string => {
 
   if (availableDates) {
     if (availableDates.length > 1) {
-
       availableDates.sort((dateOne, dateTwo) => {
         const timeOne = dateOne?.getTime() || 0;
         const timeTwo = dateTwo?.getTime() || 0;
         return timeOne - timeTwo;
-      })
+      });
 
       return (
         `${

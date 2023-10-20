@@ -1,5 +1,5 @@
-import { GetStaticProps } from "next";
-import { PostInfo } from "~/components/types";
+import type { GetStaticProps } from "next";
+import type { PostInfo } from "~/components/types";
 import { client } from "~/utils/sanityClient";
 
 export const getStaticProps: GetStaticProps = async () => {

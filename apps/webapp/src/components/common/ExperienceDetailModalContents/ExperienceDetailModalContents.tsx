@@ -1,4 +1,4 @@
-import { ExperienceInfo } from "~/components/types";
+import type { ExperienceInfo } from "@learnedlocal/db/types/types";
 import ExperienceImageDisplay from "../ExperienceImageDisplay";
 import { useRouter } from "next/router";
 import Image from "next/image";
@@ -13,13 +13,15 @@ export default function ExperienceDetailModalContents(props: Props) {
 
   const handleViewPageClick = async function () {
     window.gtag("event", "view_details", {
-      "experience_title": props.experienceInfo.title
+      experience_title: props.experienceInfo.title,
     });
 
-    if (props.experienceInfo.isExternalListing && props.experienceInfo.externalListingLink !== null) {
+    if (
+      props.experienceInfo.isExternalListing &&
+      props.experienceInfo.externalListingLink !== null
+    ) {
       window.location.assign(props.experienceInfo.externalListingLink);
-    }
-    else {
+    } else {
       await router.push(`/experience/view/${props.experienceInfo.id}`);
     }
   };
@@ -44,7 +46,12 @@ export default function ExperienceDetailModalContents(props: Props) {
                   height={50}
                 />
                 <span className="lg:text-md align-middle text-sm text-yellow-700">
-                  {props.experienceInfo.isExternalListing ? props.experienceInfo.externalHostName : props.experienceInfo.profile?.firstName?.concat(" ", props.experienceInfo.profile?.lastName || "") }
+                  {props.experienceInfo.isExternalListing
+                    ? props.experienceInfo.externalHostName
+                    : props.experienceInfo.profile?.firstName?.concat(
+                        " ",
+                        props.experienceInfo.profile?.lastName || ""
+                      )}
                 </span>
               </span>
             </p>

@@ -10,7 +10,7 @@ import "~/styles/globals.css";
 import "~/styles/datepicker.css";
 import { loadStripe } from "@stripe/stripe-js";
 import Script from "next/script";
-import { env } from "~/env.mjs";
+import { env } from "@learnedlocal/config/env.mjs";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string
@@ -33,7 +33,11 @@ const MyApp: AppType<{ session: Session | null }> = ({
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'G-M86ZFHHF5R'${env.NEXT_PUBLIC_GA4_DEBUG_TRUE === "true" ? ", { 'debug_mode': true }" : ""});
+        gtag('config', 'G-M86ZFHHF5R'${
+          env.NEXT_PUBLIC_GA4_DEBUG_TRUE === "true"
+            ? ", { 'debug_mode': true }"
+            : ""
+        });
       `}
       </Script>
 

@@ -2,6 +2,7 @@ import * as React from "react";
 import FilteredExperiencesContext from "../Home/FilteredExperiencesContext";
 import ExperienceCard from "../common/ExperienceCard/ExperienceCard";
 import styles from "./ExperiencesDisplay.module.css";
+import type { ExperienceInfo } from "@learnedlocal/db/types/types";
 
 const ExperiencesDisplay = () => {
   const { filteredExperiences } = React.useContext(FilteredExperiencesContext);
@@ -18,7 +19,7 @@ const ExperiencesDisplay = () => {
           } xl:gap-x-8`}
         >
           {filteredExperiences &&
-            filteredExperiences.map((experience) => (
+            filteredExperiences.map((experience: ExperienceInfo) => (
               <ExperienceCard
                 key={experience.id}
                 experience={experience}

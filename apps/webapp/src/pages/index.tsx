@@ -1,14 +1,12 @@
-import { GetStaticProps } from "next";
+import type { GetStaticProps } from "next";
 import Head from "next/head";
 import { createServerSideHelpers } from "@trpc/react-query/server";
 import HomePage from "../components/Home/HomePage";
 import { appRouter } from "packages/api";
 import superjson from "superjson";
 import prisma from "packages/api/db";
-import type {
-  ExperienceInfo,
-  SerializedExperienceInfo,
-} from "~/components/types";
+import type { SerializedExperienceInfo } from "~/components/types";
+import type { ExperienceInfo } from "@learnedlocal/db/types/types";
 import { deserialize } from "~/utils/experience";
 import { startOfToday } from "date-fns";
 
@@ -25,7 +23,9 @@ export const getStaticProps: GetStaticProps = async () => {
   const experiences: ExperienceInfo[] = await helpers.experience.getAll.fetch();
 
   experiences.sort((a, b) => {
-    return calculateExperiencePriorityScore(b) - calculateExperiencePriorityScore(a);
+    return (
+      calculateExperiencePriorityScore(b) - calculateExperiencePriorityScore(a)
+    );
   });
 
   const serializedExperiences = experiences.map((experience) => {
@@ -51,17 +51,16 @@ export const getStaticProps: GetStaticProps = async () => {
   };
 };
 
-const calculateExperiencePriorityScore = (exp:ExperienceInfo) => {
+const calculateExperiencePriorityScore = (exp: ExperienceInfo) => {
   if (exp.availability && exp.availability.length > 0) {
     const nearestAvail = exp.availability.reduce((acc, curr) => {
       if (curr.date === null || acc.date === null) {
         return acc;
       }
-  
+
       if (curr.date < acc.date && curr.date > startOfToday()) {
         return curr;
-      }
-      else {
+      } else {
         return acc;
       }
     });
@@ -71,22 +70,18 @@ const calculateExperiencePriorityScore = (exp:ExperienceInfo) => {
     if (!(nearestAvail.date > startOfToday())) {
       if (exp.isFutureExperience) {
         return 1;
-      }
-      else {
+      } else {
         return 0;
       }
+    } else {
+      return 3005700800011 - nearestAvail.date.getTime();
     }
-    else {
-      return (3005700800011 - nearestAvail.date.getTime());
-    }
-  }
-  else if (exp.isFutureExperience) {
+  } else if (exp.isFutureExperience) {
     return 1;
-  }
-  else {
+  } else {
     return 0;
   }
-}
+};
 
 const Home = ({ experiences }: { experiences: SerializedExperienceInfo[] }) => {
   return (

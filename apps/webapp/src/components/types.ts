@@ -1,4 +1,8 @@
-import { Experience, ExperienceAvailability, Profile } from "@learnedlocal/db";
+import type {
+  Experience,
+  ExperienceAvailability,
+  Profile,
+} from "@learnedlocal/db";
 import type {
   SanityReference,
   SanityKeyedReference,
@@ -8,19 +12,6 @@ import type {
   SanityKeyed,
   SanityImageAsset,
 } from "sanity-codegen";
-
-export type ExperienceInfo = Experience & {
-  profile: Profile | null;
-  availability: ExperienceAvailability[];
-};
-
-export type AvailabilityInfo =
-  | (ExperienceAvailability & {
-      experience: Experience & {
-        profile: Profile | null;
-      };
-    })
-  | null;
 
 export type DateInfo = {
   id?: number;

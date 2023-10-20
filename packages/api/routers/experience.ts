@@ -1,13 +1,42 @@
 import { z } from "zod";
-import {
-  createTRPCRouter,
-  publicProcedure,
-  protectedProcedure,
-} from "packages/api/trpc";
-import { sendExperienceCreationEmail } from "packages/api/utils/sendgrid";
-import { createExperienceAndPrice } from "~/utils/stripe";
+import { createTRPCRouter, publicProcedure, protectedProcedure } from "../trpc";
+import { sendExperienceCreationEmail } from "../utils/sendgrid";
 import { startOfToday } from "date-fns";
-import { env } from "~/env.mjs";
+import { env } from "@learnedlocal/config/env.mjs";
+import Stripe from "stripe";
+
+const stripe = new Stripe(env.STRIPE_SECRET_KEY ?? "", {
+  apiVersion: "2022-11-15",
+});
+
+export type StripeProductInfo = {
+  title: string;
+  description: string;
+  amount: number;
+  currency: string;
+};
+
+export type StripeProduct = {
+  productId: string;
+  priceId: string;
+};
+
+export const createExperienceAndPrice = async ({
+  title,
+  description,
+  amount,
+  currency,
+}: StripeProductInfo): Promise<StripeProduct> => {
+  const product = await stripe.products.create({ name: title, description });
+
+  const price = await stripe.prices.create({
+    unit_amount: amount,
+    currency,
+    product: product.id,
+  });
+
+  return { productId: product.id, priceId: price.id };
+};
 
 export const experienceRouter = createTRPCRouter({
   getAll: publicProcedure.query(({ ctx }) => {
@@ -33,11 +62,11 @@ export const experienceRouter = createTRPCRouter({
     return ctx.prisma.experience.findMany({
       include: {
         profile: true,
-        availability: true
+        availability: true,
       },
       orderBy: {
-        id: "desc"
-      }
+        id: "desc",
+      },
     });
   }),
 
@@ -147,39 +176,39 @@ export const experienceRouter = createTRPCRouter({
       if (!queryResult) return null;
 
       // First, remove all the availabilities that have already passed, put the remaining in an object
-      const availabilitiesFiltered = queryResult?.availability.filter((availability) => {
+      const availabilitiesFiltered = queryResult?.availability.filter(
+        (availability) => {
           if (availability.date) {
             return availability.date > startOfToday();
-          }
-          else {
+          } else {
             return false;
           }
-      });
+        }
+      );
 
       // Second, reattach those availabilities to the main object
       const filteredExperienceInfo = {
         ...queryResult,
-        availability: availabilitiesFiltered
-      }
-      
+        availability: availabilitiesFiltered,
+      };
+
       // Third, sort the availabilities by their date
       filteredExperienceInfo?.availability?.sort((a, b) => {
         if ((a.date?.getTime() || 0) <= (b.date?.getTime() || 0)) {
           return -1;
-        }
-        else {
+        } else {
           return 1;
         }
       });
 
       // Finally, only allow the user to see the experience if it is verified or it is the experience author viewing the experience
       const experienceVerified = filteredExperienceInfo.verified;
-      const experienceOwnerLoggedIn = (filteredExperienceInfo.authorId === ctx.userId);
+      const experienceOwnerLoggedIn =
+        filteredExperienceInfo.authorId === ctx.userId;
 
       if (experienceOwnerLoggedIn || experienceVerified) {
         return filteredExperienceInfo;
-      }
-      else {
+      } else {
         return null;
       }
     }),
@@ -305,8 +334,6 @@ export const experienceRouter = createTRPCRouter({
         currency: "usd",
       });
 
-
-
       const newExperience = await ctx.prisma.experience.create({
         data: {
           authorId: ctx.userId,
@@ -350,47 +377,47 @@ export const experienceRouter = createTRPCRouter({
           profile: true,
           availability: {
             orderBy: {
-              startTime: 'asc'
+              startTime: "asc",
             },
             take: 1,
-          }
+          },
         },
       });
 
       if (newExperienceInfo) {
-        await sendExperienceCreationEmail({experience: newExperienceInfo});
+        await sendExperienceCreationEmail({ experience: newExperienceInfo });
       }
 
       return newExperience;
     }),
 
-    administerExperience: protectedProcedure
-      .input(
-        z.object({
-          experienceId: z.number(),
-          verify: z.boolean(),
-          externalListing: z.boolean(),
-          externalListingLink: z.string().nullable(),
-          externalHostName: z.string().nullable(),
-          isFull: z.boolean()
-        })
-      )
-      .mutation(async ({ctx, input}) => {
-        if (ctx.userId !== env.ADMIN_USER_ID) {
-          return;
-        }
-
-        return await ctx.prisma.experience.update({
-          where: {
-            id: input.experienceId
-          },
-          data: {
-            verified: input.verify,
-            isExternalListing: input.externalListing,
-            externalListingLink: input.externalListingLink,
-            externalHostName: input.externalHostName,
-            isFull: input.isFull
-          }
-        })
+  administerExperience: protectedProcedure
+    .input(
+      z.object({
+        experienceId: z.number(),
+        verify: z.boolean(),
+        externalListing: z.boolean(),
+        externalListingLink: z.string().nullable(),
+        externalHostName: z.string().nullable(),
+        isFull: z.boolean(),
       })
+    )
+    .mutation(async ({ ctx, input }) => {
+      if (ctx.userId !== process.env.ADMIN_USER_ID) {
+        return;
+      }
+
+      return await ctx.prisma.experience.update({
+        where: {
+          id: input.experienceId,
+        },
+        data: {
+          verified: input.verify,
+          isExternalListing: input.externalListing,
+          externalListingLink: input.externalListingLink,
+          externalHostName: input.externalHostName,
+          isFull: input.isFull,
+        },
+      });
+    }),
 });

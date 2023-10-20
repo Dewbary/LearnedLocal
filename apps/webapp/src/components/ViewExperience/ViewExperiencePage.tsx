@@ -8,9 +8,8 @@ import { useEffect, useState } from "react";
 import ExperienceImageDisplay from "../common/ExperienceImageDisplay";
 import { MapPinIcon, UserIcon } from "@heroicons/react/24/solid";
 import { generateGoogleMapsURL } from "./ViewExperienceUtils";
-import { Pin } from "../CreateExperience/LocationPicker/LocationPicker";
 import ShareExperienceComponent from "../common/ShareExperienceComponent";
-import { ExperienceInfo } from "../types";
+import type { ExperienceInfo, Pin } from "@learnedlocal/db/types/types";
 import ExperienceDateSelection from "../ExperiencesDisplay/ExperienceDateSelection";
 import { InferGetServerSidePropsType } from "next";
 import { getServerSideProps } from "~/pages/experience/view/[...slug]";
@@ -28,9 +27,13 @@ export default function ViewExperiencePage(
   const [lat, setLat] = useState(0);
   const [lng, setLng] = useState(0);
 
-  const { data: experienceData } = api.experience.viewByExperienceId.useQuery(props.experienceId);
+  const { data: experienceData } = api.experience.viewByExperienceId.useQuery(
+    props.experienceId
+  );
 
-  const { data: registrantCount } = api.registration.byExperience.useQuery(props.experienceId);
+  const { data: registrantCount } = api.registration.byExperience.useQuery(
+    props.experienceId
+  );
 
   useEffect(() => {
     if (experienceData) {
@@ -79,7 +82,8 @@ export default function ViewExperiencePage(
                   </h1>
                   <div>
                     <span>
-                      Hosted By {experience.profile?.firstName} {experience.profile?.lastName}
+                      Hosted By {experience.profile?.firstName}{" "}
+                      {experience.profile?.lastName}
                     </span>
                   </div>
                 </div>
@@ -190,7 +194,8 @@ export default function ViewExperiencePage(
                 <div className="flex flex-col lg:flex-row lg:gap-3">
                   <h3 className="text-3xl">About your Host:</h3>
                   <h3 className="text-3xl font-bold">
-                    {experience.profile?.firstName} {experience.profile?.lastName}
+                    {experience.profile?.firstName}{" "}
+                    {experience.profile?.lastName}
                   </h3>
                 </div>
                 <div className="flex flex-col items-center gap-5 lg:flex-row">

@@ -7,7 +7,7 @@ import {
   getTabComponent,
   validationSchema,
 } from "../CreateExperienceFormUtils";
-import { ExperienceInfo } from "~/components/types";
+import type { ExperienceInfo } from "@learnedlocal/db/types/types";
 import { useExperienceSubmission } from "../hooks/useExperienceSubmission";
 import CreateExperienceFormLayout from "./CreateExperienceFormLayout";
 import type { TabInfo } from "../types";
