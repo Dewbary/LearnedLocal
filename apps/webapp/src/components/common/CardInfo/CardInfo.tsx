@@ -26,11 +26,11 @@ const CardInfo = ({ experience, className }: Props) => {
     <div className={className}>
       <div className="flex flex-col">
         <div className="mt-4 flex justify-between">
-          <h3 className="truncate text-sm text-gray-700">
+          <h3 className="truncate text-sm text-gray-700 shrink">
             {displayHostName}{" "} • {experience.city}
           </h3>
 
-          <p className="text-right text-sm font-medium text-gray-900">
+          <p className="text-right text-sm font-medium text-gray-900 shrink-0">
             {getDateToDisplay(experience)}
           </p>
         </div>

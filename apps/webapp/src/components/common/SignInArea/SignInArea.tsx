@@ -8,7 +8,7 @@ const SignInArea = ({ isSignedIn }: Props) => {
   if (isSignedIn)
     return (
       <SignOutButton>
-        <button className="btn-secondary btn">
+        <button className="">
           Sign out
         </button>
       </SignOutButton>

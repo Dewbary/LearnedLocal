@@ -77,7 +77,7 @@ export default function ProfilePageForm() {
 
     return (
         <div className="flex flex-col w-full gap-10 min-h-screen pb-10 pt-14 lg:pt-0">
-            <div className="flex w-full justify-center py-10 bg-gradient-to-r from-amber-400 via-amber-200 to-amber-50">
+            <div className="flex w-full justify-center py-10 bg-gradient-to-br from-amber-300 to-amber-500">
                 <h1 className="text-3xl lg:text-5xl font-bold">Profile and Settings</h1>
             </div>
 

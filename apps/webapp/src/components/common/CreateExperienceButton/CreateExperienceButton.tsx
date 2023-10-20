@@ -15,7 +15,7 @@ const CreateExperienceButton = ({ className }: Props) => {
 
   return (
     <Link
-      className={`${className ?? ""} btn-primary btn`}
+      className={`${className ?? ""}`}
       href={`experience/create/${slug}`}
     >
       Create an Experience

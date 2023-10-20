@@ -6,6 +6,7 @@ import CardInfo from "../CardInfo";
 import CustomModal from "../CustomModal";
 import { getModalImpl } from "~/components/ExperiencesDisplay/ExperiencesDisplayUtils";
 import CardFavoriteButton from "../CardFavoriteButton";
+import fillerCard from "~/public/filler_card.png";
 
 type Props = {
   experience: ExperienceInfo;
@@ -34,7 +35,7 @@ export default function ExperienceCard({
               <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg xl:aspect-w-7 xl:aspect-h-8 group-hover:cursor-pointer group">
                 <Image
                   alt="experience photo"
-                  src={experience.photos[0] || ""}
+                  src={experience.photos[0] || fillerCard}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className={cn(

@@ -61,7 +61,7 @@ const CreateExperienceFormArea = ({
   const initialValues = getInitialFormValues(experience);
 
   return (
-    <div className="flex flex-1 rounded-lg bg-gradient-to-r from-amber-400 via-amber-200 to-slate-50 px-4 pb-12 pt-20 md:mx-4 md:mb-4 md:p-8">
+    <div className="flex flex-1 rounded-lg bg-gradient-to-br from-amber-300 to-amber-50 px-4 pb-12 pt-20 md:mx-4 md:mb-4 md:p-8">
       {profileExists === "yes" || profileExists === "loading" ? (
         <Formik
           key={slug}

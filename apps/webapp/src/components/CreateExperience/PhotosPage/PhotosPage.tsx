@@ -29,7 +29,7 @@ const PhotosPage = () => {
       <FormPageHeader
         step={6}
         title="Add some photos for your guests"
-        subtitle="Adding photos to your experience will help people understand what they can expect. Try choosing photos that show the space you're hosting the experience in, an example of someone participating in your experience, or a finished product of something you'll make. The more photos you upload, the better."
+        subtitle="Adding photos to your experience will help people understand what to expect."
       />
 
       <br />

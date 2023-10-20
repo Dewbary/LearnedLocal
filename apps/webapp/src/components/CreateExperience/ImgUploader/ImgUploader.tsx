@@ -1,4 +1,3 @@
-import { EllipsisHorizontalIcon } from "@heroicons/react/24/solid";
 import React from "react";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 
@@ -107,7 +106,7 @@ const ImgUploader = ({ value, onChange, onChangeCoverImage }: Props) => {
           </div>
           <button
             type="button"
-            className="btn-primary btn-sm btn"
+            className="bg-red-400 hover:bg-red-300 btn-sm btn mt-5 text-white"
             onClick={onImageRemoveAll}
           >
             Remove all images

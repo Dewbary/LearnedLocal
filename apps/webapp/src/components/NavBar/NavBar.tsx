@@ -33,7 +33,7 @@ const NavBar = ({
 
       <div className="navbar-end">
         {showCreateExperienceButton && (
-          <CreateExperienceButton className="invisible rounded-full border-none bg-gradient-to-br from-amber-400 to-amber-500 p-4 font-bold text-white drop-shadow-md hover:cursor-pointer hover:from-amber-300 hover:to-amber-300 md:visible" />
+          <CreateExperienceButton className="invisible rounded-full border-none bg-gradient-to-br from-amber-400 to-amber-500 py-3 px-6 font-bold text-white drop-shadow-md hover:cursor-pointer hover:from-amber-300 hover:to-amber-300 md:visible" />
         )}
         <div className="dropdown-bottom dropdown-end dropdown">
           <label tabIndex={0} className="btn-ghost btn-circle btn">
@@ -60,26 +60,21 @@ const NavBar = ({
               <Link href="/">Home</Link>
             </li>
             <li>
-              <Link href="/about">About Us</Link>
+              <CreateExperienceButton className="" />
             </li>
-            <li>
-              <Link href="/host">About Hosting</Link>
-            </li>
+            {isSignedIn ? (
+              <li>
+                <Link href="/myexperiences">My Experiences</Link>
+              </li>
+            ) : null}
             <li>
               <Link href="/profile">My Profile</Link>
             </li>
             <li>
-              {isSignedIn ? (
-                <Link
-                  className="btn-primary btn mb-2 lg:flex"
-                  href={`/myexperiences`}
-                >
-                  My Experiences
-                </Link>
-              ) : null}
+              <Link href="/about">About Us</Link>
             </li>
             <li>
-              <CreateExperienceButton className="mb-2 rounded-full border-none bg-gradient-to-br from-amber-400 to-amber-500 p-2 font-bold text-white drop-shadow-md hover:cursor-pointer hover:from-amber-300 hover:to-amber-300" />
+              <Link href="/host">About Hosting</Link>
             </li>
             <li>
               <SignInArea isSignedIn={isSignedIn} />

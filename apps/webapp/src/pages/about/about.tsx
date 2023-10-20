@@ -30,8 +30,8 @@ const AboutPage = () => {
           think. Sign up for an experience today!
         </p>
 
-        <div className="mt-10 flex w-full items-center justify-center">
-          <div className="aspect-w-16 aspect-h-9 flex w-full items-center justify-center">
+        <div className="mt-10 flex w-full items-center justify-center mb-10">
+          <div className="aspect-w-16 aspect-h-9 lg:aspect-h-5 flex w-full items-center justify-center max-w-3xl max-h-48">
             <iframe
               src="https://www.youtube.com/embed/leKfHxT_6II"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

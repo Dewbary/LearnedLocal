@@ -16,7 +16,7 @@ const Register = () => {
         Want to host an experience? Sign up to start sharing your passion with
         others.
       </h3>
-      <button className="btn-primary btn" onClick={() => navigateToHosting()}>
+      <button className="btn bg-amber-400 text-white hover:bg-amber-300" onClick={() => navigateToHosting()}>
         Learn More
       </button>
     </div>
