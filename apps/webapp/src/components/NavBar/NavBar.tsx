@@ -54,27 +54,37 @@ const NavBar = ({
           </label>
           <ul
             tabIndex={0}
-            className="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-100 p-2 shadow"
+            className="menu-compact dropdown-content menu rounded-box mt-3 w-52 bg-base-100 p-2 shadow"
           >
             <li>
-              <Link href="/">Home</Link>
+              <Link className="p-2" href="/">
+                Home
+              </Link>
             </li>
             <li>
-              <CreateExperienceButton className="" />
+              <CreateExperienceButton className="p-2" />
             </li>
             {isSignedIn ? (
               <li>
-                <Link href="/myexperiences">My Experiences</Link>
+                <Link className="p-2" href="/myexperiences">
+                  My Experiences
+                </Link>
               </li>
             ) : null}
             <li>
-              <Link href="/profile">My Profile</Link>
+              <Link className="p-2" href="/profile">
+                My Profile
+              </Link>
             </li>
             <li>
-              <Link href="/about">About Us</Link>
+              <Link className="p-2" href="/about">
+                About Us
+              </Link>
             </li>
             <li>
-              <Link href="/host">About Hosting</Link>
+              <Link className="p-2" href="/host">
+                About Hosting
+              </Link>
             </li>
             <li>
               <SignInArea isSignedIn={isSignedIn} />
