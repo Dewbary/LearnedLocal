@@ -57,14 +57,18 @@ const NavBar = ({
             className="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-100 p-2 shadow"
           >
             <li>
-              <Link href="/">Home</Link>
+              <Link className="" href="/">
+                Home
+              </Link>
             </li>
             <li>
               <CreateExperienceButton className="" />
             </li>
             {isSignedIn ? (
               <li>
-                <Link href="/myexperiences">My Experiences</Link>
+                <Link className="" href="/myexperiences">
+                  My Experiences
+                </Link>
               </li>
             ) : null}
             <li>
