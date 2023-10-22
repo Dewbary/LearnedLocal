@@ -1,6 +1,6 @@
 type Props = {
     itemTitle: string;
-    itemContent: string;
+    itemContent: React.ReactNode;
 }
 
 export default function HelpMenuItem({itemTitle, itemContent}: Props) {
@@ -10,8 +10,8 @@ export default function HelpMenuItem({itemTitle, itemContent}: Props) {
             <div className="collapse-title">
                 {itemTitle}
             </div>
-            <div className="collapse-content border border-t-gray-300">
-                <p className="mt-3">{itemContent}</p>
+            <div className="collapse-content border-t border-t-gray-300">
+                {itemContent}
             </div>
         </div>
     )
