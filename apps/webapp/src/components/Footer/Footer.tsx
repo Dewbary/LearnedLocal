@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 import { Instagram, Facebook, Home, Phone } from "react-feather";
 import Image from "next/image";
-import logo from "../../public/logo_color.png";
+import logo from "../../../assets/logo_color.png";
 
 type Props = {
   className?: string;

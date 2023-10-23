@@ -88,7 +88,7 @@ const Home = ({ experiences }: { experiences: SerializedExperienceInfo[] }) => {
     <>
       <Head>
         <title>Learned Local - Fun Things To Do in Utah</title>
-        <link rel="icon" href="../public/favicon.ico" />
+        <link rel="icon" href="/favicon.ico" />
         <meta
           name="description"
           content="Looking for fun date night ideas or things to do in Provo and Utah County? Come learn a new hobby from someone near you with Learned Local!"

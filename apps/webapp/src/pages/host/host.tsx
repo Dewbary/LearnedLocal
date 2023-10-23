@@ -4,10 +4,10 @@ import NavBar from "~/components/NavBar/NavBar";
 import Image from "next/image";
 import Footer from "~/components/Footer/Footer";
 import CreateExperienceButton from "~/components/common/CreateExperienceButton/CreateExperienceButton";
-import sapiens_2 from "../../public/sapiens_2.png";
-import rock_climbing from "../../public/rock_climbing.png";
-import pottery from "../../public/pottery.png";
-import art_class from "../../public/art_class.png";
+import sapiens_2 from "../../../assets/sapiens_2.png";
+import rock_climbing from "../../../assets/rock_climbing.png";
+import pottery from "../../../assets/pottery.png";
+import art_class from "../../../assets/art_class.png";
 
 export default function Host() {
   const user = useUser();
@@ -132,7 +132,7 @@ export default function Host() {
 
       <div className="sticky bottom-0 flex flex-col items-center gap-2 border-y-2 bg-white py-8 lg:flex-row lg:justify-center lg:gap-5">
         <p className="text-xl font-bold">Create an Experience today!</p>
-        <CreateExperienceButton className="btn bg-amber-500 text-white hover:bg-amber-300"/>
+        <CreateExperienceButton className="btn bg-amber-500 text-white hover:bg-amber-300" />
       </div>
 
       <div className="mx-5 mb-10 pt-10 lg:mx-20">
@@ -163,8 +163,8 @@ export default function Host() {
             How will I get paid for teaching?
           </h3>
           <p>
-            We currently transfer through zelle and venmo. You&apos;ll receive payment
-            for teaching promptly after the experience has passed.
+            We currently transfer through zelle and venmo. You&apos;ll receive
+            payment for teaching promptly after the experience has passed.
           </p>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Image from "next/image";
-import white_logo from "../../../public/logo_white_bg.png";
+import white_logo from "../../../../assets/logo_white_bg.png";
 
 type Props = {
   text: string;

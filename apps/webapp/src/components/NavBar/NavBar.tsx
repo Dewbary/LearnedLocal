@@ -3,7 +3,7 @@ import Link from "next/link";
 import SignInArea from "../common/SignInArea";
 import CreateExperienceButton from "../common/CreateExperienceButton";
 import Image from "next/image";
-import white_logo from "../../public/logo_white_bg.png";
+import white_logo from "../../../assets/logo_white_bg.png";
 
 type Props = {
   isSignedIn: boolean;
