@@ -1,6 +1,4 @@
 import {
-  Experience,
-  ExperienceAvailability,
   Profile,
   Registration,
 } from "@learnedlocal/db";
@@ -12,8 +10,7 @@ import type {
 import sgMail from "@sendgrid/mail";
 import sgClient from "@sendgrid/client";
 import { env } from "@learnedlocal/config/env.mjs";
-import { format, startOfToday } from "date-fns";
-import { DateTime } from "luxon";
+import { startOfToday } from "date-fns";
 
 type Props = {
   recipientEmail: string;
