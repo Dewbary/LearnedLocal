@@ -188,46 +188,6 @@ export default function ViewExperiencePage(
                   <AboutTheHost profile={experience.profile} className="mt-8"/>
                 </div>
               )}
-
-              {/* ABOUT THE HOST */}
-              {/* <div className="my-10 flex flex-col items-center gap-5 lg:mx-10">
-                <div className="flex flex-col lg:flex-row lg:gap-3">
-                  <h3 className="text-3xl">About your Host:</h3>
-                  <h3 className="text-3xl font-bold">
-                    {experience.profile?.firstName}{" "}
-                    {experience.profile?.lastName}
-                  </h3>
-                </div>
-                <div className="flex flex-col items-center gap-5 lg:flex-row">
-                  <div className="overflow-hidden">
-                    <img
-                      src={experience.profile?.profileImage || ""}
-                      alt="Profile Image"
-                      className="w-72 rounded-full"
-                    />
-                  </div>
-                  <div className="flex flex-col gap-3">
-                    <p>
-                      {experience.profile?.bio || (
-                        <i>This host has not added a bio to their profile.</i>
-                      )}
-                    </p>
-                    <div className="flex flex-col items-start gap-3">
-                      {experience.profile?.social && (
-                        <div>
-                          <p>Social Media:</p>
-                          <a
-                            href={experience.profile?.social}
-                            className="flex flex-row items-center gap-1 hover:text-blue-400"
-                          >
-                            {experience.profile?.social}
-                          </a>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div> */}
             </div>
           )}
         </>

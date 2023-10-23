@@ -11,9 +11,9 @@ import type {
 } from "@learnedlocal/db/types/types";
 import sgMail from "@sendgrid/mail";
 import sgClient from "@sendgrid/client";
-// import { Pin } from "~/components/CreateExperience/LocationPicker/LocationPicker";
 import { env } from "@learnedlocal/config/env.mjs";
-import { startOfToday } from "date-fns";
+import { format, startOfToday } from "date-fns";
+import { DateTime } from "luxon";
 
 type Props = {
   recipientEmail: string;
@@ -57,12 +57,13 @@ const sendConfirmationEmail = async ({
 
   const combinedDate = combineDates(experienceDate, experienceStartTime);
 
-  const experienceDateTime = combinedDate.toLocaleString("en-US", {
+  const experienceDateTimeString = combinedDate.toLocaleString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
     hour: "numeric",
     minute: "2-digit",
+    timeZone: "America/Denver"
   });
 
   const msg = {
@@ -74,7 +75,7 @@ const sendConfirmationEmail = async ({
       hostLastName: hostProfile.lastName,
       experienceTitle: availabilityInfo.experience?.title,
       hostEmail: hostProfile.email,
-      experienceDate: experienceDateTime,
+      experienceDate: experienceDateTimeString,
       experienceLocation:
         lat && lng
           ? `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`
@@ -238,9 +239,8 @@ const combineDates = (experienceDate: Date, experienceStartTime: Date) => {
   const hours = experienceStartTime.getHours();
   const minutes = experienceStartTime.getMinutes();
   const seconds = experienceStartTime.getSeconds();
-  const milliseconds = experienceStartTime.getMilliseconds();
 
-  return new Date(year, month, day, hours, minutes, seconds, milliseconds);
+  return new Date(year, month, day, hours, minutes, seconds);
 };
 
 export {
