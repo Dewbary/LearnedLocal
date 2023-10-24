@@ -1,4 +1,3 @@
-import { isEqual } from "lodash";
 import { format } from "date-fns";
 import type { DateInfo } from "../../types";
 import type { ExperienceInfo } from "@learnedlocal/db/types/types";
@@ -8,76 +7,11 @@ const dateDisplayOptions = {
   day: "2-digit",
 } as const;
 
-const getISODateString = (date: Date): string | undefined => {
-  return date.toISOString().split("T")[0];
-};
-
 export const sortByDate = (dates: DateInfo[]) => {
   return [...dates].sort((a, b) => {
-    if (!a.date || !b.date) return 0;
-    return a.date.getTime() - b.date.getTime();
+    if (!a.startTime || !b.startTime) return 0;
+    return a.startTime.getTime() - b.startTime.getTime();
   });
-};
-
-export const getSelectedDateIndex = (
-  selectedDate: Date,
-  dateList: DateInfo[]
-): number => {
-  const selectedDateString = getISODateString(selectedDate);
-
-  return dateList.findIndex((expDate) => {
-    if (!expDate.date) return false;
-    return isEqual(getISODateString(expDate.date), selectedDateString);
-  });
-};
-
-export const updateDatesList = (
-  selectedDate: Date,
-  selectedDateIndex: number,
-  datesList: DateInfo[]
-): DateInfo[] => {
-  if (selectedDateIndex === -1) {
-    return [
-      ...datesList,
-      { date: selectedDate, startTime: null, endTime: null },
-    ];
-  }
-
-  return datesList.filter((_, index) => index !== selectedDateIndex);
-};
-
-export const getActiveDateIndex = (
-  activeDateIndex: number | null,
-  selectedDateIndex: number
-): number | null => {
-  if (!activeDateIndex && selectedDateIndex === -1) {
-    return selectedDateIndex;
-  } else if (activeDateIndex === selectedDateIndex) {
-    return null;
-  } else if (activeDateIndex && activeDateIndex > selectedDateIndex) {
-    return activeDateIndex - 1;
-  }
-  return null;
-};
-
-export const getUpdatedDatesList = (
-  datesList: DateInfo[],
-  activeDateIndex: number | null,
-  startTime: Date | null,
-  endTime: Date | null
-): DateInfo[] => {
-  if (activeDateIndex === null) return datesList;
-
-  const newDatesData = [...datesList];
-
-  newDatesData[activeDateIndex] = {
-    ...newDatesData[activeDateIndex],
-    startTime,
-    endTime,
-    date: newDatesData[activeDateIndex]?.date ?? null,
-  };
-
-  return newDatesData;
 };
 
 export const getTime = (date: Date | null): string => {
@@ -96,7 +30,7 @@ export const getDateToDisplay = (experience: ExperienceInfo): string => {
 
   const availableDates = experience.availability
     ?.map((a) => {
-      return a.date;
+      return a.startTime;
     })
     .filter((a) => {
       return a && a.getTime() > yesterday.getTime();

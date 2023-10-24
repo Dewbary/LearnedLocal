@@ -49,9 +49,9 @@ const Calendar = ({
   }
 
   // Modify the setSelectedDay to also update the Formik state
-  const handleDateChange = (day: Date) => {
+  const handleDateChange = async (day: Date) => {
     setSelectedDay(day);
-    form.setFieldValue(field.name, day);
+    await form.setFieldValue(field.name, day);
   };
 
   return (
