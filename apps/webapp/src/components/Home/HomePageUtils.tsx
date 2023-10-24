@@ -17,8 +17,8 @@ export const getExperiences = (
     case "Current":
       return experiences.filter((experience) =>
         experience.availability.some((availableDate) => {
-          if (!availableDate.date) return false;
-          return availableDate?.date >= today;
+          if (!availableDate.startTime) return false;
+          return availableDate?.startTime >= today;
         })
       );
     case "Upcoming":
@@ -30,8 +30,8 @@ export const getExperiences = (
       return experiences.filter((experience) => {
         if (experience.isFutureExperience) return false;
         return experience.availability.every((availableDate) => {
-          if (!availableDate.date) return false;
-          return availableDate.date < today;
+          if (!availableDate.startTime) return false;
+          return availableDate.startTime < today;
         });
       });
     case "Outdoors":

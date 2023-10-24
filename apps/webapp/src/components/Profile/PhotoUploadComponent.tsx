@@ -2,7 +2,7 @@ import { FieldHookConfig, useField } from "formik";
 import { uploadImageToBucket } from "~/utils/images";
 import { useUser } from "@clerk/nextjs";
 
-const PhotoUploadComponent = (props:FieldHookConfig<string>) => {
+const PhotoUploadComponent = (props: FieldHookConfig<string>) => {
   const { user } = useUser();
   const [field, meta, helpers] = useField(props);
 
@@ -19,7 +19,7 @@ const PhotoUploadComponent = (props:FieldHookConfig<string>) => {
     )
       return;
     const profileImageFilePath = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${process.env.NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_NAME}/${imgPath}`;
-    helpers.setValue(profileImageFilePath);
+    await helpers.setValue(profileImageFilePath);
   };
 
   return (
@@ -46,9 +46,7 @@ const PhotoUploadComponent = (props:FieldHookConfig<string>) => {
         }}
       />
       <div>
-        {meta.touched && meta.error && (
-          <div>{meta.error?.toString()}</div>
-        )}
+        {meta.touched && meta.error && <div>{meta.error?.toString()}</div>}
       </div>
     </div>
   );

@@ -48,7 +48,7 @@ export const experienceRouter = createTRPCRouter({
         profile: true,
         availability: {
           orderBy: {
-            date: "desc",
+            startTime: "desc",
           },
         },
       },
@@ -77,7 +77,7 @@ export const experienceRouter = createTRPCRouter({
       where: {
         availability: {
           some: {
-            date: {
+            startTime: {
               gte: currentDate,
             },
           },
@@ -93,32 +93,38 @@ export const experienceRouter = createTRPCRouter({
     experiences = experiences.map((experience) => ({
       ...experience,
       ExperienceAvailability: experience.availability.filter(
-        (availability) => !availability.date || availability.date >= currentDate
+        (availability) =>
+          !availability.startTime || availability.startTime >= currentDate
       ),
     }));
 
     // Sort experiences based on the earliest upcoming availability
     experiences.sort((a, b) => {
       const earliestA = a.availability
-        .filter((avail) => avail.date && avail.date !== null)
+        .filter((avail) => avail.startTime && avail.startTime !== null)
         .reduce((prev, curr) => {
           if (!prev) return curr;
-          if (!prev.date) return curr;
-          if (!curr.date) return prev;
-          return prev.date < curr.date ? prev : curr;
+          if (!prev.startTime) return curr;
+          if (!curr.startTime) return prev;
+          return prev.startTime < curr.startTime ? prev : curr;
         }, a.availability[0]);
       const earliestB = b.availability.reduce((prev, curr) => {
         if (!prev) return curr;
-        if (!prev.date) return curr;
-        if (!curr.date) return prev;
-        return prev.date < curr.date ? prev : curr;
+        if (!prev.startTime) return curr;
+        if (!curr.startTime) return prev;
+        return prev.startTime < curr.startTime ? prev : curr;
       }, b.availability[0]);
 
-      if (!earliestA || !earliestA.date || !earliestB || !earliestB.date) {
+      if (
+        !earliestA ||
+        !earliestA.startTime ||
+        !earliestB ||
+        !earliestB.startTime
+      ) {
         return 0;
       }
 
-      return earliestA.date.getTime() - earliestB.date.getTime();
+      return earliestA.startTime.getTime() - earliestB.startTime.getTime();
     });
 
     return experiences;
@@ -178,8 +184,8 @@ export const experienceRouter = createTRPCRouter({
       // First, remove all the availabilities that have already passed, put the remaining in an object
       const availabilitiesFiltered = queryResult?.availability.filter(
         (availability) => {
-          if (availability.date) {
-            return availability.date > startOfToday();
+          if (availability.startTime) {
+            return availability.startTime > startOfToday();
           } else {
             return false;
           }
@@ -194,7 +200,7 @@ export const experienceRouter = createTRPCRouter({
 
       // Third, sort the availabilities by their date
       filteredExperienceInfo?.availability?.sort((a, b) => {
-        if ((a.date?.getTime() || 0) <= (b.date?.getTime() || 0)) {
+        if ((a.startTime?.getTime() || 0) <= (b.startTime?.getTime() || 0)) {
           return -1;
         } else {
           return 1;
@@ -255,7 +261,6 @@ export const experienceRouter = createTRPCRouter({
         availability: z.array(
           z.object({
             id: z.number().optional(),
-            date: z.date().nullable(),
             startTime: z.date().nullable(),
             endTime: z.date().nullable(),
           })
@@ -319,7 +324,6 @@ export const experienceRouter = createTRPCRouter({
         availability: z.array(
           z.object({
             id: z.number().optional(),
-            date: z.date().nullable(),
             startTime: z.date().nullable(),
             endTime: z.date().nullable(),
           })
@@ -360,7 +364,6 @@ export const experienceRouter = createTRPCRouter({
           profileId: input.profileId,
           availability: {
             create: input.availability.map((a) => ({
-              date: a.date,
               startTime: a.startTime,
               endTime: a.endTime,
             })),

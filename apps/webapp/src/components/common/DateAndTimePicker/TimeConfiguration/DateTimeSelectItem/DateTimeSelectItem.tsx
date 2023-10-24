@@ -15,7 +15,7 @@ type Props = {
 const DateTimeSelectItem = ({ dateIndex, dateInfo, arrayHelpers }: Props) => {
   const { errors } = useFormikContext<FormValues>();
 
-  if (!dateInfo.date) return null;
+  if (!dateInfo.startTime) return null;
 
   const timeErrors = (errors.availability &&
     errors.availability[dateIndex]) as FormikErrors<DateInfo> | null;
@@ -23,8 +23,8 @@ const DateTimeSelectItem = ({ dateIndex, dateInfo, arrayHelpers }: Props) => {
   return (
     <>
       <div className="flex flex-col rounded-lg bg-gray-100 px-4 py-2 lg:flex-row lg:items-center lg:justify-center">
-        <h3 className="pr-4 pb-2 text-sm font-bold lg:pb-0">
-          {format(dateInfo.date, "MMM dd, yyyy")}
+        <h3 className="pb-2 pr-4 text-sm font-bold lg:pb-0">
+          {format(dateInfo.startTime, "MMM dd, yyyy")}
         </h3>
 
         <div className="flex flex-col">
@@ -34,9 +34,15 @@ const DateTimeSelectItem = ({ dateIndex, dateInfo, arrayHelpers }: Props) => {
               selectedTime={dateInfo.startTime}
               error={!!timeErrors?.startTime}
               onChange={(time) => {
+                if (!time || !dateInfo.startTime) return;
+                const updatedStartTime = new Date(
+                  dateInfo.startTime?.getTime()
+                );
+                updatedStartTime.setTime(time.getTime());
+
                 arrayHelpers.replace(dateIndex, {
                   ...dateInfo,
-                  startTime: time,
+                  startTime: updatedStartTime,
                 });
               }}
             />{" "}
@@ -46,9 +52,13 @@ const DateTimeSelectItem = ({ dateIndex, dateInfo, arrayHelpers }: Props) => {
               selectedTime={dateInfo.endTime}
               error={!!timeErrors?.endTime}
               onChange={(time) => {
+                if (!time || !dateInfo.endTime) return;
+                const updatedEndTime = new Date(dateInfo.endTime?.getTime());
+                updatedEndTime.setTime(time.getTime());
+
                 arrayHelpers.replace(dateIndex, {
                   ...dateInfo,
-                  endTime: time,
+                  endTime: updatedEndTime,
                 });
               }}
             />

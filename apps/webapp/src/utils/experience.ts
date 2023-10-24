@@ -12,7 +12,6 @@ export const deserialize = (
       availability: experience.availability.map((availability) => {
         return {
           ...availability,
-          date: availability.date ? new Date(availability.date) : null,
           startTime: availability.startTime
             ? new Date(availability.startTime)
             : null,

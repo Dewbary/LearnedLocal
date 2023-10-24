@@ -24,7 +24,7 @@ export const cronJobRouter = createTRPCRouter({
         if (input === env.EDGE_FUNCTION_VERIFICATION_TOKEN) {
           const availabilities = await prisma.experienceAvailability.findMany({
             where: {
-              date: {
+              startTime: {
                 gte: startOfToday(),
               },
             },
@@ -35,14 +35,14 @@ export const cronJobRouter = createTRPCRouter({
           });
 
           availabilities.forEach((availability) => {
-            if (availability.date !== null) {
+            if (availability.startTime !== null) {
               // The availability is scheduled for today
-              if (dateIsXDaysOut(availability.date, 0)) {
+              if (dateIsXDaysOut(availability.startTime, 0)) {
                 sendDayRemindersToRegistrations(availability, "today");
               }
 
               // The availability is scheduled for 3 days out
-              else if (dateIsXDaysOut(availability.date, 3)) {
+              else if (dateIsXDaysOut(availability.startTime, 3)) {
                 sendDayRemindersToRegistrations(
                   availability,
                   "3 days from today"
@@ -50,7 +50,7 @@ export const cronJobRouter = createTRPCRouter({
               }
 
               // The availability is scheduled for 7 days out
-              else if (dateIsXDaysOut(availability.date, 7)) {
+              else if (dateIsXDaysOut(availability.startTime, 7)) {
                 sendDayRemindersToRegistrations(
                   availability,
                   "a week from today"

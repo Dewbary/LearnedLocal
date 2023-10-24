@@ -15,12 +15,12 @@ const ExperienceDateSelection = ({
   registrationsCount,
   availableSpots,
   onSignUp,
-  experienceIsFull
+  experienceIsFull,
 }: Props) => {
   return (
     <div>
       <div className="divider"></div>
-      {(availableDates?.length === 0 || experienceIsFull) ? (
+      {availableDates?.length === 0 || experienceIsFull ? (
         <div>There are currently no availabilities for this experience.</div>
       ) : (
         <>
@@ -28,7 +28,7 @@ const ExperienceDateSelection = ({
             <>
               <div className="flex justify-between">
                 <div>
-                  <div key={date.id}>{date.date?.toDateString()}</div>
+                  <div key={date.id}>{date.startTime?.toDateString()}</div>
                   <div className="prose text-xs uppercase">
                     {getTime(date.startTime)} - {getTime(date.endTime)}
                   </div>
@@ -41,13 +41,16 @@ const ExperienceDateSelection = ({
                     Sign Up
                   </button>
                   <div className="prose text-xs uppercase">
-                    { 
-                      registrationsCount?.filter(
-                        (registration) => registration.availabilityId === date.id
-                      ).reduce(
-                        (accumulator, registration) => accumulator + registration.partySize, 0
+                    {registrationsCount
+                      ?.filter(
+                        (registration) =>
+                          registration.availabilityId === date.id
                       )
-                    }
+                      .reduce(
+                        (accumulator, registration) =>
+                          accumulator + registration.partySize,
+                        0
+                      )}
                     /{availableSpots} Spots Filled
                   </div>
                 </div>
@@ -57,7 +60,6 @@ const ExperienceDateSelection = ({
           ))}
         </>
       )}
-      
     </div>
   );
 };

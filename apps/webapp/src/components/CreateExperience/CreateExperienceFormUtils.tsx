@@ -27,13 +27,14 @@ export const validationSchema = Yup.object().shape({
   availability: Yup.array()
     .of(
       Yup.object().shape({
-        date: Yup.date().required("Date is required"),
         startTime: Yup.string().required("required"),
         endTime: Yup.string().nullable().required("required2"),
       })
     )
     .required("Availability is required"),
-  price: Yup.number().min(1).required("Price must be at least $1 if your experience is not free"),
+  price: Yup.number()
+    .min(1)
+    .required("Price must be at least $1 if your experience is not free"),
 });
 
 export const initialValues: FormValues = {

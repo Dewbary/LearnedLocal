@@ -7,7 +7,6 @@ export const availabilityRouter = createTRPCRouter({
       z.array(
         z.object({
           experienceId: z.number(),
-          date: z.date().nullable(),
           startTime: z.date().nullable(),
           endTime: z.date().nullable(),
         })
@@ -17,7 +16,6 @@ export const availabilityRouter = createTRPCRouter({
       return await ctx.prisma.experienceAvailability.createMany({
         data: input.map((availability) => ({
           experienceId: availability.experienceId,
-          date: availability.date,
           startTime: availability.startTime,
           endTime: availability.endTime,
         })),
@@ -31,7 +29,6 @@ export const availabilityRouter = createTRPCRouter({
         availabilities: z.array(
           z.object({
             id: z.number().optional(),
-            date: z.date().nullable(),
             startTime: z.date().nullable(),
             endTime: z.date().nullable(),
           })
@@ -66,7 +63,6 @@ export const availabilityRouter = createTRPCRouter({
             ? ctx.prisma.experienceAvailability.update({
                 where: { id: availability.id },
                 data: {
-                  date: availability.date,
                   startTime: availability.startTime,
                   endTime: availability.endTime,
                 },
@@ -74,7 +70,6 @@ export const availabilityRouter = createTRPCRouter({
             : ctx.prisma.experienceAvailability.create({
                 data: {
                   experienceId: input.experienceId,
-                  date: availability.date,
                   startTime: availability.startTime,
                   endTime: availability.endTime,
                 },
