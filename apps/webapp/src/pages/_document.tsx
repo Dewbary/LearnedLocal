@@ -23,10 +23,6 @@ export default function Document() {
         `,
           }}
         />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&display=swap"
-          rel="stylesheet"
-        />
         {/* Creates the "google" namespace that can be accessed globally throughout the 
         app to connect to Google Maps */}
         <script
