@@ -27,8 +27,8 @@ type NewExperienceNotificationProps = {
   experience: ExperienceInfo;
 };
 
-sgMail.setApiKey(env.SENDGRID_API_KEY ?? "");
-sgClient.setApiKey(env.SENDGRID_API_KEY ?? "");
+sgMail.setApiKey(process.env.SENDGRID_API_KEY ?? "");
+sgClient.setApiKey(process.env.SENDGRID_API_KEY ?? "");
 
 const sendConfirmationEmail = async ({
   recipientEmail,

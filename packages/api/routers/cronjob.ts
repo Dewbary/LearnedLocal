@@ -21,7 +21,7 @@ export const cronJobRouter = createTRPCRouter({
     .input(z.string().min(1))
     .mutation(async ({ input }) => {
       try {
-        if (input === env.EDGE_FUNCTION_VERIFICATION_TOKEN) {
+        if (input === process.env.EDGE_FUNCTION_VERIFICATION_TOKEN) {
           const availabilities = await prisma.experienceAvailability.findMany({
             where: {
               startTime: {

@@ -5,7 +5,7 @@ import { startOfToday } from "date-fns";
 import { env } from "@learnedlocal/config/env.mjs";
 import Stripe from "stripe";
 
-const stripe = new Stripe(env.STRIPE_SECRET_KEY ?? "", {
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "", {
   apiVersion: "2022-11-15",
 });
 
@@ -56,7 +56,7 @@ export const experienceRouter = createTRPCRouter({
   }),
 
   getAllAdmin: protectedProcedure.query(({ ctx }) => {
-    if (ctx.userId !== env.ADMIN_USER_ID) {
+    if (ctx.userId !== process.env.ADMIN_USER_ID) {
       return;
     }
     return ctx.prisma.experience.findMany({

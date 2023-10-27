@@ -34,7 +34,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'G-M86ZFHHF5R'${
-          env.NEXT_PUBLIC_GA4_DEBUG_TRUE === "true"
+          process.env.NEXT_PUBLIC_GA4_DEBUG_TRUE === "true"
             ? ", { 'debug_mode': true }"
             : ""
         });

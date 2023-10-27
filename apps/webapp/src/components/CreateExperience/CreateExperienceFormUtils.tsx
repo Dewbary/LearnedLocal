@@ -143,9 +143,10 @@ export const uploadImages = async (
       }
       const path = await uploadImageToBucket(img.file, userId);
       const filePath =
-        (env.NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_URL ?? "") 
-        + (env.NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_NAME ?? "")
-        + "/" + path;
+        (process.env.NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_URL ?? "") +
+        (process.env.NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_NAME ?? "") +
+        "/" +
+        path;
       filePathArray.push(filePath);
     })
   );
