@@ -14,11 +14,11 @@ const TimeConfiguration = () => {
         render={(arrayHelpers) => (
           <div className="space-y-2">
             {values.availability.map((dateInfo, index) => {
-              if (!dateInfo || !dateInfo.date) return null;
+              if (!dateInfo || !dateInfo.startTime) return null;
 
               return (
                 <DateTimeSelectItem
-                  key={dateInfo.date.toISOString()}
+                  key={dateInfo.startTime.toISOString()}
                   dateIndex={index}
                   dateInfo={dateInfo}
                   arrayHelpers={arrayHelpers}

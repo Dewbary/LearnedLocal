@@ -14,9 +14,9 @@ const DescriptionPage = () => {
   );
   const { setFieldValue } = useFormikContext();
 
-  const handleThemeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleThemeChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
     const themeNumber = parseInt(e.target.value);
-    setFieldValue("categoryId", themeNumber);
+    await setFieldValue("categoryId", themeNumber);
   };
 
   return (
@@ -42,7 +42,7 @@ const DescriptionPage = () => {
             name="categoryId"
             as="select"
             onChange={handleThemeChange}
-            className="mb-3 w-full rounded-md border-2 border-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-blue-500 focus:outline-none"
+            className="mb-3 w-full rounded-md border-2 border-gray-200 px-4 py-2 leading-tight text-gray-700 focus:border-blue-500 focus:outline-none"
           >
             {categories
               ? categories.map((category) => (
@@ -56,7 +56,7 @@ const DescriptionPage = () => {
         <div>
           <FormLabel text="Experience Description" />
           <Field
-            className="h-48 w-full rounded-md border-2 border-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-blue-500 focus:outline-none"
+            className="h-48 w-full rounded-md border-2 border-gray-200 px-4 py-2 leading-tight text-gray-700 focus:border-blue-500 focus:outline-none"
             id="description"
             name="description"
             as="textarea"

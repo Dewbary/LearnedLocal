@@ -10,13 +10,13 @@ export default ViewExperiencePage;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const experienceId = Number(context.params?.slug?.at(0));
-  const { userId } = getAuth(context.req);
+  // const { userId } = getAuth(context.req);
 
   const helpers = createServerSideHelpers({
     router: appRouter,
     ctx: {
       prisma: prisma,
-      userId: userId,
+      userId: null,
     },
     transformer: superjson,
   });

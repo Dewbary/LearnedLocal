@@ -21,9 +21,9 @@ const LocationPage = () => {
           <PinContextProvider>
             <LocationPicker
               {...field}
-              onLocationChange={(pin: Pin, city?: string | null) => {
-                form.setFieldValue("location", pin);
-                form.setFieldValue("city", city);
+              onLocationChange={async (pin: Pin, city?: string | null) => {
+                await form.setFieldValue("location", pin);
+                await form.setFieldValue("city", city);
               }}
             />
           </PinContextProvider>

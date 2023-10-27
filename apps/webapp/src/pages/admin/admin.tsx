@@ -78,7 +78,7 @@ export default function Admin() {
                 {listing.profile?.firstName} {listing.profile?.lastName}
               </div>
               <div>{listing.description}</div>
-              <div>{listing.availability.at(0)?.date?.toDateString()}</div>
+              <div>{listing.availability.at(0)?.startTime?.toDateString()}</div>
               <div>
                 <Field name="verify" type="checkbox" />
               </div>
@@ -105,7 +105,7 @@ export default function Admin() {
               <div>
                 <button
                   type="submit"
-                  className=" rounded-lg bg-amber-400 py-1 px-3 hover:bg-amber-300"
+                  className=" rounded-lg bg-amber-400 px-3 py-1 hover:bg-amber-300"
                 >
                   Update Experience
                 </button>

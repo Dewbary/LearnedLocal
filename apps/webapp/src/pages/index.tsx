@@ -36,7 +36,6 @@ export const getStaticProps: GetStaticProps = async () => {
       availability: experience.availability.map((availability) => {
         return {
           ...availability,
-          date: availability.date?.toISOString() ?? null,
           startTime: availability.startTime?.toISOString() ?? null,
           endTime: availability.endTime?.toISOString() ?? null,
         };
@@ -54,27 +53,27 @@ export const getStaticProps: GetStaticProps = async () => {
 const calculateExperiencePriorityScore = (exp: ExperienceInfo) => {
   if (exp.availability && exp.availability.length > 0) {
     const nearestAvail = exp.availability.reduce((acc, curr) => {
-      if (curr.date === null || acc.date === null) {
+      if (curr.startTime === null || acc.startTime === null) {
         return acc;
       }
 
-      if (curr.date < acc.date && curr.date > startOfToday()) {
+      if (curr.startTime < acc.startTime && curr.startTime > startOfToday()) {
         return curr;
       } else {
         return acc;
       }
     });
 
-    if (nearestAvail.date === null) return 0;
+    if (nearestAvail.startTime === null) return 0;
 
-    if (!(nearestAvail.date > startOfToday())) {
+    if (!(nearestAvail.startTime > startOfToday())) {
       if (exp.isFutureExperience) {
         return 1;
       } else {
         return 0;
       }
     } else {
-      return 3005700800011 - nearestAvail.date.getTime();
+      return 3005700800011 - nearestAvail.startTime.getTime();
     }
   } else if (exp.isFutureExperience) {
     return 1;

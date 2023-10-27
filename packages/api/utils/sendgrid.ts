@@ -1,7 +1,4 @@
-import {
-  Profile,
-  Registration,
-} from "@learnedlocal/db";
+import { Profile, Registration } from "@learnedlocal/db";
 import type {
   ExperienceInfo,
   AvailabilityInfo,
@@ -47,20 +44,17 @@ const sendConfirmationEmail = async ({
   const lat = location.lat;
   const lng = location.lng;
 
-  const experienceDate = availabilityInfo?.date;
   const experienceStartTime = availabilityInfo?.startTime;
 
-  if (!experienceDate || !experienceStartTime) return;
+  if (!experienceStartTime) return;
 
-  const combinedDate = combineDates(experienceDate, experienceStartTime);
-
-  const experienceDateTimeString = combinedDate.toLocaleString("en-US", {
+  const experienceDateTimeString = experienceStartTime.toLocaleString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
     hour: "numeric",
     minute: "2-digit",
-    timeZone: "America/Denver"
+    timeZone: "America/Denver",
   });
 
   const msg = {
@@ -153,27 +147,27 @@ const sendExperienceCreationEmail = async (
     if (props.experience.availability.length <= 0)
       throw "No availabilities with this experience in sendExperienceCreationEmail";
 
-    const experienceDate = props.experience.availability.at(0)?.date;
     const experienceStartTime = props.experience.availability.at(0)?.startTime;
 
-    if (!experienceDate || !experienceStartTime)
+    if (!experienceStartTime)
       throw "No time associated with availibility from sendExperienceCreationEmail";
 
-    const combinedDate = combineDates(experienceDate, experienceStartTime);
-
     const millisUntilExperience =
-      combinedDate.getTime() - startOfToday().getTime();
+      experienceStartTime.getTime() - startOfToday().getTime();
     const daysUntilExperience = Math.ceil(
       millisUntilExperience / (1000 * 60 * 60 * 24)
     );
 
-    const experienceDateTimeString = combinedDate.toLocaleString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "numeric",
-      minute: "2-digit",
-    });
+    const experienceDateTimeString = experienceStartTime.toLocaleString(
+      "en-US",
+      {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+      }
+    );
 
     const msg = {
       to: "learnedlocal.app@gmail.com",
