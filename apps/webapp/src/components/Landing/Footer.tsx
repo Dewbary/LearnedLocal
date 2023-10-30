@@ -13,7 +13,7 @@ export default function Footer() {
                     </div>
                     <div className="flex flex-row gap-4 font-inter">
                         <input className="text-ll-black w-44 px-3 text-sm" placeholder="Email Address"/>
-                        <div className="rounded-full border border-ll-black text-ll-black text-sm bg-ll-grey px-7 py-3 flex flex-row justify-center items-center hover:text-ll-grey hover:bg-ll-black transition-colors hover:cursor-pointer hover:border-ll-grey">
+                        <div className="rounded-full border border-ll-black text-ll-black text-sm bg-ll-grey px-3 lg:px-7 py-3 flex flex-row justify-center items-center hover:text-ll-grey hover:bg-ll-black transition-colors hover:cursor-pointer hover:border-ll-grey">
                             Sign Up
                         </div>
                     </div>
