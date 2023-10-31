@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Facebook, Instagram } from "react-feather";
 
 export default function Footer() {
@@ -40,16 +41,16 @@ export default function Footer() {
                         FOLLOW US
                     </div>
                     <div className="flex flex-row gap-3">
-                        <a href="https://www.instagram.com/learnedlocal/" target="_blank" className="bg-ll-grey text-ll-black p-1 rounded-full hover:bg-ll-black hover:text-ll-grey">
+                        <Link href="https://www.instagram.com/learnedlocal/" target="_blank" className="bg-ll-grey text-ll-black p-1 rounded-full hover:bg-ll-black hover:text-ll-grey">
                             <Instagram />
-                        </a>
-                        <a
+                        </Link>
+                        <Link
                             href="https://www.facebook.com/profile.php?id=100092194838632"
                             target="_blank"
                             className="bg-ll-grey text-ll-black p-1 rounded-full hover:bg-ll-black hover:text-ll-grey"
                         >
                             <Facebook />
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>

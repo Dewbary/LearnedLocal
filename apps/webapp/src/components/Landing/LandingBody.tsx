@@ -7,6 +7,7 @@ import brainGraphic from "../../../assets/landing/brain_graphic.png";
 import sailingImage from "../../../assets/landing/sailing_image.jpg";
 import gardeningImage from "../../../assets/landing/gardening_image.jpg";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function LandingBody() {
     return (
@@ -36,7 +37,7 @@ export default function LandingBody() {
                         </div>
 
                         <div className="flex flex-col lg:flex-row gap-5">
-                            <a 
+                            <Link 
                                 href="/"
                                 className="rounded-3xl bg-ll-blue text-ll-grey font-inter w-full p-7 flex flex-row justify-around gap-2 items-center lg:order-2 lg:basis-1/4 lg:flex-col hover:bg-ll-yellow hover:text-ll-black hover:cursor-pointer transition-colors"
                             >
@@ -50,7 +51,7 @@ export default function LandingBody() {
                                         className="w-full"
                                     />
                                 </div>
-                            </a>
+                            </Link>
 
                             <div className="rounded-3xl overflow-hidden relative w-full aspect-w-2 aspect-h-1 lg:aspect-w-4 lg:order-1 lg:basis-3/4">
                                 <Image
@@ -158,9 +159,9 @@ export default function LandingBody() {
                                 and photography to immersive pursuits like blacksmithing and pottery. Our selection is ever-evolving
                                 as our local hosts continuously craft new exciting experiences for the community.
                             </div>
-                            <a href="/" className="bg-ll-yellow w-52 h-14 flex justify-center items-center rounded-full hover:bg-opacity-60 hover:cursor-pointer transition-opacity">
+                            <Link href="/" className="bg-ll-yellow w-52 h-14 flex justify-center items-center rounded-full hover:bg-opacity-60 hover:cursor-pointer transition-opacity">
                                 <span>Explore Experiences</span>
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -179,9 +180,9 @@ export default function LandingBody() {
                                 we aim to foster community connections and fortify their bonds. We proudly stand by those aspiring 
                                 to transform their passions into thriving businesses as they embark on their journey as hosts.
                             </div>
-                            <a href="/host" className="bg-ll-yellow w-52 h-14 flex justify-center items-center rounded-full hover:bg-opacity-60 hover:cursor-pointer transition-opacity">
+                            <Link href="/host" className="bg-ll-yellow w-52 h-14 flex justify-center items-center rounded-full hover:bg-opacity-60 hover:cursor-pointer transition-opacity">
                                 <span>Start Hosting</span>
-                            </a>
+                            </Link>
                         </div>
                     </div>
 
@@ -213,9 +214,9 @@ export default function LandingBody() {
                         and photography to immersive pursuits like blacksmithing and pottery. Our selection is ever-evolving
                         as our local hosts continuously craft new exciting experiences for the community.
                     </div>
-                    <a href="/" className="bg-ll-yellow w-52 h-14 flex justify-center items-center rounded-full">
+                    <Link href="/" className="bg-ll-yellow w-52 h-14 flex justify-center items-center rounded-full">
                         <span>Explore Experiences</span>
-                    </a>
+                    </Link>
                 </div>
 
                 <div className="font-raleway text-3xl mt-10 w-full lg:hidden">
@@ -230,9 +231,9 @@ export default function LandingBody() {
                         we aim to foster community connections and fortify their bonds. We proudly stand by those aspiring 
                         to transform their passions into thriving businesses as they embark on their journey as hosts.
                     </div>
-                    <a href="/host" className="bg-ll-yellow w-52 h-14 flex justify-center items-center rounded-full">
+                    <Link href="/host" className="bg-ll-yellow w-52 h-14 flex justify-center items-center rounded-full">
                         <span>Start Hosting</span>
-                    </a>
+                    </Link>
                 </div>
 
                 <div className="bg-ll-green rounded-3xl px-7 py-9 flex flex-col gap-5 w-full lg:p-32 lg:items-center">

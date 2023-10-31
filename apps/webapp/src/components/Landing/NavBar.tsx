@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { SignIn, SignInButton, SignOutButton, SignUpButton } from "@clerk/nextjs";
+import Link from "next/link";
 
 type Props = {
     isSignedIn: boolean;
@@ -29,18 +30,18 @@ export default function NavBar ({ isSignedIn } : Props) {
                 {/* Mid-navbar links */}
                 <div className="navbar-center">
                     <div className="hidden lg:flex gap-8 font-inter text-sm">
-                        <a href="/about" className="hover:bg-ll-blue hover:cursor-pointer hover:text-ll-grey w-36 rounded-full h-12 flex justify-center items-center transition-colors">
+                        <Link href="/about" className="hover:bg-ll-blue hover:cursor-pointer hover:text-ll-grey w-36 rounded-full h-12 flex justify-center items-center transition-colors">
                             Our story
-                        </a>
-                        <a href="/host" className="hover:bg-ll-blue hover:cursor-pointer hover:text-ll-grey w-36 rounded-full h-12 flex justify-center items-center transition-colors">
+                        </Link>
+                        <Link href="/host" className="hover:bg-ll-blue hover:cursor-pointer hover:text-ll-grey w-36 rounded-full h-12 flex justify-center items-center transition-colors">
                             Become a host
-                        </a>
-                        <a href="/" className="hover:bg-ll-blue hover:cursor-pointer hover:text-ll-grey w-36 rounded-full h-12 flex justify-center items-center transition-colors">
+                        </Link>
+                        <Link href="/" className="hover:bg-ll-blue hover:cursor-pointer hover:text-ll-grey w-36 rounded-full h-12 flex justify-center items-center transition-colors">
                             Find an experience
-                        </a>
-                        <a href="/blog" className="hover:bg-ll-blue hover:cursor-pointer hover:text-ll-grey w-36 rounded-full h-12 flex justify-center items-center transition-colors">
+                        </Link>
+                        <Link href="/blog" className="hover:bg-ll-blue hover:cursor-pointer hover:text-ll-grey w-36 rounded-full h-12 flex justify-center items-center transition-colors">
                             Our blog
-                        </a>
+                        </Link>
                     </div>
                 </div>
 
@@ -94,18 +95,18 @@ export default function NavBar ({ isSignedIn } : Props) {
             <div className="bg-ll-grey w-screen h-screen fixed top-0 left-0 z-10 lg:hidden" hidden={!menuOpen}>
                 <div className="flex flex-col items-center gap-20 font-inter pt-36">
                     <div className="flex flex-col gap-8 items-center text-ll-black">
-                        <a href="/about">
+                        <Link href="/about">
                             Our story
-                        </a>
-                        <a href="/host">
+                        </Link>
+                        <Link href="/host">
                             Become a host
-                        </a>
-                        <a href="/">
+                        </Link>
+                        <Link href="/">
                             Find an experience
-                        </a>
-                        <a href="/blog">
+                        </Link>
+                        <Link href="/blog">
                             Our blog
-                        </a>
+                        </Link>
                     </div>
                     <div className="flex flex-col gap-8 items-center text-sm">
                         {!isSignedIn ? (

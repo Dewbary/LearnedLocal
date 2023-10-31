@@ -3,7 +3,7 @@ import LandingBody from "~/components/Landing/LandingBody";
 import NavBar from "~/components/Landing/NavBar";
 import { useUser } from "@clerk/nextjs";
 
-export default function landing () {
+export default function Landing () {
 
     const { isSignedIn } = useUser();
 

@@ -80,6 +80,11 @@ model Category {
   experiences Experience[] // Relation field
 }
 
+model PhoneContact {
+  id          Int         @id @default(autoincrement())
+  phoneNumber String
+}
+
 model Registration {
     id           String   @id @default(cuid())
     userId       String
