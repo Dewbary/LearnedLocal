@@ -5,16 +5,14 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  console.warn(`Revalidating Homepage: ${JSON.stringify(req)}`);
-
   if (req.query.secret !== env.EDGE_FUNCTION_VERIFICATION_TOKEN) {
-    return res.status(408).json({ message: "Invalid token" });
+    return res.status(401).json({ message: "Invalid token" });
   }
 
   try {
     await res.revalidate("/");
     return res.json({ revalidated: true });
   } catch (err) {
-    return res.status(500).send("Error revalidating");
+    return res.status(503).send("Error revalidating");
   }
 }

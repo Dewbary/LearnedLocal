@@ -7,7 +7,7 @@
   "packageManager": "pnpm@8.1.1",
   "scripts": {
     "build": "turbo run build",
-    "build:local": "dotenv -- turbo run build",
+    "build:local": "dotenv -- turbo run build --force",
     "dev": "dotenv -- turbo run dev --parallel",
     "clean": "find . -name node_modules -o -name .next -o -name .expo -type d -prune | xargs rm -rf",
     "lint": "dotenv -- turbo run lint",

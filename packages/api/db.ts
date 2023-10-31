@@ -18,10 +18,8 @@ const prismaClientSingleton = () => {
         params.action === "upsert")
     ) {
       fetch(
-        `https://learnedlocal.app/api/webhooks/revalidate-site?secret=${process.env.EDGE_FUNCTION_VERIFICATION_TOKEN}`
+        `https://www.learnedlocal.app/api/webhooks/revalidate-site?secret=${process.env.EDGE_FUNCTION_VERIFICATION_TOKEN}`
       );
-
-      console.log("Revalidating homepage");
     }
 
     return next(params);
