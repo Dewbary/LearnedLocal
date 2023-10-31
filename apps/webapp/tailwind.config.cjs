@@ -16,14 +16,19 @@ const config = {
         header: "64px auto", // for the navbar layout. adds grid-rows-header class
       },
       colors: {
-        "ll-tan": "#EECF9f",
-        "ll-orange": "#FB982D",
-        "ll-orange-dark": "#FF7119",
-        "ll-blue": "#02747A",
-        "ll-gray": "#EEEAE6",
+        "ll-grey": "#F1F0EE",
+        "ll-black": "#2D2D2D",
+        "ll-orange": "#F2733C",
+        "ll-green": "#D5E0C4",
+        "ll-blue": "#81B9C6",
+        "ll-yellow": "#ECD371",
+        "ll-tan": "#EBE6D5",
+        "ll-slate": "#B1AEAE"
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
+        inter: ["Inter", "sans-serif"],
+        raleway: ["Raleway", "sans-serif"]
       },
       fontWeight: {
         regular: "400",
