@@ -11,7 +11,7 @@ type Props = {
 const Footer = ({ className }: Props) => {
   return (
     <footer
-      className={`footer ${className ?? ""} bg-slate-700 px-10 py-5 text-white`}
+      className={`footer ${className ?? ""} bg-ll-black px-10 py-5 text-white`}
     >
       <div className="">
         <span className="footer-title">About us</span>

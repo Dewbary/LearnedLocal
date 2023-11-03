@@ -1,105 +1,48 @@
 import type { ExperienceInfo } from "@learnedlocal/db/types/types";
 import ExperienceImageDisplay from "../ExperienceImageDisplay";
 import { useRouter } from "next/router";
-import Image from "next/image";
+import ExpImageCarousel from "./ExpImageCarousel";
+import ExpDetailsSection from "./ExpDetailsSection";
+import Button from "../Button";
+import CardFavoriteButton from "../CardFavoriteButton";
 
 type Props = {
   experienceInfo: ExperienceInfo;
   showRegisteredDetails: boolean;
 };
 
-export default function ExperienceDetailModalContents(props: Props) {
+export default function ExperienceDetailModalContents({
+  experienceInfo,
+  showRegisteredDetails,
+}: Props) {
   const router = useRouter();
 
   const handleViewPageClick = async function () {
     window.gtag("event", "view_details", {
-      experience_title: props.experienceInfo.title,
+      experience_title: experienceInfo.title,
     });
 
     if (
-      props.experienceInfo.isExternalListing &&
-      props.experienceInfo.externalListingLink !== null
+      experienceInfo.isExternalListing &&
+      experienceInfo.externalListingLink !== null
     ) {
-      window.location.assign(props.experienceInfo.externalListingLink);
+      window.location.assign(experienceInfo.externalListingLink);
     } else {
-      await router.push(`/experience/view/${props.experienceInfo.id}`);
+      await router.push(`/experience/view/${experienceInfo.id}`);
     }
   };
 
   return (
-    <>
-      {/* TOP BAR */}
-      <div className="flex flex-row items-center justify-between bg-gradient-to-r from-amber-400 via-amber-200 to-white py-4 pr-6 pl-10 shadow-lg lg:rounded-t-3xl">
-        <div className="flex w-full flex-col justify-between lg:flex-row lg:items-center">
-          <div className="flex flex-col">
-            <h1 className="text-2xl font-bold lg:text-4xl">
-              {props.experienceInfo.title}
-            </h1>
-            <p>
-              <span className="lg:text-md align-middle text-sm">Hosted By</span>
-              <span className="inline-block">
-                <Image
-                  src={props.experienceInfo.profile?.profileImage ?? ""}
-                  alt="Profile Picture"
-                  className="mx-2 inline w-5 rounded-full object-cover"
-                  width={50}
-                  height={50}
-                />
-                <span className="lg:text-md align-middle text-sm text-yellow-700">
-                  {props.experienceInfo.isExternalListing
-                    ? props.experienceInfo.externalHostName
-                    : props.experienceInfo.profile?.firstName?.concat(
-                        " ",
-                        props.experienceInfo.profile?.lastName || ""
-                      )}
-                </span>
-              </span>
-            </p>
-          </div>
-        </div>
+    <div className="md: mb-16 mt-24 flex flex-1 flex-col bg-white md:flex-row">
+      <div className="relative mb-8 h-full min-h-[400px] w-full min-w-[300px] md:mb-0 md:ml-8 md:h-auto md:w-5/12">
+        <ExpImageCarousel photos={experienceInfo.photos} />
       </div>
-
-      {/* MAIN SCROLLABLE CONTENT */}
-      <div className="flex flex-grow overflow-y-scroll">
-        <div className="basis-full">
-          {/* IMAGES PORTION */}
-          <ExperienceImageDisplay photos={props.experienceInfo.photos} />
-
-          {/* DESCRIPTION PORTION */}
-          <div className="mx-10 flex flex-col lg:flex-row">
-            {props.showRegisteredDetails && (
-              <div className="lg:order-0 order-2 mr-3 mb-3 basis-2/3">
-                <h3 className="text-xl font-bold">Contact Host</h3>
-                <p>Email: {props.experienceInfo.profile?.email}</p>
-                {props.experienceInfo.profile?.phone && (
-                  <p>Phone: {props.experienceInfo.profile?.phone}</p>
-                )}
-              </div>
-            )}
-            <div className="lg:order-0 order-2 mr-3 basis-2/3">
-              <h3 className="text-xl font-bold">Description</h3>
-              <p>{props.experienceInfo.description}</p>
-            </div>
-          </div>
-        </div>
+      <div className="flex w-5/6 flex-shrink flex-col justify-between self-center md:mx-8 md:w-7/12">
+        <ExpDetailsSection
+          experienceInfo={experienceInfo}
+          handleViewPageClick={handleViewPageClick}
+        />
       </div>
-
-      {/* BOTTOM BAR */}
-      <div className="flex items-center justify-between border-t py-4 pl-6 pr-6">
-        <div className="text-3xl font-bold">
-          {props.experienceInfo.free
-            ? "Free"
-            : `$${props.experienceInfo.price}`}
-        </div>
-        <button
-          className={
-            "rounded-lg bg-amber-400 p-3 text-white disabled:cursor-not-allowed disabled:bg-gray-500"
-          }
-          onClick={() => handleViewPageClick()}
-        >
-          View Details
-        </button>
-      </div>
-    </>
+    </div>
   );
 }

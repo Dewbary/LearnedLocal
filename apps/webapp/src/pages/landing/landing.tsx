@@ -1,19 +1,18 @@
-import Footer from "~/components/Landing/Footer";
 import LandingBody from "~/components/Landing/LandingBody";
-import NavBar from "~/components/Landing/NavBar";
 import { useUser } from "@clerk/nextjs";
+import NewFooter from "~/components/NewFooter";
+import NewNavBar from "~/components/NewNavBar";
 
-export default function Landing () {
+export default function Landing() {
+  const { isSignedIn } = useUser();
 
-    const { isSignedIn } = useUser();
-
-    return (
-        <>
-            <div className="flex flex-col bg-ll-grey items-center">
-                <NavBar isSignedIn={isSignedIn || false} />
-                <LandingBody />
-                <Footer />
-            </div>
-        </>
-    )
+  return (
+    <>
+      <div className="flex flex-col items-center bg-ll-grey">
+        <NewNavBar isSignedIn={isSignedIn || false} />
+        <LandingBody />
+        <NewFooter />
+      </div>
+    </>
+  );
 }

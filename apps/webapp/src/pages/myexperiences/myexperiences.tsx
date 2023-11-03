@@ -106,17 +106,16 @@ export default function MyExperiences() {
           <h1 className="text-4xl font-bold">My Upcoming Experiences</h1>
         </div>
         {userJoinedExperiences.data?.length === 0 && (
-          <div className="mt-3 flex w-full flex-col items-center justify-center gap-6 bg-slate-200 py-10 px-6">
+          <div className="mt-3 flex w-full flex-col items-center justify-center gap-6 bg-slate-200 px-6 py-10">
             <h1>You&apos;re not currently signed up for any experiences.</h1>
             <Link href="/#viewexperiences" className="btn">
               Find an experience
             </Link>
           </div>
         )}
+
         <div
-          className={`grid grid-cols-1 gap-y-10 gap-x-6 ${
-            styles.autofit ?? ""
-          } xl:gap-x-8`}
+          className={`mx-4 grid max-w-[100rem] grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-8`}
         >
           {userJoinedExperiences.data?.map((registration) => (
             <ExperienceCard
@@ -147,9 +146,7 @@ export default function MyExperiences() {
           </div>
         )}
         <div
-          className={`m-10 grid grid-cols-1 gap-y-10 gap-x-6 ${
-            styles.autofit ?? ""
-          } xl:gap-x-8`}
+          className={`mx-4 mb-8 grid max-w-[100rem] grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-8`}
         >
           {userCreatedExperiences.data?.map((experience) => (
             <>

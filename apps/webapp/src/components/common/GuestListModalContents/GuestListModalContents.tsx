@@ -39,8 +39,8 @@ export default function GuestListModalContents(props: Props) {
   }, [eventRegistrations.isFetching]);
 
   return (
-    <>
-      <div className="flex flex-row items-center justify-between bg-gradient-to-r from-amber-400 via-amber-200 to-white py-4 pr-6 pl-10 shadow-lg lg:rounded-t-3xl">
+    <div className="flex flex-1 flex-col">
+      <div className="flex flex-row items-center justify-between bg-gradient-to-r from-amber-400 via-amber-200 to-white py-4 pl-10 pr-6 shadow-lg lg:rounded-t-3xl">
         <div className="flex flex-col text-black">
           <h1 className="text-4xl font-bold">{props.experienceInfo.title}</h1>
           <h2>Manage Guest List</h2>
@@ -124,12 +124,12 @@ export default function GuestListModalContents(props: Props) {
               This message will be emailed to all participants currently signed
               up for the event.
             </p>
-            <button className="rounded-xl bg-amber-400 py-3 px-5 text-white drop-shadow-md">
+            <button className="rounded-xl bg-amber-400 px-5 py-3 text-white drop-shadow-md">
               Send
             </button>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

@@ -2,11 +2,11 @@ import * as React from "react";
 import Image from "next/image";
 import type { ExperienceInfo } from "@learnedlocal/db/types/types";
 import type { PropsWithChildren } from "react";
-import CardInfo from "../CardInfo";
 import CustomModal from "../CustomModal";
 import { getModalImpl } from "~/components/ExperiencesDisplay/ExperiencesDisplayUtils";
 import CardFavoriteButton from "../CardFavoriteButton";
 import fillerCard from "~/public/filler_card.png";
+import CardInfoV2 from "../CardInfoV2";
 
 type Props = {
   experience: ExperienceInfo;
@@ -27,56 +27,45 @@ export default function ExperienceCard({
   const [isLoading, setLoading] = React.useState(true);
 
   return (
-    <div>
-      <div className="relative">
-        <CustomModal
-          button={
-            <>
-              <div className="group aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg xl:aspect-w-7 xl:aspect-h-8 group-hover:cursor-pointer">
-                <Image
-                  alt="experience photo"
-                  src={experience.photos[0] || fillerCard}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className={cn(
-                    "object-cover",
-                    "duration-700 ease-in-out group-hover:cursor-pointer group-hover:opacity-75",
-                    isLoading
-                      ? "scale-110 blur-2xl grayscale"
-                      : "scale-100 blur-0 grayscale-0"
-                  )}
-                  onLoadingComplete={() => setLoading(false)}
-                />
-              </div>
-            </>
-          }
-        >
-          {getModalImpl(experience, registered)}
-        </CustomModal>
-        <CardInfo className="" experience={experience} />
-        {isHomePageCard && (
-          <>
+    <div className="relative">
+      <CustomModal
+        button={
+          <div className="group relative aspect-[7/8] overflow-hidden rounded-3xl group-hover:cursor-pointer">
+            <Image
+              alt="experience photo"
+              src={experience.photos[0] || fillerCard}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className={cn(
+                "relative object-cover",
+                "duration-700 ease-in-out group-hover:cursor-pointer group-hover:opacity-75",
+                isLoading
+                  ? "scale-110 blur-2xl grayscale"
+                  : "scale-100 blur-0 grayscale-0"
+              )}
+              onLoadingComplete={() => setLoading(false)}
+            />
+            <CardInfoV2
+              className="absolute bottom-3 left-3 right-3 h-24"
+              experience={experience}
+            />
+          </div>
+        }
+      >
+        {getModalImpl(experience, registered)}
+      </CustomModal>
+      {isHomePageCard && (
+        <>
+          {experience.isFull && (
             <div>
-              <CardFavoriteButton
-                className="absolute bottom-22 left-2 hover:cursor-pointer"
-                experienceId={experience.id}
-                experienceTitle={experience.title}
-              />
-            </div>
-            {experience.isFull && (
-              <div>
-                <div className=" absolute bottom-22 right-0 rounded-l-full bg-gradient-to-br from-amber-400 to-amber-500 py-2 pr-6 pl-4 text-lg font-bold text-white shadow-md">
-                  Experience Full
-                </div>
+              <div className="absolute left-4 right-4 top-4 rounded-full bg-ll-orange py-2 pl-4 pr-6 text-lg font-bold text-white shadow-md">
+                Experience Full
               </div>
-            )}
-          </>
-        )}
-
-        <div className="mt-3 flex flex-row justify-between gap-2">
-          {children}
-        </div>
-      </div>
+            </div>
+          )}
+        </>
+      )}
+      <div className="mt-3 flex flex-row justify-between gap-2">{children}</div>
     </div>
   );
 }

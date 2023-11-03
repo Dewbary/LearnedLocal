@@ -7,15 +7,13 @@ import type { ExperienceInfo } from "@learnedlocal/db/types/types";
 const ExperiencesDisplay = () => {
   const { filteredExperiences } = React.useContext(FilteredExperiencesContext);
 
-  return (
-    <div>
-      <span id="viewexperiences" />
-      <div className="mx-auto mt-4 mb-4 max-w-2xl px-8 sm:px-4 md:mb-8 md:px-0 lg:max-w-full lg:px-8">
+  if (filteredExperiences.length > 4) {
+    return (
+      <>
+        <span id="viewexperiences" />
         <div
-          className={`grid grid-cols-1 gap-y-10 gap-x-6 ${
-            filteredExperiences.length > 3
-              ? styles.autofit ?? ""
-              : styles.autofitSmaller ?? ""
+          className={`grid grid-cols-1 gap-x-6 gap-y-10  ${
+            styles.autofit ?? ""
           } xl:gap-x-8`}
         >
           {filteredExperiences &&
@@ -27,8 +25,26 @@ const ExperiencesDisplay = () => {
               />
             ))}
         </div>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <span id="viewexperiences" />
+      <div
+        className={`grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-8`}
+      >
+        {filteredExperiences &&
+          filteredExperiences.map((experience: ExperienceInfo) => (
+            <ExperienceCard
+              key={experience.id}
+              experience={experience}
+              isHomePageCard={true}
+            />
+          ))}
       </div>
-    </div>
+    </>
   );
 };
 
