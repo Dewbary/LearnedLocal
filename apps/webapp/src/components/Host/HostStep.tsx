@@ -16,8 +16,8 @@ export default function HostStep({stepImage, stepImageAlt, stepNumber, stepTitle
                 <div className="bg-ll-black z-10 w-20 h-20 flex-shrink-0 rounded-full flex flex-col items-center justify-center text-3xl text-ll-grey font-inter lg:hidden">{stepNumber}</div>
                 <div className="flex flex-col lg:flex-row basis-auto gap-6">
                     <div className={`flex flex-col px-3 gap-1 lg:basis-2/5 ${leftStep ? "lg:order-1" : "lg:order-3"}`}>
-                        <div className="text-xl font-raleway">{stepTitle}</div>
-                        <div className="font-inter">{stepDescription}</div>
+                        <div className="text-xl font-raleway font-semibold">{stepTitle}</div>
+                        <div className="font-inter font-light">{stepDescription}</div>
                     </div>
                     <div className="lg:basis-1/5 lg:flex justify-center hidden lg:order-2">
                         <div className="bg-ll-black z-10 w-20 h-20 flex-shrink-0 rounded-full flex flex-col items-center justify-center text-3xl text-ll-grey font-inter">{stepNumber}</div>

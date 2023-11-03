@@ -13,7 +13,7 @@ export default function HostBody() {
             <div className="flex flex-col w-full px-5 pt-20 gap-10 max-w-5xl lg:pt-28 pb-10">
                 <div className="flex flex-col lg:flex-row w-full gap-8 lg:items-center">
                     <div className="flex flex-col w-full gap-8">
-                        <div className="text-3xl font-raleway">
+                        <div className="text-4xl font-raleway font-semibold">
                             Become a host
                         </div>
                         <div className="overflow-hidden rounded-3xl relative aspect-[3/4] max-w-sm">
@@ -25,7 +25,7 @@ export default function HostBody() {
                             />
                         </div>
                     </div>
-                    <div className="flex flex-col w-full gap-4 font-inter">
+                    <div className="flex flex-col w-full gap-4 font-inter font-light">
                         <p>
                             At Learned Local, we hold the belief that each and every one of us possesses a valuable 
                             contribution to offer our community. Whether it&apos;s hosting a regular game night, 
@@ -44,7 +44,7 @@ export default function HostBody() {
                     </div>
                 </div>
                 <div className="flex flex-row lg:justify-center w-full">
-                    <h1 className="text text-3xl font-raleway">How it works</h1>
+                    <h1 className="text text-3xl font-raleway font-semibold">How it works</h1>
                 </div>
                 <div className="block relative w-full">
                     <div className="flex flex-col w-full gap-5 relative lg:gap-10">
@@ -92,22 +92,22 @@ export default function HostBody() {
                     <div className="absolute h-full left-10 top-1 border border-dashed border-gray-400 w-0 lg:left-1/2" />
                 </div>
                 <div className="bg-ll-tan w-full rounded-3xl flex flex-col p-7 lg:p-16 gap-5">
-                    <h1 className="text-3xl font-raleway">Frequently Asked Questions</h1>
+                    <h1 className="text-3xl font-raleway font-semibold">Frequently Asked Questions</h1>
                     <div className="flex flex-col gap-1 w-full">
-                        <h2 className="text-xl font-inter">Can anyone host an experience?</h2>
-                        <p className="text-md font-inter">Yes! You just need to get approval from our experience review team, who will make sure your experience is appropriate and that you have safety guidelines met, if necessary.</p>
+                        <h2 className="text-xl font-inter font-bold">Can anyone host an experience?</h2>
+                        <p className="text-md font-inter font-light">Yes! You just need to get approval from our experience review team, who will make sure your experience is appropriate and that you have safety guidelines met, if necessary.</p>
                     </div>
                     <div className="flex flex-col gap-1 w-full">
-                        <h2 className="text-xl font-inter">Where can I host my experience?</h2>
-                        <p className="text-md font-inter">Currently, our operation is limited to the Utah County area in Utah. We have a space where you can teach small groups if necessary; contact us for more information!</p>
+                        <h2 className="text-xl font-inter font-bold">Where can I host my experience?</h2>
+                        <p className="text-md font-inter font-light">Currently, our operation is limited to the Utah County area in Utah. We have a space where you can teach small groups if necessary; contact us for more information!</p>
                     </div>
                     <div className="flex flex-col gap-1 w-full">
-                        <h2 className="text-xl font-inter">How much money can I earn by hosting an experience?</h2>
-                        <p className="text-md font-inter">You set the price per participant in your experience. You&apos;ll make 80% of the admissions to your experience that are sold through Learned Local - the other 20% helps us cover transaction fees, website hosting, and advertising costs.</p>
+                        <h2 className="text-xl font-inter font-bold">How much money can I earn by hosting an experience?</h2>
+                        <p className="text-md font-inter font-light">You set the price per participant in your experience. You&apos;ll make 80% of the admissions to your experience that are sold through Learned Local - the other 20% helps us cover transaction fees, website hosting, and advertising costs.</p>
                     </div>
                     <div className="flex flex-col gap-1 w-full">
-                        <h2 className="text-xl font-inter">How will I get paid for hosting?</h2>
-                        <p className="text-md font-inter">We currently transfer through zelle and venmo. You&apos;ll receive payment for teaching promptly after the experience has passed.</p>
+                        <h2 className="text-xl font-inter font-bold">How will I get paid for hosting?</h2>
+                        <p className="text-md font-inter font-light">We currently transfer through zelle and venmo. You&apos;ll receive payment for teaching promptly after the experience has passed.</p>
                     </div>
                     
                 </div>
