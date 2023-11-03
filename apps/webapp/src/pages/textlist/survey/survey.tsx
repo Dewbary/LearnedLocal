@@ -1,31 +1,21 @@
+import Link from "next/link";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import textlistGraphic from "../../../assets/textlist/textlist_graphic.png";
-import { api } from "~/utils/api";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import * as Yup from 'yup';
-import { useRouter } from "next/router";
 import { useState } from "react";
-import Link from "next/link";
 
-type SubscribeValues = {
-    phoneNumber: string;
+type SurveyValues = {
+    activity: string;
 }
 
-const phoneNumberRegEx = /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/;
-
-export default function TextList () {
+export default function Survey() {
 
     const searchParams = useSearchParams();
-    const router = useRouter();
-    const listType = searchParams.get('list');
-    const textListAdder = api.textlist.addToTextList.useMutation();
+    const phoneNumber = searchParams.get("phone");
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleSubscribeClick = async (values: SubscribeValues) => {
-        setIsLoading(true);
-        await textListAdder.mutateAsync(values.phoneNumber);
-        await router.push(`/textlist/survey?phone=${values.phoneNumber}`);
+    const handleFinishSurveyClick = (values: SurveyValues) => {
+        console.log("Clicked!");
     }
 
     return (
@@ -43,7 +33,7 @@ export default function TextList () {
                     <div className="w-full flex flex-col items-center">
                         <div className="w-44 aspect-w-2 aspect-h-1">
                             <Image
-                                src={textlistGraphic}
+                                src={""}
                                 alt={"A phone with some texts"}
                                 fill
                                 className="object-contain"
@@ -52,26 +42,15 @@ export default function TextList () {
                     </div>
                     <div className="flex flex-col gap-1">
                         <div className="text-xl font-raleway">
-                            Sign Up
+                            Which activities appeal to you the most?
                         </div>
-                        <div className="font-inter">
-                            {listType === "date" ? (
-                                "Join our texting list for date night inspiration in Utah County."
-                            ) : (
-                                "Join our texting list for updates on events tailored to discovering your next passion."
-                            )}
-                            
-                        </div> 
                     </div>
                     
                     <Formik
                         initialValues={{
-                            phoneNumber: ""
+                            activity: ""
                         }}
-                        validationSchema={Yup.object({
-                            phoneNumber: Yup.string().required("Please enter your phone number").matches(phoneNumberRegEx, 'Invalid phone number')
-                        })}
-                        onSubmit={handleSubscribeClick}
+                        onSubmit={handleFinishSurveyClick}
                     >
                         <Form className="w-full flex flex-col gap-3">
                             <Field name="phoneNumber" className="w-full border border-gray-400 bg-ll-grey p-4 text-sm rounded-md" placeholder="Phone Number" />
@@ -80,7 +59,7 @@ export default function TextList () {
                             </div>
                             <button type="submit" disabled={isLoading} className="font-inter bg-ll-black rounded-full flex flex-col items-center py-4 w-full text-ll-grey text-sm disabled:opacity-50">
                                 <div className="flex flex-row items-center gap-2">
-                                    Sign Up
+                                    Finish
                                     <span className={`loading loading-spinner loading-xs ${!isLoading ? "hidden" : ""}`} />
                                 </div>
                             </button>
@@ -89,5 +68,5 @@ export default function TextList () {
                 </div>
             </div>
         </>
-    )
+    );
 }
