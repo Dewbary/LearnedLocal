@@ -21,22 +21,23 @@ const config = {
         "ll-orange": "#F2733C",
         "ll-green": "#D5E0C4",
         "ll-blue": "#81B9C6",
+        "ll-dark-blue": "#617EA8",
         "ll-yellow": "#ECD371",
         "ll-tan": "#EBE6D5",
-        "ll-slate": "#B1AEAE"
+        "ll-slate": "#B1AEAE",
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
         inter: ["Inter", "sans-serif"],
-        raleway: ["Raleway", "sans-serif"]
+        raleway: ["Raleway", "sans-serif"],
       },
       fontWeight: {
         regular: "400",
         black: "900",
       },
       spacing: {
-        '22': '5.5rem'
-      }
+        22: "5.5rem",
+      },
     },
   },
   plugins: [
