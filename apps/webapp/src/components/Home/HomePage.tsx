@@ -70,7 +70,7 @@ const HomePage = ({ experiences }: { experiences: ExperienceInfo[] }) => {
         }}
       >
         <div className="flex min-h-screen flex-col items-center bg-ll-grey">
-          <NewNavBar isSignedIn={user.isSignedIn!!} />
+          <NewNavBar isSignedIn={user.isSignedIn ?? false} />
 
           <div className="mb-24 mt-28 flex w-11/12 max-w-[100rem] flex-grow flex-col sm:w-3/4">
             <div className="mb-8 font-raleway text-[24px]">
