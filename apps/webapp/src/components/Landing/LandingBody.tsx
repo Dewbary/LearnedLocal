@@ -16,11 +16,13 @@ export default function LandingBody() {
 
                 <div className="flex flex-col lg:flex-row lg:gap-5 lg:items-stretch">
                     <div className="lg:basis-3/5 flex flex-col gap-5">
-                        <div className="bg-ll-green rounded-3xl px-7 py-9 flex flex-col gap-5 w-full lg:flex-grow">
-                            <div className="font-raleway text-3xl">
-                                Creating unique experiences &amp; local connections
+                        <div className="bg-ll-green rounded-3xl px-7 py-9 flex flex-col gap-5 w-full lg:p-16">
+                            <div className="font-raleway text-4xl font-semibold">
+                                Creating unique <br />
+                                experiences &amp; local <br />
+                                connections
                             </div>
-                            <div className="font-inter">
+                            <div className="font-inter font-light">
                                 We help communities discover unique experiences and foster meaningful connections.
                                 Our mission is to facilitate authentic experiences in your community while 
                                 supporting aspiring businesses.
@@ -36,7 +38,7 @@ export default function LandingBody() {
                             />
                         </div>
 
-                        <div className="flex flex-col lg:flex-row gap-5">
+                        <div className="flex flex-col lg:flex-row lg:flex-grow gap-5">
                             <Link 
                                 href="/"
                                 className="rounded-3xl bg-ll-blue text-ll-grey font-inter w-full p-7 flex flex-row justify-around gap-2 items-center lg:order-2 lg:basis-1/4 lg:flex-col hover:bg-ll-yellow hover:text-ll-black hover:cursor-pointer transition-colors"
@@ -65,7 +67,7 @@ export default function LandingBody() {
                         
                     </div>
                     <div className="lg:basis-2/5">
-                        <div className="rounded-3xl overflow-hidden relative w-full aspect-w-11 aspect-h-12 hidden lg:block">
+                        <div className="rounded-3xl overflow-hidden relative w-full aspect-w-3 aspect-h-4 hidden lg:block">
                             <Image
                                 src={bakingImage}
                                 alt="two people baking together"
@@ -77,7 +79,7 @@ export default function LandingBody() {
                 </div>
 
                 <div className="bg-ll-tan rounded-3xl px-7 py-9 flex flex-col items-center w-full">
-                    <div className="font-raleway text-2xl mb-5 lg:mb-0">
+                    <div className="font-raleway text-2xl mb-5 lg:mb-0 font-semibold">
                         Why LearnedLocal?
                     </div>
                     <div className="flex flex-col gap-5 items-center w-full lg:flex-row lg:justify-around lg:items-end">
@@ -95,7 +97,7 @@ export default function LandingBody() {
                             </div>
                         </div>
                         <div className="font-inter flex flex-col items-center gap-2">
-                            <div className="w-32 aspect-w-1 aspect-h-1">
+                            <div className="w-40 aspect-w-1 aspect-h-1">
                                 <Image
                                     src={handshakeGraphic}
                                     alt="Drawing of a handshake"
@@ -123,7 +125,7 @@ export default function LandingBody() {
                     </div>
                 </div>
 
-                <div className="font-raleway text-3xl mt-5 w-full lg:hidden">
+                <div className="font-raleway text-3xl mt-5 w-full lg:hidden font-semibold">
                     Experience With Us
                 </div>
 
@@ -138,8 +140,8 @@ export default function LandingBody() {
                             />
                         </div>
                         <div className="absolute bottom-0 left-0 w-full p-5">
-                            <div className="bg-ll-black text-ll-grey relative rounded-lg w-full flex flex-col px-6 pt-3 pb-10 gap-3">
-                                <div className="font-raleway text-xl">
+                            <div className="bg-ll-black text-ll-grey relative rounded-lg w-full flex flex-col px-6 pt-3 pb-10 gap-2">
+                                <div className="font-raleway text-xl font-bold">
                                     Sailing with Jenny
                                 </div>
                                 <div className="font-inter">
@@ -150,7 +152,7 @@ export default function LandingBody() {
                     </div>
 
                     <div className="lg:flex flex-col w-full gap-5 items-center hidden">
-                        <div className="font-raleway text-3xl mt-5 w-full">
+                        <div className="font-raleway text-3xl mt-5 w-full font-semibold">
                             Experience With Us
                         </div>
                         <div className="flex flex-col font-inter gap-5">
@@ -159,7 +161,7 @@ export default function LandingBody() {
                                 and photography to immersive pursuits like blacksmithing and pottery. Our selection is ever-evolving
                                 as our local hosts continuously craft new exciting experiences for the community.
                             </div>
-                            <Link href="/" className="bg-ll-yellow w-52 h-14 flex justify-center items-center rounded-full hover:bg-opacity-60 hover:cursor-pointer transition-opacity">
+                            <Link href="/" className="bg-ll-yellow w-52 h-14 flex justify-center items-center rounded-full hover:bg-opacity-60 hover:cursor-pointer transition-opacity font-medium text-sm">
                                 <span>Explore Experiences</span>
                             </Link>
                         </div>
@@ -168,7 +170,7 @@ export default function LandingBody() {
                 
                 <div className="flex flex-col gap-5 w-full items-center lg:flex-row lg:gap-32">
                     <div className="lg:flex flex-col gap-5 w-full items-center hidden">
-                        <div className="font-raleway text-3xl mt-10 w-full">
+                        <div className="font-raleway text-3xl mt-10 w-full font-semibold">
                             Our Mission
                         </div>
 
@@ -180,7 +182,7 @@ export default function LandingBody() {
                                 we aim to foster community connections and fortify their bonds. We proudly stand by those aspiring 
                                 to transform their passions into thriving businesses as they embark on their journey as hosts.
                             </div>
-                            <Link href="/host" className="bg-ll-yellow w-52 h-14 flex justify-center items-center rounded-full hover:bg-opacity-60 hover:cursor-pointer transition-opacity">
+                            <Link href="/host" className="bg-ll-yellow w-52 h-14 flex justify-center items-center rounded-full hover:bg-opacity-60 hover:cursor-pointer transition-opacity font-medium text-sm">
                                 <span>Start Hosting</span>
                             </Link>
                         </div>
@@ -196,8 +198,8 @@ export default function LandingBody() {
                             />
                         </div>
                         <div className="absolute bottom-0 left-0 w-full p-5">
-                            <div className="bg-ll-black text-ll-grey relative rounded-lg w-full flex flex-col px-6 pt-3 pb-10 gap-3">
-                                <div className="font-raleway text-xl">
+                            <div className="bg-ll-black text-ll-grey relative rounded-lg w-full flex flex-col px-6 pt-3 pb-10 gap-2">
+                                <div className="font-raleway text-xl font-bold">
                                     Gardening with Damon
                                 </div>
                                 <div className="font-inter">
@@ -219,7 +221,7 @@ export default function LandingBody() {
                     </Link>
                 </div>
 
-                <div className="font-raleway text-3xl mt-10 w-full lg:hidden">
+                <div className="font-raleway text-3xl mt-10 w-full lg:hidden font-semibold">
                     Our Mission
                 </div>
 
@@ -236,8 +238,8 @@ export default function LandingBody() {
                     </Link>
                 </div>
 
-                <div className="bg-ll-green rounded-3xl px-7 py-9 flex flex-col gap-5 w-full lg:p-32 lg:items-center">
-                    <div className="font-raleway text-3xl">
+                <div className="bg-ll-green rounded-3xl px-7 py-9 flex flex-col gap-5 w-full lg:py-32 lg:px-56 lg:items-center">
+                    <div className="font-raleway text-2xl font-semibold text-center">
                         &quot;As a hobbyist myself, I was disappointed that there wasn&apos;t a platform to get paid for my
                         knowledge and skills, so we created one.&quot;
                     </div>

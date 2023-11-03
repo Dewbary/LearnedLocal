@@ -6,7 +6,7 @@ export default function Footer() {
         <>
             <div className="bg-ll-black text-ll-grey px-6 py-8 flex flex-col gap-10 w-full lg:flex-row lg:gap-32 lg:px-14">
                 <div className="flex flex-col gap-3 lg:flex-auto">
-                    <div className="font-raleway">
+                    <div className="font-raleway font-bold">
                         STAY IN THE LOOP
                     </div>
                     <div className="font-inter text-sm">
@@ -24,7 +24,7 @@ export default function Footer() {
                 </div>
 
                 <div className="flex flex-col gap-3">
-                    <div className="font-raleway">
+                    <div className="font-raleway font-bold">
                         CONTACT US
                     </div>
                     <div className="font-inter text-sm">
@@ -37,7 +37,7 @@ export default function Footer() {
                 </div>
 
                 <div className="flex flex-col gap-3">
-                    <div className="font-raleway">
+                    <div className="font-raleway font-bold">
                         FOLLOW US
                     </div>
                     <div className="flex flex-row gap-3">

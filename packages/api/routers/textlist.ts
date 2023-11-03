@@ -7,7 +7,7 @@ export const textListRouter = createTRPCRouter({
         .input(z.string())
         .mutation(async ({ctx, input}) => {
 
-            await sendTextMessage(input, "Hey, this is LearnedLocal. Thanks for signing up for our date / hobby idea list! We'll keep you posted about experiences available in Utah County.");
+            await sendTextMessage(input, "Hey, this is LearnedLocal. Thanks for signing up for our date / hobby idea list! We'll keep you posted about experiences available in Utah County. You can text STOP at any time to unsubscribe.");
             await ctx.prisma.phoneContact.create({
                 data: {
                     phoneNumber: input
