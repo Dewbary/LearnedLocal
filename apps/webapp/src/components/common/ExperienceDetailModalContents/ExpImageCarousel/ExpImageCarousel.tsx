@@ -37,20 +37,8 @@ const ExpImageCarousel = ({ photos }: Props) => {
   };
 
   return (
-    <div className="relative flex h-full w-full items-center justify-center">
-      <button
-        className="duration-300 ease-in-out hover:scale-110"
-        onClick={() => handleClickPreviousImage()}
-      >
-        <ChevronLeftIcon
-          className="mr-4"
-          width={30}
-          height={30}
-          color="black"
-        />
-      </button>
-
-      <div className="relative h-full w-full">
+    <div className="relative flex h-full w-full items-center justify-center md:mx-0">
+      <div className="relative h-full w-5/6 md:mx-4 md:w-full">
         <Image
           alt="experience photo"
           src={photos[selectedImageIndex] ?? ""}
@@ -61,15 +49,16 @@ const ExpImageCarousel = ({ photos }: Props) => {
         />
       </div>
       <button
-        className="duration-300 ease-in-out hover:scale-110"
+        className="absolute left-4 my-auto rounded-full bg-ll-grey p-2 opacity-50 duration-300 ease-in-out md:-left-4"
+        onClick={() => handleClickPreviousImage()}
+      >
+        <ChevronLeftIcon width={30} height={30} color="black opacity-100" />
+      </button>
+      <button
+        className="absolute right-4 my-auto rounded-full bg-ll-grey p-2 opacity-50 duration-300 ease-in-out md:-right-4"
         onClick={() => handleClickNextImage()}
       >
-        <ChevronRightIcon
-          className="ml-4"
-          width={30}
-          height={30}
-          color="black"
-        />
+        <ChevronRightIcon width={30} height={30} color="black" />
       </button>
 
       <div

@@ -2,19 +2,13 @@ import { useUser } from "@clerk/nextjs";
 import Modal from "react-modal";
 import { useState } from "react";
 import ExperiencesDisplay from "~/components/ExperiencesDisplay";
-import EmailSignup from "~/components/Home/EmailSignup";
-import Register from "~/components/Home/Register";
-import SideNav from "~/components/Home/SideNav";
 import * as React from "react";
 import FilteredExperiencesContext from "~/components/Home/FilteredExperiencesContext";
 import type { ExperienceInfo } from "@learnedlocal/db/types/types";
-import AnnouncementWidget from "../common/AnnouncementWidget/AnnouncementWidget";
 import FavoritedExperiencesContext from "./FavoritedExperiencesContext";
 import { useRouter } from "next/router";
 import NewNavBar from "../NewNavBar";
 import NewFooter from "../NewFooter";
-import Title from "../common/Title";
-import ExperienceFilters from "../ExperienceFilters";
 
 Modal.setAppElement("#__next");
 
