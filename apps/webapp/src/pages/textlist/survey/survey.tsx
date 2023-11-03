@@ -23,7 +23,7 @@ export default function Survey() {
             <div className="bg-ll-grey flex flex-col items-center w-full min-h-screen">
                 <div className="max-w-sm flex flex-col items-start w-full p-7 gap-5">
                     <div className="w-full flex flex-col items-end">
-                        <Link className="w-4 h-4" href="/">
+                        <Link className="w-4 h-4" href="/home">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="19" viewBox="0 0 18 19" fill="none">
                                 <path d="M16.7692 17.6587L8.88464 9.32934L16.7692 1" stroke="#2D2D2D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                                 <path d="M1.00004 17.8576L8.88464 9.52831L1.00004 1.19897" stroke="#2D2D2D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>

@@ -106,7 +106,7 @@ const Checkout = () => {
         <div className="flex min-h-screen items-center justify-center bg-gray-100">
           <div className="rounded-lg bg-white p-8 shadow-lg">
             <div className="flex flex-row items-center">
-              <Link className="pr-8" href="/">
+              <Link className="pr-8" href="/home">
                 <div className="mb-6 block text-sm text-blue-500">
                   &larr; Go Back
                 </div>

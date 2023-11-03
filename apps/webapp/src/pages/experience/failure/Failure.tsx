@@ -10,7 +10,7 @@ const Failure = () => {
         There were some difficulties submitting your experience. Please try
         again
       </p>
-      <Link href="/">
+      <Link href="/home">
         <p className="rounded-lg bg-white px-10 py-4 font-semibold text-gray-600 shadow-md transition-colors duration-200 hover:bg-blue-100">
           Return Home
         </p>

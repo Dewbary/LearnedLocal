@@ -4,7 +4,7 @@ import { Stripe } from "stripe";
 import { AppContext } from "../types";
 
 const successUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/checkout/success`;
-const cancelUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/`;
+const cancelUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/home`;
 
 export const createCheckoutSessionObject = (
   experience: Experience,

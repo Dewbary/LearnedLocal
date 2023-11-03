@@ -108,7 +108,7 @@ export default function MyExperiences() {
         {userJoinedExperiences.data?.length === 0 && (
           <div className="mt-3 flex w-full flex-col items-center justify-center gap-6 bg-slate-200 px-6 py-10">
             <h1>You&apos;re not currently signed up for any experiences.</h1>
-            <Link href="/#viewexperiences" className="btn">
+            <Link href="/home" className="btn">
               Find an experience
             </Link>
           </div>
@@ -138,7 +138,7 @@ export default function MyExperiences() {
 
         <div className="mt-7 flex flex-col gap-5 px-9 py-3 text-center lg:flex-row lg:items-center lg:text-start">
           <h1 className="text-4xl font-bold">My Hosted Experiences</h1>
-          <CreateExperienceButton />
+          <CreateExperienceButton className="rounded-3xl bg-ll-yellow px-6 py-4 font-inter text-sm" />
         </div>
         {userCreatedExperiences.data?.length === 0 && (
           <div className="mt-3 flex h-24 w-full items-center justify-center bg-slate-200">

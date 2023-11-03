@@ -27,7 +27,7 @@ const NavBarEnd = ({ isSignedIn }: Props) => {
     setMenuOpen(true);
   };
 
-  if (router.asPath == "/landing") {
+  if (router.asPath == "/") {
     return (
       <div className="md:mr-4">
         <div
@@ -99,7 +99,7 @@ const NavBarEnd = ({ isSignedIn }: Props) => {
             />
           </svg>
         </div>
-        <div className="hidden rounded-full border-2 border-ll-black p-2 font-inter text-sm lg:flex">
+        <div className="hidden rounded-full border border-ll-black p-2 font-inter text-sm lg:flex">
           {!isSignedIn ? (
             <>
               <SignInButton>
@@ -115,9 +115,12 @@ const NavBarEnd = ({ isSignedIn }: Props) => {
             </>
           ) : (
             <>
-              <div className="flex h-12 w-32 items-center justify-center rounded-full bg-ll-yellow transition-opacity hover:cursor-pointer hover:bg-opacity-60">
+              <Link 
+                href="/myexperiences"
+                className="flex h-12 w-32 items-center justify-center rounded-full bg-ll-yellow transition-opacity hover:cursor-pointer hover:bg-opacity-60"
+              >
                 My Experiences
-              </div>
+              </Link>
               <SignOutButton>
                 <div className="flex h-12 w-20 items-center justify-center rounded-full transition-colors hover:cursor-pointer hover:bg-ll-blue hover:text-ll-grey">
                   Logout
@@ -135,8 +138,8 @@ const NavBarEnd = ({ isSignedIn }: Props) => {
             <div className="flex flex-col items-center gap-8 text-ll-black">
               <Link href="/about">Our story</Link>
               <Link href="/host">Become a host</Link>
-              <Link href="/">Find an experience</Link>
-              <Link href="/blog">Our blog</Link>
+              <Link href="/home">Find an experience</Link>
+              {/* <Link href="/blog">Our blog</Link> */}
             </div>
             <div className="flex flex-col items-center gap-8 text-sm">
               {!isSignedIn ? (

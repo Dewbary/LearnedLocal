@@ -8,7 +8,7 @@ export default function Confirm() {
       <div className="flex min-h-screen w-full flex-col items-center bg-ll-grey">
         <div className="flex w-full max-w-sm flex-col items-start gap-5 p-7">
           <div className="flex w-full flex-col items-end">
-            <Link className="h-4 w-4" href="/">
+            <Link className="h-4 w-4" href="/home">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="18"
@@ -51,7 +51,7 @@ export default function Confirm() {
             </div>
           </div>
           <Link
-            href="/"
+            href="/home"
             className="flex w-full flex-col items-center rounded-full bg-ll-black py-4 font-inter text-sm text-ll-grey"
           >
             Visit home page

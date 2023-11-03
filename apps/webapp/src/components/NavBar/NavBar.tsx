@@ -23,7 +23,7 @@ const NavBar = ({
       } `}
     >
       <div className="navbar-start">
-        <Link href="/" className="btn-ghost btn text-xl normal-case">
+        <Link href="/home" className="btn-ghost btn text-xl normal-case">
           <Image src={white_logo} alt="company logo" className="mr-3 w-10" />
           <div className="font-poppins font-black text-gray-800">
             Learned Local
@@ -57,7 +57,7 @@ const NavBar = ({
             className="menu-compact dropdown-content menu rounded-box mt-3 w-52 bg-base-100 p-2 shadow"
           >
             <li>
-              <Link className="p-2" href="/">
+              <Link className="p-2" href="/home">
                 Home
               </Link>
             </li>

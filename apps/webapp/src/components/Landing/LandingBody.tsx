@@ -40,7 +40,7 @@ export default function LandingBody() {
 
             <div className="flex flex-col gap-5 lg:flex-grow lg:flex-row">
               <Link
-                href="/"
+                href="/home"
                 className="flex w-full flex-row items-center justify-around gap-2 rounded-3xl bg-ll-blue p-7 font-inter text-ll-grey transition-colors hover:cursor-pointer hover:bg-ll-yellow hover:text-ll-black lg:order-2 lg:basis-1/4 lg:flex-col"
               >
                 <div className="basis-3/5">
@@ -155,7 +155,7 @@ export default function LandingBody() {
                 experiences for the community.
               </div>
               <Link
-                href="/"
+                href="/home"
                 className="flex h-14 w-52 items-center justify-center rounded-full bg-ll-yellow text-sm font-medium transition-opacity hover:cursor-pointer hover:bg-opacity-60"
               >
                 <span>Explore Experiences</span>
@@ -219,7 +219,7 @@ export default function LandingBody() {
             community.
           </div>
           <Link
-            href="/"
+            href="/home"
             className="flex h-14 w-52 items-center justify-center rounded-full bg-ll-yellow"
           >
             <span>Explore Experiences</span>

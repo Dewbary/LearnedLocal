@@ -11,7 +11,7 @@ const Success = () => {
         Your experience has been successfully added. We will verify your
         experience in 1-3 business days.
       </p>
-      <Link href="/">
+      <Link href="/home">
         <p className="rounded-lg bg-white px-10 py-4 font-semibold text-amber-600 shadow-md transition-colors duration-200 hover:bg-blue-100">
           Return Home
         </p>

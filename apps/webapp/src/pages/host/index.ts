@@ -1,1 +1,1 @@
-export { default } from "./host";
+export { default } from './host';

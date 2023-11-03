@@ -16,7 +16,7 @@ const NewNavBar = ({ isSignedIn }: Props) => {
   return (
     <div
       className={`navbar z-20 justify-between ${
-        router.asPath != "/landing"
+        router.asPath != "/"
           ? "fixed h-20 border-b border-ll-slate bg-ll-grey"
           : ""
       }`}
@@ -29,13 +29,13 @@ const NewNavBar = ({ isSignedIn }: Props) => {
       </div>
 
       {/* Mid-navbar links */}
-      {router.asPath == "/landing" && (
+      {router.asPath == "/" && (
         <div className="navbar-center">
           <div className="hidden gap-8 font-inter text-sm lg:flex">
             <NavigationLink text="Our story" route="/about" />
             <NavigationLink text="Become a host" route="/host" />
-            <NavigationLink text="Find an experience" route="/" />
-            <NavigationLink text="Our blog" route="/blog" />
+            <NavigationLink text="Find an experience" route="/home" />
+            {/* <NavigationLink text="Our blog" route="/blog" /> */}
           </div>
         </div>
       )}

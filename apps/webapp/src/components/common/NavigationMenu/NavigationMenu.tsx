@@ -31,7 +31,7 @@ const NavigationMenu = ({ isSignedIn }: Props) => {
         className="menu-compact menu dropdown-content rounded-box mt-3 w-52 bg-base-100 p-2 shadow"
       >
         <li>
-          <Link className="p-2" href="/">
+          <Link className="p-2" href="/home">
             Home
           </Link>
         </li>
