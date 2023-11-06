@@ -44,7 +44,7 @@ const CreateExperienceTabs = ({ tabInfoList, onTabClick }: Props) => {
           </ul>
           <div className="flex flex-1 flex-col items-end justify-end pb-20 ">
             <button className="btn text-white">
-              <Link href="/">Return Home</Link>
+              <Link href="/home">Return Home</Link>
             </button>
           </div>
         </div>

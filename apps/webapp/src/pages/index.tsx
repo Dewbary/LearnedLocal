@@ -9,7 +9,7 @@ export default function Landing() {
   return (
     <>
       <div className="flex flex-col items-center bg-ll-grey">
-        <NewNavBar isSignedIn={isSignedIn || false} />
+        <NewNavBar isSignedIn={isSignedIn || false} isMarketingNavBar />
         <LandingBody />
         <NewFooter />
       </div>

@@ -1,9 +1,7 @@
-import { useRouter } from "next/router";
 import * as React from "react";
 import CreateExperienceButton from "~/components/common/CreateExperienceButton";
 import NavigationMenu from "~/components/common/NavigationMenu";
 import {
-  SignIn,
   SignInButton,
   SignOutButton,
   SignUpButton,
@@ -12,11 +10,10 @@ import Link from "next/link";
 
 type Props = {
   isSignedIn: boolean;
+  isMarketingNavbar: boolean;
 };
 
-const NavBarEnd = ({ isSignedIn }: Props) => {
-  const router = useRouter();
-
+const NavBarEnd = ({ isSignedIn, isMarketingNavbar }: Props) => {
   const [menuOpen, setMenuOpen] = React.useState(false);
 
   const closeMenuClicked = () => {
@@ -27,7 +24,7 @@ const NavBarEnd = ({ isSignedIn }: Props) => {
     setMenuOpen(true);
   };
 
-  if (router.asPath == "/") {
+  if (isMarketingNavbar) {
     return (
       <div className="md:mr-4">
         <div
@@ -99,11 +96,11 @@ const NavBarEnd = ({ isSignedIn }: Props) => {
             />
           </svg>
         </div>
-        <div className="hidden rounded-full border border-ll-black p-2 font-inter text-sm lg:flex">
+        <div className="hidden rounded-full border border-ll-black p-2 font-inter text-sm lg:flex flex-row items-center">
           {!isSignedIn ? (
             <>
               <SignInButton>
-                <div className="flex h-12 w-20 items-center justify-center rounded-full transition-colors hover:cursor-pointer hover:bg-ll-blue hover:text-ll-grey">
+                <div className="flex h-12 w-20 items-center justify-center transition-colors hover:cursor-pointer hover:border-b-ll-blue hover:border-b-4">
                   Login
                 </div>
               </SignInButton>
@@ -122,7 +119,7 @@ const NavBarEnd = ({ isSignedIn }: Props) => {
                 My Experiences
               </Link>
               <SignOutButton>
-                <div className="flex h-12 w-20 items-center justify-center rounded-full transition-colors hover:cursor-pointer hover:bg-ll-blue hover:text-ll-grey">
+                <div className="flex h-8 w-20 items-center justify-center transition-colors hover:cursor-pointer hover:border-b-ll-blue hover:border-b-4">
                   Logout
                 </div>
               </SignOutButton>

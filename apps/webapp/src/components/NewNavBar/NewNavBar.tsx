@@ -1,22 +1,19 @@
 import * as React from "react";
-import CreateExperienceButton from "../common/CreateExperienceButton";
 import Title from "../common/Title";
-import NavigationMenu from "../common/NavigationMenu";
 import Link from "next/link";
 import NavigationLink from "../common/NavigationLink";
-import { useRouter } from "next/router";
 import NavBarEnd from "./NavBarEnd";
 
 type Props = {
   isSignedIn: boolean;
+  isMarketingNavBar: boolean;
 };
 
-const NewNavBar = ({ isSignedIn }: Props) => {
-  const router = useRouter();
+const NewNavBar = ({ isSignedIn, isMarketingNavBar }: Props) => {
   return (
     <div
       className={`navbar z-20 justify-between ${
-        router.asPath != "/"
+        !isMarketingNavBar
           ? "fixed h-20 border-b border-ll-slate bg-ll-grey"
           : ""
       }`}
@@ -29,7 +26,7 @@ const NewNavBar = ({ isSignedIn }: Props) => {
       </div>
 
       {/* Mid-navbar links */}
-      {router.asPath == "/" && (
+      {isMarketingNavBar && (
         <div className="navbar-center">
           <div className="hidden gap-8 font-inter text-sm lg:flex">
             <NavigationLink text="Our story" route="/about" />
@@ -41,7 +38,7 @@ const NewNavBar = ({ isSignedIn }: Props) => {
       )}
 
       {/* Navbar end, responsive mobile hamburger menu / login button */}
-      <NavBarEnd isSignedIn={isSignedIn} />
+      <NavBarEnd isSignedIn={isSignedIn} isMarketingNavbar={isMarketingNavBar} />
     </div>
   );
 };

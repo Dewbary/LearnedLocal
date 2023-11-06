@@ -45,7 +45,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
       <ClerkProvider {...pageProps}>
         <Elements stripe={stripePromise}>
           <NextNProgress
-            color="#FFC107"
+            color="#81B9C6"
             startPosition={0.3}
             stopDelayMs={200}
             height={7}

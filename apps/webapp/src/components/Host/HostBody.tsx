@@ -10,7 +10,7 @@ import HostStep from "./HostStep";
 export default function HostBody() {
     return (
         <>
-            <div className="flex flex-col w-full px-5 pt-20 gap-10 max-w-5xl lg:pt-28 pb-10">
+            <div className="flex flex-col w-full px-5 pt-10 gap-10 max-w-5xl pb-10">
                 <div className="flex flex-col lg:flex-row w-full gap-8 lg:items-center">
                     <div className="flex flex-col w-full gap-8">
                         <div className="text-4xl font-raleway font-semibold">

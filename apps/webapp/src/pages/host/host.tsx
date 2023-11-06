@@ -9,7 +9,7 @@ export default function Host() {
   return (
     <>
       <div className="flex min-h-screen w-full flex-col items-center bg-ll-grey">
-        <NewNavBar isSignedIn={isSignedIn || false} />
+        <NewNavBar isSignedIn={isSignedIn || false} isMarketingNavBar/>
         <HostBody />
         <Footer />
       </div>
