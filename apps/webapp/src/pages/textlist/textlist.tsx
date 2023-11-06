@@ -51,7 +51,7 @@ export default function TextList () {
                         </div>
                     </div>
                     <div className="flex flex-col gap-1">
-                        <div className="text-xl font-raleway">
+                        <div className="text-2xl font-raleway font-bold">
                             Sign Up
                         </div>
                         <div className="font-inter">

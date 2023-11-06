@@ -51,7 +51,7 @@ export default function Confirm() {
             </div>
           </div>
           <Link
-            href="/home"
+            href="/"
             className="flex w-full flex-col items-center rounded-full bg-ll-black py-4 font-inter text-sm text-ll-grey"
           >
             Visit home page

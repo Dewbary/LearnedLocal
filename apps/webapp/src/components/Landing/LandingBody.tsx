@@ -41,17 +41,29 @@ export default function LandingBody() {
             <div className="flex flex-col gap-5 lg:flex-grow lg:flex-row">
               <Link
                 href="/home"
-                className="flex w-full flex-row items-center justify-around gap-2 rounded-3xl bg-ll-blue p-7 font-inter text-ll-grey transition-colors hover:cursor-pointer hover:bg-ll-yellow hover:text-ll-black lg:order-2 lg:basis-1/4 lg:flex-col"
+                className="flex w-full flex-row items-center justify-between gap-4 rounded-3xl bg-ll-blue p-7 font-inter text-ll-grey transition-colors hover:cursor-pointer hover:bg-ll-yellow hover:text-ll-black lg:order-2 lg:basis-1/4 lg:flex-col relative"
               >
-                <div className="basis-3/5">
+                <div className="">
                   Find your next local experience with us
                 </div>
-                <div className="basis-2/5">
-                  <Image
-                    src={rightArrowImage}
-                    alt="right pointing arrow"
-                    className="w-full"
-                  />
+                <div className="bg-ll-grey p-3 rounded-full lg:absolute lg:bottom-4 lg:right-4">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                    color="black"
+                    height="20"
+                    width="20"
+                    stroke="black"
+                    strokeWidth={1.5}
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M8.25 3.75H19.5a.75.75 0 01.75.75v11.25a.75.75 0 01-1.5 0V6.31L5.03 20.03a.75.75 0 01-1.06-1.06L17.69 5.25H8.25a.75.75 0 010-1.5z"
+                      clipRule="evenodd"
+                    ></path>
+                  </svg>
                 </div>
               </Link>
 
@@ -250,7 +262,7 @@ export default function LandingBody() {
         </div>
 
         <div className="flex w-full flex-col gap-5 rounded-3xl bg-ll-green px-7 py-9 lg:items-center lg:px-56 lg:py-32">
-          <div className="text-center font-raleway text-2xl font-semibold">
+          <div className="lg:text-center font-raleway text-2xl font-semibold">
             &quot;As a hobbyist myself, I was disappointed that there
             wasn&apos;t a platform to get paid for my knowledge and skills, so
             we created one.&quot;

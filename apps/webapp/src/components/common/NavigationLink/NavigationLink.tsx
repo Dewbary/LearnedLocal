@@ -10,7 +10,7 @@ const NavigationLink = ({ text, route }: Props) => {
   return (
     <Link
       href={route}
-      className="flex items-center justify-center rounded-full p-4 transition-colors hover:cursor-pointer hover:bg-ll-blue hover:text-ll-grey"
+      className="flex items-center justify-center px-4 hover:cursor-pointer hover:border-b-ll-blue hover:border-b-4"
     >
       {text}
     </Link>

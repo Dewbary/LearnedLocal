@@ -8,8 +8,10 @@ import type { ExperienceInfo } from "@learnedlocal/db/types/types";
 function generateSiteMap(availableExperiences: ExperienceInfo[]) {
   let siteMap = `https://learnedlocal.app
 https://www.learnedlocal.app
+https://learnedlocal.app/home
 https://learnedlocal.app/host
 https://learnedlocal.app/about
+https://www.learnedlocal.app/home
 https://www.learnedlocal.app/host
 https://www.learnedlocal.app/about`;
 
