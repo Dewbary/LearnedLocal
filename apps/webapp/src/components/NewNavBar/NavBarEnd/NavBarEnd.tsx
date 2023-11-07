@@ -155,9 +155,9 @@ const NavBarEnd = ({ isSignedIn, isMarketingNavbar }: Props) => {
                 </>
               ) : (
                 <>
-                  <div className="flex h-12 w-36 items-center justify-center rounded-full border-2 border-ll-blue bg-ll-blue text-ll-grey">
+                  <Link href="/myexperiences" className="flex h-12 w-36 items-center justify-center rounded-full border-2 border-ll-blue bg-ll-blue text-ll-grey">
                     My Experiences
-                  </div>
+                  </Link>
                   <SignOutButton>
                     <button className="flex h-12 w-36 items-center justify-center rounded-full border-2 border-ll-black">
                       <div>Logout</div>
