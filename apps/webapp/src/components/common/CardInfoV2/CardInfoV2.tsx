@@ -1,14 +1,15 @@
-import { ExperienceInfo } from "packages/db/types/types";
+import type { ExperienceInfo } from "packages/db/types/types";
 import * as React from "react";
-import { ArrowUpRightIcon } from "@heroicons/react/24/solid";
-import { format } from "date-fns";
+import ExperienceDate from "./ExperienceDate";
+import { ExperienceAvailability } from "packages/db";
 
 type Props = {
   className?: string;
   experience: ExperienceInfo;
+  availabilities: ExperienceAvailability[];
 };
 
-const CardInfoV2 = ({ className, experience }: Props) => {
+const CardInfoV2 = ({ className, experience, availabilities }: Props) => {
   return (
     <div
       className={`${
@@ -17,22 +18,10 @@ const CardInfoV2 = ({ className, experience }: Props) => {
     >
       <div className="truncate font-raleway font-bold">{experience.title}</div>
       <div className="font-inter font-[250]">
-        {experience.availability.length > 1 ? (
-          <div className="flex items-center">
-            {format(
-              experience.availability[0]?.startTime ?? new Date(),
-              "MMMM d"
-            )}
-            <div className="inline pl-1 text-xs"> + More</div>
-          </div>
-        ) : (
-          <div>
-            {format(
-              experience.availability[0]?.startTime ?? new Date(),
-              "MMMM d"
-            )}
-          </div>
-        )}
+        <ExperienceDate
+          availabilities={availabilities}
+          isFutureExperience={experience.isFutureExperience}
+        />
       </div>
       <div className="font-inter font-[250]">{experience.city}, UT</div>
 

@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import ExperienceDetailModalContents from "../common/ExperienceDetailModalContents";
 import ExperienceSubscribeModalContents from "../common/ExperienceSubscribeModalContents";
 import type { ExperienceInfo } from "@learnedlocal/db/types/types";
+import { isPast } from "date-fns";
 
 export const getToday = (): Date => {
   const today = new Date();
@@ -11,9 +12,10 @@ export const getToday = (): Date => {
 
 export const getModalImpl = (
   experience: ExperienceInfo,
-  registered: boolean
+  registered: boolean,
+  isPastExperience: boolean
 ): ReactNode => {
-  if (experience.isFutureExperience) {
+  if (experience.isFutureExperience || isPastExperience) {
     return <ExperienceSubscribeModalContents experienceInfo={experience} />;
   }
   return (
