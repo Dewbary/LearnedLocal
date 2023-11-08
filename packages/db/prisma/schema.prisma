@@ -101,6 +101,15 @@ model PhoneContact {
   yoga          Boolean     @default(false)
 }
 
+model WaitlistContact {
+  id          Int   @id @default(autoincrement())
+  email       String
+  phoneNumber String
+  firstName   String
+  lastName    String
+  experienceTitle String
+}
+
 model Registration {
   id                       String   @id @default(cuid())
   userId                   String

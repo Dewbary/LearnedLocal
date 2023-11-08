@@ -11,6 +11,7 @@ interface AdminUpdateValues {
   externalListing: boolean;
   externalListingLink: string | null;
   externalHostName: string | null;
+  futureListing: boolean;
 }
 
 export default function Admin() {
@@ -32,6 +33,7 @@ export default function Admin() {
       experienceId: values.experienceId,
       verify: values.verify,
       isFull: values.markFull,
+      futureListing: values.futureListing,
       externalListing: values.externalListing,
       externalListingLink: values.externalListingLink,
       externalHostName: values.externalHostName,
@@ -53,6 +55,7 @@ export default function Admin() {
           <div>Description</div>
           <div>First Availability</div>
           <div>Verified?</div>
+          <div>Future?</div>
           <div>Mark as Full?</div>
           <div>External Listing?</div>
           <div>External Host Name</div>
@@ -66,6 +69,7 @@ export default function Admin() {
               experienceId: listing.id,
               verify: listing.verified,
               externalListing: listing.isExternalListing,
+              futureListing: listing.isFutureExperience,
               externalListingLink: listing.externalListingLink,
               externalHostName: listing.externalHostName,
               markFull: listing.isFull,
@@ -77,10 +81,13 @@ export default function Admin() {
               <div>
                 {listing.profile?.firstName} {listing.profile?.lastName}
               </div>
-              <div>{listing.description}</div>
+              <div className="max-w-xs">{listing.description}</div>
               <div>{listing.availability.at(0)?.startTime?.toDateString()}</div>
               <div>
                 <Field name="verify" type="checkbox" />
+              </div>
+              <div>
+                <Field name="futureListing" type="checkbox" />
               </div>
               <div>
                 <Field name="markFull" type="checkbox" />
