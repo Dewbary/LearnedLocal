@@ -4,9 +4,12 @@ import type { ExperienceInfo } from "@learnedlocal/db/types/types";
 import type { PropsWithChildren } from "react";
 import CustomModal from "../CustomModal";
 import { getModalImpl } from "~/components/ExperiencesDisplay/ExperiencesDisplayUtils";
-import CardFavoriteButton from "../CardFavoriteButton";
 import fillerCard from "~/public/filler_card.png";
 import CardInfoV2 from "../CardInfoV2";
+import {
+  filterAvailabilitiesByDate,
+  sortAvailabilities,
+} from "~/utils/availability";
 
 type Props = {
   experience: ExperienceInfo;
@@ -25,6 +28,10 @@ export default function ExperienceCard({
   isHomePageCard,
 }: PropsWithChildren<Props>) {
   const [isLoading, setLoading] = React.useState(true);
+
+  const sortedAvailabilities = sortAvailabilities(experience.availability);
+  const filteredAvailabilitiesByDate =
+    filterAvailabilitiesByDate(sortedAvailabilities);
 
   return (
     <div className="relative">
@@ -48,11 +55,16 @@ export default function ExperienceCard({
             <CardInfoV2
               className="absolute bottom-3 left-3 right-3 h-24"
               experience={experience}
+              availabilities={filteredAvailabilitiesByDate}
             />
           </div>
         }
       >
-        {getModalImpl(experience, registered)}
+        {getModalImpl(
+          experience,
+          registered,
+          filteredAvailabilitiesByDate.length == 0
+        )}
       </CustomModal>
       {isHomePageCard && (
         <>
