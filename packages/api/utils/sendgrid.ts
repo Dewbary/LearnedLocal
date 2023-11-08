@@ -222,16 +222,47 @@ const addContactToListWithExperience = async (
     });
 };
 
-const combineDates = (experienceDate: Date, experienceStartTime: Date) => {
-  const year = experienceDate.getFullYear();
-  const month = experienceDate.getMonth();
-  const day = experienceDate.getDate();
+const addContactToExperienceWaitlist = async ({
+  experienceTitle,
+  newContactFirstName,
+  newContactLastName,
+  newContactEmail,
+  newContactPhoneNumber
+} : {
+  experienceTitle: string,
+  newContactFirstName: string,
+  newContactLastName: string,
+  newContactEmail: string,
+  newContactPhoneNumber: string
+}) => {
+  const data = {
+    list_ids: ["9f0efaa5-65d9-425b-9b7e-e40f0c4759e5"],
+    contacts: [
+      {
+        first_name: newContactFirstName,
+        last_name: newContactLastName,
+        email: newContactEmail,
+        phone_number: newContactPhoneNumber,
+        custom_fields: {
+          experience_title: experienceTitle,
+        },
+      },
+    ],
+  };
 
-  const hours = experienceStartTime.getHours();
-  const minutes = experienceStartTime.getMinutes();
-  const seconds = experienceStartTime.getSeconds();
-
-  return new Date(year, month, day, hours, minutes, seconds);
+  await sgClient
+    .request({
+      url: "/v3/marketing/contacts",
+      method: "PUT",
+      body: data,
+    })
+    .then(([response, body]) => {
+      console.log(response.statusCode);
+      console.log(response.body);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 };
 
 export {
@@ -240,4 +271,5 @@ export {
   sendSignupNotificationEmail,
   sendExperienceCreationEmail,
   addContactToListWithExperience,
+  addContactToExperienceWaitlist
 };

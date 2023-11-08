@@ -401,6 +401,7 @@ export const experienceRouter = createTRPCRouter({
         verify: z.boolean(),
         externalListing: z.boolean(),
         externalListingLink: z.string().nullable(),
+        futureListing: z.boolean(),
         externalHostName: z.string().nullable(),
         isFull: z.boolean(),
       })
@@ -417,6 +418,7 @@ export const experienceRouter = createTRPCRouter({
         data: {
           verified: input.verify,
           isExternalListing: input.externalListing,
+          isFutureExperience: input.futureListing,
           externalListingLink: input.externalListingLink,
           externalHostName: input.externalHostName,
           isFull: input.isFull,
