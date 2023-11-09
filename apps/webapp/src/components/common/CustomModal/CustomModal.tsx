@@ -37,7 +37,7 @@ export default function CustomModal({
         }`}
       >
         <div className="flex h-full w-full items-center justify-center">
-          <div className="relative flex h-full w-full flex-col bg-ll-grey md:max-h-[600px] lg:h-5/6 lg:w-2/3 lg:rounded-3xl">
+          <div className="relative flex h-full w-full flex-col overflow-y-auto bg-ll-grey pb-12 md:h-5/6 md:max-h-[600px] md:pb-0 lg:w-2/3 lg:rounded-3xl">
             <button
               type="button"
               onClick={() => hideModal()}

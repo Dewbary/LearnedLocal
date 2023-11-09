@@ -38,7 +38,7 @@ const ExpImageCarousel = ({ photos }: Props) => {
 
   return (
     <div className="relative flex h-full w-full items-center justify-center md:mx-0">
-      <div className="relative h-full w-5/6 md:mx-4 md:w-full">
+      <div className="relative h-5/6 w-5/6 md:mx-4 md:w-full">
         <Image
           alt="experience photo"
           src={photos[selectedImageIndex] ?? ""}

@@ -33,11 +33,11 @@ export default function ExperienceDetailModalContents({
   };
 
   return (
-    <div className="md:mb-16 mt-24 flex flex-1 flex-col bg-ll-grey md:flex-row">
-      <div className="relative mb-8 h-full min-h-[400px] w-full min-w-[300px] md:mb-0 md:ml-8 md:h-auto md:w-5/12">
+    <div className="mx-auto flex w-5/6 flex-1 flex-col justify-center bg-ll-grey md:w-full md:flex-row">
+      <div className="relative h-full w-full md:mb-0 md:ml-8 md:h-auto md:w-5/12">
         <ExpImageCarousel photos={experienceInfo.photos} />
       </div>
-      <div className="mb-8 flex w-5/6 flex-shrink flex-col justify-between self-center md:mx-8 md:w-7/12">
+      <div className="flex flex-1 flex-col md:ml-8">
         <ExpDetailsSection
           experienceInfo={experienceInfo}
           handleViewPageClick={handleViewPageClick}

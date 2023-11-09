@@ -17,12 +17,12 @@ type Props = {
 
 const ExpDetailsSection = ({ experienceInfo, handleViewPageClick }: Props) => {
   return (
-    <div>
+    <div className="flex h-full w-full flex-1 flex-col justify-center md:h-5/6">
       <div className="mb-8 font-raleway text-3xl font-bold">
         {experienceInfo.title}
       </div>
       <div className="md:w-5/6">
-        <div className="mb-8 line-clamp-[6] font-inter font-light lg:line-clamp-[7]">
+        <div className="mb-8 line-clamp-[4] font-inter font-light">
           {experienceInfo.description}
         </div>
         <div className="flex justify-between pb-8 font-light">
