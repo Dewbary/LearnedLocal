@@ -26,7 +26,7 @@ const NavBarEnd = ({ isSignedIn, isMarketingNavbar }: Props) => {
 
   if (isMarketingNavbar) {
     return (
-      <div className="md:mr-4">
+      <div className="mr-4">
         <div
           className="h-4 w-4 lg:hidden"
           hidden={!menuOpen}
