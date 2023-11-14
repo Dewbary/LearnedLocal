@@ -8,6 +8,7 @@ import type { ExperienceInfo } from "@learnedlocal/db/types/types";
 import FavoritedExperiencesContext from "./FavoritedExperiencesContext";
 import NewNavBar from "../NewNavBar";
 import NewFooter from "../NewFooter";
+import ExperienceFilters from "../ExperienceFilters";
 
 Modal.setAppElement("#__next");
 
@@ -47,7 +48,11 @@ const HomePage = ({ experiences }: { experiences: ExperienceInfo[] }) => {
 
   return (
     <FilteredExperiencesContext.Provider
-      value={{ filteredExperiences, setFilteredExperiences }}
+      value={{
+        filteredExperiences,
+        allExperiences: experiences,
+        setFilteredExperiences,
+      }}
     >
       <FavoritedExperiencesContext.Provider
         value={{
@@ -59,15 +64,18 @@ const HomePage = ({ experiences }: { experiences: ExperienceInfo[] }) => {
         }}
       >
         <div className="flex min-h-screen flex-col items-center bg-ll-grey">
-          <NewNavBar isSignedIn={user.isSignedIn ?? false} isMarketingNavBar={false}/>
+          <NewNavBar
+            isSignedIn={user.isSignedIn ?? false}
+            isMarketingNavBar={false}
+          />
 
           <div className="mb-24 mt-28 flex w-11/12 max-w-[100rem] flex-grow flex-col sm:w-3/4">
             <div className="mb-8 font-raleway text-[24px]">
               Discover Experiences
             </div>
-            {/* <div className="mb-8">
+            <div className="mb-8">
               <ExperienceFilters />
-            </div> */}
+            </div>
             <ExperiencesDisplay />
           </div>
 

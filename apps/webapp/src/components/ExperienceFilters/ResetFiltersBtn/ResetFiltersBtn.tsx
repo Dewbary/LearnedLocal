@@ -1,7 +1,15 @@
 import * as React from "react";
 
-const ResetFiltersBtn = () => {
-  return <div className="text-sm font-bold">Reset filters</div>;
+type Props = {
+  onResetFilters: () => void;
+};
+
+const ResetFiltersBtn = ({ onResetFilters }: Props) => {
+  return (
+    <button className="text-sm font-bold" onClick={onResetFilters}>
+      Reset filters
+    </button>
+  );
 };
 
 export default ResetFiltersBtn;

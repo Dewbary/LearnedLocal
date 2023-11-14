@@ -76,3 +76,47 @@ export type BlockContent = Array<
 >;
 
 export type Documents = PostInfo | Author | Category;
+
+export type Filter = DistanceFilter | CategoryFilter | DateFilter;
+
+export type DistanceFilter = {
+  name: DistanceFilterType;
+};
+
+export type CategoryFilter = {
+  name: CategoryName;
+};
+
+export type DateFilter = {
+  name: DateFilterType;
+};
+
+export type DateFilterType =
+  | "Any Day"
+  | "Today"
+  | "Tomorrow"
+  | "This Week"
+  | "Next Week"
+  | "Past";
+
+export type CategoryName =
+  | "Any Category"
+  | "Arts & Crafts"
+  | "Food"
+  | "Health & Wellness"
+  | "Outdoors"
+  | "Technology"
+  | "Handy"
+  | "Music"
+  | "Photography"
+  | "Family"
+  | "Entertainment"
+  | "Other";
+
+export type DistanceFilterType =
+  | "Any Distance"
+  | "5 miles"
+  | "10 miles"
+  | "25 miles"
+  | "50 miles"
+  | "100 miles";
