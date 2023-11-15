@@ -1,7 +1,7 @@
-import { z } from "zod";
+import { date, z } from "zod";
 import { createTRPCRouter, publicProcedure, protectedProcedure } from "../trpc";
 import { sendExperienceCreationEmail } from "../utils/sendgrid";
-import { startOfToday } from "date-fns";
+import { add, addDays, startOfDay, startOfToday, startOfWeek, sub } from "date-fns";
 import { env } from "@learnedlocal/config/env.mjs";
 import Stripe from "stripe";
 
@@ -38,6 +38,19 @@ export const createExperienceAndPrice = async ({
   return { productId: product.id, priceId: price.id };
 };
 
+const getFridayOfCurrentWeek = function () {
+  // Get the start of the current week (assuming Monday is the first day of the week)
+  const startOfWeekDate = startOfDay(startOfWeek(new Date(), { weekStartsOn: 1 })); // 1 corresponds to Monday
+
+  // Calculate the date of Friday by adding 4 days to the start of the week
+  const fridayDate = addDays(startOfWeekDate, 4);
+
+  // ADJUST FOR TIMEZONE -- THIS IS SUPER HACKY AND SHOULD BE CHANGED
+  //const adjustedFridayDate = sub(fridayDate, {hours: 7});
+
+  return fridayDate;
+}
+
 export const experienceRouter = createTRPCRouter({
   getAll: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.experience.findMany({
@@ -69,6 +82,38 @@ export const experienceRouter = createTRPCRouter({
       },
     });
   }),
+
+  getRecommended: publicProcedure
+    .input(z.string())
+    .query(({ctx, input}) => {
+      const recommendedExperiences = ctx.prisma.experience.findMany({
+        where: {
+          availability: {
+            some: {
+              AND: [
+                {
+                  startTime: {
+                    gte: getFridayOfCurrentWeek()
+                  }
+                },
+                {
+                  startTime: {
+                    lt: add(getFridayOfCurrentWeek(), {days: 3})
+                  }
+                }
+              ]
+            }
+          },
+          verified: true,
+        },
+        include: {
+          availability: true,
+          profile: true
+        },
+      });
+
+      return recommendedExperiences;
+    }),
 
   getCurrent: protectedProcedure.query(async ({ ctx }) => {
     const currentDate = new Date();
