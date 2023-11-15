@@ -13,6 +13,7 @@ export default authMiddleware({
     "/textlist(.*)",
     "/api(.*)",
     "/sitemap(.*)",
+    "/ideas(.*)"
   ],
 });
 
