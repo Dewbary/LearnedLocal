@@ -38,7 +38,10 @@ const NewNavBar = ({ isSignedIn, isMarketingNavBar }: Props) => {
       )}
 
       {/* Navbar end, responsive mobile hamburger menu / login button */}
-      <NavBarEnd isSignedIn={isSignedIn} isMarketingNavbar={isMarketingNavBar} />
+      <NavBarEnd
+        isSignedIn={isSignedIn}
+        isMarketingNavbar={isMarketingNavBar}
+      />
     </div>
   );
 };

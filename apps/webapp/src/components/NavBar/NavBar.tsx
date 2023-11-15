@@ -18,12 +18,12 @@ const NavBar = ({
 }: Props) => {
   return (
     <div
-      className={`navbar fixed top-0 left-0 z-30 h-16 border-b-2 border-b-slate-100 md:relative ${
+      className={`fixed left-0 top-0 z-30 h-16 border-b-2 border-b-slate-100 md:relative ${
         className ?? ""
       } `}
     >
-      <div className="navbar-start">
-        <Link href="/home" className="btn-ghost btn text-xl normal-case">
+      <div className="">
+        <Link href="/home" className="btn btn-ghost text-xl normal-case">
           <Image src={white_logo} alt="company logo" className="mr-3 w-10" />
           <div className="font-poppins font-black text-gray-800">
             Learned Local
@@ -33,10 +33,10 @@ const NavBar = ({
 
       <div className="navbar-end">
         {showCreateExperienceButton && (
-          <CreateExperienceButton className="invisible rounded-full border-none bg-gradient-to-br from-amber-400 to-amber-500 py-3 px-6 font-bold text-white drop-shadow-md hover:cursor-pointer hover:from-amber-300 hover:to-amber-300 md:visible" />
+          <CreateExperienceButton className="invisible rounded-full border-none bg-gradient-to-br from-amber-400 to-amber-500 px-6 py-3 font-bold text-white drop-shadow-md hover:cursor-pointer hover:from-amber-300 hover:to-amber-300 md:visible" />
         )}
-        <div className="dropdown-bottom dropdown-end dropdown">
-          <label tabIndex={0} className="btn-ghost btn-circle btn">
+        <div className="dropdown dropdown-end dropdown-bottom">
+          <label tabIndex={0} className="btn btn-circle btn-ghost">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -54,7 +54,7 @@ const NavBar = ({
           </label>
           <ul
             tabIndex={0}
-            className="menu-compact dropdown-content menu rounded-box mt-3 w-52 bg-base-100 p-2 shadow"
+            className="menu-compact menu dropdown-content rounded-box mt-3 w-52 bg-base-100 p-2 shadow"
           >
             <li>
               <Link className="p-2" href="/home">

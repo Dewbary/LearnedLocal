@@ -7,6 +7,9 @@ const config = {
   corePlugins: {
     filter: false,
   },
+  daisyui: {
+    themes: false,
+  },
   theme: {
     extend: {
       gridTemplateColumns: {
