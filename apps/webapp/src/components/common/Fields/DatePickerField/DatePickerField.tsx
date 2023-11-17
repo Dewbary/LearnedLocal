@@ -28,8 +28,8 @@ const DatePickerField = ({ field, form }: FieldProps<DateInfo[]>) => {
         draft.splice(dateIndex, 1);
       } else {
         const dateToAdd = {
-          startTime: date,
-          endTime: date,
+          startTime: new Date(date),
+          endTime: new Date(date),
         };
 
         // Set default start and end times to match the time already configured in the first availablity
@@ -38,8 +38,14 @@ const DatePickerField = ({ field, form }: FieldProps<DateInfo[]>) => {
           selectedDates[0].startTime &&
           selectedDates[0].endTime
         ) {
-          dateToAdd.startTime.setTime(selectedDates[0].startTime.getTime());
-          dateToAdd.endTime.setTime(selectedDates[0].endTime.getTime());
+          const startHours = selectedDates[0].startTime.getHours();
+          const startMinutes = selectedDates[0].startTime.getMinutes();
+
+          const endHours = selectedDates[0].endTime.getHours();
+          const endMinutes = selectedDates[0].endTime.getMinutes();
+
+          dateToAdd.startTime.setHours(startHours, startMinutes);
+          dateToAdd.endTime.setHours(endHours, endMinutes);
         }
 
         draft.push(dateToAdd);
@@ -49,13 +55,19 @@ const DatePickerField = ({ field, form }: FieldProps<DateInfo[]>) => {
     await setFieldValue(field.name, sortByDate(nextSelectedDates));
   };
 
+  const getHighlightedDates = (): Date[] => {
+    return selectedDates.flatMap((dateInfo) =>
+      dateInfo.startTime ? [dateInfo.startTime] : []
+    );
+  };
+
   return (
     <DatePicker
       selected={null}
       onChange={handleDateSelect}
       inline
       locale="enUS"
-      highlightDates={selectedDates.map((dateInfo) => dateInfo.startTime!)}
+      highlightDates={getHighlightedDates()}
       isClearable
       minDate={startOfDay(new Date())}
       className="border-none"
