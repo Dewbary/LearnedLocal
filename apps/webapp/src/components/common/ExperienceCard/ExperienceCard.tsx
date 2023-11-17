@@ -53,7 +53,7 @@ export default function ExperienceCard({
               onLoadingComplete={() => setLoading(false)}
             />
             <CardInfoV2
-              className="absolute bottom-3 left-3 right-3 h-24"
+              className="absolute bottom-3 left-3 right-3 h-24 hover:cursor-pointer"
               experience={experience}
               availabilities={filteredAvailabilitiesByDate}
             />

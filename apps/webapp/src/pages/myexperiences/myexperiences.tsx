@@ -1,4 +1,4 @@
-import { RedirectToSignIn, SignedIn, SignedOut, useUser } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 import { api } from "~/utils/api";
 import NavBar from "~/components/NavBar/NavBar";
 import { useRouter } from "next/router";
@@ -98,122 +98,116 @@ export default function MyExperiences() {
           </div>
         </div>
       </div>
-
-      <SignedIn>
         {/* UPCOMING EXPERIENCES DISPLAY */}
 
-        <div className="mt-7 flex flex-col gap-5 px-9 py-3 text-center lg:flex-row lg:items-center lg:text-start">
-          <h1 className="text-4xl font-bold">My Upcoming Experiences</h1>
+      <div className="mt-7 flex flex-col gap-5 px-9 py-3 text-center lg:flex-row lg:items-center lg:text-start">
+        <h1 className="text-4xl font-bold">My Upcoming Experiences</h1>
+      </div>
+      {userJoinedExperiences.data?.length === 0 && (
+        <div className="mt-3 flex w-full flex-col items-center justify-center gap-6 bg-slate-200 px-6 py-10">
+          <h1>You&apos;re not currently signed up for any experiences.</h1>
+          <Link href="/home" className="btn">
+            Find an experience
+          </Link>
         </div>
-        {userJoinedExperiences.data?.length === 0 && (
-          <div className="mt-3 flex w-full flex-col items-center justify-center gap-6 bg-slate-200 px-6 py-10">
-            <h1>You&apos;re not currently signed up for any experiences.</h1>
-            <Link href="/home" className="btn">
-              Find an experience
-            </Link>
-          </div>
-        )}
+      )}
 
-        <div
-          className={`mx-4 grid max-w-[100rem] grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-8`}
-        >
-          {userJoinedExperiences.data?.map((registration) => (
+      <div
+        className={`mx-4 grid max-w-[100rem] grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-8`}
+      >
+        {userJoinedExperiences.data?.map((registration) => (
+          <ExperienceCard
+            key={registration.experience.id}
+            experience={registration.experience}
+            registered={true}
+            isHomePageCard={false}
+          >
+            <button
+              onClick={() => deleteRegistration(registration)}
+              className="z-20 rounded-lg bg-red-400 p-2 text-white drop-shadow-md hover:bg-red-500"
+            >
+              Cancel Reservation
+            </button>
+          </ExperienceCard>
+        ))}
+      </div>
+
+      {/* HOSTED EXPERIENCES DISPLAY */}
+
+      <div className="mt-7 flex flex-col gap-5 px-9 py-3 text-center lg:flex-row lg:items-center lg:text-start">
+        <h1 className="text-4xl font-bold">My Hosted Experiences</h1>
+        <CreateExperienceButton className="rounded-3xl bg-ll-yellow px-6 py-4 font-inter text-sm" />
+      </div>
+      {userCreatedExperiences.data?.length === 0 && (
+        <div className="mt-3 flex h-24 w-full items-center justify-center bg-slate-200">
+          <h1>You&apos;re not currently hosting any experiences.</h1>
+        </div>
+      )}
+      <div
+        className={`mx-4 mb-8 grid max-w-[100rem] grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-8`}
+      >
+        {userCreatedExperiences.data?.map((experience) => (
+          <>
             <ExperienceCard
-              key={registration.experience.id}
-              experience={registration.experience}
-              registered={true}
+              experience={experience}
+              registered={false}
               isHomePageCard={false}
             >
+              <CustomModal
+                button={
+                  <button className="z-20 rounded-lg bg-green-400 p-2 text-white drop-shadow-md hover:bg-green-500">
+                    Guests
+                  </button>
+                }
+              >
+                <GuestListModalContents experienceInfo={experience} />
+              </CustomModal>
+
               <button
-                onClick={() => deleteRegistration(registration)}
+                onClick={() => goToExperienceView(experience.id)}
+                className="z-20 rounded-lg bg-amber-400 p-2 text-white drop-shadow-md hover:bg-amber-500"
+              >
+                View
+              </button>
+              <button
+                onClick={() => goToEditPage(experience.slugId, experience.id)}
+                className="z-20 rounded-lg bg-blue-400 p-2 text-white drop-shadow-md hover:bg-blue-500"
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => deleteExperience(experience)}
                 className="z-20 rounded-lg bg-red-400 p-2 text-white drop-shadow-md hover:bg-red-500"
               >
-                Cancel Reservation
+                Delete
               </button>
             </ExperienceCard>
-          ))}
-        </div>
+          </>
+        ))}
+      </div>
 
-        {/* HOSTED EXPERIENCES DISPLAY */}
-
-        <div className="mt-7 flex flex-col gap-5 px-9 py-3 text-center lg:flex-row lg:items-center lg:text-start">
-          <h1 className="text-4xl font-bold">My Hosted Experiences</h1>
-          <CreateExperienceButton className="rounded-3xl bg-ll-yellow px-6 py-4 font-inter text-sm" />
-        </div>
-        {userCreatedExperiences.data?.length === 0 && (
-          <div className="mt-3 flex h-24 w-full items-center justify-center bg-slate-200">
-            <h1>You&apos;re not currently hosting any experiences.</h1>
-          </div>
-        )}
+      {experienceDeleter.error && showErrorModal && (
         <div
-          className={`mx-4 mb-8 grid max-w-[100rem] grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-8`}
+          className="fixed bottom-5 left-1/3 flex gap-3 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700"
+          role="alert"
         >
-          {userCreatedExperiences.data?.map((experience) => (
-            <>
-              <ExperienceCard
-                experience={experience}
-                registered={false}
-                isHomePageCard={false}
-              >
-                <CustomModal
-                  button={
-                    <button className="z-20 rounded-lg bg-green-400 p-2 text-white drop-shadow-md hover:bg-green-500">
-                      Guests
-                    </button>
-                  }
-                >
-                  <GuestListModalContents experienceInfo={experience} />
-                </CustomModal>
-
-                <button
-                  onClick={() => goToExperienceView(experience.id)}
-                  className="z-20 rounded-lg bg-amber-400 p-2 text-white drop-shadow-md hover:bg-amber-500"
-                >
-                  View
-                </button>
-                <button
-                  onClick={() => goToEditPage(experience.slugId, experience.id)}
-                  className="z-20 rounded-lg bg-blue-400 p-2 text-white drop-shadow-md hover:bg-blue-500"
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={() => deleteExperience(experience)}
-                  className="z-20 rounded-lg bg-red-400 p-2 text-white drop-shadow-md hover:bg-red-500"
-                >
-                  Delete
-                </button>
-              </ExperienceCard>
-            </>
-          ))}
+          <strong className="font-bold">Error:</strong>
+          <span className="block sm:inline">
+            You need to remove all guests from this event before deleting it.
+          </span>
+          <button className="" onClick={() => setShowErrorModal(false)}>
+            <svg
+              className="h-6 w-6 fill-current text-red-500"
+              role="button"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+            >
+              <title>Close</title>
+              <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+            </svg>
+          </button>
         </div>
-
-        {experienceDeleter.error && showErrorModal && (
-          <div
-            className="fixed bottom-5 left-1/3 flex gap-3 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700"
-            role="alert"
-          >
-            <strong className="font-bold">Error:</strong>
-            <span className="block sm:inline">
-              You need to remove all guests from this event before deleting it.
-            </span>
-            <button className="" onClick={() => setShowErrorModal(false)}>
-              <svg
-                className="h-6 w-6 fill-current text-red-500"
-                role="button"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-              >
-                <title>Close</title>
-                <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
-              </svg>
-            </button>
-          </div>
-        )}
-      </SignedIn>
-      <SignedOut>
-        <RedirectToSignIn />
-      </SignedOut>
+      )}
       <Footer />
     </>
   );

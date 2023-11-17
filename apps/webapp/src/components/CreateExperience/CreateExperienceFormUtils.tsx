@@ -134,10 +134,10 @@ export const uploadImages = async (
   userId: string
 ) => {
   await Promise.all(
-    imgList.map(async (img) => {
+    imgList.map(async (img, index) => {
       if (!img.file) {
         if (img.dataURL) {
-          filePathArray.push(img.dataURL);
+          filePathArray[index] = img.dataURL;
         }
         return;
       }
@@ -147,7 +147,7 @@ export const uploadImages = async (
         (process.env.NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_NAME ?? "") +
         "/" +
         path;
-      filePathArray.push(filePath);
+      filePathArray[index] = filePath;
     })
   );
 };
