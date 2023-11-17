@@ -5,12 +5,14 @@ import styles from "./CustomModal.module.css";
 interface Props extends PropsWithChildren {
   button: ReactNode;
   visible?: boolean;
+  onOpen?: () => void;
 }
 
 export default function CustomModal({
   button,
   visible = false,
   children,
+  onOpen,
 }: Props) {
   const [displayModal, setDisplayModal] = useState(visible);
 
@@ -23,6 +25,9 @@ export default function CustomModal({
   };
 
   const showModal = function () {
+    if (onOpen) {
+      onOpen();
+    }
     setDisplayModal(true);
   };
 

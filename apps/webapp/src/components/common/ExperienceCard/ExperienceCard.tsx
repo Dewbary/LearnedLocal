@@ -10,6 +10,8 @@ import {
   filterAvailabilitiesByDate,
   sortAvailabilities,
 } from "~/utils/availability";
+import { useRouter } from "next/router";
+import { parseQueryString } from "~/components/CreateExperience/CreateExperienceFormUtils";
 
 type Props = {
   experience: ExperienceInfo;
@@ -27,6 +29,10 @@ export default function ExperienceCard({
   registered = false,
   isHomePageCard,
 }: PropsWithChildren<Props>) {
+  const { query } = useRouter();
+
+  const experienceId = parseQueryString(query.experienceId);
+
   const [isLoading, setLoading] = React.useState(true);
 
   const sortedAvailabilities = sortAvailabilities(experience.availability);
@@ -36,6 +42,13 @@ export default function ExperienceCard({
   return (
     <div className="relative">
       <CustomModal
+        onOpen={() => {
+          window.gtag("event", "open_modal", {
+            experience_title: experience.title,
+            is_external_experience: experience.isExternalListing,
+          });
+        }}
+        visible={experienceId === experience.id.toString()}
         button={
           <div className="group relative aspect-[7/8] overflow-hidden rounded-3xl group-hover:cursor-pointer">
             <Image

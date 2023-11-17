@@ -12,6 +12,7 @@ import { BounceLoader } from "react-spinners";
 import * as React from "react";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
 import HelpMenuItem from "./HelpMenuItem";
+
 const CreateExperienceForm = () => {
   const user = useUser();
   const router = useRouter();
@@ -93,7 +94,7 @@ const CreateExperienceForm = () => {
               htmlFor="create-experience-drawer"
               className="drawer-overlay"
             />
-            <div className="flex w-72 flex-col items-center gap-3 bg-white p-3 pt-20 pb-20 lg:w-96 lg:pt-3">
+            <div className="flex w-72 flex-col items-center gap-3 bg-white p-3 pb-20 pt-20 lg:w-96 lg:pt-3">
               <h1 className="text-3xl font-bold">Need help?</h1>
               <p>
                 Thanks for creating an experience with Learned Local! Find the

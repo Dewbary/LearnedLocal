@@ -5,6 +5,7 @@ import ExpImageCarousel from "./ExpImageCarousel";
 import ExpDetailsSection from "./ExpDetailsSection";
 import Button from "../Button";
 import CardFavoriteButton from "../CardFavoriteButton";
+import { useUser } from "@clerk/nextjs";
 
 type Props = {
   experienceInfo: ExperienceInfo;
@@ -16,10 +17,13 @@ export default function ExperienceDetailModalContents({
   showRegisteredDetails,
 }: Props) {
   const router = useRouter();
+  const user = useUser();
 
   const handleViewPageClick = async function () {
     window.gtag("event", "view_details", {
       experience_title: experienceInfo.title,
+      is_external_experience: experienceInfo.isExternalListing,
+      email: user.user?.emailAddresses[0],
     });
 
     if (

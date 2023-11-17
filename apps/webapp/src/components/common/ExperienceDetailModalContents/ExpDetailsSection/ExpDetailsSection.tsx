@@ -9,6 +9,8 @@ import { ExperienceInfo } from "packages/db/types/types";
 import { format } from "date-fns";
 import Button from "../../Button";
 import CardFavoriteButton from "../../CardFavoriteButton";
+import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
+import { useRouter } from "next/router";
 
 type Props = {
   experienceInfo: ExperienceInfo;
@@ -16,6 +18,11 @@ type Props = {
 };
 
 const ExpDetailsSection = ({ experienceInfo, handleViewPageClick }: Props) => {
+  const router = useRouter();
+
+  const redirectUrl =
+    router.pathname + "?&experienceId=" + experienceInfo.id.toString();
+
   return (
     <div className="flex h-full w-full flex-1 flex-col justify-center md:h-5/6">
       <div className="mb-8 font-raleway text-3xl font-bold">
@@ -88,13 +95,38 @@ const ExpDetailsSection = ({ experienceInfo, handleViewPageClick }: Props) => {
           </div>
         </div>
         <div className="flex justify-center space-x-2 md:space-x-8">
-          <Button
-            className="bg-ll-dark-blue text-white"
-            text="See Details"
-            onClick={() => {
-              handleViewPageClick();
-            }}
-          />
+          <SignedIn>
+            <Button
+              className="bg-ll-dark-blue text-white"
+              text="See Details"
+              onClick={() => {
+                handleViewPageClick();
+              }}
+            />
+          </SignedIn>
+          <SignedOut>
+            {experienceInfo.isExternalListing &&
+            experienceInfo.externalListingLink ? (
+              <SignInButton
+                afterSignInUrl={redirectUrl}
+                afterSignUpUrl={redirectUrl}
+                mode="modal"
+              >
+                <div className="flex cursor-pointer items-center justify-center rounded-full bg-ll-dark-blue px-6 py-4 text-center font-inter text-white duration-300 ease-in-out hover:scale-105 hover:opacity-50">
+                  Sign In to See Details
+                </div>
+              </SignInButton>
+            ) : (
+              <Button
+                className="bg-ll-dark-blue text-white"
+                text="See Details"
+                onClick={() => {
+                  handleViewPageClick();
+                }}
+              />
+            )}
+          </SignedOut>
+
           <div>
             <CardFavoriteButton
               className="border-2 border-ll-dark-blue text-ll-dark-blue"
