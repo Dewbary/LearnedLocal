@@ -67,7 +67,7 @@ export const filterExperiencesByDate = (
       if (!availableDate.startTime || !dateRange[0]) return false;
       return (
         availableDate.startTime >= dateRange[0] &&
-        availableDate.startTime < dateRange[1]
+        availableDate.startTime <= dateRange[1]
       );
     });
   });
