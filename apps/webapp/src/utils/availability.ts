@@ -1,5 +1,8 @@
 import { ExperienceAvailability } from "packages/db";
 
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+
 export const sortAvailabilities = (
   availabilities: ExperienceAvailability[]
 ): ExperienceAvailability[] => {
@@ -16,7 +19,7 @@ export const filterAvailabilitiesByDate = (
 ): ExperienceAvailability[] => {
   return availabilities.filter((availability) => {
     if (availability.startTime) {
-      return availability.startTime.getTime() >= new Date().getTime();
+      return availability.startTime.getTime() >= today.getTime();
     }
     return false;
   });
