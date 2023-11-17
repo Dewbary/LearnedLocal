@@ -8,7 +8,7 @@ const Privacy = () => {
   return (
     <>
       <NavBar isSignedIn={user.isSignedIn ?? false} className="bg-white" />
-      <div className="container mx-auto p-4">
+      <div className="container mx-auto p-4 max-w-4xl">
         <div className="card">
           <h1 className="card-title text-2xl">
             Privacy Policy for Learned Local

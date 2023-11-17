@@ -19,9 +19,9 @@ export default function Footer() {
               Sign Up
             </div>
           </div>
-          <div className="font-inter text-sm underline hover:cursor-pointer">
+          <Link className="font-inter text-sm underline hover:cursor-pointer" href="/privacy">
             Privacy Policy
-          </div>
+          </Link>
         </div>
 
         <div className="flex flex-col gap-3">

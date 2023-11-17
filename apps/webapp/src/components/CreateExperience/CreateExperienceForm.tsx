@@ -3,7 +3,7 @@ import type { TabInfo } from "./types";
 import CreateExperienceTabs from "./CreateExperienceTabs/CreateExperienceTabs";
 import CreateExperienceFormArea from "./CreateExperienceFormArea";
 import { api } from "~/utils/api";
-import { RedirectToSignIn, SignedIn, SignedOut, useUser } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 import { getTabInfos, parseQueryString } from "./CreateExperienceFormUtils";
 import Footer from "../Footer/Footer";
 import NavBar from "../NavBar/NavBar";
@@ -53,41 +53,36 @@ const CreateExperienceForm = () => {
             className="drawer-toggle"
           />
           <div className="drawer-content">
-            <SignedIn>
-              <div className="mt-4 flex flex-1 flex-col md:flex-row">
-                {showLoading ? (
-                  <div className="flex flex-1 items-center justify-center">
-                    <BounceLoader color="#FFC107" />
-                  </div>
-                ) : (
-                  <>
-                    <CreateExperienceTabs
-                      tabInfoList={tabInfoList}
-                      onTabClick={(index) => handleGoToNextStep(index)}
-                    />
-                    <CreateExperienceFormArea
-                      experience={experience}
-                      slug={slug}
-                      activeTab={activeTab}
-                      step={step}
-                      tabInfoList={tabInfoList}
-                      setIsCreating={setIsCreating}
-                      next={next}
-                      back={back}
-                    />
-                  </>
-                )}
-              </div>
-              <label
-                htmlFor="create-experience-drawer"
-                className="drawer-button fixed bottom-5 right-5 rounded-full bg-white shadow-md"
-              >
-                <QuestionMarkCircleIcon className="w-16 text-amber-500 lg:hidden" />
-              </label>
-            </SignedIn>
-            <SignedOut>
-              <RedirectToSignIn />
-            </SignedOut>
+            <div className="mt-4 flex flex-1 flex-col md:flex-row">
+              {showLoading ? (
+                <div className="flex flex-1 items-center justify-center">
+                  <BounceLoader color="#FFC107" />
+                </div>
+              ) : (
+                <>
+                  <CreateExperienceTabs
+                    tabInfoList={tabInfoList}
+                    onTabClick={(index) => handleGoToNextStep(index)}
+                  />
+                  <CreateExperienceFormArea
+                    experience={experience}
+                    slug={slug}
+                    activeTab={activeTab}
+                    step={step}
+                    tabInfoList={tabInfoList}
+                    setIsCreating={setIsCreating}
+                    next={next}
+                    back={back}
+                  />
+                </>
+              )}
+            </div>
+            <label
+              htmlFor="create-experience-drawer"
+              className="drawer-button fixed bottom-5 right-5 rounded-full bg-white shadow-md"
+            >
+              <QuestionMarkCircleIcon className="w-16 text-amber-500 lg:hidden" />
+            </label>
           </div>
           <div className="drawer-side">
             <label

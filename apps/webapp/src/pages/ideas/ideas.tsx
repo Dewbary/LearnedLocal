@@ -23,7 +23,7 @@ export default function Ideas() {
       <div className="bg-ll-grey w-full min-h-screen flex flex-col items-center">
         <div className="flex flex-col gap-5 w-full max-w-sm px-5 py-10">
           <div className="text-3xl font-raleway font-semibold">
-            Looking for weekend ideas?
+            Looking for date ideas?
           </div>
           <div className="font-inter font-light">
             Don&apos;t worry, we&apos;ve got you covered. Here are your experience recommendations in Utah County for this weekend.

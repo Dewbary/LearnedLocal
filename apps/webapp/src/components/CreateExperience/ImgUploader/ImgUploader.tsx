@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 
 type Props = {
@@ -75,30 +75,11 @@ const ImgUploader = ({ value, onChange, onChangeCoverImage }: Props) => {
                       Cover Image
                     </div>
                   )}
-                  <ul className="menu bg-gray-100 w-full absolute top-44 z-10">
-                    <li>
-                      <details>
-                        <summary>Options</summary>
-                        <ul>
-                          <li>
-                            <button type="button" onClick={() => onImageUpdate(index)}>
-                              Update
-                            </button>
-                          </li>
-                          <li>
-                            <button type="button" onClick={() => onImageRemove(index)}>
-                              Remove
-                            </button>
-                          </li>
-                          <li>
-                            <button type="button" onClick={() => onChangeCoverImage(imageList, index)}>
-                              Make Cover Image
-                            </button>
-                          </li>
-                        </ul>
-                      </details>
-                    </li>
-                  </ul>
+                  <ImageOptionsMenu 
+                    onImageUpdate={() => onImageUpdate(index)} 
+                    onImageRemove={() => onImageRemove(index)} 
+                    onChangeCoverImage={() => onChangeCoverImage(imageList, index)}
+                  />
                 </div>
                 
               </div>
@@ -116,5 +97,34 @@ const ImgUploader = ({ value, onChange, onChangeCoverImage }: Props) => {
     </ImageUploading>
   );
 };
+
+const ImageOptionsMenu = function ({onImageUpdate, onImageRemove, onChangeCoverImage}:{onImageUpdate: () => void, onImageRemove: () => void, onChangeCoverImage: () => void}) {
+
+  const closeMenus = () => {
+    const imageMenus = document.querySelectorAll('.imageMenu');
+    imageMenus.forEach((imageMenu) => {
+        if (imageMenu instanceof HTMLDetailsElement && imageMenu.hasAttribute('open')) {
+          imageMenu.removeAttribute('open');
+        }
+    });
+  }
+  
+  return (
+    <details className="bg-gray-100 w-full absolute top-44 z-10 imageMenu">
+      <summary className="w-full p-3 hover:cursor-pointer">Options</summary>
+      <div className="dropdown-content bg-gray-100 p-3 pt-0 flex flex-col w-full items-start">
+        <div className="w-full hover:cursor-pointer hover:bg-gray-200 p-3" onClick={() => onImageUpdate()}>
+          Update
+        </div>
+        <div className="w-full hover:cursor-pointer hover:bg-gray-200 p-3" onClick={() => onImageRemove()}>
+          Remove
+        </div>
+        <div className="w-full hover:cursor-pointer hover:bg-gray-200 p-3" onClick={() => {onChangeCoverImage(); closeMenus();}}>
+          Make Cover Image
+        </div>
+      </div>
+    </details>
+  )
+}
 
 export default ImgUploader;

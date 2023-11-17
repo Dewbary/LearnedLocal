@@ -23,6 +23,16 @@ const ExpDetailsSection = ({ experienceInfo, handleViewPageClick }: Props) => {
   const redirectUrl =
     router.pathname + "?&experienceId=" + experienceInfo.id.toString();
 
+
+  let experienceHost : string | null = "";
+
+  if (experienceInfo.isExternalListing) {
+    experienceHost = experienceInfo.externalHostName;
+  }
+  else {
+    experienceHost = `${experienceInfo.profile?.firstName || ""} ${experienceInfo.profile?.lastName || ""}`;
+  }
+
   return (
     <div className="flex h-full w-full flex-1 flex-col justify-center md:h-5/6">
       <div className="mb-8 font-raleway text-3xl font-bold">
@@ -46,8 +56,7 @@ const ExpDetailsSection = ({ experienceInfo, handleViewPageClick }: Props) => {
                 className="text-ll-slate"
               />
               <div>
-                Hosted by {experienceInfo.profile?.firstName}{" "}
-                {experienceInfo.profile?.lastName}
+                Hosted by {experienceHost}
               </div>
             </div>
           </div>
