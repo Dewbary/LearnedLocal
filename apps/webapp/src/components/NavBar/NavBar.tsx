@@ -18,11 +18,11 @@ const NavBar = ({
 }: Props) => {
   return (
     <div
-      className={`fixed left-0 top-0 z-30 h-16 border-b-2 border-b-slate-100 md:relative ${
+      className={`navbar fixed left-0 top-0 z-30 h-16 border-b-2 border-b-slate-100 md:relative ${
         className ?? ""
       } `}
     >
-      <div className="">
+      <div className="navbar-start">
         <Link href="/home" className="btn btn-ghost text-xl normal-case">
           <Image src={white_logo} alt="company logo" className="mr-3 w-10" />
           <div className="font-poppins font-black text-gray-800">

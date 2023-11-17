@@ -14,6 +14,7 @@ import ExperienceDateSelection from "../ExperiencesDisplay/ExperienceDateSelecti
 import { InferGetServerSidePropsType } from "next";
 import { getServerSideProps } from "~/pages/experience/view/[...slug]";
 import AboutTheHost from "./AboutTheHost";
+import NewNavBar from "../NewNavBar";
 
 export default function ViewExperiencePage(
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -182,10 +183,10 @@ export default function ViewExperiencePage(
                   </div>
                 </div>
               </div>
-              
+
               {experience.profile && (
-                <div className="w-full flex flex-col items-center">
-                  <AboutTheHost profile={experience.profile} className="mt-8"/>
+                <div className="flex w-full flex-col items-center">
+                  <AboutTheHost profile={experience.profile} className="mt-8" />
                 </div>
               )}
             </div>
