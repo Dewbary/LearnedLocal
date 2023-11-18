@@ -1,7 +1,28 @@
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import Link from "next/link";
 import { Facebook, Instagram } from "react-feather";
+import { api } from "~/utils/api";
+import * as Yup from "yup";
+
+type FormValues = {
+  email: string;
+}
 
 export default function Footer() {
+
+  const emailSignup = api.email.signUpForWaitlist.useMutation();
+
+  const handleSignupClick = async (values: FormValues) => {
+    await emailSignup.mutateAsync({
+      experienceTitle: "GENERAL LIST",
+      newContactEmail: values.email,
+      newContactFirstName: "GENERAL LIST",
+      newContactLastName: "GENERAL LIST",
+      newContactPhoneNumber: "GENERAL LIST"
+    })
+    alert("You've successfully subscribed to our email list!");
+  }
+
   return (
     <>
       <div className="flex w-full flex-col gap-10 bg-ll-black px-6 py-8 text-ll-grey lg:flex-row lg:gap-32 lg:px-14">
@@ -10,15 +31,26 @@ export default function Footer() {
           <div className="font-inter text-sm">
             Sign up with your email address to receive experience updates.
           </div>
-          <div className="flex flex-row gap-4 font-inter">
-            <input
-              className="w-44 px-3 text-sm text-ll-black"
-              placeholder="Email Address"
-            />
-            <div className="flex flex-row items-center justify-center rounded-full border border-ll-black bg-ll-grey px-3 py-3 text-sm text-ll-black transition-colors hover:cursor-pointer hover:border-ll-grey hover:bg-ll-black hover:text-ll-grey lg:px-7">
-              Sign Up
-            </div>
-          </div>
+          <Formik
+            initialValues={{
+              email: ""
+            }}
+            onSubmit={(values:FormValues) => {void handleSignupClick(values)}}
+            validationSchema={Yup.object({
+              email: Yup.string().email("Please enter a valid email").required()
+            })}
+          >
+            <Form className="flex flex-row gap-4 font-inter">
+              <Field
+                name="email"
+                className="w-44 px-3 text-sm text-ll-black"
+                placeholder="Email Address"
+              />
+              <button type="submit" className="flex flex-row items-center justify-center rounded-full border border-ll-black bg-ll-grey px-3 py-3 text-sm text-ll-black transition-colors hover:cursor-pointer hover:border-ll-grey hover:bg-ll-black hover:text-ll-grey lg:px-7">
+                Sign Up
+              </button>
+            </Form>
+          </Formik>
           <Link className="font-inter text-sm underline hover:cursor-pointer" href="/privacy">
             Privacy Policy
           </Link>
