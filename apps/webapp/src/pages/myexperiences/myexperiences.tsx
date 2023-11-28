@@ -39,9 +39,9 @@ export default function MyExperiences() {
     await router.push(`/experience/view/${experienceId}`);
   };
 
-  const deleteExperience = function (experience: Experience) {
+  const deleteExperience = async function (experience: Experience) {
     if (confirm("Are you sure you want to delete this experience?") === true) {
-      experienceDeleter.mutate(experience.id);
+      await experienceDeleter.mutateAsync(experience.id);
       setShowErrorModal(true);
       router.reload();
     }
