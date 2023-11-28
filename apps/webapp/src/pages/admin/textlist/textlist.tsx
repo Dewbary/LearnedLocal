@@ -7,9 +7,7 @@ const TextList = () => {
   const sendTextMessage = api.textlist.sendTextMessage.useMutation();
 
   const createTextMessage = async (message: string) => {
-    console.log(message);
-
-    sendTextMessage.mutateAsync({
+    await sendTextMessage.mutateAsync({
       message: message,
     });
   };

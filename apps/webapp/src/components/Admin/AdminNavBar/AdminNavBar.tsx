@@ -1,9 +1,7 @@
 import Link from "next/link";
 import * as React from "react";
 
-type Props = {};
-
-const AdminNavBar = ({}: Props) => {
+const AdminNavBar = () => {
   return (
     <div className="navbar bg-slate-600 text-white">
       <div className="flex-1">
