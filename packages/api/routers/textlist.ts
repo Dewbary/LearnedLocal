@@ -3,6 +3,18 @@ import { z } from "zod";
 import sendTextMessage from "../utils/twilio";
 
 export const textListRouter = createTRPCRouter({
+  sendTextMessage: publicProcedure
+    .input(z.object({ message: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const contacts = await ctx.prisma.phoneContact.findMany({
+        select: { phoneNumber: true },
+      });
+
+      contacts.forEach(async (contact) => {
+        await sendTextMessage(contact.phoneNumber, input.message);
+      });
+    }),
+
   addToTextList: publicProcedure
     .input(z.string())
     .mutation(async ({ ctx, input }) => {
@@ -12,12 +24,12 @@ export const textListRouter = createTRPCRouter({
       );
       await ctx.prisma.phoneContact.upsert({
         where: {
-            phoneNumber: input
+          phoneNumber: input,
         },
         create: {
           phoneNumber: input,
         },
-        update: {}
+        update: {},
       });
       console.log(`Added ${input} to the text list!`);
     }),
