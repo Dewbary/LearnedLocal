@@ -32,7 +32,7 @@ const NewNavBar = ({ isSignedIn, isMarketingNavBar }: Props) => {
             <NavigationLink text="Our story" route="/about" />
             <NavigationLink text="Become a host" route="/host" />
             <NavigationLink text="Find an experience" route="/home" />
-            {/* <NavigationLink text="Our blog" route="/blog" /> */}
+            <NavigationLink text="Our blog" route="/blog" />
           </div>
         </div>
       )}

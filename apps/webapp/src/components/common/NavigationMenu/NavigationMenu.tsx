@@ -61,6 +61,11 @@ const NavigationMenu = ({ isSignedIn }: Props) => {
           </Link>
         </li>
         <li>
+          <Link className="p-2" href="/blog">
+            Blog
+          </Link>
+        </li>
+        <li>
           <SignInArea isSignedIn={isSignedIn} />
         </li>
       </ul>
