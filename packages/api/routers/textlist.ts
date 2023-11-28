@@ -1,11 +1,14 @@
-import { createTRPCRouter, publicProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 import { z } from "zod";
 import sendTextMessage from "../utils/twilio";
 
 export const textListRouter = createTRPCRouter({
-  sendTextMessage: publicProcedure
+  sendTextMessage: protectedProcedure
     .input(z.object({ message: z.string() }))
     .mutation(async ({ ctx, input }) => {
+      if (ctx.userId !== process.env.ADMIN_USER_ID) {
+        return;
+      }
       const contacts = await ctx.prisma.phoneContact.findMany({
         select: { phoneNumber: true },
       });
