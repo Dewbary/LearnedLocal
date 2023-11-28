@@ -16,13 +16,7 @@ const PriceField = () => {
             type="number"
             disabled={values.free ?? false}
             placeholder="1.00"
-            min={1}
             className="input-bordered input w-full lg:w-52"
-            validate={(value: number) => {
-              if (value < 1) {
-                return "Price must be $1 or more";
-              }
-            }}
           />
           <span className="">USD</span>
         </label>

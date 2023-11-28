@@ -23,18 +23,25 @@ import { env } from "@learnedlocal/config/env.mjs";
 import type { ExperienceInfo, Pin } from "@learnedlocal/db/types/types";
 
 export const validationSchema = Yup.object().shape({
-  title: Yup.string().required("Title is required"),
+  title: Yup.string().required("You need to give your experience a title"),
+  description: Yup.string().required("You need to give your experience a description"),
   availability: Yup.array()
     .of(
       Yup.object().shape({
-        startTime: Yup.string().required("required"),
-        endTime: Yup.string().nullable().required("required2"),
+        startTime: Yup.string().required("You must set a start time for your experience"),
+        endTime: Yup.string().nullable().required("You must set an end time for your experience"),
       })
     )
-    .required("Availability is required"),
+    .required("You must have at least one date and time for your experience")
+    .min(1, "You must have at least one date and time for your experience"),
+  free: Yup.boolean(),
   price: Yup.number()
-    .min(1)
-    .required("Price must be at least $1 if your experience is not free"),
+    .when('free', {
+      is: (free: boolean) => !free,
+      then: (schema: Yup.NumberSchema) => schema
+        .min(1, "If your experience is not free, it must be at least $1")
+        .required("If your experience is not free, it must be at least $1")
+    })
 });
 
 export const initialValues: FormValues = {
