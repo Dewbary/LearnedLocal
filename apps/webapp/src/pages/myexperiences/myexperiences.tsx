@@ -98,7 +98,7 @@ export default function MyExperiences() {
           </div>
         </div>
       </div>
-        {/* UPCOMING EXPERIENCES DISPLAY */}
+      {/* UPCOMING EXPERIENCES DISPLAY */}
 
       <div className="mt-7 flex flex-col gap-5 px-9 py-3 text-center lg:flex-row lg:items-center lg:text-start">
         <h1 className="text-4xl font-bold">My Upcoming Experiences</h1>
@@ -160,7 +160,9 @@ export default function MyExperiences() {
                   </button>
                 }
               >
-                <GuestListModalContents experienceInfo={experience} />
+                <div className="flex h-full flex-col overflow-y-auto pb-12 md:h-5/6 md:max-h-[600px] md:pb-0 lg:rounded-3xl">
+                  <GuestListModalContents experienceInfo={experience} />
+                </div>
               </CustomModal>
 
               <button
