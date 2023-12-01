@@ -197,11 +197,14 @@ export default function NewViewExperiencePage(
                   )}
                 </div>              
               </div>
-
-              <div className="w-full flex flex-col gap-4 py-5 border-b-2 border-b-gray-300">
-                <h2 className="font-raleway font-bold text-lg md:text-xl">Additional Information</h2>
-                <p className="font-inter font-light text-sm">{experienceData?.additionalInformation}</p>
-              </div>
+              
+              {experienceData?.additionalInformation !== "" && (
+                <div className="w-full flex flex-col gap-4 py-5 border-b-2 border-b-gray-300">
+                  <h2 className="font-raleway font-bold text-lg md:text-xl">Additional Information</h2>
+                  <p className="font-inter font-light text-sm">{experienceData?.additionalInformation}</p>
+                </div>
+              )}
+              
               
               <div className="w-full flex flex-col gap-5 py-5">
                 <div className="w-full flex flex-row items-center justify-between md:justify-start gap-5 md:gap-10">
