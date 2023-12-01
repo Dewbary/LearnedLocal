@@ -23,6 +23,7 @@ export const profileRouter = createTRPCRouter({
             z.object({
                 firstName: z.string(),
                 lastName: z.string(),
+                personalTitle: z.string().nullable(),
                 bio: z.string().nullable(),
                 social: z.string().nullable(),
                 insta: z.string().nullable(),
@@ -42,6 +43,7 @@ export const profileRouter = createTRPCRouter({
                 update: {
                     firstName: input.firstName,
                     lastName: input.lastName,
+                    personalTitle: input.personalTitle,
                     bio: input.bio,
                     social: input.social,
                     insta: input.insta,
@@ -56,6 +58,7 @@ export const profileRouter = createTRPCRouter({
                     userId: ctx.userId,
                     firstName: input.firstName,
                     lastName: input.lastName,
+                    personalTitle: input.personalTitle,
                     bio: input.bio,
                     social: input.social,
                     insta: input.insta,

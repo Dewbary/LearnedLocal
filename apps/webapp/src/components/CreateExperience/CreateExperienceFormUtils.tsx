@@ -63,6 +63,10 @@ export const initialValues: FormValues = {
   maxAttendees: 1,
   photos: [],
   categoryId: 0,
+  prepItems: [],
+  includedItems: [],
+  activityNotes: [],
+  additionalInformation: ""
 };
 
 export const getTabInfos = (slug: string) => {
@@ -189,6 +193,10 @@ export const getUpdateExperienceObject = (
     categoryId: values.categoryId,
     profileId: hostProfileId,
     availability: values.availability,
+    prepItems: values.prepItems,
+    includedItems: values.includedItems,
+    activityNotes: values.activityNotes,
+    additionalInformation: values.additionalInformation
   };
 };
 
@@ -219,6 +227,10 @@ export const getCreateExperienceObject = (
     categoryId: values.categoryId,
     profileId: hostProfileId,
     availability: values.availability,
+    prepItems: values.prepItems,
+    includedItems: values.includedItems,
+    activityNotes: values.activityNotes,
+    additionalInformation: values.additionalInformation
   };
 };
 

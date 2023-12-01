@@ -22,6 +22,13 @@ export default function BasicInfo() {
                 </div>
             </div>
             <div className="w-full flex flex-col">
+                <label htmlFor="personalTitle">Your host occupation (e.g. &quot;Fitness Instructor&quot;)</label>
+                <Field id="personalTitle" name="personalTitle" className="border-2 border-slate-500 rounded-md py-1 px-2"/>
+                <div className="text-red-600">
+                    <ErrorMessage name="personalTitle"/>
+                </div>
+            </div>
+            <div className="w-full flex flex-col">
                 <label htmlFor="email">Email</label>
                 <Field id="email" name="email" className="border-2 border-slate-500 rounded-md py-1 px-2"/>
                 <div className="text-red-600">

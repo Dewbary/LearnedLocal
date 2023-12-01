@@ -57,6 +57,11 @@ model Experience {
   categoryId Int
   category   Category @relation(fields: [categoryId], references: [id])
 
+  prepItems     String[]
+  includedItems String[]
+  activityNotes  String[]
+  additionalInformation String
+
   registration Registration[] // Relation field
   availability ExperienceAvailability[] // Relation field
 
@@ -138,6 +143,7 @@ model Profile {
   userId       String  @unique
   firstName    String?
   lastName     String?
+  personalTitle String?
   bio          String?
   social       String?
   insta        String?

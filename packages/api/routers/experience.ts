@@ -45,9 +45,6 @@ const getFridayOfCurrentWeek = function () {
   // Calculate the date of Friday by adding 4 days to the start of the week
   const fridayDate = addDays(startOfWeekDate, 4);
 
-  // ADJUST FOR TIMEZONE -- THIS IS SUPER HACKY AND SHOULD BE CHANGED
-  //const adjustedFridayDate = sub(fridayDate, {hours: 7});
-
   return fridayDate;
 }
 
@@ -208,7 +205,7 @@ export const experienceRouter = createTRPCRouter({
         where: { id: input },
         include: {
           profile: true,
-          availability: true,
+          availability: true
         },
       });
     }),
@@ -303,6 +300,10 @@ export const experienceRouter = createTRPCRouter({
         slugId: z.string(),
         categoryId: z.number(),
         profileId: z.string(),
+        prepItems: z.array(z.string()),
+        includedItems: z.array(z.string()),
+        activityNotes: z.array(z.string()),
+        additionalInformation: z.string(),
         availability: z.array(
           z.object({
             id: z.number().optional(),
@@ -335,6 +336,10 @@ export const experienceRouter = createTRPCRouter({
           photos: input.photos,
           slugId: input.slugId,
           profileId: input.profileId,
+          prepItems: input.prepItems,
+          includedItems: input.includedItems,
+          activityNotes: input.activityNotes,
+          additionalInformation: input.additionalInformation,
         },
         include: {
           availability: true,
@@ -366,6 +371,10 @@ export const experienceRouter = createTRPCRouter({
         slugId: z.string(),
         categoryId: z.number(),
         profileId: z.string(),
+        prepItems: z.array(z.string()),
+        includedItems: z.array(z.string()),
+        activityNotes: z.array(z.string()),
+        additionalInformation: z.string(),
         availability: z.array(
           z.object({
             id: z.number().optional(),
@@ -407,6 +416,10 @@ export const experienceRouter = createTRPCRouter({
           stripeProductId: productId,
           stripePriceId: priceId,
           profileId: input.profileId,
+          prepItems: input.prepItems,
+          includedItems: input.includedItems,
+          activityNotes: input.activityNotes,
+          additionalInformation: input.additionalInformation,
           availability: {
             create: input.availability.map((a) => ({
               startTime: a.startTime,

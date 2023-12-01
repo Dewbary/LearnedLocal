@@ -23,6 +23,10 @@ export type FormValues = {
   photos: ImageListType;
   maxAttendees: number;
   categoryId: number;
+  prepItems: string[];
+  includedItems: string[];
+  activityNotes: string[];
+  additionalInformation: string;
 };
 
 export type FormProps = {

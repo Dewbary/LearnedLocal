@@ -18,7 +18,7 @@ const ExperienceDateSelection = ({
   experienceIsFull,
 }: Props) => {
   return (
-    <div>
+    <div className="font-inter">
       <div className="divider"></div>
       {availableDates?.length === 0 || experienceIsFull ? (
         <div>There are currently no availabilities for this experience.</div>
@@ -26,21 +26,21 @@ const ExperienceDateSelection = ({
         <>
           {availableDates?.map((date) => (
             <>
-              <div className="flex justify-between">
+              <div className="flex justify-between items-center" key={date.id}>
                 <div>
-                  <div key={date.id}>{date.startTime?.toDateString()}</div>
-                  <div className="prose text-xs uppercase">
+                  <div key={date.id} className="font-semibold">{date.startTime?.toDateString()}</div>
+                  <div className="prose text-xs uppercase font-light">
                     {getTime(date.startTime)} - {getTime(date.endTime)}
                   </div>
                 </div>
-                <div>
+                <div className="flex flex-col items-center">
                   <button
-                    className="btn-primary btn-sm btn mb-2"
+                    className="bg-ll-yellow py-1 px-5 rounded-full mb-2 text-sm"
                     onClick={() => onSignUp(date.id)}
                   >
                     Sign Up
                   </button>
-                  <div className="prose text-xs uppercase">
+                  <div className="prose text-xs uppercase font-light">
                     {registrationsCount
                       ?.filter(
                         (registration) =>

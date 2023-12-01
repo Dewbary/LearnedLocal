@@ -12,6 +12,7 @@ import * as Yup from 'yup';
 interface FormValues {
     firstName: string;
     lastName: string;
+    personalTitle: string;
     bio: string | null;
     social: string | null;
     insta: string | null;
@@ -85,6 +86,7 @@ export default function ProfilePageForm() {
                 initialValues={{
                     firstName: profile?.firstName || "",
                     lastName: profile?.lastName || "",
+                    personalTitle: profile?.personalTitle || "",
                     bio: profile?.bio || "",
                     social: profile?.social || "",
                     insta: profile?.insta || "",
@@ -101,6 +103,7 @@ export default function ProfilePageForm() {
                         .required("First Name is a required field"),
                     lastName: Yup.string()
                         .required("Last Name is a required field"),
+                    personalTitle: Yup.string().notRequired(),
                     bio: Yup.string().notRequired(),
                     social: Yup.string().notRequired(),
                     insta: Yup.string().notRequired(),
