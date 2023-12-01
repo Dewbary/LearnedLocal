@@ -3,12 +3,14 @@ import type { PropsWithChildren, ReactNode } from "react";
 import styles from "./CustomModal.module.css";
 
 interface Props extends PropsWithChildren {
+  className?: string;
   button: ReactNode;
   visible?: boolean;
   onOpen?: () => void;
 }
 
 export default function CustomModal({
+  className,
   button,
   visible = false,
   children,
@@ -42,7 +44,11 @@ export default function CustomModal({
         }`}
       >
         <div className="flex h-full w-full items-center justify-center">
-          <div className="relative flex h-full w-full flex-col overflow-y-auto bg-ll-grey pb-12 md:h-5/6 md:max-h-[600px] md:pb-0 lg:w-2/3 lg:rounded-3xl">
+          <div
+            className={`${
+              className ?? ""
+            } relative flex h-full w-full flex-col overflow-y-auto bg-ll-grey pb-12 md:h-5/6 md:max-h-[600px] md:pb-0 lg:w-2/3 lg:rounded-3xl`}
+          >
             <button
               type="button"
               onClick={() => hideModal()}

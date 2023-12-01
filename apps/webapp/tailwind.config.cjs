@@ -20,6 +20,7 @@ const config = {
       },
       colors: {
         "ll-grey": "#F1F0EE",
+        "ll-dark-grey": "#374957",
         "ll-black": "#2D2D2D",
         "ll-orange": "#F2733C",
         "ll-green": "#D5E0C4",
