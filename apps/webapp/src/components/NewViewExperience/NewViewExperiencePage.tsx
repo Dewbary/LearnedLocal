@@ -115,9 +115,9 @@ export default function NewViewExperiencePage(
 
           </div>
 
-          <div className="w-full flex flex-col md:flex-row px-5 gap-3 mt-5">
+          <div className="w-full flex flex-col md:flex-row px-5 gap-3 md:gap-20 mt-10">
             <div className="w-full flex flex-col md:basis-2/3 order-2 md:order-1">
-              <div className="w-full flex flex-row items-center gap-5 md:gap-8 py-5 md:py-8 border-b-2 border-b-gray-300">
+              <div className="w-full flex flex-row items-center gap-5 md:gap-8 pb-6 pt-5 md:pt-0 border-b-2 border-b-gray-300">
                 <div className="w-14 h-14 rounded-full overflow-hidden relative">
                   <Image
                     src={experienceData?.profile?.profileImage || ""}
@@ -164,10 +164,10 @@ export default function NewViewExperiencePage(
                 <div className="w-full flex flex-col gap-4 lg:flex-row">
                   {experienceData?.prepItems.length != 0 && (
                     <div className="font-inter w-full flex flex-col gap-3">
-                      <h3 className="font-medium text-[0.95rem]">How to prepare</h3>
+                      <h3 className="font-medium text-[0.95rem]">You&apos;ll need</h3>
                       {experienceData?.prepItems.map((item, index) => (
                         <div key={index} className="flex flex-row items-center gap-2">
-                          <CheckCircleIcon width={20} height={20} className="text-ll-black" />
+                          <CheckCircleIcon width={20} height={20} className="text-ll-black shrink-0" />
                           <p className="font-light text-sm">{item}</p>
                         </div>
                       ))}
@@ -178,7 +178,7 @@ export default function NewViewExperiencePage(
                       <h3 className="font-medium text-[0.95rem]">What&apos;s included</h3>
                       {experienceData?.includedItems.map((item, index) => (
                         <div key={index} className="flex flex-row items-center gap-2">
-                          <GiftIcon width={20} height={20} className="text-ll-black" />
+                          <GiftIcon width={20} height={20} className="text-ll-black shrink-0" />
                           <p className="font-light text-sm">{item}</p>
                         </div>
                       ))}
@@ -189,7 +189,7 @@ export default function NewViewExperiencePage(
                       <h3 className="font-medium text-[0.95rem]">Activity Level</h3>
                       {experienceData?.activityNotes.map((note, index) => (
                         <div key={note} className="flex flex-row items-center gap-2">
-                          <HeartIcon width={20} height={20} className="text-ll-black" />
+                          <HeartIcon width={20} height={20} className="text-ll-black shrink-0" />
                           <p className="font-light text-sm">{note}</p>
                         </div>
                       ))}                    

@@ -25,8 +25,8 @@ const ExperienceDateSelection = ({
       ) : (
         <>
           {availableDates?.map((date) => (
-            <>
-              <div className="flex justify-between items-center" key={date.id}>
+            <div key={date.id}>
+              <div className="flex justify-between items-center">
                 <div>
                   <div key={date.id} className="font-semibold">{date.startTime?.toDateString()}</div>
                   <div className="prose text-xs uppercase font-light">
@@ -56,7 +56,7 @@ const ExperienceDateSelection = ({
                 </div>
               </div>
               <div className="divider"></div>
-            </>
+            </div>
           ))}
         </>
       )}
