@@ -2,10 +2,8 @@ import * as React from "react";
 import Button from "~/components/common/Button";
 import { Typography } from "~/components/common/Typography";
 import cx from "classnames";
-import DatePicker, { registerLocale } from "react-datepicker";
-import { startOfDay } from "date-fns";
-import "react-datepicker/dist/react-datepicker.css";
-import "react-datepicker/dist/react-datepicker.css";
+import { Field } from "formik";
+import SingleDatePickerField from "~/components/common/Fields/SingleDatePickerField";
 
 type Props = {
   goToNextPage: () => void;
@@ -13,7 +11,7 @@ type Props = {
 
 const DateSelectionPage = ({ goToNextPage }: Props) => {
   return (
-    <div className="mx-12 flex flex-1 flex-col items-center justify-center">
+    <div className="flex flex-1 flex-col items-center justify-center">
       <div className={cx(Typography.ModalTitle, "mb-4")}>
         Request a date & time
       </div>
@@ -22,16 +20,7 @@ const DateSelectionPage = ({ goToNextPage }: Props) => {
         The host will do their best to accommodate your schedule.
       </div>
 
-      <DatePicker
-        selected={null}
-        onChange={() => {}}
-        inline
-        locale="enUS"
-        highlightDates={[]}
-        isClearable
-        minDate={startOfDay(new Date())}
-        className="border-none"
-      />
+      <Field name="date" component={SingleDatePickerField} />
 
       <Button
         className="mt-8 w-80 rounded-full bg-ll-orange px-6 py-4 text-white"

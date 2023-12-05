@@ -11,7 +11,7 @@ type Props = {
 
 const TimeSelectionPage = ({ goToNextPage, goToPrevPage }: Props) => {
   return (
-    <div className="mx-12 flex flex-1 flex-col items-center justify-center">
+    <div className="flex flex-1 flex-col items-center justify-center">
       <div className={cx(Typography.ModalTitle, "mb-4")}>
         Request a date & time
       </div>

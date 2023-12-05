@@ -32,12 +32,10 @@ const EventSignUp = ({
       <div className={Typography.SecondaryTitle}>Event details</div>
 
       <ExperienceDateTimeSelect
-        availableDates={experience.availability}
+        experience={experience}
         selectedAvailability={selectedAvailability}
         setSelectedAvailability={setSelectedAvailability}
         registrationsCount={registrantCount}
-        availableSpots={experience.maxAttendees}
-        experienceIsFull={experience.isFull}
       />
 
       <div className="mt-4 flex flex-row items-center justify-between rounded-2xl border border-ll-slate px-6 py-4">

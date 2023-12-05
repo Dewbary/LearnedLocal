@@ -2,7 +2,6 @@ import { format } from "date-fns";
 import type { DateInfo } from "../../types";
 import type { ExperienceInfo } from "@learnedlocal/db/types/types";
 import { ExperienceAvailability, Registration } from "packages/db";
-import { av } from "vitest/dist/reporters-5f784f42";
 
 const dateDisplayOptions = {
   month: "short",
@@ -24,6 +23,21 @@ export const getTime = (date: Date | null): string => {
 export const getDay = (date: Date | null): string => {
   if (!date) return "";
   return format(date, "EEE, MMM d");
+};
+
+export const getDayAndYear = (date: Date | null): string => {
+  if (!date) return "";
+  return format(date, "EEE, MMM d, yyyy");
+};
+
+export const getHours = (hour: number, ampm: "am" | "pm") => {
+  if (ampm === "am" && hour === 12) {
+    return 0;
+  }
+  if (ampm === "pm") {
+    return hour + 12;
+  }
+  return hour;
 };
 
 export const getSpotsLeft = (

@@ -12,23 +12,21 @@ import {
 import cx from "classnames";
 import CustomModal from "~/components/common/CustomModal";
 import RequestTimeModal from "./RequestTimeModal";
+import { ExperienceInfo } from "packages/db/types/types";
+import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
 
 type Props = {
-  availableDates: ExperienceAvailability[] | null;
+  experience: ExperienceInfo;
   selectedAvailability: ExperienceAvailability | undefined;
   setSelectedAvailability: (availability: ExperienceAvailability) => void;
   registrationsCount: Registration[] | undefined;
-  availableSpots: number | null;
-  experienceIsFull: boolean;
 };
 
 const ExperienceDateTimeSelect = ({
-  availableDates,
+  experience,
   selectedAvailability,
   setSelectedAvailability,
   registrationsCount,
-  availableSpots,
-  experienceIsFull,
 }: Props) => {
   const [menuOpen, setMenuOpen] = React.useState<boolean>(false);
 
@@ -62,12 +60,16 @@ const ExperienceDateTimeSelect = ({
           hidden: !menuOpen,
         })}
       >
-        {availableDates?.map((date) => {
+        {experience.availability?.map((date) => {
           return (
             <ExperienceDateTimeOption
               key={date.id}
               date={date}
-              spotsLeft={getSpotsLeft(registrationsCount, date, availableSpots)}
+              spotsLeft={getSpotsLeft(
+                registrationsCount,
+                date,
+                experience.maxAttendees
+              )}
               onClick={() => {
                 setSelectedAvailability(date);
                 setMenuOpen((prev) => !prev);
@@ -76,7 +78,7 @@ const ExperienceDateTimeSelect = ({
           );
         })}
         <CustomModal
-          className="bg-white lg:h-[725px] lg:w-[570px]"
+          className="bg-white lg:w-[570px]"
           button={
             <Button
               className="mt-2 w-full rounded-full bg-ll-orange px-6 py-4 text-white"
@@ -85,7 +87,12 @@ const ExperienceDateTimeSelect = ({
             />
           }
         >
-          <RequestTimeModal />
+          <RequestTimeModal
+            experienceTitle={experience.title}
+            hostEmail={
+              experience.profile?.email ?? "learnedlocal.app@gmail.com"
+            }
+          />
         </CustomModal>
       </ul>
     </div>

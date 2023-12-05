@@ -191,6 +191,38 @@ const sendExperienceCreationEmail = async (
   }
 };
 
+const sendExperienceRequestEmail = async (
+  date: Date,
+  customerName: string,
+  customerEmail: string,
+  experienceTitle: string,
+  hostEmail: string
+) => {
+  const dateString = date.toDateString();
+
+  try {
+    const msg = {
+      to: hostEmail,
+      from: "learnedlocal.app@gmail.com",
+      templateId: "d-7b9c887d76244a8c8f1bcbb6fc16ece8",
+      dynamicTemplateData: {
+        customerName: customerName,
+        experienceTitle: experienceTitle,
+        date: dateString,
+        customerEmail: customerEmail,
+      },
+    };
+
+    try {
+      await sgMail.send(msg);
+    } catch (error) {
+      console.error(error);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const addContactToListWithExperience = async (
   newContactEmail: string,
   experienceTitle: string
@@ -227,13 +259,13 @@ const addContactToExperienceWaitlist = async ({
   newContactFirstName,
   newContactLastName,
   newContactEmail,
-  newContactPhoneNumber
-} : {
-  experienceTitle: string,
-  newContactFirstName: string,
-  newContactLastName: string,
-  newContactEmail: string,
-  newContactPhoneNumber: string
+  newContactPhoneNumber,
+}: {
+  experienceTitle: string;
+  newContactFirstName: string;
+  newContactLastName: string;
+  newContactEmail: string;
+  newContactPhoneNumber: string;
 }) => {
   const data = {
     list_ids: ["9f0efaa5-65d9-425b-9b7e-e40f0c4759e5"],
@@ -270,6 +302,7 @@ export {
   sendCancelationEmail,
   sendSignupNotificationEmail,
   sendExperienceCreationEmail,
+  sendExperienceRequestEmail,
   addContactToListWithExperience,
-  addContactToExperienceWaitlist
+  addContactToExperienceWaitlist,
 };
