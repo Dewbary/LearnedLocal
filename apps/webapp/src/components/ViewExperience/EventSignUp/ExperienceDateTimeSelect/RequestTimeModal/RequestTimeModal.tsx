@@ -54,21 +54,19 @@ const RequestTimeModal = ({ experienceTitle, hostEmail }: Props) => {
     ampm: "am",
   });
 
-  console.log(router);
-
   return (
     <div className="m-12">
       <SignedIn>
         <Formik
           initialValues={getInitialValues()}
-          onSubmit={(request) => {
+          onSubmit={async (request) => {
             goToNextPage();
 
             const requestedDateTime = new Date(request.date);
             requestedDateTime.setHours(getHours(request.hour, request.ampm));
             requestedDateTime.setMinutes(request.minute);
 
-            sendTimeRequestEmail.mutateAsync({
+            await sendTimeRequestEmail.mutateAsync({
               date: requestedDateTime,
               experienceTitle: experienceTitle,
               customerName: user.user?.firstName ?? "Someone",

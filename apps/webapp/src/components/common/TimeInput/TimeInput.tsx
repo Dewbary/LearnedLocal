@@ -4,9 +4,7 @@ import cx from "classnames";
 import { ErrorMessage, Field } from "formik";
 import AmPmPicker from "../Fields/AmPmPicker";
 
-type Props = {};
-
-const TimeInput = ({}: Props) => {
+const TimeInput = () => {
   return (
     <div className="flex flex-col">
       <div className={cx(Typography.BigLabelText, "mb-2")}>Start time</div>

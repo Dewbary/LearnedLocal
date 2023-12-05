@@ -52,7 +52,7 @@ export default function ViewExperiencePage(
 
   const goToCheckoutPage = async function (
     availabilityId: number | null,
-    partySize: number = 1
+    partySize = 1
   ) {
     if (!availabilityId) return;
 

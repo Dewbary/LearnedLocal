@@ -83,7 +83,11 @@ const ExperienceDateTimeSelect = ({
             <Button
               className="mt-2 w-full rounded-full bg-ll-orange px-6 py-4 text-white"
               text={"Request another date"}
-              onClick={() => {}}
+              onClick={() => {
+                window.gtag("event", "request_date_click", {
+                  experience_title: experience.title,
+                });
+              }}
             />
           }
         >
