@@ -15,6 +15,7 @@ import { InferGetServerSidePropsType } from "next";
 import { getServerSideProps } from "~/pages/experience/view/[...slug]";
 import AboutTheHost from "./AboutTheHost";
 import NewNavBar from "../NewNavBar";
+import EventSignUp from "./EventSignUp";
 
 export default function ViewExperiencePage(
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -49,11 +50,14 @@ export default function ViewExperiencePage(
     setLng(location.lng);
   }, [location]);
 
-  const goToCheckoutPage = async function (availabilityId: number | null) {
+  const goToCheckoutPage = async function (
+    availabilityId: number | null,
+    partySize = 1
+  ) {
     if (!availabilityId) return;
 
     await router.push(
-      `/checkout?experienceId=${props.experienceId}&availabilityId=${availabilityId}`
+      `/checkout?experienceId=${props.experienceId}&availabilityId=${availabilityId}&partySize=${partySize}`
     );
   };
 
@@ -74,7 +78,7 @@ export default function ViewExperiencePage(
       ) : (
         <>
           {experience && (
-            <div className="m-5 mt-20 lg:mx-20 lg:mt-10">
+            <div className="m-5 mt-20 bg-ll-grey lg:mx-20 lg:mt-10">
               {/* EXPERIENCE TITLE AND HEADER */}
               <div className="flex items-center justify-between rounded-t-lg bg-gradient-to-br from-amber-300 to-amber-500 p-3 lg:p-7">
                 <div>
@@ -99,24 +103,11 @@ export default function ViewExperiencePage(
               </div>
 
               <div className="flex flex-col gap-10 lg:mx-10 lg:flex-row">
-                {/* ACTION BUTTON BOX */}
-
-                <div className="flex h-fit w-full flex-col rounded-xl border bg-white p-5 drop-shadow-lg lg:order-3 lg:basis-1/4">
-                  <div>
-                    <span className="text-3xl font-bold">
-                      {experience.free ? "Free" : `$${experience.price}`}
-                    </span>
-                    <span> / person</span>
-                  </div>
-
-                  <ExperienceDateSelection
-                    availableDates={experience.availability}
-                    registrationsCount={registrantCount}
-                    availableSpots={experience.maxAttendees}
-                    onSignUp={goToCheckoutPage}
-                    experienceIsFull={experience.isFull}
-                  />
-                </div>
+                <EventSignUp
+                  experience={experience}
+                  registrantCount={registrantCount}
+                  goToCheckoutPage={goToCheckoutPage}
+                />
 
                 {/* ICON DETAILS GRID */}
 
