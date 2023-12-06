@@ -6,6 +6,7 @@ import { useFormikContext } from "formik";
 import { TimeRequest } from "~/components/types";
 import {
   getDayAndYear,
+  getHours,
   getTime,
 } from "~/components/common/DateAndTimePicker/DateAndTimeUtils";
 
@@ -18,17 +19,7 @@ const ConfirmationPage = ({ goToPrevPage }: Props) => {
 
   const selectedDateTime = new Date(values.date);
 
-  const getHours = () => {
-    if (values.ampm === "am" && values.hour === 12) {
-      return 0;
-    }
-    if (values.ampm === "pm") {
-      return values.hour + 12;
-    }
-    return values.hour;
-  };
-
-  selectedDateTime.setHours(getHours());
+  selectedDateTime.setHours(getHours(values.hour, values.ampm));
   selectedDateTime.setMinutes(values.minute);
 
   return (
