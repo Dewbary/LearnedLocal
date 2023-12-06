@@ -81,7 +81,7 @@ const ExperienceDateTimeSelect = ({
           className="bg-white lg:w-[570px]"
           button={
             <Button
-              className="mt-2 w-full rounded-full bg-ll-orange px-6 py-4 text-white"
+              className="bg-ll-gray mt-2 w-full rounded-full px-6 py-4 text-black"
               text={"Request another date"}
               onClick={() => {
                 window.gtag("event", "request_date_click", {
