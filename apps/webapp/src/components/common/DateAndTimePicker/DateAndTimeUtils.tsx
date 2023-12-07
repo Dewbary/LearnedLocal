@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 import type { DateInfo } from "../../types";
 import type { ExperienceInfo } from "@learnedlocal/db/types/types";
+import { ExperienceAvailability, Registration } from "packages/db";
 
 const dateDisplayOptions = {
   month: "short",
@@ -16,7 +17,45 @@ export const sortByDate = (dates: DateInfo[]) => {
 
 export const getTime = (date: Date | null): string => {
   if (!date) return "";
-  return format(date, "hh:mm a");
+  return format(date, "h:mm a");
+};
+
+export const getDay = (date: Date | null): string => {
+  if (!date) return "";
+  return format(date, "EEE, MMM d");
+};
+
+export const getDayAndYear = (date: Date | null): string => {
+  if (!date) return "";
+  return format(date, "EEE, MMM d, yyyy");
+};
+
+export const getHours = (hour: number, ampm: "am" | "pm") => {
+  if (ampm === "am" && hour === 12) {
+    return 0;
+  }
+  if (ampm === "pm") {
+    return hour + 12;
+  }
+  return hour;
+};
+
+export const getSpotsLeft = (
+  registrationsCount: Registration[] | undefined,
+  availability: ExperienceAvailability,
+  availableSpots: number | null
+): number => {
+  const numRegistrations = registrationsCount
+    ?.filter((registration) => registration.availabilityId === availability.id)
+    .reduce(
+      (accumulator, registration) => accumulator + registration.partySize,
+      0
+    );
+
+  if (numRegistrations != undefined && availableSpots != undefined) {
+    return availableSpots - numRegistrations;
+  }
+  return 0;
 };
 
 export const getDateToDisplay = (experience: ExperienceInfo): string => {

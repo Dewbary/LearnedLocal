@@ -22,7 +22,7 @@ const Checkout = () => {
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
-    partySize: "1",
+    partySize: router.query.partySize as string,
     email: "",
     phone: "",
     textNotifications: true,
@@ -87,8 +87,11 @@ const Checkout = () => {
   };
 
   const handleTextReminderChange = () => {
-    setFormData({ ...formData, textNotifications: !formData.textNotifications});
-  }
+    setFormData({
+      ...formData,
+      textNotifications: !formData.textNotifications,
+    });
+  };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -127,7 +130,7 @@ const Checkout = () => {
                 value={formData.firstName}
                 onChange={handleChange}
                 required
-                className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
+                className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
                 data-cy="checkout-first-name"
               />
             </div>
@@ -173,7 +176,7 @@ const Checkout = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
+                className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
                 data-cy="checkout-email"
               />
             </div>
@@ -188,11 +191,11 @@ const Checkout = () => {
                 value={formData.phone}
                 onChange={handleChange}
                 required
-                className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
+                className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
                 data-cy="checkout-phone"
               />
             </div>
-            <div className="mb-6 flex flex-row gap-3 items-center">
+            <div className="mb-6 flex flex-row items-center gap-3">
               <label className="text-sm font-bold text-gray-700">
                 Receive text reminders for this experience
               </label>
@@ -201,11 +204,11 @@ const Checkout = () => {
                 name="textNotifications"
                 checked={formData.textNotifications}
                 onChange={handleTextReminderChange}
-                className="w-4 h-4"
+                className="h-4 w-4"
                 data-cy="checkout-text-reminder"
               />
             </div>
-            <button type="submit" className="btn-primary btn" data-cy="checkout-sign-up">
+            <button type="submit" className="btn btn-primary" data-cy="checkout-sign-up">
               Sign Up
             </button>
           </form>

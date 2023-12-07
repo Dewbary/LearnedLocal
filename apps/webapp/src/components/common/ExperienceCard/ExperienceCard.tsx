@@ -73,11 +73,13 @@ export default function ExperienceCard({
           </div>
         }
       >
-        {getModalImpl(
-          experience,
-          registered,
-          filteredAvailabilitiesByDate.length == 0
-        )}
+        <div className="flex h-full flex-col overflow-y-auto pb-12 md:h-5/6 md:max-h-[600px] md:pb-0 lg:rounded-3xl">
+          {getModalImpl(
+            experience,
+            registered,
+            filteredAvailabilitiesByDate.length == 0
+          )}
+        </div>
       </CustomModal>
       {isHomePageCard && (
         <>

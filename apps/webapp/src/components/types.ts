@@ -120,3 +120,10 @@ export type DistanceFilterType =
   | "25 miles"
   | "50 miles"
   | "100 miles";
+
+export type TimeRequest = {
+  date: Date;
+  hour: number;
+  minute: number;
+  ampm: "am" | "pm";
+};
