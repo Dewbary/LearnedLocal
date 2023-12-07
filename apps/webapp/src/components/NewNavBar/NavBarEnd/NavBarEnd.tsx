@@ -59,6 +59,7 @@ const NavBarEnd = ({ isSignedIn, isMarketingNavbar }: Props) => {
           className="h-4 w-5 lg:hidden"
           hidden={menuOpen}
           onClick={openMenuClicked}
+          data-cy="hamburger-menu"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -135,8 +136,8 @@ const NavBarEnd = ({ isSignedIn, isMarketingNavbar }: Props) => {
             <div className="flex flex-col items-center gap-8 text-ll-black">
               <Link href="/about">Our story</Link>
               <Link href="/host">Become a host</Link>
-              <Link href="/home">Find an experience</Link>
-              {/* <Link href="/blog">Our blog</Link> */}
+              <Link href="/home" data-cy="mobile-home-link">Find an experience</Link>
+              <Link href="/blog">Our blog</Link>
             </div>
             <div className="flex flex-col items-center gap-8 text-sm">
               {!isSignedIn ? (

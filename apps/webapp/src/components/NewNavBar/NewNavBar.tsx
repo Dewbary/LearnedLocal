@@ -31,7 +31,7 @@ const NewNavBar = ({ isSignedIn, isMarketingNavBar }: Props) => {
           <div className="hidden gap-8 font-inter text-sm lg:flex">
             <NavigationLink text="Our story" route="/about" />
             <NavigationLink text="Become a host" route="/host" />
-            <NavigationLink text="Find an experience" route="/home" />
+            <NavigationLink text="Find an experience" route="/home" dataCy="desktop-home-link"/>
             <NavigationLink text="Our blog" route="/blog" />
           </div>
         </div>

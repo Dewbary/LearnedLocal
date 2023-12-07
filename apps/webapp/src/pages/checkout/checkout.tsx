@@ -128,6 +128,7 @@ const Checkout = () => {
                 onChange={handleChange}
                 required
                 className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
+                data-cy="checkout-first-name"
               />
             </div>
             <div className="mb-4">
@@ -142,6 +143,7 @@ const Checkout = () => {
                 onChange={handleChange}
                 required
                 className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
+                data-cy="checkout-last-name"
               />
             </div>
             <div className="mb-4">
@@ -157,6 +159,7 @@ const Checkout = () => {
                 min="1"
                 required
                 className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
+                data-cy="checkout-party-size"
               />
             </div>
             <div className="mb-4">
@@ -171,6 +174,7 @@ const Checkout = () => {
                 onChange={handleChange}
                 required
                 className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
+                data-cy="checkout-email"
               />
             </div>
             <div className="mb-6">
@@ -185,6 +189,7 @@ const Checkout = () => {
                 onChange={handleChange}
                 required
                 className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
+                data-cy="checkout-phone"
               />
             </div>
             <div className="mb-6 flex flex-row gap-3 items-center">
@@ -197,9 +202,10 @@ const Checkout = () => {
                 checked={formData.textNotifications}
                 onChange={handleTextReminderChange}
                 className="w-4 h-4"
+                data-cy="checkout-text-reminder"
               />
             </div>
-            <button type="submit" className="btn-primary btn">
+            <button type="submit" className="btn-primary btn" data-cy="checkout-sign-up">
               Sign Up
             </button>
           </form>

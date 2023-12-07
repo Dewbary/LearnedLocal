@@ -50,7 +50,7 @@ export default function ExperienceCard({
         }}
         visible={experienceId === experience.id.toString()}
         button={
-          <div className="group relative aspect-[7/8] overflow-hidden rounded-3xl group-hover:cursor-pointer">
+          <div className="group relative aspect-[7/8] overflow-hidden rounded-3xl group-hover:cursor-pointer" data-cy="experience-card">
             <Image
               alt="experience photo"
               src={experience.photos[0] || fillerCard}

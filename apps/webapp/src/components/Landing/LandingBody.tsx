@@ -42,6 +42,7 @@ export default function LandingBody() {
               <Link
                 href="/home"
                 className="flex w-full flex-row items-center justify-between gap-4 rounded-3xl bg-ll-blue p-7 font-inter text-ll-grey transition-colors hover:cursor-pointer hover:bg-ll-yellow hover:text-ll-black lg:order-2 lg:basis-1/4 lg:flex-col relative"
+                data-cy="landing-action-button"
               >
                 <div className="">
                   Find your next local experience with us
