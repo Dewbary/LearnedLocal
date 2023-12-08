@@ -32,6 +32,7 @@ const client = z.object({
   NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_NAME: z.string().min(1),
   NEXT_PUBLIC_STRIPE_PUBLIC_KEY: z.string().min(1),
   NEXT_PUBLIC_GA4_DEBUG_TRUE: z.string().min(1),
+  NEXT_PUBLIC_FACEBOOK_APP_ID: z.string().min(1)
 });
 
 /**
@@ -62,6 +63,7 @@ const processEnv = {
     process.env.EDGE_FUNCTION_VERIFICATION_TOKEN,
   NEXT_PUBLIC_GA4_DEBUG_TRUE: process.env.NEXT_PUBLIC_GA4_DEBUG_TRUE,
   ADMIN_USER_ID: process.env.ADMIN_USER_ID,
+  NEXT_PUBLIC_FACEBOOK_APP_ID: process.env.NEXT_PUBLIC_FACEBOOK_APP_ID
 };
 
 // Don't touch the part below

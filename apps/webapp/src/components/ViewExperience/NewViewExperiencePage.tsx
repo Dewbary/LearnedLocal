@@ -23,7 +23,7 @@ import ShareExperienceComponent from "../common/ShareExperienceComponent";
 import Link from "next/link";
 import ExperienceDateSelection from "../ExperiencesDisplay/ExperienceDateSelection";
 import { useRouter } from "next/router";
-import EventSignUp from "../ViewExperience/EventSignUp";
+import EventSignUp from "./EventSignUp";
 
 export default function NewViewExperiencePage(
   props: InferGetServerSidePropsType<typeof getServerSideProps>

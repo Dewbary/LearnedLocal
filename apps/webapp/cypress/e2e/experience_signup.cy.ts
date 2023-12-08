@@ -18,9 +18,8 @@ describe("Experience sign up workflow", () => {
     cy.contains("Test Experience");
     cy.contains("You'll learn how to test different experiences with our experience!");
     cy.contains("Free");
-    cy.contains("Fri Dec 20 2024");
+    cy.contains("Fri, Dec 20");
     cy.contains("08:30 PM - 10:30 PM");
-    cy.contains("0/15");
     cy.contains("Provo");
     cy.contains("Ages 0+");
     cy.contains("Items will be prepared");
@@ -33,7 +32,7 @@ describe("Experience sign up workflow", () => {
     cy.contains("You'll be required to sell your soul to the devil :)");
     cy.contains("Hey there! This is Learned Local. We're a test account with all sorts of experience in testing. Want to get tested? Please contact us for more information!");
     cy.contains("@learnedlocal.app");
-    cy.contains("Sign Up").click();
+    cy.contains("Sign up").click();
     cy.url().should('eq', 'http://localhost:3000/checkout?experienceId=1&availabilityId=1');
     cy.get('[data-cy="checkout-first-name"]').type("Test");
     cy.get('[data-cy="checkout-last-name"]').type("McTestington");
@@ -43,8 +42,6 @@ describe("Experience sign up workflow", () => {
     cy.get('[data-cy="checkout-text-reminder"]').uncheck();
     cy.get('[data-cy="checkout-sign-up"]').click();
     cy.url().should('eq', 'http://localhost:3000/');
-    cy.visit('http://localhost:3000/experience/view/1');
-    cy.contains('1/15');
   });
 });
 

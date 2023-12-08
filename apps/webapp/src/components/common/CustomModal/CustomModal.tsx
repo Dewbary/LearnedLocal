@@ -47,12 +47,12 @@ export default function CustomModal({
           <div
             className={`${
               className ?? ""
-            } relative w-full bg-ll-grey lg:w-2/3 lg:rounded-3xl`}
+            } relative bg-ll-grey w-full lg:w-fit max-w-5xl lg:rounded-3xl h-full lg:h-fit min-h-screen lg:min-h-0 `}
           >
             <button
               type="button"
               onClick={() => hideModal()}
-              className="absolute right-2 top-8 h-8 w-8 rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white lg:right-3 lg:top-3"
+              className="absolute right-2 top-2 h-8 w-8 rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white lg:right-3 lg:top-3"
             >
               <svg
                 className="h-5 w-5"

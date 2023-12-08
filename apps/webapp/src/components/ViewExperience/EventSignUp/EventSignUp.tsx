@@ -41,13 +41,20 @@ const EventSignUp = ({
       <div className="mt-4 flex flex-row items-center justify-between rounded-2xl border border-ll-slate px-6 py-4">
         <div className="flex flex-col">
           <div className={Typography.SubTitleUppercase}>Guests</div>
-          <div className={Typography.BodyText}>{registreeCount} guest</div>
+          <div className={Typography.BodyText}>{registreeCount} guest{registreeCount !== 1 ? "s" : ""}</div>
         </div>
         <Counter count={registreeCount} setCount={setRegistreeCount} />
       </div>
       <div className="mt-4 rounded-2xl border border-ll-slate px-6 py-4">
         <div className={Typography.SubTitleUppercase}>Total Price</div>
-        <div className={Typography.BodyText}>${calculatePrice()}</div>
+        <div className={Typography.BodyText}>
+          {experience.free ? (
+            <>Free</>
+          ) : (
+            <>${calculatePrice()}</>
+          )}
+        </div>
+        
       </div>
       <button
         className="mt-4 flex w-full items-center justify-center rounded-full bg-ll-orange px-6 py-4 text-white"

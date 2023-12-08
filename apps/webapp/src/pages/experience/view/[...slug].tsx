@@ -3,7 +3,7 @@ import type { GetServerSidePropsContext } from "next";
 import { appRouter } from "packages/api";
 import prisma from "packages/api/db";
 import superjson from "superjson";
-import NewViewExperiencePage from "~/components/NewViewExperience/NewViewExperiencePage";
+import NewViewExperiencePage from "~/components/ViewExperience/NewViewExperiencePage";
 
 export default NewViewExperiencePage;
 

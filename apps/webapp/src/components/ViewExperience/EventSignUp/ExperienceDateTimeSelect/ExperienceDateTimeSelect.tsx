@@ -44,8 +44,7 @@ const ExperienceDateTimeSelect = ({
               {getDay(selectedAvailability?.startTime)}
             </div>
             <div className={Typography.BodyText}>
-              {getTime(selectedAvailability.startTime)}-
-              {getTime(selectedAvailability.endTime)}
+              {getTime(selectedAvailability.startTime)} - {getTime(selectedAvailability.endTime)}
             </div>
           </div>
           <ChevronDownIcon color="black" width={24} height={24} />

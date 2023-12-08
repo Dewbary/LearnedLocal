@@ -11,6 +11,7 @@ import Button from "../../Button";
 import CardFavoriteButton from "../../CardFavoriteButton";
 import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import { useRouter } from "next/router";
+import ShareExperienceComponent from "../../ShareExperienceComponent";
 
 type Props = {
   experienceInfo: ExperienceInfo;
@@ -35,9 +36,13 @@ const ExpDetailsSection = ({ experienceInfo, handleViewPageClick }: Props) => {
 
   return (
     <div className="flex h-full w-full flex-1 flex-col justify-center md:h-5/6">
-      <div className="mb-8 font-raleway text-3xl font-bold">
-        {experienceInfo.title}
+      <div className="flex flex-row md:w-5/6 items-center mb-8 justify-between lg:justify-start gap-4">
+        <div className="font-raleway text-3xl font-bold">
+          {experienceInfo.title}
+        </div>
+        <ShareExperienceComponent experience={experienceInfo} />
       </div>
+      
       <div className="md:w-5/6">
         <div className="mb-8 line-clamp-[4] font-inter font-light">
           {experienceInfo.description}
