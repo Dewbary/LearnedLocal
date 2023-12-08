@@ -47,3 +47,5 @@ describe("Experience sign up workflow", () => {
     cy.contains('1/15');
   });
 });
+
+export {};

@@ -31,3 +31,5 @@ describe('Landing Page Tests', () => {
   });
 
 });
+
+export {};
