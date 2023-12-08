@@ -77,7 +77,7 @@ export default function NewViewExperiencePage(
                 {experienceData?.title}
               </h1>
             </div>
-            <ShareExperienceComponent experienceId={experienceData?.id || 0} />
+            <ShareExperienceComponent experience={experienceData} />
           </div>
 
           <div
