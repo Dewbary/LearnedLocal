@@ -3,3 +3,5 @@ describe('Login Tests', () => {
     cy.signIn();
   })
 });
+
+export {};
