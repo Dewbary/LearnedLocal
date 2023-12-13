@@ -31,6 +31,7 @@ const postFields = `
   coverImage,
   "slug": slug.current,
   "author": author->{name, picture},
+  "headings": content[string::startsWith(style, "h1") || string::startsWith(style, "h2") || string::startsWith(style, "h3")]
 `;
 
 const postQuery = `*[_type == "post" && slug.current == $slug][0] {${postFields}}`;
@@ -46,7 +47,6 @@ export const getStaticProps = async ({
     post: blogPost,
   };
 
-  console.log(data);
   return {
     props: {
       data,

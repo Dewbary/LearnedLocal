@@ -61,7 +61,7 @@ export default function Post({ data = { post: null } }: Props) {
                 date={post.publishedAt}
                 author={post.author?.name ?? ""}
               />
-              <PostBody content={post.content} />
+              <PostBody headings={post.headings} content={post.content} />
             </article>
             <SectionSeparator />
             {/* {morePosts && morePosts.length > 0 && (
