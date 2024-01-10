@@ -15,7 +15,7 @@ import type {
   SanityImageDimensions,
   SanityImagePalette,
   SanityImagePaletteSwatch,
-} from "sanity-codegen";
+} from 'sanity-codegen'
 
 export type {
   SanityReference,
@@ -34,7 +34,7 @@ export type {
   SanityImageDimensions,
   SanityImagePalette,
   SanityImagePaletteSwatch,
-};
+}
 
 /**
  * Post
@@ -42,35 +42,35 @@ export type {
  *
  */
 export interface Post extends SanityDocument {
-  _type: "post";
+  _type: 'post'
 
   /**
    * Title — `string`
    *
    *
    */
-  title?: string;
+  title?: string
 
   /**
    * Slug — `slug`
    *
    *
    */
-  slug?: { _type: "slug"; current: string };
+  slug?: {_type: 'slug'; current: string}
 
   /**
    * Content — `blockContent`
    *
    *
    */
-  content?: BlockContent;
+  content?: BlockContent
 
   /**
    * Excerpt — `string`
    *
    *
    */
-  excerpt?: string;
+  excerpt?: string
 
   /**
    * Cover Image — `image`
@@ -78,32 +78,32 @@ export interface Post extends SanityDocument {
    *
    */
   coverImage?: {
-    _type: "image";
-    asset: SanityReference<SanityImageAsset>;
-    crop?: SanityImageCrop;
-    hotspot?: SanityImageHotspot;
-  };
+    _type: 'image'
+    asset: SanityReference<SanityImageAsset>
+    crop?: SanityImageCrop
+    hotspot?: SanityImageHotspot
+  }
 
   /**
    * Author — `reference`
    *
    *
    */
-  author?: SanityReference<Author>;
+  author?: SanityReference<Author>
 
   /**
    * Categories — `array`
    *
    *
    */
-  categories?: Array<SanityKeyedReference<Category>>;
+  categories?: Array<SanityKeyedReference<Category>>
 
   /**
    * Published at — `datetime`
    *
    *
    */
-  publishedAt?: string;
+  publishedAt?: string
 }
 
 /**
@@ -112,21 +112,21 @@ export interface Post extends SanityDocument {
  *
  */
 export interface Author extends SanityDocument {
-  _type: "author";
+  _type: 'author'
 
   /**
    * Name — `string`
    *
    *
    */
-  name?: string;
+  name?: string
 
   /**
    * Slug — `slug`
    *
    *
    */
-  slug?: { _type: "slug"; current: string };
+  slug?: {_type: 'slug'; current: string}
 
   /**
    * Image — `image`
@@ -134,18 +134,18 @@ export interface Author extends SanityDocument {
    *
    */
   image?: {
-    _type: "image";
-    asset: SanityReference<SanityImageAsset>;
-    crop?: SanityImageCrop;
-    hotspot?: SanityImageHotspot;
-  };
+    _type: 'image'
+    asset: SanityReference<SanityImageAsset>
+    crop?: SanityImageCrop
+    hotspot?: SanityImageHotspot
+  }
 
   /**
    * Bio — `array`
    *
    *
    */
-  bio?: Array<SanityKeyed<SanityBlock>>;
+  bio?: Array<SanityKeyed<SanityBlock>>
 }
 
 /**
@@ -154,31 +154,31 @@ export interface Author extends SanityDocument {
  *
  */
 export interface Category extends SanityDocument {
-  _type: "category";
+  _type: 'category'
 
   /**
    * Title — `string`
    *
    *
    */
-  title?: string;
+  title?: string
 
   /**
    * Description — `text`
    *
    *
    */
-  description?: string;
+  description?: string
 }
 
 export type BlockContent = Array<
   | SanityKeyed<SanityBlock>
   | SanityKeyed<{
-      _type: "image";
-      asset: SanityReference<SanityImageAsset>;
-      crop?: SanityImageCrop;
-      hotspot?: SanityImageHotspot;
+      _type: 'image'
+      asset: SanityReference<SanityImageAsset>
+      crop?: SanityImageCrop
+      hotspot?: SanityImageHotspot
     }>
->;
+>
 
-export type Documents = Post | Author | Category;
+export type Documents = Post | Author | Category

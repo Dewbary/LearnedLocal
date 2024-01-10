@@ -41,6 +41,7 @@ export interface PostInfo {
   author?: Author;
   categories?: Array<SanityKeyedReference<Category>>;
   publishedAt?: string;
+  headings: SanityBlock[];
 }
 
 export interface CoverImageInfo {
