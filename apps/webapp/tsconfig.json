@@ -12,5 +12,5 @@
     "**/*.cjs",
     "**/*.mjs",
     "../../packages/config/*"
-  ]
+, "src/pages/account/signup"  ]
 }

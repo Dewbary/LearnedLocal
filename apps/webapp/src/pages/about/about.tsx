@@ -15,7 +15,7 @@ export default function AboutPage () {
   return (
     <>
       <div className="w-full min-h-screen flex flex-col items-center bg-ll-grey">
-        <NewNavBar isSignedIn={isSignedIn || false} isMarketingNavBar={true}/>
+        <NewNavBar />
         <div className="px-5 flex flex-col gap-8 pt-5 pb-16 w-full lg:max-w-5xl">
           <div className="text-3xl font-raleway font-semibold">Our Story</div>
           <div className="flex flex-col gap-8 w-full lg:flex-row lg:items-center lg:gap-12">

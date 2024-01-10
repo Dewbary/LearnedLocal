@@ -11,6 +11,7 @@ import type { ExperienceInfo } from "@learnedlocal/db/types/types";
 import { useExperienceSubmission } from "../hooks/useExperienceSubmission";
 import CreateExperienceFormLayout from "./CreateExperienceFormLayout";
 import type { TabInfo } from "../types";
+import Link from "next/link";
 
 type Props = {
   experience: ExperienceInfo | null | undefined;
@@ -87,14 +88,11 @@ const CreateExperienceFormArea = ({
       ) : (
         <div className="flex flex-1 flex-col items-center justify-center gap-5">
           <p>
-            You need to create a profile before creating your first experience.
+            You need to set up your hosting profile before creating an experience
           </p>
-          <button
-            className="btn-primary btn"
-            onClick={() => navigateToProfilePage()}
-          >
+          <Link href="/account/hostonboard" className="btn-primary btn">
             Set Up My Profile
-          </button>
+          </Link>
         </div>
       )}
     </div>

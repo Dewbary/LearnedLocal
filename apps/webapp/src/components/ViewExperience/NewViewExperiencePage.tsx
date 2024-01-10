@@ -62,7 +62,7 @@ export default function NewViewExperiencePage(
   return (
     <>
       <div className="flex min-h-screen w-full flex-col items-center bg-ll-grey">
-        <NewNavBar isSignedIn={isSignedIn || false} isMarketingNavBar={false} />
+        <NewNavBar isFixedNavbar />
         <div className="pt-20 md:max-w-6xl md:pb-16 md:pt-24">
           <div className="flex w-full flex-row items-center justify-between px-5 py-5 md:py-7">
             <div className="flex flex-row items-center justify-start gap-3">

@@ -13,7 +13,10 @@ export default authMiddleware({
     "/textlist(.*)",
     "/api(.*)",
     "/sitemap(.*)",
-    "/ideas(.*)"
+    "/ideas(.*)",
+    "/account/signup(.*)",
+    "/account/signin(.*)",
+    "/sso-callback(.*)"
   ],
 });
 

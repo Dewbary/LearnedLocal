@@ -1,6 +1,7 @@
 import { FieldHookConfig, useField } from "formik";
 import { uploadImageToBucket } from "~/utils/images";
 import { useUser } from "@clerk/nextjs";
+import { UserIcon } from "@heroicons/react/24/outline";
 
 const PhotoUploadComponent = (props: FieldHookConfig<string>) => {
   const { user } = useUser();
@@ -23,28 +24,35 @@ const PhotoUploadComponent = (props: FieldHookConfig<string>) => {
   };
 
   return (
-    <div className="flex w-fit flex-col items-center gap-6">
-      <h3 className="self-start font-bold">Profile Picture</h3>
-      <div className="h-32 w-32 overflow-hidden rounded-full">
+    <div className="flex w-full flex-row items-center gap-6">
+      <div className={`h-28 w-28 overflow-hidden rounded-full ${field.value ? "" : "border border-ll-black"}`}>
         {field.value ? (
           <img
             src={field.value}
-            className="h-full w-full rounded-full object-cover shadow-lg"
+            className="h-full w-full rounded-full object-cover"
           />
         ) : (
-          <div className="h-full w-full bg-gray-100 shadow-lg"></div>
+          <div className="h-full w-full bg-ll-grey flex flex-col items-center justify-center">
+            <UserIcon width={50}/>
+          </div>
         )}
       </div>
 
-      <input
-        id={field.name}
-        name={field.name}
-        type="file"
-        className="file-input-bordered file-input file-input-sm w-full max-w-xs"
-        onChange={(e) => {
-          void handleProfileImageSelected(e);
-        }}
-      />
+      <label>
+        <div className="rounded-lg border border-ll-black font-inter py-2 px-4 hover:border-ll-grey hover:bg-ll-black hover:text-ll-grey transition-colors hover:cursor-pointer">
+          {field.value ? "Change profile picture" : "Add profile picture"}
+        </div>
+        <input
+          id={field.name}
+          name={field.name}
+          type="file"
+          className="hidden"
+          onChange={(e) => {
+            void handleProfileImageSelected(e);
+          }}
+        />
+      </label>
+      
       <div>
         {meta.touched && meta.error && <div>{meta.error?.toString()}</div>}
       </div>

@@ -31,8 +31,13 @@ const NavigationMenu = ({ isSignedIn }: Props) => {
         className="menu-compact menu dropdown-content rounded-box mt-3 w-52 bg-base-100 p-2 shadow"
       >
         <li>
-          <Link className="p-2" href="/home">
+          <Link className="p-2" href="/">
             Home
+          </Link>
+        </li>
+        <li>
+          <Link className="p-2" href="/home">
+            Find an experience
           </Link>
         </li>
         <li>
@@ -52,19 +57,19 @@ const NavigationMenu = ({ isSignedIn }: Props) => {
         </li>
         <li>
           <Link className="p-2" href="/about">
-            About Us
+            Our Story
           </Link>
         </li>
         <li>
           <Link className="p-2" href="/host">
-            About Hosting
+            Become a host
           </Link>
         </li>
-        <li>
+        {/* <li>
           <Link className="p-2" href="/blog">
             Blog
           </Link>
-        </li>
+        </li> */}
         <li>
           <SignInArea isSignedIn={isSignedIn} />
         </li>

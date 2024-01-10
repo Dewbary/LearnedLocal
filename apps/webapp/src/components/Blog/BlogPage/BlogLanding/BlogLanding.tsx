@@ -21,7 +21,7 @@ const BlogLanding = ({ posts }: Props) => {
         <Head>
           <title>{`Learned Local Blog`}</title>
         </Head>
-        <Link href="/home" className="flex flex-row items-center pt-4 pl-4">
+        <Link href="/" className="flex flex-row items-center pt-4 pl-4">
           <ChevronLeftIcon className="mr-2 h-5 w-5" />
           {"Back to Learned Local"}
         </Link>

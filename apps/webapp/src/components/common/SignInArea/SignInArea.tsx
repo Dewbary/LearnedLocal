@@ -1,10 +1,16 @@
 import { SignInButton, SignOutButton } from "@clerk/nextjs";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 type Props = {
   isSignedIn: boolean;
 };
 
 const SignInArea = ({ isSignedIn }: Props) => {
+
+  const currentPath = usePathname();
+  const signInUrl = `/account/signin?redirect_url=${encodeURI(currentPath)}`;
+
   if (isSignedIn)
     return (
       <SignOutButton>
@@ -13,9 +19,9 @@ const SignInArea = ({ isSignedIn }: Props) => {
     );
 
   return (
-    <SignInButton>
-      <button className="btn content-center">Sign in</button>
-    </SignInButton>
+    <Link href={signInUrl} className="w-full">
+      <button className="btn content-center w-full">Sign in</button>
+    </Link>
   );
 };
 
