@@ -72,7 +72,7 @@ export default function HostOnboardFlow() {
     if (user !== null && user !== undefined) {
       if (activeStep === 0) {
         await accountCreator.mutateAsync({
-          firstName: user.firstName || "blahblah",
+          firstName: user.firstName || "",
           lastName: user.lastName || "",
           personalTitle: values.personalTitle,
           bio: values.bio,
@@ -89,7 +89,7 @@ export default function HostOnboardFlow() {
       }
       else if (activeStep === 1) {
         await accountCreator.mutateAsync({
-          firstName: user.firstName || "blahblah",
+          firstName: user.firstName || "",
           lastName: user.lastName || "",
           personalTitle: values.personalTitle,
           bio: values.bio,

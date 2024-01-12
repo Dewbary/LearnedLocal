@@ -1,5 +1,5 @@
 import { Field } from "formik";
-import InputField from "../SignUpFlow/InputField";
+import InputField from "../InputField";
 
 export default function PaymentInfoTab() {
   return (

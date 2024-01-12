@@ -1,6 +1,6 @@
 import { Field } from "formik";
 import { useSignUp } from "@clerk/nextjs";
-import InputField from "./InputField";
+import InputField from "../InputField";
 import googleIcon from "../../../../assets/google-icon.png";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";

@@ -131,7 +131,7 @@ const NavBarEnd = () => {
             <Link href="/home" data-cy="mobile-home-link">Find an experience</Link>
             <Link href="/host">Become a host</Link>
             <Link href={`/experience/create/${getUniqueSlug()}`} data-cy="mobile-create-link">Create an experience</Link>
-            <Link href="/profile">My profile</Link>
+            <Link href="/account/profile">My profile</Link>
             {/* <Link href="/blog">Our blog</Link> */}
           </div>
           <div className="flex flex-col items-center gap-8 text-sm">

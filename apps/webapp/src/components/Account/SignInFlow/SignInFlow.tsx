@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import InputField from "../SignUpFlow/InputField";
+import InputField from "../InputField";
 import Image from "next/image";
 import googleIcon from "../../../../assets/google-icon.png";
 import { useSignIn } from "@clerk/nextjs";

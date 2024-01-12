@@ -51,7 +51,7 @@ const NavigationMenu = ({ isSignedIn }: Props) => {
           </li>
         ) : null}
         <li>
-          <Link className="p-2" href="/profile">
+          <Link className="p-2" href="/account/profile">
             My Profile
           </Link>
         </li>

@@ -94,5 +94,42 @@ export const profileRouter = createTRPCRouter({
                 }
             });
             await clerkClient.users.deleteUser(ctx.userId);
+        }),
+
+    updateClerkProfileInformation: protectedProcedure
+        .input(
+            z.object({
+                firstName: z.string(),
+                lastName: z.string()
+            })
+        )
+        .mutation(async ({ctx, input}) => {
+            await clerkClient.users.updateUser(ctx.userId, {
+                firstName: input.firstName,
+                lastName: input.lastName
+            });
+
+            // Update the matching host profile, if there is one.
+            await ctx.prisma.profile.update({
+                where: {
+                    userId: ctx.userId
+                },
+                data: {
+                    firstName: input.firstName,
+                    lastName: input.lastName
+                }
+            })
+        }),
+
+    updateClerkPassword: protectedProcedure
+        .input(
+            z.object({
+                password: z.string()
+            })
+        )
+        .mutation(async ({ctx, input}) => {
+            await clerkClient.users.updateUser(ctx.userId, {
+                password: input.password
+            });
         })
 });

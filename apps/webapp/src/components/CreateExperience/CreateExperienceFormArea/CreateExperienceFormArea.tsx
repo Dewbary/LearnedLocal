@@ -49,7 +49,7 @@ const CreateExperienceFormArea = ({
   });
 
   const navigateToProfilePage = async function () {
-    await router.push("/profile");
+    await router.push("/account/profile");
   };
 
   const handleSubmit = useExperienceSubmission(
