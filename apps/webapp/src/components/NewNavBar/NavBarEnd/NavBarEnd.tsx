@@ -113,7 +113,9 @@ const NavBarEnd = () => {
         ) : (
           <>
             <div className="hidden p-2 lg:flex flex-row gap-1 items-center font-inter text-sm">
-              <div className="">Welcome, {user.firstName || ""} </div>
+              {user.firstName && (
+                <div className="">Welcome, {user.firstName} </div>
+              )}
               <NavigationMenu isSignedIn={isSignedIn} />
             </div>
           </>
