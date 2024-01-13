@@ -9,11 +9,11 @@ type Props = {
 const Counter = ({ count, setCount }: Props) => {
   return (
     <div className="flex">
-      <button onClick={() => setCount((prev) => prev - 1)}>
+      <button onClick={() => setCount((prev) => prev - 1)} data-cy="minusGuestButton">
         <MinusCircleIcon className="text-ll-dark-grey" width={26} height={26} />
       </button>
-      <div className="px-2">{count}</div>
-      <button onClick={() => setCount((prev) => prev + 1)}>
+      <div className="px-2" data-cy="guestCountDisplay">{count}</div>
+      <button onClick={() => setCount((prev) => prev + 1)} data-cy="plusGuestButton">
         <PlusCircleIcon className="text-ll-dark-grey" width={26} height={26} />
       </button>
     </div>

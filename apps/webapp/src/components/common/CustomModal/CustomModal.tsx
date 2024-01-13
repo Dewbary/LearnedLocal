@@ -47,7 +47,7 @@ export default function CustomModal({
           <div
             className={`${
               className ?? ""
-            } relative bg-ll-grey w-full lg:w-fit max-w-5xl lg:rounded-3xl h-full lg:h-fit min-h-screen lg:min-h-0 `}
+            } relative bg-ll-grey w-full max-w-5xl lg:rounded-3xl h-full lg:h-fit min-h-screen lg:min-h-0 `}
           >
             <button
               type="button"

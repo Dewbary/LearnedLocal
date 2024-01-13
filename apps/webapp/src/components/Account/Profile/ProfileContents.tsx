@@ -25,8 +25,8 @@ export default function NewProfileContents() {
 
   return (
     <>
-      <div className="w-full flex flex-col p-5 max-w-6xl flex-grow pb-20">
-        <div className="flex flex-col lg:flex-row gap-7 w-full">
+      <div className="w-full flex flex-col p-5 max-w-6xl flex-grow pb-20 items-center">
+        <div className="flex flex-col lg:flex-row gap-7 w-full max-w-xs lg:max-w-none">
 
           <div className="flex flex-col gap-4 lg:gap-8 lg:border-r lg:border-r-gray-400 lg:pr-16 lg:mr-10">
             <h1 className="font-raleway font-bold text-3xl lg:text-4xl">My Account</h1>

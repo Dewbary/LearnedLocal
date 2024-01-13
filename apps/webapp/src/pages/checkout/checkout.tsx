@@ -29,6 +29,7 @@ const Checkout = () => {
   });
 
   const createCheckoutSession = api.payment.createCheckoutSession.useMutation();
+  const { data: experienceInfo } = api.experience.byExperienceId.useQuery(parseInt(experienceId as string || "0"));
   const { user } = useUser();
 
   const getStripe = async () => {
@@ -114,9 +115,12 @@ const Checkout = () => {
               </div>
             </Link>
             <h1 className="mb-6 text-2xl font-bold text-gray-700">
-              Checkout Experience
+              Experience Checkout
             </h1>
           </div>
+          <p className="mb-3">
+            You&apos;re signing up for: <span className="font-bold">{experienceInfo?.title}</span>
+          </p>
 
           <form onSubmit={(e) => handleSubmit(e)}>
             <div className="mb-4">

@@ -15,7 +15,11 @@ const DatePage = () => {
 
       <div className="flex flex-1 flex-col space-y-6 rounded-lg bg-white p-8 shadow-lg">
         <DateAndTimePicker />
-        <div className="flex flex-1 flex-col">
+        {/* 
+        
+          We can uncomment this later if we decide to add the "timeline" field back into the web app.
+        
+          <div className="flex flex-1 flex-col">
           <FormLabel text="Timeline" className="text-gray-600" />
           <Field
             className="textarea-bordered textarea w-full"
@@ -24,7 +28,7 @@ const DatePage = () => {
             as="textarea"
             placeholder="Describe in detail the timeline of your experience"
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );

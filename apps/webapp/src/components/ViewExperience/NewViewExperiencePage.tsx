@@ -2,10 +2,8 @@ import { InferGetServerSidePropsType } from "next";
 import { getServerSideProps } from "~/pages/experience/newview/[...slug]";
 import { api } from "~/utils/api";
 import NewNavBar from "../NewNavBar";
-import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import {
-  ArrowUpTrayIcon,
   CheckCircleIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -21,14 +19,13 @@ import { Instagram } from "react-feather";
 import Footer from "../NewFooter/NewFooter";
 import ShareExperienceComponent from "../common/ShareExperienceComponent";
 import Link from "next/link";
-import ExperienceDateSelection from "../ExperiencesDisplay/ExperienceDateSelection";
 import { useRouter } from "next/router";
 import EventSignUp from "./EventSignUp";
+import defaultProfilePic from "../../../assets/profile_pic.png";
 
 export default function NewViewExperiencePage(
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) {
-  const { isSignedIn } = useUser();
   const router = useRouter();
 
   const { data: experienceData } = api.experience.viewByExperienceId.useQuery(
@@ -47,11 +44,11 @@ export default function NewViewExperiencePage(
     }
   };
 
-  const goToCheckoutPage = async function (availabilityId: number | null) {
+  const goToCheckoutPage = async function (availabilityId: number | null, partySize: number | null) {
     if (!availabilityId) return;
 
     await router.push(
-      `/checkout?experienceId=${props.experienceId}&availabilityId=${availabilityId}`
+      `/checkout?experienceId=${props.experienceId}&availabilityId=${availabilityId}&partySize=${partySize?.toString() || "1"}`
     );
   };
 
@@ -63,7 +60,7 @@ export default function NewViewExperiencePage(
     <>
       <div className="flex min-h-screen w-full flex-col items-center bg-ll-grey">
         <NewNavBar isFixedNavbar />
-        <div className="pt-20 md:max-w-6xl md:pb-16 md:pt-24">
+        <div className="pt-20 w-full md:max-w-6xl md:pb-16 md:pt-24">
           <div className="flex w-full flex-row items-center justify-between px-5 py-5 md:py-7">
             <div className="flex flex-row items-center justify-start gap-3">
               <Link href="/home" className="md:hidden">
@@ -166,11 +163,11 @@ export default function NewViewExperiencePage(
           </div>
 
           <div className="mt-10 flex w-full flex-col gap-3 px-5 md:flex-row md:gap-20">
-            <div className="order-2 flex w-full flex-col md:order-1 md:basis-2/3">
+            <div className="order-2 flex w-full flex-col md:order-1">
               <div className="flex w-full flex-row items-center gap-5 border-b-2 border-b-gray-300 pb-6 pt-5 md:gap-8 md:pt-0">
                 <div className="relative h-14 w-14 overflow-hidden rounded-full">
                   <Image
-                    src={experienceData?.profile?.profileImage || ""}
+                    src={experienceData?.profile?.profileImage || defaultProfilePic}
                     alt="The host's profile image"
                     fill
                     className="w-full object-cover"
@@ -316,7 +313,7 @@ export default function NewViewExperiencePage(
                   </div>
                   <div className="relative h-14 w-14 overflow-hidden rounded-full">
                     <Image
-                      src={experienceData?.profile?.profileImage || ""}
+                      src={experienceData?.profile?.profileImage || defaultProfilePic}
                       alt="The host's profile image"
                       fill
                       className="w-full object-cover"
@@ -343,7 +340,7 @@ export default function NewViewExperiencePage(
               </div>
             </div>
 
-            <div className="order-1 flex h-fit w-full basis-1/3 flex-col font-inter md:order-2">
+            <div className="order-1 flex h-fit w-full basis-1/3 flex-col font-inter items-center md:order-2">
               {experienceData && (
                 <EventSignUp
                   experience={experienceData}

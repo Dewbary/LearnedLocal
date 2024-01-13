@@ -33,7 +33,7 @@ export default function ExperienceSubscribeModalContents(props: Props) {
   }
 
   return (
-    <div className="flex flex-col flex-1 pt-16 items-start w-full px-7 gap-5 bg-ll-grey pb-14 max-w-xl self-center">
+    <div className="flex flex-col flex-1 pt-12 items-start w-full px-7 gap-5 bg-ll-grey pb-12 max-w-xl self-center">
         <div className="w-full flex flex-col items-center max-w-xs self-center">
             <div className="w-44 aspect-w-2 aspect-h-1">
                 <Image

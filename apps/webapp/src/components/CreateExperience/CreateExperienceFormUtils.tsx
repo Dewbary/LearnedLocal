@@ -56,7 +56,7 @@ export const initialValues: FormValues = {
   provided: "",
   guestRequirements: "",
   activityLevel: "",
-  skillLevel: "",
+  skillLevel: "Beginner",
   minAge: 0,
   price: 1,
   free: false,

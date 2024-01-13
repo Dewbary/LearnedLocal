@@ -32,11 +32,13 @@ describe("Experience sign up workflow", () => {
     cy.contains("You'll be required to sell your soul to the devil :)");
     cy.contains("Hey there! This is Learned Local. We're a test account with all sorts of experience in testing. Want to get tested? Please contact us for more information!");
     cy.contains("@learnedlocal.app");
+    cy.get('[data-cy="plusGuestButton"]').click().click();
+    cy.get('[data-cy="guestCountDisplay"]').contains("3"); 
     cy.contains("Sign up").click();
-    cy.url().should('eq', 'http://localhost:3000/checkout?experienceId=1&availabilityId=1');
+    cy.url().should('eq', 'http://localhost:3000/checkout?experienceId=1&availabilityId=1&partySize=3');
     cy.get('[data-cy="checkout-first-name"]').type("Test");
     cy.get('[data-cy="checkout-last-name"]').type("McTestington");
-    cy.get('[data-cy="checkout-party-size"]').clear().type("1");
+    cy.get('[data-cy="checkout-party-size"]').should('have.value', '3');
     cy.get('[data-cy="checkout-email"]').type("test.mctestington@example.com");
     cy.get('[data-cy="checkout-phone"]').type("2085857221");
     cy.get('[data-cy="checkout-text-reminder"]').uncheck();
