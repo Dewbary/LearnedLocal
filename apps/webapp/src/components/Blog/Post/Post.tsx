@@ -1,15 +1,12 @@
 import { useRouter } from "next/router";
-import ErrorPage from "next/error";
 import Head from "next/head";
 import BlogLayout from "../BlogPage/BlogLayout";
 import Container from "~/components/common/Layout/Container";
-import NavBar from "~/components/NavBar/NavBar";
-import MoreStories from "../BlogPage/BlogLanding/MoreStories";
 import PostTitle from "./PostTitle";
 import PostHeader from "./PostHeader/PostHeader";
 import PostBody from "./PostBody";
 import SectionSeparator from "~/components/common/Layout/SectionSeparator";
-import { PostInfo } from "~/components/types";
+import type { PostInfo } from "~/components/types";
 import { urlForImage } from "~/utils/sanityClient";
 
 type Props = {
@@ -23,7 +20,6 @@ export default function Post({ data = { post: null } }: Props) {
   const router = useRouter();
 
   const { post } = data;
-  const slug = post?.slug;
 
   // if (!router.isFallback && !slug) {
   //   return <ErrorPage statusCode={404} />;

@@ -22,8 +22,8 @@ type Props = {
   onSetExperiences: (experiences: ExperienceInfo[]) => void;
 };
 
-const SideNav = ({ experiences, onSetExperiences }: Props) => {
-  const { filteredExperiences, setFilteredExperiences } = React.useContext(
+const SideNav = ({ experiences }: Props) => {
+  const { setFilteredExperiences } = React.useContext(
     FilteredExperiencesContext
   );
 

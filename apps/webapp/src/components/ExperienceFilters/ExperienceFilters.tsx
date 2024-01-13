@@ -16,7 +16,7 @@ import type {
 } from "../types";
 
 const ExperienceFilters = () => {
-  const { allExperiences, filteredExperiences, setFilteredExperiences } =
+  const { allExperiences, setFilteredExperiences } =
     React.useContext(FilteredExperiencesContext);
 
   const categories = api.category.getAll.useQuery();

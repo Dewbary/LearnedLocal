@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { useFormikContext } from "formik";
 import React from "react";
-import { FormValues } from "./types";
+import type { FormValues } from "./types";
 
 type Props = {
   isEditing: boolean;

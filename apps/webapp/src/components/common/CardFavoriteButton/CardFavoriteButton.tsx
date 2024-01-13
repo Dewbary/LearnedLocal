@@ -1,5 +1,3 @@
-import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
-import { HeartIcon as HeartIconOutline } from "@heroicons/react/24/outline";
 import { useContext, useEffect, useState } from "react";
 import React from "react";
 import FavoritedExperiencesContext from "~/components/Home/FavoritedExperiencesContext";
@@ -18,16 +16,11 @@ export default function CardFavoriteButton(props: Props) {
     favoritedExperiences,
     setFavoritedExperiences,
     askForEmail,
-    setAskForEmail,
-    firstExperienceIdOnDisplay,
+    setAskForEmail
   } = useContext(FavoritedExperiencesContext);
   const [experienceFavorited, setExperienceFavorited] = useState(false);
   const emailRouter = api.email.sendEmailReminders.useMutation();
   const [remindToastVisible, setRemindToastVisible] = useState(false);
-  const [initialToolTipTimerExpired, setInitialToolTipTimerExpired] =
-    useState(false);
-  const [showToolTip, setShowToolTip] = useState(false);
-  const [isFirstExperience, setIsFirstExperience] = useState(false);
 
   const handleFavoriteClick = () => {
     if (experienceFavorited) {
@@ -71,28 +64,6 @@ export default function CardFavoriteButton(props: Props) {
       setExperienceFavorited(false);
     }
   }, [favoritedExperiences]);
-
-  // The next 3 useEffect calls are related to showing the "favorite" experience tooltip on the homepage.
-
-  useEffect(() => {
-    setTimeout(() => setInitialToolTipTimerExpired(true), 5000);
-  }, []);
-
-  useEffect(() => {
-    if (isFirstExperience && !initialToolTipTimerExpired) {
-      setShowToolTip(true);
-    } else {
-      setShowToolTip(false);
-    }
-  }, [isFirstExperience, initialToolTipTimerExpired]);
-
-  useEffect(() => {
-    if (firstExperienceIdOnDisplay === props.experienceId) {
-      setIsFirstExperience(true);
-    } else {
-      setIsFirstExperience(false);
-    }
-  }, [firstExperienceIdOnDisplay]);
 
   return (
     <>

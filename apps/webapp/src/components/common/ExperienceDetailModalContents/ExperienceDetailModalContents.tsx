@@ -1,10 +1,7 @@
 import type { ExperienceInfo } from "@learnedlocal/db/types/types";
-import ExperienceImageDisplay from "../ExperienceImageDisplay";
 import { useRouter } from "next/router";
 import ExpImageCarousel from "./ExpImageCarousel";
 import ExpDetailsSection from "./ExpDetailsSection";
-import Button from "../Button";
-import CardFavoriteButton from "../CardFavoriteButton";
 import { useUser } from "@clerk/nextjs";
 
 type Props = {
@@ -14,7 +11,6 @@ type Props = {
 
 export default function ExperienceDetailModalContents({
   experienceInfo,
-  showRegisteredDetails,
 }: Props) {
   const router = useRouter();
   const user = useUser();

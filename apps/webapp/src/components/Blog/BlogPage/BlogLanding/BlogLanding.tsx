@@ -5,7 +5,7 @@ import Container from "~/components/common/Layout/Container";
 import Intro from "./Intro";
 import HeroPost from "./HeroPost";
 import MoreStories from "./MoreStories";
-import { PostInfo } from "~/components/types";
+import type { PostInfo } from "~/components/types";
 import Link from "next/link";
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 

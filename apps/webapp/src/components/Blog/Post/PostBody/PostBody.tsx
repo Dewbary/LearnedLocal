@@ -6,8 +6,8 @@
 import { PortableText } from "@portabletext/react";
 
 import markdownStyles from "./markdown-styles.module.css";
-import { BlockContent } from "~/components/types";
-import { SanityBlock } from "sanity-codegen";
+import type { BlockContent } from "~/components/types";
+import type { SanityBlock } from "sanity-codegen";
 import Outline from "../../Outline";
 
 type Props = {

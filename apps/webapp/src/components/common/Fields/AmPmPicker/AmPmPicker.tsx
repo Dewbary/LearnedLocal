@@ -1,4 +1,4 @@
-import { FieldProps } from "formik";
+import type { FieldProps } from "formik";
 import * as React from "react";
 import cx from "classnames";
 

@@ -1,4 +1,3 @@
-import { useUser } from "@clerk/nextjs";
 import Modal from "react-modal";
 import { useState } from "react";
 import ExperiencesDisplay from "~/components/ExperiencesDisplay";
@@ -13,7 +12,6 @@ import ExperienceFilters from "../ExperienceFilters";
 Modal.setAppElement("#__next");
 
 const HomePage = ({ experiences }: { experiences: ExperienceInfo[] }) => {
-  const user = useUser();
 
   const [filteredExperiences, setFilteredExperiences] =
     useState<ExperienceInfo[]>(experiences);
@@ -40,7 +38,7 @@ const HomePage = ({ experiences }: { experiences: ExperienceInfo[] }) => {
         JSON.stringify(favoritedExperiences)
       );
     }
-  }, [favoritedExperiences]);
+  }, [favoritedExperiences, favoritesLoaded]);
 
   React.useEffect(() => {
     setFirstExperienceIdOnDisplay(filteredExperiences.at(0)?.id || 0);

@@ -1,4 +1,4 @@
-import { FormikHelpers } from "formik";
+import type { FormikHelpers } from "formik";
 import { useRouter } from "next/router";
 import { useUser } from "@clerk/nextjs";
 import { api } from "~/utils/api";
@@ -50,7 +50,7 @@ export const useExperienceSubmission = (
 
         await updateExperience.mutateAsync(updatedExperience);
       } else if (hostProfileId) {
-        const newExperience = await createExperience.mutateAsync(
+        await createExperience.mutateAsync(
           getCreateExperienceObject(values, filePathArray, slug, hostProfileId)
         );
       } else {

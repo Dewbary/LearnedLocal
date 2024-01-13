@@ -1,10 +1,7 @@
 import * as React from "react";
-import CreateExperienceButton from "~/components/common/CreateExperienceButton";
 import NavigationMenu from "~/components/common/NavigationMenu";
 import {
-  SignInButton,
   SignOutButton,
-  SignUpButton,
   useUser,
 } from "@clerk/nextjs";
 import Link from "next/link";

@@ -1,5 +1,4 @@
 import type { GetStaticProps } from "next";
-import Head from "next/head";
 import { createServerSideHelpers } from "@trpc/react-query/server";
 import HomePage from "../../components/Home/HomePage";
 import { appRouter } from "packages/api";

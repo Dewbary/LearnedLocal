@@ -1,4 +1,4 @@
-import { ExperienceAvailability } from "packages/db";
+import type { ExperienceAvailability } from "packages/db";
 import * as React from "react";
 import {
   getDay,

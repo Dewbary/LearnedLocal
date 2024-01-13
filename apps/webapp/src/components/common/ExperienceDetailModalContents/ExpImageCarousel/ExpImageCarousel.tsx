@@ -1,6 +1,5 @@
 import * as React from "react";
 import Image from "next/image";
-import fillerCard from "~/public/filler_card.png";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 
 type Props = {

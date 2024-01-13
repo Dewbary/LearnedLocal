@@ -16,8 +16,7 @@ export const InputField = ({
   type,
   min,
   placeholder,
-  className,
-  validate,
+  className
 }: InputFieldProps) => {
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {

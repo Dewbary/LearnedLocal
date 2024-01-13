@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import { FormValues } from "./types";
+import type { FormValues } from "./types";
 import {
   HomeIcon,
   CalendarIcon,
@@ -17,9 +17,8 @@ import SettingsPage from "./SettingsPage/SettingsPage";
 import PhotosPage from "./PhotosPage/PhotosPage";
 import FinalStepsPage from "./FinalStepsPage/FinalStepsPage";
 import StartPage from "./StartPage";
-import { ImageListType } from "react-images-uploading";
+import type { ImageListType } from "react-images-uploading";
 import { uploadImageToBucket } from "~/utils/images";
-import { env } from "@learnedlocal/config/env.mjs";
 import type { ExperienceInfo, Pin } from "@learnedlocal/db/types/types";
 
 export const validationSchema = Yup.object().shape({

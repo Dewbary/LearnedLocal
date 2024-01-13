@@ -1,5 +1,5 @@
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
-import { ExperienceAvailability, Registration } from "packages/db";
+import type { ExperienceAvailability, Registration } from "packages/db";
 import * as React from "react";
 import { Typography } from "~/components/common/Typography";
 import ExperienceDateTimeOption from "./ExperienceDateTimeOption";
@@ -12,8 +12,7 @@ import {
 import cx from "classnames";
 import CustomModal from "~/components/common/CustomModal";
 import RequestTimeModal from "./RequestTimeModal";
-import { ExperienceInfo } from "packages/db/types/types";
-import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
+import type { ExperienceInfo } from "packages/db/types/types";
 
 type Props = {
   experience: ExperienceInfo;

@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import type { ExperienceInfo } from "@learnedlocal/db/types/types";
 import { api } from "~/utils/api";
 import styles from "./admin.module.css";
-import sendTextMessage from "packages/api/utils/twilio";
 import AdminNavBar from "~/components/Admin/AdminNavBar";
 
 interface AdminUpdateValues {
@@ -24,8 +23,6 @@ export default function Admin() {
   const administerExperienceMutation =
     api.experience.administerExperience.useMutation();
   const [loading, setLoading] = useState(false);
-
-  const [viewActionPage, setViewActionPage] = useState(false);
 
   useEffect(() => {
     setAllListings(allListingsQuery.data);

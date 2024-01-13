@@ -1,7 +1,7 @@
 import * as React from "react";
 import { FormLabel } from "../../Form/FormLabel";
 import { ErrorMessage, Field, useFormikContext } from "formik";
-import { FormValues } from "../../types";
+import type { FormValues } from "../../types";
 
 const PriceField = () => {
   const { values } = useFormikContext<FormValues>();

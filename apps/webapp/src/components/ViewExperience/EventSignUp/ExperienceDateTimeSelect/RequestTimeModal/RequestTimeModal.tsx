@@ -4,7 +4,7 @@ import TimeSelectionPage from "./TimeSelectionPage";
 import ConfirmationPage from "./ConfirmationPage";
 import RequestSentPage from "./RequestSentPage";
 import { Form, Formik } from "formik";
-import { TimeRequest } from "~/components/types";
+import type { TimeRequest } from "~/components/types";
 import { api } from "~/utils/api";
 import { getHours } from "~/components/common/DateAndTimePicker/DateAndTimeUtils";
 import { SignIn, SignedIn, SignedOut, useUser } from "@clerk/nextjs";

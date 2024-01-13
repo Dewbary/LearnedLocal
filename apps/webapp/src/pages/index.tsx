@@ -1,10 +1,8 @@
 import LandingBody from "~/components/Landing/LandingBody";
-import { useUser } from "@clerk/nextjs";
 import NewFooter from "~/components/NewFooter";
 import NewNavBar from "~/components/NewNavBar";
 
 export default function Landing() {
-  const { isSignedIn } = useUser();
 
   return (
     <>

@@ -1,5 +1,5 @@
-import { InferGetServerSidePropsType } from "next";
-import { getServerSideProps } from "~/pages/experience/newview/[...slug]";
+import type { InferGetServerSidePropsType } from "next";
+import type { getServerSideProps } from "~/pages/experience/newview/[...slug]";
 import { api } from "~/utils/api";
 import NewNavBar from "../NewNavBar";
 import Image from "next/image";
@@ -273,7 +273,7 @@ export default function NewViewExperiencePage(
                       </h3>
                       {experienceData?.activityNotes.map((note, index) => (
                         <div
-                          key={note}
+                          key={index}
                           className="flex flex-row items-center gap-2"
                         >
                           <HeartIcon

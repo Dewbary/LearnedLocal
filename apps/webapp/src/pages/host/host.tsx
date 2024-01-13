@@ -1,10 +1,8 @@
-import { useUser } from "@clerk/nextjs";
 import HostBody from "~/components/Host/HostBody";
 import Footer from "~/components/Landing/Footer";
 import NewNavBar from "~/components/NewNavBar";
 
 export default function Host() {
-  const { isSignedIn } = useUser();
 
   return (
     <>

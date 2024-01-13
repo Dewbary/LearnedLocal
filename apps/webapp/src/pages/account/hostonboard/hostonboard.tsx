@@ -1,11 +1,8 @@
 import HostOnboardFlow from "~/components/Account/HostOnboardFlow/HostOnboardFlow";
 import Footer from "~/components/NewFooter";
 import NewNavBar from "~/components/NewNavBar";
-import { useUser } from "@clerk/nextjs";
 
 export default function HostOnboard() {
-
-  const { isSignedIn } = useUser();
 
   return (
     <>

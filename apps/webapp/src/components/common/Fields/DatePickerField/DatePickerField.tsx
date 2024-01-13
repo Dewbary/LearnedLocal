@@ -8,7 +8,6 @@ import { enUS } from "date-fns/locale";
 import type { DateInfo } from "~/components/types";
 import { produce } from "immer";
 import { sortByDate } from "../../DateAndTimePicker/DateAndTimeUtils";
-import { d } from "msw/lib/glossary-de6278a9";
 
 registerLocale("enUS", enUS);
 

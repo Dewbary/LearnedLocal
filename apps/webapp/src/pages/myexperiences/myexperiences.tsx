@@ -13,7 +13,6 @@ import CustomModal from "~/components/common/CustomModal";
 import GuestListModalContents from "~/components/common/GuestListModalContents";
 import Image from "next/image";
 import sapiens from "../../../assets/sapiens.png";
-import styles from "../../components/ExperiencesDisplay/ExperiencesDisplay.module.css";
 
 export default function MyExperiences() {
   const [showErrorModal, setShowErrorModal] = useState(false);

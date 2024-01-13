@@ -46,11 +46,7 @@ const CreateExperienceFormArea = ({
     } else if (!profile && !profileIsLoading) {
       setProfileExists("no");
     }
-  });
-
-  const navigateToProfilePage = async function () {
-    await router.push("/account/profile");
-  };
+  }, [profile, profileIsLoading]);
 
   const handleSubmit = useExperienceSubmission(
     experience?.id.toString() ?? null,

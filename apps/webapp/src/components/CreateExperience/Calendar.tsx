@@ -10,7 +10,7 @@ import {
   isToday,
   parse,
 } from "date-fns";
-import { FieldProps } from "formik";
+import type { FieldProps } from "formik";
 
 function classNames(...classes: (string | boolean | undefined)[]) {
   return classes.filter(Boolean).join(" ");

@@ -1,8 +1,8 @@
 import React from "react";
 import FormPageHeader from "../Typography/Typography";
-import { Field, FieldArray, Form, useFormikContext } from "formik";
+import { Field, useFormikContext } from "formik";
 import StringArrayInputField from "../Form/StringArrayInputField";
-import { FormValues } from "../types";
+import type { FormValues } from "../types";
 
 const RequirementsPage = () => {
 

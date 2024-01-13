@@ -1,4 +1,3 @@
-import { Field } from "formik";
 import InputField from "../InputField";
 
 export default function PaymentInfoTab() {

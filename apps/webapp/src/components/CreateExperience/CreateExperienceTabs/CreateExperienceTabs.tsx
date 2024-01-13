@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { TabInfo } from "../types";
+import type { TabInfo } from "../types";
 import styles from "./CreateExperienceTabs.module.css";
 
 type Props = {
@@ -22,7 +22,7 @@ const CreateExperienceTabs = ({ tabInfoList, onTabClick }: Props) => {
       <aside className="flex w-48 flex-col overflow-y-auto">
         <div className={`flex flex-grow flex-col items-end md:block`}>
           <ul className={`flex flex-col items-end`}>
-            {tabInfoList.map((item, index, array) => {
+            {tabInfoList.map((item, index) => {
               const isSelected = selectedTab.includes(item.activeMatcher);
 
               return (

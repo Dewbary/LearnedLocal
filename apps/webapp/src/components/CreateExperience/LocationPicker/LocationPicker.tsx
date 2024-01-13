@@ -22,7 +22,6 @@ const LocationPicker = ({ value, onLocationChange }: LocationPickerProps) => {
   );
   const [isApiLoaded, setApiLoaded] = useState(false);
   const [pinData, setPinData] = useState<Pin[]>(value ? [value] : []);
-  const { pinMode, togglePinMode } = usePinContext();
 
   useEffect(() => {
     if (value) {

@@ -3,7 +3,7 @@ import Button from "~/components/common/Button";
 import cx from "classnames";
 import { Typography } from "~/components/common/Typography";
 import { useFormikContext } from "formik";
-import { TimeRequest } from "~/components/types";
+import type { TimeRequest } from "~/components/types";
 import {
   getDayAndYear,
   getHours,

@@ -1,4 +1,4 @@
-import { PostInfo } from "~/components/types";
+import type { PostInfo } from "~/components/types";
 import PostPlug from "./PostPlug";
 
 type Props = {

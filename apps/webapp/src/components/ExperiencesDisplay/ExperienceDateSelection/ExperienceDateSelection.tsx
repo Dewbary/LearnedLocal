@@ -1,4 +1,4 @@
-import { ExperienceAvailability, Registration } from "@learnedlocal/db";
+import type { ExperienceAvailability, Registration } from "@learnedlocal/db";
 import React from "react";
 import { getTime } from "~/components/common/DateAndTimePicker/DateAndTimeUtils";
 

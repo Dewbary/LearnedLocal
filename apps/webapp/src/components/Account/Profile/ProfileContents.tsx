@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { type ReactNode, useState } from "react";
 import GeneralTab from "./Tabs/GeneralTab";
 import PasswordTab from "./Tabs/PasswordTab";
 import HostInfoTab from "./Tabs/HostInfoTab";

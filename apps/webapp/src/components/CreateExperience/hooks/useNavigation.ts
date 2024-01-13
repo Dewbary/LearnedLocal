@@ -1,7 +1,6 @@
 // useNavigation.tsx
 import { useRouter } from "next/router";
-import { TabInfo } from "../types";
-import { getTabInfos } from "../CreateExperienceFormUtils";
+import type { TabInfo } from "../types";
 import { useState } from "react";
 
 export function useNavigation(
@@ -11,7 +10,6 @@ export function useNavigation(
   experienceId: string
 ) {
   const router = useRouter();
-  const tabInfoList: TabInfo[] = getTabInfos(slug);
   const [step, setStep] = useState(initialStep);
 
   const next = async () => {

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import ImageUploading, { ImageListType } from "react-images-uploading";
+import React from "react";
+import ImageUploading, { type ImageListType } from "react-images-uploading";
 
 type Props = {
   value: ImageListType;
@@ -69,7 +69,7 @@ const ImgUploader = ({ value, onChange, onChangeCoverImage }: Props) => {
             {imageList.map((image, index) => (
               <div key={index} className="image-item p-4">
                 <div className="relative">
-                  <img src={image.dataURL} className="h-56 w-72 object-cover" />
+                  <img src={image.dataURL} className="h-56 w-72 object-cover" alt="" />
                   {(index === 0) && (
                     <div className="absolute top-2 left-2 bg-gradient-to-br from-amber-300 to-amber-500 rounded-full px-3 py-1 text-white">
                       Cover Image

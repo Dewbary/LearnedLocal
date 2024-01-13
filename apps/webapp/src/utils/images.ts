@@ -1,7 +1,6 @@
 // utils/uploadImage.ts
 import { v4 as uuidv4 } from "uuid";
 import { supabase } from "~/lib/supabase";
-import { env } from "@learnedlocal/config/env.mjs";
 
 export const uploadImageToBucket = async (file: File, userId: string) => {
   const uniqueFileName = `${userId}/${uuidv4()}`;

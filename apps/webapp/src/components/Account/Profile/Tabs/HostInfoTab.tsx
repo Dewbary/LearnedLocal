@@ -1,6 +1,6 @@
 import { ErrorMessage, Form, Formik } from "formik";
 import Link from "next/link";
-import { Profile } from "packages/db";
+import type { Profile } from "packages/db";
 import { useEffect, useState } from "react";
 import * as Yup from "yup";
 import InputField from "~/components/Account/InputField";
@@ -23,7 +23,7 @@ export default function HostInfoTab() {
   const [isSaving, setIsSaving] = useState(false);
   const [saveToastVisible, setSaveToastVisible] = useState(false);
   const [userProfile, setUserProfile] = useState({} as Profile | null | undefined);
-  const { data:userProfileInfo, status } = api.profile.getProfile.useQuery();
+  const { data:userProfileInfo } = api.profile.getProfile.useQuery();
   const profileUpdater = api.profile.createOrUpdateProfile.useMutation();
 
   useEffect(() => {

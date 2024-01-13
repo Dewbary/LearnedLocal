@@ -1,7 +1,7 @@
 import React from "react";
 import { FormLabel } from "../Form/FormLabel";
 import FormPageHeader from "../Typography/Typography";
-import { ImageListType, ImageType } from "react-images-uploading";
+import type { ImageListType, ImageType } from "react-images-uploading";
 import { Field } from "formik";
 import type { FieldProps } from "formik";
 import ImgUploader from "../ImgUploader";

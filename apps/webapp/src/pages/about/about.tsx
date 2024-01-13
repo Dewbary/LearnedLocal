@@ -1,5 +1,4 @@
 import NewNavBar from "~/components/NewNavBar";
-import { useUser } from "@clerk/nextjs";
 import Footer from "~/components/NewFooter/NewFooter";
 import Image from "next/image";
 import aaronArch from "../../../assets/about/aaron_arch_image.jpg";
@@ -9,8 +8,6 @@ import chaseImage from "../../../assets/about/chase_image.jpg";
 import graceImage from "../../../assets/about/grace_image.jpg";
 
 export default function AboutPage () {
-
-  const { isSignedIn } = useUser();
 
   return (
     <>

@@ -1,6 +1,4 @@
 import { createNextApiHandler } from "@trpc/server/adapters/next";
-
-import { env } from "@learnedlocal/config/env.mjs";
 import { appRouter, createTRPCContext } from "@learnedlocal/api";
 
 // export API handler

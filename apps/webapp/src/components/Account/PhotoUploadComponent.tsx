@@ -1,4 +1,4 @@
-import { FieldHookConfig, useField } from "formik";
+import { type FieldHookConfig, useField } from "formik";
 import { uploadImageToBucket } from "~/utils/images";
 import { useUser } from "@clerk/nextjs";
 import { UserIcon } from "@heroicons/react/24/outline";
@@ -32,6 +32,7 @@ const PhotoUploadComponent = (props: FieldHookConfig<string>) => {
             <img
               src={field.value}
               className="h-full w-full rounded-full object-cover"
+              alt=""
             />
           ) : (
             <div className="h-full w-full bg-ll-grey flex flex-col items-center justify-center">

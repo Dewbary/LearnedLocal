@@ -10,7 +10,6 @@ import "~/styles/globals.css";
 import "~/styles/datepicker.css";
 import { loadStripe } from "@stripe/stripe-js";
 import Script from "next/script";
-import { env } from "@learnedlocal/config/env.mjs";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string
@@ -18,7 +17,7 @@ const stripePromise = loadStripe(
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
-  pageProps: { session, ...pageProps },
+  pageProps: { ...pageProps },
 }) => {
   return (
     <>

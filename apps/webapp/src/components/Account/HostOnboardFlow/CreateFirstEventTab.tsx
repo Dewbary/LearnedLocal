@@ -1,5 +1,5 @@
 import { useFormikContext } from "formik";
-import { HostOnboardFormValues } from "./HostOnboardFlow";
+import type { HostOnboardFormValues } from "./HostOnboardFlow";
 import { useState } from "react";
 
 export default function CreateFirstEventTab() {

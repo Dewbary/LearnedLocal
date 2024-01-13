@@ -5,7 +5,7 @@ import {
   CalendarIcon,
   ClockIcon,
 } from "@heroicons/react/24/outline";
-import { ExperienceInfo } from "packages/db/types/types";
+import type { ExperienceInfo } from "packages/db/types/types";
 import { format } from "date-fns";
 import Button from "../../Button";
 import CardFavoriteButton from "../../CardFavoriteButton";

@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { ReactNode, useEffect, useState } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 import BasicProfileInfoTab from "./BasicProfileInfoTab";
 import PaymentInfoTab from "./PaymentInfoTab";
 import { ErrorMessage, Form, Formik } from "formik";
@@ -10,7 +10,7 @@ import { api } from "~/utils/api";
 import { useUser } from "@clerk/nextjs";
 import * as Yup from "yup";
 import { getUniqueSlug } from "~/components/common/CreateExperienceButton/CreateExperienceUtils";
-import { Profile } from "@learnedlocal/db";
+import type { Profile } from "@learnedlocal/db";
 
 type HostOnboardFormValues = {
   profileImage: string;
@@ -29,7 +29,7 @@ export type {HostOnboardFormValues};
 export default function HostOnboardFlow() {
 
   const router = useRouter();
-  const [ errors, setErrors ] = useState("");
+  const [ errors ] = useState("");
   const accountCreator = api.profile.createOrUpdateProfile.useMutation();
   const { data: existingAccountData } = api.profile.getProfile.useQuery();
   const [ existingProfile, setExistingProfile ] = useState({} as Profile | null | undefined);
@@ -37,7 +37,7 @@ export default function HostOnboardFlow() {
   const { user } = useUser();
 
   const [ activeStep, setActiveStep ] = useState(0);
-  const [ steps, setSteps ] = useState([
+  const [ steps ] = useState([
     <BasicProfileInfoTab key={0} />,
     <PaymentInfoTab key={1}/>,
     <CreateFirstEventTab key={2}/>,

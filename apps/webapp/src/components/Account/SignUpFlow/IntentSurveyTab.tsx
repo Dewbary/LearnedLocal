@@ -1,5 +1,5 @@
-import { Field, useFormikContext } from "formik";
-import { SignupFlowFormValues } from "./SignUpFlow";
+import { useFormikContext } from "formik";
+import type { SignupFlowFormValues } from "./SignUpFlow";
 import { useState } from "react";
 
 export default function IntentSurveyTab() {

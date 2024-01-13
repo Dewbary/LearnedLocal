@@ -1,11 +1,8 @@
 import Footer from "~/components/NewFooter";
 import NewNavBar from "~/components/NewNavBar";
-import { useUser } from "@clerk/nextjs";
 import SignInFlow from "~/components/Account/SignInFlow/SignInFlow";
 
 export default function SignIn () {
-
-  const { isSignedIn } = useUser();
 
   return (
     <>

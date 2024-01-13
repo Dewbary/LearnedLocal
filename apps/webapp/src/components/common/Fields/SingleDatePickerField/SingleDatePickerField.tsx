@@ -3,7 +3,7 @@ import DatePicker, { registerLocale } from "react-datepicker";
 import { startOfDay } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-datepicker/dist/react-datepicker.css";
-import { FieldProps } from "formik";
+import type { FieldProps } from "formik";
 import { enUS } from "date-fns/locale";
 
 registerLocale("enUS", enUS);

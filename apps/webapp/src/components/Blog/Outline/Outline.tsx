@@ -4,7 +4,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
 import * as React from "react";
-import { SanityBlock } from "sanity-codegen";
+import type { SanityBlock } from "sanity-codegen";
 import cx from "classnames";
 
 type Props = {

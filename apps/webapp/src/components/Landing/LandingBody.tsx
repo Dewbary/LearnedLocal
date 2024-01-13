@@ -1,4 +1,3 @@
-import rightArrowImage from "../../../assets/landing/right_arrow.png";
 import bakingImage from "../../../assets/landing/baking_image.jpg";
 import tennisImage from "../../../assets/landing/tennis_image.jpg";
 import compassGraphic from "../../../assets/landing/compass_graphic.png";

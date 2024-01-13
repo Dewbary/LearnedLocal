@@ -1,9 +1,7 @@
 import { ArrowUpTrayIcon } from "@heroicons/react/24/solid";
 import CustomModal from "../CustomModal";
 import { ChatBubbleOvalLeftIcon, DocumentDuplicateIcon, EnvelopeIcon } from "@heroicons/react/24/outline";
-import Image from "next/image";
-import instagramImage from "../../../../assets/instagram-icon.png";
-import { ExperienceInfo } from "packages/db/types/types";
+import type { ExperienceInfo } from "packages/db/types/types";
 import { env } from "packages/config/env.mjs";
 import { Facebook } from "react-feather";
 

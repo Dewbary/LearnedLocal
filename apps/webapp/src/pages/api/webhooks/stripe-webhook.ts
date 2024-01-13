@@ -1,5 +1,4 @@
 import getRawBody from "raw-body";
-import { env } from "@learnedlocal/config/env.mjs";
 
 import Stripe from "stripe";
 import type { NextApiRequest, NextApiResponse } from "next";

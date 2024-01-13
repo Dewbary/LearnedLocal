@@ -1,4 +1,4 @@
-import { ExperienceInfo } from "packages/db/types/types";
+import type { ExperienceInfo } from "packages/db/types/types";
 import type {
   CategoryFilter,
   DateFilter,

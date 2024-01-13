@@ -1,7 +1,7 @@
 import type { ExperienceInfo } from "packages/db/types/types";
 import * as React from "react";
 import ExperienceDate from "./ExperienceDate";
-import { ExperienceAvailability } from "packages/db";
+import type { ExperienceAvailability } from "packages/db";
 
 type Props = {
   className?: string;

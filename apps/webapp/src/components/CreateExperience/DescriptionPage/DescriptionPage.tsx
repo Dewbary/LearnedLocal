@@ -1,12 +1,12 @@
 import { ErrorMessage, Field, useFormikContext } from "formik";
-import React, { useEffect } from "react";
+import React from "react";
 import { FormLabel } from "../Form/FormLabel";
 import { InputField } from "../Form/InputField";
 import FormPageHeader from "../Typography/Typography";
 import { api } from "~/utils/api";
 
 const DescriptionPage = () => {
-  const { data: categories, isLoading } = api.category.getAll.useQuery(
+  const { data: categories } = api.category.getAll.useQuery(
     undefined,
     {
       staleTime: Infinity,

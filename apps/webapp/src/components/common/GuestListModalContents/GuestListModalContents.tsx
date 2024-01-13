@@ -36,7 +36,7 @@ export default function GuestListModalContents(props: Props) {
 
   useEffect(() => {
     setRegistrantList(eventRegistrations.data);
-  }, [eventRegistrations.isFetching]);
+  }, [eventRegistrations.data]);
 
   return (
     <div className="flex flex-1 flex-col">

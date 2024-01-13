@@ -1,4 +1,4 @@
-import { ExperienceAvailability } from "packages/db";
+import type { ExperienceAvailability } from "packages/db";
 
 const today = new Date();
 today.setHours(0, 0, 0, 0);

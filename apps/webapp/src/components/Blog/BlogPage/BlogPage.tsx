@@ -1,6 +1,6 @@
 import * as React from "react";
 import BlogLanding from "./BlogLanding";
-import { PostInfo } from "~/components/types";
+import type { PostInfo } from "~/components/types";
 
 type Props = {
   posts: PostInfo[];

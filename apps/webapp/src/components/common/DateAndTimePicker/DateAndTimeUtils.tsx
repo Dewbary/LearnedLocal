@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import type { DateInfo } from "../../types";
 import type { ExperienceInfo } from "@learnedlocal/db/types/types";
-import { ExperienceAvailability, Registration } from "packages/db";
+import type { ExperienceAvailability, Registration } from "packages/db";
 
 const dateDisplayOptions = {
   month: "short",

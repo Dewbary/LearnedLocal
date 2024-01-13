@@ -1,8 +1,6 @@
 import CoverImage from "../../BlogPage/BlogLanding/CoverImage";
 import PostTitle from "../PostTitle";
-import Date from "../../BlogPage/Date";
-import type { Author, CoverImageInfo } from "~/components/types";
-import Link from "next/link";
+import type { CoverImageInfo } from "~/components/types";
 import { useRouter } from "next/router";
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 
@@ -13,7 +11,7 @@ type Props = {
   author: string;
 };
 
-export default function PostHeader({ title, coverImage, date, author }: Props) {
+export default function PostHeader({ title, coverImage, author }: Props) {
   const router = useRouter();
 
   return (

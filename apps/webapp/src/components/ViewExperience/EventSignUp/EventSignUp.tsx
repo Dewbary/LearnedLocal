@@ -2,8 +2,8 @@ import * as React from "react";
 import { Typography } from "~/components/common/Typography";
 import Counter from "~/components/common/Counter";
 import ExperienceDateTimeSelect from "./ExperienceDateTimeSelect";
-import { ExperienceInfo } from "packages/db/types/types";
-import { ExperienceAvailability, Registration } from "packages/db";
+import type { ExperienceInfo } from "packages/db/types/types";
+import type { ExperienceAvailability, Registration } from "packages/db";
 
 type Props = {
   experience: ExperienceInfo;

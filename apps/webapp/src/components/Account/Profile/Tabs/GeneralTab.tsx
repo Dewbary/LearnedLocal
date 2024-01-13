@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import { Profile } from "packages/db";
+import type { Profile } from "packages/db";
 import { useEffect, useState } from "react";
 import InputField from "~/components/Account/InputField";
 import { api } from "~/utils/api";

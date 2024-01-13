@@ -1,5 +1,5 @@
 import { ErrorMessage, Form, Formik } from "formik";
-import { ReactNode, useEffect, useState } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 import AccountCreationTab from "./AccountCreationTab";
 import AccountVerificationTab from "./AccountVerificationTab";
 import {useSignUp} from "@clerk/nextjs";
@@ -24,7 +24,7 @@ export type { SignupFlowFormValues };
 
 export default function SignUpFlow() {
 
-  const { isLoaded, signUp, setActive } = useSignUp();
+  const { signUp, setActive } = useSignUp();
   const router = useRouter();
   const searchParams = useSearchParams();
   const oAuthRedirect = searchParams.get("oauthredirect") === "true";
@@ -37,7 +37,7 @@ export default function SignUpFlow() {
   const [ errors, setErrors ] = useState("");
 
   const [ activeStep, setActiveStep ] = useState(0);
-  const [ steps, setSteps ] = useState([
+  const [ steps ] = useState([
     <AccountCreationTab key={0}/>,
     <AccountVerificationTab key={1}/>,
     <IntentSurveyTab key={2}/>,
