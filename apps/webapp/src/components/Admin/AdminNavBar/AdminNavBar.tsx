@@ -5,7 +5,7 @@ const AdminNavBar = () => {
   return (
     <div className="navbar bg-slate-600 text-white">
       <div className="flex-1">
-        <Link className="btn btn-ghost text-xl" href="/admin">
+        <Link className="text-xl btn btn-ghost" href="/admin">
           LL Admin
         </Link>
       </div>
@@ -16,6 +16,9 @@ const AdminNavBar = () => {
           </li>
           <li>
             <Link href="/admin/textlist">TextList</Link>
+          </li>
+          <li>
+            <Link href="/admin/kpi">KPIs</Link>
           </li>
         </ul>
       </div>

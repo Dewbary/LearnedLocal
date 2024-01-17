@@ -58,4 +58,13 @@ export const paymentRouter = createTRPCRouter({
 
       return { sessionId: session.id };
     }),
+
+  getTotalRevenue: protectedProcedure.query(async ({ ctx }) => {
+    const totalRevenue = await ctx.prisma.$queryRaw<[{ totalRevenue: number }]>`
+      SELECT SUM(price * "partySize") as "totalRevenue" FROM "Registration" AS r
+      JOIN "Experience" AS e ON r."experienceId" = e.id
+    `;
+
+    return totalRevenue[0]?.totalRevenue ?? 0;
+  }),
 });
