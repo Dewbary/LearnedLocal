@@ -74,17 +74,17 @@ const config = {
       spacing: {
         22: "5.5rem",
       },
-    },
-    borderRadius: {
-      "tremor-small": "0.375rem",
-      "tremor-default": "0.5rem",
-      "tremor-full": "9999px",
-    },
-    fontSize: {
-      "tremor-label": "0.75rem",
-      "tremor-default": ["0.875rem", { lineHeight: "1.25rem" }],
-      "tremor-title": ["1.125rem", { lineHeight: "1.75rem" }],
-      "tremor-metric": ["1.875rem", { lineHeight: "2.25rem" }],
+      borderRadius: {
+        "tremor-small": "0.375rem",
+        "tremor-default": "0.5rem",
+        "tremor-full": "9999px",
+      },
+      fontSize: {
+        "tremor-label": "0.75rem",
+        "tremor-default": ["0.875rem", { lineHeight: "1.25rem" }],
+        "tremor-title": ["1.125rem", { lineHeight: "1.75rem" }],
+        "tremor-metric": ["1.875rem", { lineHeight: "2.25rem" }],
+      },
     },
   },
   plugins: [
