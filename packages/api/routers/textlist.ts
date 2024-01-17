@@ -1,6 +1,16 @@
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 import { z } from "zod";
 import sendTextMessage from "../utils/twilio";
+import { BetaAnalyticsDataClient } from "@google-analytics/data";
+import { google } from "@google-analytics/data/build/protos/protos";
+import { env } from "@learnedlocal/config/env.mjs";
+
+const client = new BetaAnalyticsDataClient({
+  credentials: {
+    client_email: env.GOOGLE_CLIENT_EMAIL,
+    private_key: env.GOOGLE_PRIVATE_KEY.replace(/\\n/gm, "\n"),
+  },
+});
 
 export const textListRouter = createTRPCRouter({
   sendTextMessage: protectedProcedure
@@ -9,14 +19,46 @@ export const textListRouter = createTRPCRouter({
       if (ctx.userId !== process.env.ADMIN_USER_ID) {
         return;
       }
-      const contacts = await ctx.prisma.phoneContact.findMany({
-        select: { phoneNumber: true },
-      });
+      const contacts = await ctx.prisma.phoneContact.findMany();
 
       contacts.forEach(async (contact) => {
         await sendTextMessage(contact.phoneNumber, input.message);
       });
     }),
+
+  getTextList: protectedProcedure.query(async ({ ctx }) => {
+    return await ctx.prisma.phoneContact.findMany();
+  }),
+
+  getTextListInteractions: protectedProcedure.query(async ({ ctx }) => {
+    const date = new Date();
+    date.setUTCDate(date.getUTCDate() - 7);
+    date.setUTCHours(0, 0, 0, 0);
+    const dateString = date.toISOString().split("T")[0];
+
+    try {
+      const [response] = await client.runReport({
+        property: env.GOOGLE_ANALYTICS_PROPERTY_ID,
+        dateRanges: [{ startDate: dateString, endDate: "today" }],
+        dimensions: [{ name: "eventName" }],
+        metrics: [{ name: "eventCount" }],
+        dimensionFilter: {
+          filter: {
+            fieldName: "eventName",
+            stringFilter: {
+              value: "view_details",
+              matchType: "EXACT",
+            },
+          },
+        },
+      });
+
+      // rows type is google.analytics.data.v1beta.IRow[]
+      return response?.rows?.[0]?.metricValues?.[0]?.value ?? 0;
+    } catch (error) {
+      console.error("Error fetching Google Analytics data:", error);
+    }
+  }),
 
   addToTextList: publicProcedure
     .input(z.string())

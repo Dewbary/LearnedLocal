@@ -20,6 +20,9 @@ const server = z.object({
   TWILIO_ACCOUNT_PHONE: z.string().min(1),
   EDGE_FUNCTION_VERIFICATION_TOKEN: z.string().min(1),
   ADMIN_USER_ID: z.string().min(1),
+  GOOGLE_ANALYTICS_PROPERTY_ID: z.string().min(1),
+  GOOGLE_PRIVATE_KEY: z.string().min(1),
+  GOOGLE_CLIENT_EMAIL: z.string().min(1),
 });
 
 /**
@@ -32,7 +35,7 @@ const client = z.object({
   NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_NAME: z.string().min(1),
   NEXT_PUBLIC_STRIPE_PUBLIC_KEY: z.string().min(1),
   NEXT_PUBLIC_GA4_DEBUG_TRUE: z.string().min(1),
-  NEXT_PUBLIC_FACEBOOK_APP_ID: z.string().min(1)
+  NEXT_PUBLIC_FACEBOOK_APP_ID: z.string().min(1),
 });
 
 /**
@@ -63,7 +66,10 @@ const processEnv = {
     process.env.EDGE_FUNCTION_VERIFICATION_TOKEN,
   NEXT_PUBLIC_GA4_DEBUG_TRUE: process.env.NEXT_PUBLIC_GA4_DEBUG_TRUE,
   ADMIN_USER_ID: process.env.ADMIN_USER_ID,
-  NEXT_PUBLIC_FACEBOOK_APP_ID: process.env.NEXT_PUBLIC_FACEBOOK_APP_ID
+  NEXT_PUBLIC_FACEBOOK_APP_ID: process.env.NEXT_PUBLIC_FACEBOOK_APP_ID,
+  GOOGLE_ANALYTICS_PROPERTY_ID: process.env.GOOGLE_ANALYTICS_PROPERTY_ID,
+  GOOGLE_PRIVATE_KEY: process.env.GOOGLE_PRIVATE_KEY,
+  GOOGLE_CLIENT_EMAIL: process.env.GOOGLE_CLIENT_EMAIL,
 };
 
 // Don't touch the part below
