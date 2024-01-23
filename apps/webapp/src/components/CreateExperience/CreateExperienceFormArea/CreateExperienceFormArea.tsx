@@ -1,15 +1,14 @@
 import { Form, Formik } from "formik";
-import { useRouter } from "next/router";
 import * as React from "react";
 import { api } from "~/utils/api";
 import {
   getInitialFormValues,
-  getTabComponent,
+  getCurrentFormPage,
   validationSchema,
 } from "../CreateExperienceFormUtils";
 import type { ExperienceInfo } from "@learnedlocal/db/types/types";
 import { useExperienceSubmission } from "../hooks/useExperienceSubmission";
-import CreateExperienceFormLayout from "./CreateExperienceFormLayout";
+import FormTabLayout from "./FormTabLayout";
 import type { TabInfo } from "../types";
 import Link from "next/link";
 
@@ -34,7 +33,6 @@ const CreateExperienceFormArea = ({
   next,
   back,
 }: Props) => {
-  const router = useRouter();
   const { data: profile, isLoading: profileIsLoading } =
     api.profile.getProfile.useQuery();
 
@@ -57,40 +55,45 @@ const CreateExperienceFormArea = ({
 
   const initialValues = getInitialFormValues(experience);
 
-  return (
-    <div className="flex flex-1 rounded-lg bg-gradient-to-br from-amber-300 to-amber-50 px-4 pb-12 pt-20 md:mx-4 md:mb-4 md:p-8">
-      {profileExists === "yes" || profileExists === "loading" ? (
-        <Formik
-          key={slug}
-          initialValues={initialValues}
-          onSubmit={(values, helpers) => handleSubmit(values, helpers)}
-          validationSchema={validationSchema}
-          enableReinitialize
-        >
-          <Form className="flex flex-1">
-            <CreateExperienceFormLayout
-              tabComponent={getTabComponent(
-                activeTab?.activeMatcher ?? "",
-                !!experience?.id
-              )}
-              onNext={next}
-              onBack={back}
-              slug={slug}
-              isFirstStep={step === 0}
-              isLastStep={step === tabInfoList.length - 1}
-            />
-          </Form>
-        </Formik>
-      ) : (
+  const { title, subTitle, pageComponent } = getCurrentFormPage(
+    activeTab?.activeMatcher ?? "",
+    !!experience?.id
+  );
+
+  if (profileExists !== "yes" && profileExists !== "loading") {
+    return (
+      <div className="relative flex flex-1 flex-col bg-ll-grey p-9">
         <div className="flex flex-1 flex-col items-center justify-center gap-5">
           <p>
-            You need to set up your hosting profile before creating an experience
+            You need to set up your hosting profile before creating an
+            experience
           </p>
-          <Link href="/account/hostonboard" className="btn-primary btn">
+          <Link href="/account/hostonboard" className="btn btn-primary">
             Set Up My Profile
           </Link>
         </div>
-      )}
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative flex flex-1 flex-col p-9">
+      <Formik
+        key={slug}
+        initialValues={initialValues}
+        onSubmit={(values, helpers) => handleSubmit(values, helpers)}
+        validationSchema={validationSchema}
+        enableReinitialize
+      >
+        <Form>
+          <FormTabLayout
+            title={title}
+            subTitle={subTitle}
+            pageComponent={pageComponent}
+            slug={slug}
+          />
+        </Form>
+      </Formik>
     </div>
   );
 };

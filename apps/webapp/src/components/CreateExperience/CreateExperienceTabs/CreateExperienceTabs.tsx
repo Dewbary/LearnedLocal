@@ -18,8 +18,9 @@ const CreateExperienceTabs = ({ tabInfoList, onTabClick }: Props) => {
   }, [router.asPath]);
 
   return (
-    <div className="hidden lg:block">
-      <aside className="flex w-48 flex-col overflow-y-auto">
+    <div className="flex flex-1">
+      <div>Form Tabs</div>
+      {/* <aside className="flex w-48 flex-col overflow-y-auto">
         <div className={`flex flex-grow flex-col items-end md:block`}>
           <ul className={`flex flex-col items-end`}>
             {tabInfoList.map((item, index) => {
@@ -48,7 +49,7 @@ const CreateExperienceTabs = ({ tabInfoList, onTabClick }: Props) => {
             </button>
           </div>
         </div>
-      </aside>
+      </aside> */}
     </div>
   );
 };

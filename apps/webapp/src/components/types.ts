@@ -3,6 +3,7 @@ import type {
   ExperienceAvailability,
   Profile,
 } from "@learnedlocal/db";
+import { ReactNode } from "react";
 import type {
   SanityReference,
   SanityKeyedReference,
@@ -127,4 +128,10 @@ export type TimeRequest = {
   hour: number;
   minute: number;
   ampm: "am" | "pm";
+};
+
+export type FormPage = {
+  title: string;
+  subTitle: string;
+  pageComponent: ReactNode;
 };

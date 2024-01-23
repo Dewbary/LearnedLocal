@@ -20,27 +20,34 @@ import StartPage from "./StartPage";
 import type { ImageListType } from "react-images-uploading";
 import { uploadImageToBucket } from "~/utils/images";
 import type { ExperienceInfo, Pin } from "@learnedlocal/db/types/types";
+import { FormPage } from "../types";
 
 export const validationSchema = Yup.object().shape({
   title: Yup.string().required("You need to give your experience a title"),
-  description: Yup.string().required("You need to give your experience a description"),
+  description: Yup.string().required(
+    "You need to give your experience a description"
+  ),
   availability: Yup.array()
     .of(
       Yup.object().shape({
-        startTime: Yup.string().required("You must set a start time for your experience"),
-        endTime: Yup.string().nullable().required("You must set an end time for your experience"),
+        startTime: Yup.string().required(
+          "You must set a start time for your experience"
+        ),
+        endTime: Yup.string()
+          .nullable()
+          .required("You must set an end time for your experience"),
       })
     )
     .required("You must have at least one date and time for your experience")
     .min(1, "You must have at least one date and time for your experience"),
   free: Yup.boolean(),
-  price: Yup.number()
-    .when('free', {
-      is: (free: boolean) => !free,
-      then: (schema: Yup.NumberSchema) => schema
+  price: Yup.number().when("free", {
+    is: (free: boolean) => !free,
+    then: (schema: Yup.NumberSchema) =>
+      schema
         .min(1, "If your experience is not free, it must be at least $1")
-        .required("If your experience is not free, it must be at least $1")
-    })
+        .required("If your experience is not free, it must be at least $1"),
+  }),
 });
 
 export const initialValues: FormValues = {
@@ -65,7 +72,7 @@ export const initialValues: FormValues = {
   prepItems: [],
   includedItems: [],
   activityNotes: [],
-  additionalInformation: ""
+  additionalInformation: "",
 };
 
 export const getTabInfos = (slug: string) => {
@@ -117,25 +124,61 @@ export const getTabInfos = (slug: string) => {
   ];
 };
 
-export const getTabComponent = (activeTab: string, isEditing: boolean) => {
-  switch (activeTab) {
-    case "description":
-      return <DescriptionPage />;
-    case "date":
-      return <DatePage />;
-    case "location":
-      return <LocationPage />;
-    case "requirements":
-      return <RequirementsPage />;
-    case "settings":
-      return <SettingsPage />;
-    case "photos":
-      return <PhotosPage />;
-    case "submit":
-      return <FinalStepsPage isEditing={isEditing} />;
-    default:
-      return <StartPage />;
+const formPages: FormPage[] = [
+  {
+    title: "Description",
+    subTitle: "Tell us about your experience",
+    pageComponent: <DescriptionPage />,
+  },
+  {
+    title: "Date & Time",
+    subTitle: "When is your experience?",
+    pageComponent: <DatePage />,
+  },
+  {
+    title: "Location",
+    subTitle: "Where is your experience?",
+    pageComponent: <LocationPage />,
+  },
+  {
+    title: "Requirements",
+    subTitle: "What do guests need to know?",
+    pageComponent: <RequirementsPage />,
+  },
+  {
+    title: "Settings",
+    subTitle: "How do you want to run your experience?",
+    pageComponent: <SettingsPage />,
+  },
+  {
+    title: "Photos",
+    subTitle: "Show off your experience",
+    pageComponent: <PhotosPage />,
+  },
+  {
+    title: "Submit",
+    subTitle: "Review your experience",
+    pageComponent: <FinalStepsPage isEditing={false} />,
+  },
+];
+
+export const getCurrentFormPage = (
+  activeTab: string,
+  isEditing: boolean
+): FormPage => {
+  const formPage = formPages.find(
+    (page) => page.title.toLowerCase() === activeTab.toLowerCase()
+  );
+
+  if (!formPage) {
+    return {
+      title: "Start",
+      subTitle: "Let's get started",
+      pageComponent: <StartPage />,
+    };
   }
+
+  return formPage;
 };
 
 export const uploadImages = async (
@@ -195,7 +238,7 @@ export const getUpdateExperienceObject = (
     prepItems: values.prepItems,
     includedItems: values.includedItems,
     activityNotes: values.activityNotes,
-    additionalInformation: values.additionalInformation
+    additionalInformation: values.additionalInformation,
   };
 };
 
@@ -229,7 +272,7 @@ export const getCreateExperienceObject = (
     prepItems: values.prepItems,
     includedItems: values.includedItems,
     activityNotes: values.activityNotes,
-    additionalInformation: values.additionalInformation
+    additionalInformation: values.additionalInformation,
   };
 };
 
