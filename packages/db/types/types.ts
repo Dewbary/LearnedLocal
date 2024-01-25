@@ -2,6 +2,7 @@ import type {
   Experience,
   ExperienceAvailability,
   Profile,
+  Registration,
 } from "@prisma/client";
 
 export type ExperienceInfo = Experience & {
@@ -16,6 +17,11 @@ export type AvailabilityInfo =
       };
     })
   | null;
+
+export type RegistrationInfo = Registration & {
+  availability: ExperienceAvailability;
+  experience: Experience;
+}
 
 export type Pin = {
   lat: number;

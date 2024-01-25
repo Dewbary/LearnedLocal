@@ -1,7 +1,7 @@
 import { date, z } from "zod";
 import { createTRPCRouter, publicProcedure, protectedProcedure } from "../trpc";
 import { sendExperienceCreationEmail } from "../utils/sendgrid";
-import { add, addDays, startOfDay, startOfToday, startOfWeek, sub } from "date-fns";
+import { add, addDays, startOfDay, startOfToday, startOfTomorrow, startOfWeek, sub } from "date-fns";
 import { env } from "@learnedlocal/config/env.mjs";
 import Stripe from "stripe";
 
@@ -176,6 +176,32 @@ export const experienceRouter = createTRPCRouter({
     return await ctx.prisma.registration.findMany({
       where: {
         userId: ctx.userId,
+        availability: {
+          startTime: {
+            gt: startOfToday()
+          }
+        }
+      },
+      include: {
+        experience: {
+          include: {
+            profile: true,
+            availability: true,
+          },
+        },
+      },
+    });
+  }),
+
+  getParticipated: protectedProcedure.query(async ({ ctx }) => {
+    return await ctx.prisma.registration.findMany({
+      where: {
+        userId: ctx.userId,
+        availability: {
+          startTime: {
+            lte: startOfToday()
+          }
+        }
       },
       include: {
         experience: {

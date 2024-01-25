@@ -21,6 +21,7 @@ const ExperienceDateTimeOption = ({ date, spotsLeft, onClick }: Props) => {
         filled ? "disabled" : ""
       } flex w-full items-center justify-between rounded-lg px-2 py-2 hover:bg-ll-grey`}
       onClick={onClick}
+      data-cy={`date-option:${getDay(date.startTime)}`}
     >
       <div className="flex flex-col items-start">
         <div

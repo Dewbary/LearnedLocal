@@ -73,6 +73,14 @@ async function main() {
       endTime: new Date(2024, 11, 20, 22, 30, 0)
     }
   });
+
+  const testAvailability2 = await prisma.experienceAvailability.create({
+    data: {
+      experienceId: testExperience.id,
+      startTime: new Date(2024, 11, 27, 20, 30, 0),
+      endTime: new Date(2024, 11, 27, 22, 30, 0)
+    }
+  });
 }
 
 main()

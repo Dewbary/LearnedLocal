@@ -22,6 +22,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import EventSignUp from "./EventSignUp";
 import defaultProfilePic from "../../../assets/profile_pic.png";
+import ChangeRegistration from "./ChangeRegistration/ChangeRegistration";
 
 export default function NewViewExperiencePage(
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -35,6 +36,10 @@ export default function NewViewExperiencePage(
   const { data: registrantCount } = api.registration.byExperience.useQuery(
     props.experienceId
   );
+
+  const { data: activeRegistration } = api.registration.activeRegistrationByExpId.useQuery(
+    props.experienceId
+  )
 
   const scrollToImage = function (carouselId: string, imageId: string) {
     const carousel = document.getElementById(carouselId);
@@ -341,21 +346,28 @@ export default function NewViewExperiencePage(
             </div>
 
             <div className="order-1 flex h-fit w-full basis-1/3 flex-col font-inter items-center md:order-2">
-              {experienceData && (
-                <EventSignUp
-                  experience={experienceData}
-                  registrantCount={registrantCount}
-                  goToCheckoutPage={goToCheckoutPage}
-                />
-                // Todo: remove later
-                // <ExperienceDateSelection
-                //   availableDates={experienceData?.availability}
-                //   registrationsCount={registrantCount}
-                //   availableSpots={experienceData?.maxAttendees}
-                //   onSignUp={goToCheckoutPage}
-                //   experienceIsFull={experienceData?.isFull}
-                // />
+              {activeRegistration ? (
+                <>
+                  {experienceData && registrantCount && (
+                    <ChangeRegistration
+                      experience={experienceData}
+                      registrationInfo={activeRegistration}
+                      registrations={registrantCount}
+                    />
+                  )}
+                </>
+              ) : (
+                <>
+                  {experienceData && (
+                    <EventSignUp
+                      experience={experienceData}
+                      registrantCount={registrantCount}
+                      goToCheckoutPage={goToCheckoutPage}
+                    />
+                  )}
+                </>
               )}
+              
             </div>
           </div>
         </div>
