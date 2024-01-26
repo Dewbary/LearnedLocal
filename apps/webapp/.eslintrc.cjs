@@ -7,13 +7,13 @@ const config = {
       ],
       files: ["*.ts", "*.tsx"],
       parserOptions: {
-        project: "tsconfig.json",
+        project: "apps/webapp/tsconfig.json",
       },
     },
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
-    project: "./tsconfig.json",
+    project: "apps/webapp/tsconfig.json",
   },
   plugins: ["@typescript-eslint"],
   extends: [

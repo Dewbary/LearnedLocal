@@ -11,6 +11,7 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.mjs",
-    "../../packages/config/*"
-, "src/pages/account/signup"  ]
+    "../../packages/config/*",
+    "src/pages/account/signup"
+  ]
 }
