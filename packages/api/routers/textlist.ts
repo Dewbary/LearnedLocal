@@ -21,9 +21,9 @@ export const textListRouter = createTRPCRouter({
       }
       const contacts = await ctx.prisma.phoneContact.findMany();
 
-      contacts.forEach(async (contact) => {
+      for (const contact of contacts) {
         await sendTextMessage(contact.phoneNumber, input.message);
-      });
+      }
     }),
 
   getTextList: protectedProcedure.query(async ({ ctx }) => {
