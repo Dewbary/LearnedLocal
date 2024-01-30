@@ -1,10 +1,11 @@
 import * as React from "react";
 import { format } from "date-fns";
 import type { DateInfo } from "~/components/types";
-import { FormikErrors, useFormikContext } from "formik";
-import type { FieldArrayRenderProps } from "formik";
+import { Field, useFormikContext } from "formik";
+import type { FieldArrayRenderProps, FieldProps, FormikErrors } from "formik";
 import TimeSelect from "~/components/common/TimeSelect";
 import type { FormValues } from "~/components/CreateExperience/types";
+import AmPmPicker from "~/components/common/Fields/AmPmPicker";
 
 type Props = {
   dateIndex: number;
@@ -22,11 +23,10 @@ const DateTimeSelectItem = ({ dateIndex, dateInfo, arrayHelpers }: Props) => {
 
   return (
     <>
-      <div className="flex flex-col rounded-lg bg-gray-100 px-4 py-2 lg:flex-row lg:items-center lg:justify-center">
-        <h3 className="pb-2 pr-4 text-sm font-bold lg:pb-0">
-          {format(dateInfo.startTime, "MMM dd, yyyy")}
+      <div className="flex flex-col rounded-lg border border-ll-slate bg-ll-grey px-4 py-4 lg:flex-row lg:items-center lg:justify-center">
+        <h3 className="pb-2 pr-4 text-lg lg:pb-0">
+          {format(dateInfo.startTime, "E, MMMM dd, yyyy")}
         </h3>
-
         <div className="flex flex-col">
           <div className="flex">
             <TimeSelect
@@ -45,7 +45,7 @@ const DateTimeSelectItem = ({ dateIndex, dateInfo, arrayHelpers }: Props) => {
                   startTime: updatedStartTime,
                 });
               }}
-            />{" "}
+            />
             <div className="self-center px-2">-</div>
             <TimeSelect
               title="End"
@@ -64,6 +64,16 @@ const DateTimeSelectItem = ({ dateIndex, dateInfo, arrayHelpers }: Props) => {
             />
           </div>
         </div>
+        <Field name="lastName">
+          {({ field, form, meta }: FieldProps) => (
+            <AmPmPicker
+              className="ml-4 h-14 w-12"
+              field={field}
+              form={form}
+              meta={meta}
+            />
+          )}
+        </Field>
       </div>
     </>
   );

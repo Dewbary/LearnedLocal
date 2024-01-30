@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/router";
-import type { TabInfo } from "../types";
 import styles from "./CreateExperienceTabs.module.css";
+import type { FormPage } from "~/components/types";
 
 type Props = {
-  tabInfoList: TabInfo[];
+  tabInfoList: FormPage[];
   onTabClick: (index: number) => void;
 };
 
@@ -18,39 +17,31 @@ const CreateExperienceTabs = ({ tabInfoList, onTabClick }: Props) => {
   }, [router.asPath]);
 
   return (
-    <div className="flex flex-1">
-      <div>Form Tabs</div>
-      {/* <aside className="flex w-48 flex-col overflow-y-auto">
-        <div className={`flex flex-grow flex-col items-end md:block`}>
-          <ul className={`flex flex-col items-end`}>
-            {tabInfoList.map((item, index) => {
-              const isSelected = selectedTab.includes(item.activeMatcher);
+    <ul className={`flex flex-1 flex-col items-center`}>
+      {tabInfoList.map((item, index) => {
+        const isSelected = selectedTab.includes(item.url);
 
-              return (
-                <li key={index} className={styles.progressItem}>
-                  <button
-                    className={`flex w-full items-center rounded-lg p-2 ${
-                      isSelected ? "bg-amber-500 text-white" : "bg-white"
-                    }`}
-                    onClick={() => onTabClick(index)}
-                  >
-                    <div className="flex content-end items-center space-x-2">
-                      <span>{item.text}</span>
-                      {item.icon}
-                    </div>
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-          <div className="flex flex-1 flex-col items-end justify-end pb-20 ">
-            <button className="btn text-white">
-              <Link href="/">Return Home</Link>
-            </button>
-          </div>
-        </div>
-      </aside> */}
-    </div>
+        return (
+          <li key={index}>
+            <div className="flex flex-col items-center">
+              <button
+                className={`h-10 w-48 rounded-lg text-center ${
+                  isSelected
+                    ? "bg-ll-black text-white"
+                    : "border border-ll-slate"
+                }`}
+                onClick={() => onTabClick(index)}
+              >
+                {item.tabTitle}
+              </button>
+              {index < tabInfoList.length - 1 && (
+                <div className={styles.progressLine}></div>
+              )}
+            </div>
+          </li>
+        );
+      })}
+    </ul>
   );
 };
 

@@ -16,7 +16,7 @@ const CreateExperienceButton = ({ className }: Props) => {
   return (
     <Link
       className={`${className ?? ""} duration-300 ease-in-out hover:opacity-75`}
-      href={`/experience/create/${slug}`}
+      href={`/experience/create/${slug}/description`}
     >
       Host an Experience
     </Link>

@@ -5,12 +5,12 @@ import DatePickerField from "../Fields/DatePickerField";
 
 const DateAndTimePicker = () => {
   return (
-    <div className="flex flex-1 flex-col md:flex-row">
-      <div className="card flex place-items-center p-4 shadow-lg">
+    <div className="flex flex-1 flex-col flex-wrap lg:flex-row">
+      <div className="card flex flex-1 place-items-center">
         <Field name="availability" component={DatePickerField} />
       </div>
       <div className="m-2" />
-      <div className="card flex flex-1 place-items-center p-4 shadow-lg">
+      <div className="card flex flex-1 place-items-center">
         <TimeConfiguration />
       </div>
     </div>

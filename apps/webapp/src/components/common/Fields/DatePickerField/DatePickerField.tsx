@@ -3,7 +3,6 @@ import type { FieldProps } from "formik";
 import React from "react";
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import "react-datepicker/dist/react-datepicker.css";
 import { enUS } from "date-fns/locale";
 import type { DateInfo } from "~/components/types";
 import { produce } from "immer";

@@ -41,15 +41,13 @@ const SearchBar = ({ onPlaceSelected, onApiReady }: SearchBarProps) => {
   };
 
   return (
-    <div className="">
-      <input
-        ref={searchBoxRef}
-        type="text"
-        placeholder="Search location..."
-        className="w-72 rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-        onKeyDown={handleKeyDown}
-      />
-    </div>
+    <input
+      ref={searchBoxRef}
+      type="text"
+      placeholder="Enter your address"
+      className="h-14 w-96 rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+      onKeyDown={handleKeyDown}
+    />
   );
 };
 

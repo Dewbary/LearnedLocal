@@ -22,7 +22,7 @@ const TimeSelect = ({
     <div>
       <DatePicker
         selected={selectedTime}
-        value={selectedTime ? format(selectedTime, "h:mm aa") : undefined}
+        value={selectedTime ? format(selectedTime, "h:mm") : undefined}
         onChange={onChange}
         showTimeSelect
         showTimeSelectOnly
@@ -30,10 +30,10 @@ const TimeSelect = ({
         timeCaption={""}
         placeholderText={title}
         locale="enUS"
-        dateFormat="h:mm aa"
-        className={`w-20 rounded-lg border ${
+        dateFormat="h:mm"
+        className={`h-14 w-20 rounded-lg border border-ll-slate bg-ll-grey text-center ${
           error ? "border-red-500" : ""
-        } p-2 text-sm`}
+        } p-2 text-lg`}
       />
     </div>
   );

@@ -131,7 +131,14 @@ export type TimeRequest = {
 };
 
 export type FormPage = {
-  title: string;
+  url: string;
+  tabTitle: string;
+  pageTitle: string;
   subTitle: string;
   pageComponent: ReactNode;
+};
+
+export type Item = {
+  name: string;
+  value: number;
 };
