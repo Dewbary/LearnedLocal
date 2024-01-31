@@ -1,6 +1,6 @@
-import { ExperienceInfo } from "packages/db/types/types";
+import type { ExperienceInfo } from "packages/db/types/types";
 import ExperienceDateTimeSelect from "../../EventSignUp/ExperienceDateTimeSelect";
-import { ExperienceAvailability, Registration } from "packages/db";
+import type { ExperienceAvailability, Registration } from "packages/db";
 import GuestCounter from "../../Components/GuestCounter";
 import PriceDisplay from "../../Components/PriceDisplay";
 

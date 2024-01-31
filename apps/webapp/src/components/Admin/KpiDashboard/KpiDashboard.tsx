@@ -3,13 +3,13 @@ import { Card, Metric, Text, Title, BarList, Flex, Grid } from "@tremor/react";
 import Chart from "./Chart";
 import { api } from "~/utils/api";
 
-const website = [
-  { name: "/home", value: 1230 },
-  { name: "/contact", value: 751 },
-  { name: "/gallery", value: 471 },
-  { name: "/august-discount-offer", value: 280 },
-  { name: "/case-studies", value: 78 },
-];
+// const website = [
+//   { name: "/home", value: 1230 },
+//   { name: "/contact", value: 751 },
+//   { name: "/gallery", value: 471 },
+//   { name: "/august-discount-offer", value: 280 },
+//   { name: "/case-studies", value: 78 },
+// ];
 
 const shop = [
   { name: "/home", value: 453 },

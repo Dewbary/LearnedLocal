@@ -31,6 +31,7 @@ const config = {
         "ll-yellow": "#ECD371",
         "ll-tan": "#EBE6D5",
         "ll-slate": "#B1AEAE",
+        "ll-cloud": "#F6F4F3",
 
         tremor: {
           brand: {
@@ -66,6 +67,9 @@ const config = {
         poppins: ["Poppins", "sans-serif"],
         inter: ["Inter", "sans-serif"],
         raleway: ["Raleway", "sans-serif"],
+        inktrap: ["Inktrap", "sans-serif"],
+        eduwhyte: ["Whyteplus", "sans-serif"],
+        sourcesans: ['"Source Sans 3"', "sans-serif"]
       },
       fontWeight: {
         regular: "400",

@@ -7,6 +7,7 @@ import sailingImage from "../../../assets/landing/sailing_image.jpg";
 import gardeningImage from "../../../assets/landing/gardening_image.jpg";
 import Image from "next/image";
 import Link from "next/link";
+import { Typography } from "../common/Typography";
 
 export default function LandingBody() {
   return (
@@ -15,12 +16,12 @@ export default function LandingBody() {
         <div className="flex flex-col lg:flex-row lg:items-stretch lg:gap-5">
           <div className="flex flex-col gap-5 lg:basis-3/5">
             <div className="flex w-full flex-col gap-5 rounded-3xl bg-ll-green px-7 py-9 lg:p-16">
-              <div className="font-raleway text-4xl font-semibold">
+              <div className={Typography.HeroHeader}>
                 Creating unique <br />
                 experiences &amp; local <br />
                 connections
               </div>
-              <div className="font-inter font-light">
+              <div className={Typography.BodyText}>
                 We help communities discover unique experiences and foster
                 meaningful connections. Our mission is to facilitate authentic
                 experiences in your community while supporting aspiring
@@ -43,7 +44,7 @@ export default function LandingBody() {
                 className="flex w-full flex-row items-center justify-between gap-4 rounded-3xl bg-ll-blue p-7 font-inter text-ll-grey transition-colors hover:cursor-pointer hover:bg-ll-yellow hover:text-ll-black lg:order-2 lg:basis-1/4 lg:flex-col relative"
                 data-cy="landing-action-button"
               >
-                <div className="">
+                <div className={Typography.BodyText}>
                   Find your next local experience with us
                 </div>
                 <div className="bg-ll-grey p-3 rounded-full lg:absolute lg:bottom-4 lg:right-4">
@@ -90,8 +91,8 @@ export default function LandingBody() {
         </div>
 
         <div className="flex w-full flex-col items-center rounded-3xl bg-ll-tan px-7 py-9">
-          <div className="mb-5 font-raleway text-2xl font-semibold lg:mb-0">
-            Why LearnedLocal?
+          <div className="mb-5 lg:mb-0">
+            <span className={Typography.PrimaryTitle}>Why LearnedLocal?</span>
           </div>
           <div className="flex w-full flex-col items-center gap-5 lg:flex-row lg:items-end lg:justify-around">
             <div className="flex flex-col items-center gap-2 font-inter">
@@ -103,7 +104,7 @@ export default function LandingBody() {
                   className="object-contain"
                 />
               </div>
-              <div className="">Explore new interests</div>
+              <div className={Typography.BodyText}>Explore new interests</div>
             </div>
             <div className="flex flex-col items-center gap-2 font-inter">
               <div className="aspect-h-1 aspect-w-1 w-40">
@@ -114,7 +115,7 @@ export default function LandingBody() {
                   className="object-contain"
                 />
               </div>
-              <div className="">Connect with others</div>
+              <div className={Typography.BodyText}>Connect with others</div>
             </div>
             <div className="flex flex-col items-center gap-2 font-inter">
               <div className="aspect-h-1 aspect-w-1 w-24">
@@ -125,13 +126,13 @@ export default function LandingBody() {
                   className="object-contain"
                 />
               </div>
-              <div className="">Make lasting memories</div>
+              <div className={Typography.BodyText}>Make lasting memories</div>
             </div>
           </div>
         </div>
 
-        <div className="mt-5 w-full font-raleway text-3xl font-semibold lg:hidden">
-          Experience With Us
+        <div className="mt-5 w-full lg:hidden">
+          <span className={Typography.PrimaryTitle}>Experience With Us</span>
         </div>
 
         <div className="flex w-full flex-col items-center gap-5 lg:flex-row lg:gap-32">
@@ -146,20 +147,20 @@ export default function LandingBody() {
             </div>
             <div className="absolute bottom-0 left-0 w-full p-5">
               <div className="relative flex w-full flex-col gap-2 rounded-lg bg-ll-black px-6 pb-10 pt-3 text-ll-grey">
-                <div className="font-raleway text-xl font-bold">
+                <div className={Typography.SectionTitle}>
                   Sailing with Jenny
                 </div>
-                <div className="font-inter">Lindon, UT</div>
+                <div className={Typography.BodyText}>Lindon, UT</div>
               </div>
             </div>
           </div>
 
           <div className="hidden w-full flex-col items-center gap-5 lg:flex">
-            <div className="mt-5 w-full font-raleway text-3xl font-semibold">
-              Experience With Us
+            <div className="mt-5 w-full">
+              <span className={Typography.PrimaryTitle}>Experience With Us</span>
             </div>
             <div className="flex flex-col gap-5 font-inter">
-              <div className="">
+              <div className={Typography.BodyText}>
                 LearnedLocal presents a rich variety of experiences, which can
                 span anywhere from star gazing and photography to immersive
                 pursuits like blacksmithing and pottery. Our selection is
@@ -170,7 +171,7 @@ export default function LandingBody() {
                 href="/home"
                 className="flex h-14 w-52 items-center justify-center rounded-full bg-ll-yellow text-sm font-medium transition-opacity hover:cursor-pointer hover:bg-opacity-60"
               >
-                <span>Explore Experiences</span>
+                <span className={Typography.ButtonText}>Explore Experiences</span>
               </Link>
             </div>
           </div>
@@ -179,11 +180,11 @@ export default function LandingBody() {
         <div className="flex w-full flex-col items-center gap-5 lg:flex-row lg:gap-32">
           <div className="hidden w-full flex-col items-center gap-5 lg:flex">
             <div className="mt-10 w-full font-raleway text-3xl font-semibold">
-              Our Mission
+              <span className={Typography.PrimaryTitle}>Our Mission</span>
             </div>
 
             <div className="flex flex-col gap-5 font-inter">
-              <div className="">
+              <div className={Typography.BodyText}>
                 At LearnedLocal, our mission is driven by the belief that
                 venturing beyond your comfort zone not only elevates your
                 spirits but also unveils the path to discovering new passions.
@@ -197,7 +198,7 @@ export default function LandingBody() {
                 href="/host"
                 className="flex h-14 w-52 items-center justify-center rounded-full bg-ll-yellow text-sm font-medium transition-opacity hover:cursor-pointer hover:bg-opacity-60"
               >
-                <span>Start Hosting</span>
+                <span className={Typography.ButtonText}>Start Hosting</span>
               </Link>
             </div>
           </div>
@@ -213,17 +214,17 @@ export default function LandingBody() {
             </div>
             <div className="absolute bottom-0 left-0 w-full p-5">
               <div className="relative flex w-full flex-col gap-2 rounded-lg bg-ll-black px-6 pb-10 pt-3 text-ll-grey">
-                <div className="font-raleway text-xl font-bold">
+                <div className={Typography.SectionTitle}>
                   Gardening with Damon
                 </div>
-                <div className="font-inter">Springville, UT</div>
+                <div className={Typography.BodyText}>Springville, UT</div>
               </div>
             </div>
           </div>
         </div>
 
         <div className="flex flex-col gap-5 font-inter lg:hidden">
-          <div className="">
+          <div className={Typography.BodyText}>
             LearnedLocal presents a rich variety of experiences, which can span
             anywhere from star gazing and photography to immersive pursuits like
             blacksmithing and pottery. Our selection is ever-evolving as our
@@ -234,7 +235,7 @@ export default function LandingBody() {
             href="/home"
             className="flex h-14 w-52 items-center justify-center rounded-full bg-ll-yellow"
           >
-            <span>Explore Experiences</span>
+            <span className={Typography.ButtonText}>Explore Experiences</span>
           </Link>
         </div>
 
@@ -261,13 +262,13 @@ export default function LandingBody() {
           </Link>
         </div>
 
-        <div className="flex w-full flex-col gap-5 rounded-3xl bg-ll-green px-7 py-9 lg:items-center lg:px-56 lg:py-32">
-          <div className="lg:text-center font-raleway text-2xl font-semibold">
+        <div className="flex w-full flex-col gap-5 rounded-3xl bg-ll-green px-7 py-9 lg:items-center lg:px-56 lg:py-32 lg:text-center">
+          <div className={Typography.SectionTitle}>
             &quot;As a hobbyist myself, I was disappointed that there
             wasn&apos;t a platform to get paid for my knowledge and skills, so
             we created one.&quot;
           </div>
-          <div className="font-inter">Aaron J, Founder</div>
+          <div className={Typography.BodyText}>Aaron J, Founder</div>
         </div>
       </div>
     </>

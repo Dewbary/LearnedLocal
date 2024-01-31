@@ -1,0 +1,62 @@
+@font-face {
+  font-family: "Whyteplus";
+  src: url("../public/fonts/WhytePlus/EduWhyte-Thin.otf");
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Whyteplus";
+  src: url("../public/fonts/WhytePlus/EduWhyte-Extralight.otf");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Whyteplus";
+  src: url("../public/fonts/WhytePlus/EduWhyte-Light.otf");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Whyteplus";
+  src: url("../public/fonts/WhytePlus/EduWhyte-Regular.otf");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Whyteplus";
+  src: url("../public/fonts/WhytePlus/EduWhyte-Medium.otf");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Whyteplus";
+  src: url("../public/fonts/WhytePlus/EduWhyte-Bold.otf");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Whyteplus";
+  src: url("../public/fonts/WhytePlus/EduWhyte-Heavy.otf");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Whyteplus";
+  src: url("../public/fonts/WhytePlus/EduWhyte-Black.otf");
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Whyteplus";
+  src: url("../public/fonts/WhytePlus/EduWhyte-Super.otf");
+  font-weight: 900;
+  font-style: normal;
+}

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import InputField from "~/components/Account/InputField";
 import { api } from "~/utils/api";
 import { useUser } from "@clerk/nextjs";
+import { Typography } from "~/components/common/Typography";
 
 type FormValues = {
   firstName: string;
@@ -46,12 +47,14 @@ export default function GeneralTab() {
         enableReinitialize={true}
       >
         <Form className="flex flex-col w-full gap-6">
-          <h1 className="font-raleway text-4xl font-bold mb-5 hidden lg:block">General Information</h1>
+          <h1 className="mb-5 hidden lg:block">
+            <span className={Typography.PrimaryTitle}>General Information</span>
+          </h1>
           <InputField name="firstName" displayName="FIRST NAME" required/>
           <InputField name="lastName" displayName="LAST NAME" required/>
           <InputField name="email" displayName="EMAIL" required disabled/>
           <button type="submit" className="bg-ll-orange rounded-full w-full py-4 text-center text-ll-grey font-inter text-sm flex flex-row items-center justify-center gap-3 lg:w-40 hover:opacity-70">
-            <span>Save profile</span><span className={`${isSaving ? "" : "hidden"} loading loading-spinner loading-sm hover:opacity-70`} />
+            <span className={Typography.ButtonText}>Save profile</span><span className={`${isSaving ? "" : "hidden"} loading loading-spinner loading-sm hover:opacity-70`} />
           </button>
         </Form>
       </Formik>

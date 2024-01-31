@@ -1,5 +1,6 @@
 import Link from "next/link";
 import * as React from "react";
+import { Typography } from "../Typography";
 
 type Props = {
   text: string;
@@ -14,7 +15,7 @@ const NavigationLink = ({ text, route, dataCy }: Props) => {
       className="flex items-center justify-center px-4 hover:cursor-pointer hover:border-b-ll-blue hover:border-b-4"
       data-cy={dataCy}
     >
-      {text}
+      <span className={Typography.BodyText}>{text}</span>
     </Link>
   );
 };

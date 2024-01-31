@@ -6,7 +6,8 @@ import Link from "next/link";
 import CustomModal from "../common/CustomModal";
 import GuestListModalContents from "../common/GuestListModalContents";
 import { useRouter } from "next/router";
-import { Experience } from "packages/db";
+import type { Experience } from "packages/db";
+import { Typography } from "../common/Typography";
 
 export default function MyExperiencesPage() {
 
@@ -41,9 +42,9 @@ export default function MyExperiencesPage() {
     <>
       <div className="w-full flex-grow max-w-6xl flex flex-col p-5 mb-10">
         <div className="flex flex-col w-full gap-6">
-          <h1 className="font-raleway text-3xl font-bold">My Experiences</h1>
+          <h1 className={Typography.PrimaryTitle}>My Experiences</h1>
           <div className="flex flex-col w-full gap-4">
-            <h2 className="font-raleway text-xl font-bold">Upcoming</h2>
+            <h2 className={Typography.SecondaryTitle}>Upcoming</h2>
             <div className="flex flex-col w-full">
               {(userJoinedExperiences?.length || 0) > 0 ? (
                 <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-8">
@@ -61,14 +62,14 @@ export default function MyExperiencesPage() {
                       fill
                     />
                   </div>
-                  <div className="border border-l border-r border-b border-gray-400 rounded-br-xl rounded-bl-xl p-8 flex flex-col font-inter lg:order-1 lg:border-t lg:border-r-0 lg:rounded-tl-xl lg:rounded-br-none lg:basis-2/5 lg:items-center lg:justify-center">
+                  <div className="border border-l border-r border-b border-gray-400 rounded-br-xl rounded-bl-xl p-8 flex flex-col lg:order-1 lg:border-t lg:border-r-0 lg:rounded-tl-xl lg:rounded-br-none lg:basis-2/5 lg:items-center lg:justify-center">
                     <div className="flex flex-col gap-3 w-fit h-fit">
                       <div className="flex flex-col gap-2 lg:w-72">
-                        <h3 className="font-bold">No booked experiences</h3>
-                        <p className="font-light">It looks like it&apos;s time to get out and discover your next adventure!</p>
+                        <h3 className={Typography.SectionTitle}>No booked experiences</h3>
+                        <p className={Typography.BodyText}>It looks like it&apos;s time to get out and discover your next adventure!</p>
                       </div>
-                      <Link href="/home" className="bg-ll-black hover:bg-ll-grey text-ll-grey hover:text-ll-black border border-ll-black py-4 px-6 rounded-full w-fit text-sm mt-2">
-                        Start exploring
+                      <Link href="/home" className="bg-ll-black hover:bg-ll-grey text-ll-grey hover:text-ll-black border border-ll-black py-4 px-6 rounded-full w-fit mt-2">
+                        <span className={Typography.ButtonText}>Start exploring</span>
                       </Link>
                     </div>
                   </div>
@@ -95,7 +96,7 @@ export default function MyExperiencesPage() {
           </div> */}
 
           <div className="flex flex-col w-full gap-4">
-            <h2 className="font-raleway text-xl font-bold">What you&apos;ve done</h2>
+            <h2 className={Typography.SecondaryTitle}>What you&apos;ve done</h2>
             <div className="flex flex-col w-full">
               {(userParticipatedExperiences?.length || 0) > 0 ? (
                     <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-8">
@@ -106,11 +107,11 @@ export default function MyExperiencesPage() {
                 ) : (
                 <div className="border border-gray-400 rounded-xl p-8 flex flex-col font-inter gap-3 lg:flex-row lg:justify-between lg:items-center lg:px-20 lg:py-10">
                   <div className="flex flex-col gap-3 w-fit lg:w-72 h-fit">
-                    <h3 className="font-bold">Nothing yet!</h3>
-                    <p className="font-light">Embark on your first experience so you can add to your list of adventures.</p>
+                    <h3 className={Typography.SectionTitle}>Nothing yet!</h3>
+                    <p className={Typography.BodyText}>Embark on your first experience so you can add to your list of adventures.</p>
                   </div>
                   <Link href="/home" className="bg-ll-black hover:bg-ll-grey text-ll-grey hover:text-ll-black border border-ll-black py-4 px-6 rounded-full w-fit text-sm mt-2 h-fit">
-                    Start exploring
+                  <span className={Typography.ButtonText}>Start exploring</span>
                   </Link>
                 </div>
                 )}
@@ -118,7 +119,7 @@ export default function MyExperiencesPage() {
           </div>
 
           <div className="flex flex-col w-full gap-4">
-            <h2 className="font-raleway text-xl font-bold">Your Hosted Experiences</h2>
+            <h2 className={Typography.SecondaryTitle}>Your Hosted Experiences</h2>
             <div className="flex flex-col w-full">
               {(userCreatedExperiences?.length || 0) > 0 ? (
                     <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-8">
@@ -166,11 +167,11 @@ export default function MyExperiencesPage() {
                 ) : (
                 <div className="border border-gray-400 rounded-xl p-8 flex flex-col font-inter gap-3 lg:flex-row lg:justify-between lg:items-center lg:px-20 lg:py-10">
                   <div className="flex flex-col gap-3 w-fit lg:w-72 h-fit">
-                    <h3 className="font-bold">Nothing here, give it a try!</h3>
-                    <p className="font-light">Try hosting an experience with us and get paid to do what you love!</p>
+                    <h3 className={Typography.SectionTitle}>Nothing here, give it a try!</h3>
+                    <p className={Typography.BodyText}>Try hosting an experience with us and get paid to do what you love!</p>
                   </div>
                   <Link href="/host" className="bg-ll-black hover:bg-ll-grey text-ll-grey hover:text-ll-black border border-ll-black py-4 px-6 rounded-full w-fit text-sm mt-2 h-fit">
-                    Create an Experience
+                  <span className={Typography.ButtonText}>Create an experience</span>
                   </Link>
                 </div>
                 )}

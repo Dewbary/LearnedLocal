@@ -1,11 +1,11 @@
 import { Typography } from "~/components/common/Typography";
 import DateAndTimeDisplayButton from "../Components/DateAndTimeDisplayButton";
 import GuestCounter from "../Components/GuestCounter";
-import { ExperienceInfo, RegistrationInfo } from "packages/db/types/types";
+import type { ExperienceInfo, RegistrationInfo } from "packages/db/types/types";
 import PriceDisplay from "../Components/PriceDisplay";
 import CustomModal from "~/components/common/CustomModal";
 import ChangeRegistrationModal from "./ChangeRegistrationModal/ChangeRegistrationModal";
-import { Registration } from "packages/db";
+import type { Registration } from "packages/db";
 
 type Props = {
   experience: ExperienceInfo;

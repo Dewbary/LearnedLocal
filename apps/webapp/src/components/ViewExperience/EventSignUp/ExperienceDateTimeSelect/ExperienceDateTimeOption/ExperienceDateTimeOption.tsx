@@ -25,19 +25,17 @@ const ExperienceDateTimeOption = ({ date, spotsLeft, onClick }: Props) => {
     >
       <div className="flex flex-col items-start">
         <div
-          className={filled ? Typography.LightSubText : Typography.LabelText}
+          className={Typography.BodyText}
         >
           {getDay(date.startTime)}
         </div>
-        <div className={filled ? Typography.LightSubText : Typography.BodyText}>
+        <div className={Typography.InfoText}>
           {getTime(date.startTime)}-{getTime(date.endTime)}
         </div>
       </div>
-      {filled ? (
-        <div className={Typography.LightSubText}>Filled</div>
-      ) : (
-        <div className={Typography.LightSubText}>{spotsLeft} spots left</div>
-      )}
+      <div className={Typography.InfoText}>
+        {filled ? "Filled" : `${spotsLeft} spots left`}
+      </div>
     </button>
   );
 };

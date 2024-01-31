@@ -7,20 +7,32 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { getUniqueSlug } from "~/components/common/CreateExperienceButton/CreateExperienceUtils";
+import { Typography } from "~/components/common/Typography";
 
-const NavBarEnd = () => {
+type Props = {
+  onMenuOpen?: () => void;
+  onMenuClose?: () => void;
+}
+
+const NavBarEnd = ({onMenuOpen, onMenuClose} : Props) => {
   const [menuOpen, setMenuOpen] = React.useState(false);
   const currentPath = usePathname();
   const signInUrl = `/account/signin?redirect_url=${encodeURI(currentPath)}`;
   const signUpUrl = "/account/signup";
-  const { isSignedIn, user } = useUser();
+  const { isSignedIn } = useUser();
 
   const closeMenuClicked = () => {
     setMenuOpen(false);
+    if (onMenuClose) {
+      onMenuClose();
+    }
   };
 
   const openMenuClicked = () => {
     setMenuOpen(true);
+    if (onMenuOpen) {
+      onMenuOpen();
+    }
   };
 
   return (
@@ -54,44 +66,22 @@ const NavBarEnd = () => {
         </svg>
       </div>
       <div
-        className="h-4 w-5 lg:hidden"
+        className="h-6 w-6 lg:hidden"
         hidden={menuOpen}
         onClick={openMenuClicked}
         data-cy="hamburger-menu"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="23"
-          height="21"
-          viewBox="0 0 23 21"
           fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
         >
-          <line
-            x1="1"
-            y1="1"
-            x2="22"
-            y2="1"
-            stroke="#2D2D2D"
-            strokeWidth="2"
+          <path
             strokeLinecap="round"
-          />
-          <line
-            x1="1"
-            y1="11"
-            x2="22"
-            y2="11"
-            stroke="#2D2D2D"
+            strokeLinejoin="round"
             strokeWidth="2"
-            strokeLinecap="round"
-          />
-          <line
-            x1="1"
-            y1="20"
-            x2="22"
-            y2="20"
-            stroke="#2D2D2D"
-            strokeWidth="2"
-            strokeLinecap="round"
+            d="M4 6h16M4 12h16M4 18h7"
           />
         </svg>
       </div>
@@ -102,7 +92,7 @@ const NavBarEnd = () => {
               <Link href={signInUrl} className="flex h-12 w-20 items-center justify-center transition-colors hover:cursor-pointer hover:border-b-ll-blue hover:border-b-4">
                 Login
               </Link>
-              <Link href={signUpUrl} className="flex h-12 w-24 items-center justify-center rounded-full bg-ll-yellow transition-opacity hover:cursor-pointer hover:bg-opacity-60">
+              <Link href={signUpUrl} className="flex h-12 w-24 items-center justify-center rounded-full bg-ll-orange transition-opacity hover:cursor-pointer hover:bg-opacity-60">
                 Join
               </Link>
             </div>
@@ -110,9 +100,9 @@ const NavBarEnd = () => {
         ) : (
           <>
             <div className="hidden p-2 lg:flex flex-row gap-1 items-center font-inter text-sm">
-              {user.firstName && (
-                <div className="">Welcome, {user.firstName} </div>
-              )}
+              <Link href="/myexperiences" className="bg-ll-orange text-white px-6 py-4 rounded-full hover:opacity-70 border border-ll-orange transition-all">
+                <span className={Typography.ButtonText}>My experiences</span>
+              </Link>
               <NavigationMenu isSignedIn={isSignedIn} />
             </div>
           </>
@@ -123,8 +113,8 @@ const NavBarEnd = () => {
         className="fixed left-0 top-0 z-[-1] h-screen w-screen bg-ll-grey lg:hidden"
         hidden={!menuOpen}
       >
-        <div className="flex flex-col items-center gap-20 pt-28 font-inter">
-          <div className="flex flex-col items-center gap-6 text-ll-black">
+        <div className="flex flex-col items-center gap-20 pt-28">
+          <div className={`flex flex-col items-center gap-6 text-ll-black ${Typography.BodyText}`}>
             <Link href="/">Home</Link>
             <Link href="/about">Our story</Link>
             <Link href="/home" data-cy="mobile-home-link">Find an experience</Link>
@@ -147,11 +137,11 @@ const NavBarEnd = () => {
             ) : (
               <>
                 <Link href="/myexperiences" data-cy="mobile-my-experiences-link" className="flex h-12 w-36 items-center justify-center rounded-full border-2 border-ll-blue bg-ll-blue text-ll-grey">
-                  My Experiences
+                  <span className={Typography.ButtonText}>My Experiences</span>
                 </Link>
                 <SignOutButton>
                   <button className="flex h-12 w-36 items-center justify-center rounded-full border-2 border-ll-black">
-                    <div>Logout</div>
+                    <div className={Typography.ButtonText}>Logout</div>
                   </button>
                 </SignOutButton>
               </>

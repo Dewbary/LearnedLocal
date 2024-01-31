@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useState } from "react";
 import { api } from "~/utils/api";
+import { Typography } from "../Typography";
 
 type Props = {
   experienceInfo: ExperienceInfo;
@@ -45,10 +46,10 @@ export default function ExperienceSubscribeModalContents(props: Props) {
             </div>
         </div>
         <div className="flex flex-col gap-1">
-            <div className="text-2xl font-raleway font-bold">
+            <div className={Typography.PrimaryTitle}>
                 Sign Up for {props.experienceInfo.title}
             </div>
-            <div className="font-inter">
+            <div className={Typography.BodyText}>
               We&apos;ll let you know when this experience is available for signups.
             </div> 
         </div>
@@ -97,7 +98,7 @@ export default function ExperienceSubscribeModalContents(props: Props) {
                 </div>
                 <button type="submit" disabled={isLoading || isSubscribed} className={`${!isSubscribed ? "bg-ll-black disabled:opacity-50" : "bg-ll-dark-green"} font-inter transition-all rounded-full flex flex-col items-center py-4 w-full max-w-xs self-center text-ll-grey text-sm`}>
                     <div className="flex flex-row items-center gap-2">
-                        {!isSubscribed ? "Sign Up" : "Success!"}
+                        <span className={Typography.ButtonText}>{!isSubscribed ? "Sign Up" : "Success!"}</span>
                         <span className={`loading loading-spinner loading-xs ${!isLoading ? "hidden" : ""}`} />
                     </div>
                 </button>

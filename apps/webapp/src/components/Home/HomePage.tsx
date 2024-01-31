@@ -8,6 +8,7 @@ import FavoritedExperiencesContext from "./FavoritedExperiencesContext";
 import NewNavBar from "../NewNavBar";
 import NewFooter from "../NewFooter";
 import ExperienceFilters from "../ExperienceFilters";
+import { Typography } from "../common/Typography";
 
 Modal.setAppElement("#__next");
 
@@ -62,13 +63,13 @@ const HomePage = ({ experiences }: { experiences: ExperienceInfo[] }) => {
         }}
       >
         <div className="flex min-h-screen flex-col items-center bg-ll-grey">
-          <NewNavBar isFixedNavbar/>
+          <NewNavBar />
 
-          <div className="mb-24 mt-28 flex w-11/12 max-w-[100rem] flex-grow flex-col sm:w-3/4">
-            <div className="mb-8 font-raleway text-[24px]">
+          <div className="mb-24 flex w-11/12 max-w-[100rem] flex-grow flex-col gap-8 sm:w-3/4 py-5">
+            <div className={Typography.PrimaryTitle}>
               Discover Experiences
             </div>
-            <div className="mb-8">
+            <div>
               <ExperienceFilters />
             </div>
             <ExperiencesDisplay />

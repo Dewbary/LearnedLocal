@@ -11,7 +11,7 @@ export default function GuestCounter({registreeCount, setRegistreeCount} : Props
     <>
     <div className="mt-4 flex flex-row items-center justify-between rounded-2xl border border-ll-slate px-6 py-4">
         <div className="flex flex-col">
-          <div className={Typography.SubTitleUppercase}>Guests</div>
+          <div className={Typography.InputLabel}>Guests</div>
           <div className={Typography.BodyText}>{registreeCount} guest{registreeCount !== 1 ? "s" : ""}</div>
         </div>
         {setRegistreeCount && (

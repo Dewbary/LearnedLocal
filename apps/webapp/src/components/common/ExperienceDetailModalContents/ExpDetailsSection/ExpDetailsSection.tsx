@@ -12,6 +12,7 @@ import CardFavoriteButton from "../../CardFavoriteButton";
 import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import { useRouter } from "next/router";
 import ShareExperienceComponent from "../../ShareExperienceComponent";
+import { Typography } from "../../Typography";
 
 type Props = {
   experienceInfo: ExperienceInfo;
@@ -37,17 +38,17 @@ const ExpDetailsSection = ({ experienceInfo, handleViewPageClick }: Props) => {
   return (
     <div className="flex h-full w-full flex-1 flex-col justify-center md:h-5/6">
       <div className="flex flex-row md:w-5/6 items-center mb-8 justify-between lg:justify-start gap-4">
-        <div className="font-raleway text-3xl font-bold">
+        <div className={Typography.PrimaryTitle}>
           {experienceInfo.title}
         </div>
         <ShareExperienceComponent experience={experienceInfo} />
       </div>
       
       <div className="md:w-5/6">
-        <div className="mb-8 line-clamp-[4] font-inter font-light">
-          {experienceInfo.description}
+        <div className="mb-8 line-clamp-[4]">
+          <span className={Typography.BodyText}>{experienceInfo.description}</span> 
         </div>
-        <div className="flex justify-between pb-8 font-light">
+        <div className={`${Typography.InfoText} flex justify-between pb-8`}>
           <div className="flex flex-col justify-center">
             <div className="flex space-x-4 pb-8">
               <MapPinIcon width={24} height={24} className="text-ll-slate" />

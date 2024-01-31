@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Typography } from "~/components/common/Typography";
 
 type Props = {
   onResetFilters: () => void;
@@ -6,7 +7,7 @@ type Props = {
 
 const ResetFiltersBtn = ({ onResetFilters }: Props) => {
   return (
-    <button className="text-sm font-bold" onClick={onResetFilters}>
+    <button className={Typography.InfoText} onClick={onResetFilters}>
       Reset filters
     </button>
   );

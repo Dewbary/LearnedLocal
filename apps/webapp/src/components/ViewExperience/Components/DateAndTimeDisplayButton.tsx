@@ -1,7 +1,6 @@
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
-import { ExperienceAvailability } from "packages/db";
+import type { ExperienceAvailability } from "packages/db";
 import { getDay, getTime } from "~/components/common/DateAndTimePicker/DateAndTimeUtils";
-
 import { Typography } from "~/components/common/Typography";
 
 type Props = {
@@ -25,7 +24,7 @@ export default function DateAndTimeDisplayButton({enabled=true, onClickFunction,
           data-cy={enabled ? "date-sign-up" : "reservation-view"}
         >
           <div className="flex flex-col">
-            <div className={Typography.SubTitleUppercase}>Date & Time</div>
+            <div className={Typography.InputLabel}>Date & Time</div>
             <div className={Typography.BodyText}>
               {getDay(selectedAvailability?.startTime)}
             </div>

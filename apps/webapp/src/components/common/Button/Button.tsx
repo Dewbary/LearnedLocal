@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Typography } from "../Typography";
 
 type Props = {
   className?: string;
@@ -12,7 +13,7 @@ const Button = ({ className, type = "button", text, onClick }: Props) => {
     <button
       className={`${
         className ?? ""
-      } flex items-center justify-center rounded-full px-6 py-4 font-inter duration-300 ease-in-out hover:scale-105 hover:opacity-50`}
+      } ${Typography.ButtonText} flex items-center justify-center rounded-full px-6 py-4 duration-300 ease-in-out hover:scale-105 hover:opacity-50`}
       type={type}
       onClick={onClick}
     >

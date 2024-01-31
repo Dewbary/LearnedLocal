@@ -11,6 +11,7 @@ import { useUser } from "@clerk/nextjs";
 import * as Yup from "yup";
 import { getUniqueSlug } from "~/components/common/CreateExperienceButton/CreateExperienceUtils";
 import type { Profile } from "@learnedlocal/db";
+import { Typography } from "~/components/common/Typography";
 
 type HostOnboardFormValues = {
   profileImage: string;
@@ -149,8 +150,12 @@ export default function HostOnboardFlow() {
             
             <button type="button" hidden={activeStep === 0} className="absolute top-2 left-0 lg:hidden" onClick={() => handleBackClick()}><ChevronLeftIcon width={25}/></button>
             <div className="flex flex-row w-full justify-center gap-3 mt-5">
-              <button type="button" onClick={() => handleBackClick()} disabled={activeStep === 0} className="w-full h-12 bg-ll-grey border border-ll-orange font-inter text-sm rounded-full hover:opacity-70 text-ll-black hidden lg:block disabled:opacity-70">Back</button>
-              <button type="submit" className="w-full h-12 bg-ll-orange font-inter text-sm rounded-full hover:opacity-70 text-ll-black lg:max-w-xs" data-cy="hostonboardNextButton">{isLastStep ? "Browse Experiences" : "Next"}</button>
+              <button type="button" onClick={() => handleBackClick()} disabled={activeStep === 0} className="w-full h-12 bg-ll-grey border border-ll-orange rounded-full hover:opacity-70 text-ll-black hidden lg:block disabled:opacity-70">
+                <span className={Typography.ButtonText}>Back</span>
+              </button>
+              <button type="submit" className="w-full h-12 bg-ll-orange font-inter text-sm rounded-full hover:opacity-70 text-ll-black lg:max-w-xs" data-cy="hostonboardNextButton">
+                <span className={Typography.ButtonText}>{isLastStep ? "Browse Experiences" : "Next"}</span>
+              </button>
             </div>
             <div className="font-inter text-sm text-red-500">{errors}</div>
           </Form>

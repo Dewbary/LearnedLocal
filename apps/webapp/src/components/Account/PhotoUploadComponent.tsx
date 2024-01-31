@@ -2,6 +2,7 @@ import { type FieldHookConfig, useField } from "formik";
 import { uploadImageToBucket } from "~/utils/images";
 import { useUser } from "@clerk/nextjs";
 import { UserIcon } from "@heroicons/react/24/outline";
+import { Typography } from "../common/Typography";
 
 const PhotoUploadComponent = (props: FieldHookConfig<string>) => {
   const { user } = useUser();
@@ -25,7 +26,7 @@ const PhotoUploadComponent = (props: FieldHookConfig<string>) => {
 
   return (
     <div className="flex flex-col w-full gap-3">
-      <h2 className="text-sm font-raleway font-semibold">PROFILE PHOTO</h2>
+      <h2 className={Typography.InputLabel}>PROFILE PHOTO</h2>
       <div className="flex w-full flex-row items-center gap-6">
         <div className={`h-28 w-28 overflow-hidden rounded-full ${field.value ? "" : "border border-ll-black"}`}>
           {field.value ? (
@@ -42,8 +43,8 @@ const PhotoUploadComponent = (props: FieldHookConfig<string>) => {
         </div>
 
         <label>
-          <div className="rounded-lg border border-ll-black font-inter py-2 px-4 hover:border-ll-grey hover:bg-ll-black hover:text-ll-grey transition-colors hover:cursor-pointer">
-            {field.value ? "Change profile picture" : "Add profile picture"}
+          <div className="rounded-lg border border-ll-black py-2 px-4 hover:border-ll-grey hover:bg-ll-black hover:text-ll-grey transition-colors hover:cursor-pointer">
+            <span className={Typography.ButtonText}>{field.value ? "Change profile picture" : "Add profile picture"}</span>
           </div>
           <input
             id={field.name}

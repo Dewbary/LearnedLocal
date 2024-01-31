@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import * as Yup from "yup";
 import InputField from "~/components/Account/InputField";
 import PhotoUploadComponent from "~/components/Account/PhotoUploadComponent";
+import { Typography } from "~/components/common/Typography";
 import { api } from "~/utils/api";
 
 type FormValues = {
@@ -57,12 +58,16 @@ export default function HostInfoTab() {
     <>
       {userProfile?.email === undefined || userProfile?.email === null ? (
         <div className="flex flex-col gap-6">
-          <h1 className="font-raleway text-4xl font-bold mb-5 hidden lg:block">Host with Learned Local</h1>
-          <p className="font-inter">
+          <h1 className="mb-5 hidden lg:block">
+            <span className={Typography.PrimaryTitle}>
+              Host with Learned Local
+            </span>
+          </h1>
+          <p className={Typography.BodyText}>
             Want to become a host? Click below to get started setting up your hosting profile!
           </p>
-          <Link href="/account/hostonboard" className="bg-ll-orange hover:opacity-70 rounded-full px-4 py-3 text-sm font-inter w-fit block">
-            Create host profile
+          <Link href="/account/hostonboard" className="bg-ll-orange hover:opacity-70 rounded-full px-4 py-3 w-fit block">
+            <span className={Typography.ButtonText}>Create host profile</span>
           </Link>
         </div>
       ) : (
@@ -87,20 +92,26 @@ export default function HostInfoTab() {
             enableReinitialize={true}
           >
             <Form className="flex flex-col w-full gap-6">
-              <h1 className="font-raleway text-4xl font-bold mb-5 hidden lg:block">Hosting Profile</h1>
+              <h1 className="mb-5 hidden lg:block">
+                <span className={Typography.PrimaryTitle}>
+                  Hosting Profile
+                </span>
+              </h1>
               <PhotoUploadComponent name="profileImage" />
               <InputField name="personalTitle" displayName="PROFILE TAGLINE" placeholder="Art enthusiast, pastry chef, etc." note="Maximum 35 characters" required={true} cyTestData="personalTitleField"/>
               <InputField name="bio" displayName="BIO" placeholder="Tell your users a little about your background and interests" as="textarea" note="Maximum 700 characters" required={true} cyTestData="bioField"/>
               <InputField name="insta" displayName="INSTAGRAM HANDLE" placeholder="@learnedlocal" cyTestData="instaField"/>
               <InputField name="facebook" displayName="FACEBOOK PROFILE LINK" placeholder="facebook.com/your_page_link" cyTestData="facebookField"/>
               <InputField name="phone" displayName="PHONE NUMBER" placeholder="801-123-4567" required={true} cyTestData="phoneField"/> 
+              <InputField name="venmo" displayName="VENMO" placeholder="@learned-local" />
+              <InputField name="zelle" displayName="ZELLE" placeholder="learnedlocal.app@gmail.com" />
               <div className="font-inter text-sm text-red-500">
                 <ErrorMessage name="personalTitle" component={"div"}/>
                 <ErrorMessage name="bio" component={"div"}/>
                 <ErrorMessage name="phone" component={"div"}/>
               </div>
               <button type="submit" className="bg-ll-orange rounded-full w-full py-4 text-center text-ll-grey font-inter text-sm flex flex-row items-center justify-center gap-3 disabled:bg-gray-400 lg:w-40 hover:opacity-70">
-                <span>Save Profile</span><span className={`${isSaving ? "" : "hidden"} loading loading-spinner loading-sm hover:opacity-70`} />
+                <span className={Typography.ButtonText}>Save Profile</span><span className={`${isSaving ? "" : "hidden"} loading loading-spinner loading-sm hover:opacity-70`} />
               </button>
             </Form>
           </Formik>

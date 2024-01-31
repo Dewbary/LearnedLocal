@@ -24,23 +24,23 @@ const ConfirmationPage = ({ goToPrevPage }: Props) => {
 
   return (
     <div className="mx-12 flex flex-1 flex-col justify-center">
-      <div className={cx(Typography.ModalTitle, "mb-8 self-center")}>
+      <div className={cx(Typography.PrimaryTitle, "mb-8 self-center")}>
         Confirm date & time
       </div>
       <div>
-        <div className={Typography.LabelUppercase}>Date & Time</div>
+        <div className={Typography.InputLabel}>Date & Time</div>
         <div className={Typography.InfoText}>{getDayAndYear(values.date)}</div>
         <div className={Typography.InfoText}>{getTime(selectedDateTime)}</div>
       </div>
 
       <div className="flex justify-between space-x-8">
         <Button
-          className="mt-8 w-48 rounded-full border-2 border-ll-orange bg-white px-6 py-4 text-ll-orange"
+          className={`${Typography.ButtonText} mt-8 w-48 rounded-full border-2 border-ll-orange bg-white px-6 py-4 text-ll-orange`}
           text="Back"
           onClick={goToPrevPage}
         />
         <button
-          className="mt-8 w-48 rounded-full bg-ll-orange px-6 py-4 text-white"
+          className={`${Typography.ButtonText} mt-8 w-48 rounded-full bg-ll-orange px-6 py-4 text-white`}
           type="submit"
         >
           Confirm request

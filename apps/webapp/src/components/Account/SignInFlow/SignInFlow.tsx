@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { useSearchParams } from "next/navigation";
+import { Typography } from "~/components/common/Typography";
 
 type FormValues = {
   emailAddress: string;
@@ -63,12 +64,16 @@ export default function SignInFlow() {
           onSubmit={(values:FormValues) => handleSubmitClick(values)}
         >
           <Form className="w-full flex flex-col items-center gap-4 relative">
-            <h1 className="font-raleway text-3xl font-bold mb-3">Sign in to Learned Local</h1>
+            <h1 className="mb-3">
+              <span className={Typography.PrimaryTitle}>
+                Sign in to Learned Local
+              </span>
+            </h1>
             <InputField name="emailAddress" displayName="EMAIL" cyTestData="emailField" />
             <InputField name="password" displayName="PASSWORD" type="password"  cyTestData="passwordField"/>
             <div className="font-inter text-sm text-red-500">{errors}</div>
-            <button type="button" className="w-full bg-white h-12 text-sm rounded-full flex flex-row items-center justify-center gap-3" onClick={() => handleGoogleAuthClick()}>
-              Sign In with Google
+            <button type="button" className="w-full bg-white h-12 rounded-full flex flex-row items-center justify-center gap-3" onClick={() => handleGoogleAuthClick()}>
+              <span className={Typography.ButtonText}>Sign In with Google</span>
               <Image
                 src={googleIcon}
                 alt="Google Icon"
@@ -76,8 +81,10 @@ export default function SignInFlow() {
                 height={30}
               />
             </button>
-            <button type="submit" className="w-full h-12 bg-ll-orange font-inter text-sm rounded-full hover:opacity-70 text-ll-black" data-cy="signInWithEmailButton">Sign In</button>
-            <div className="text-sm font-inter">Don&apos;t have an account? <Link href={`/account/signup?redirect_url=${encodeURIComponent(redirectUrl || "")}`} className="text-ll-dark-blue border-b-ll-dark-blue border-b">Click here</Link> to create one!</div>
+            <button type="submit" className="w-full h-12 bg-ll-orange rounded-full hover:opacity-70 text-ll-black" data-cy="signInWithEmailButton">
+              <span className={Typography.ButtonText}>Sign In</span>
+            </button>
+            <div className={Typography.BodyText}>Don&apos;t have an account? <Link href={`/account/signup?redirect_url=${encodeURIComponent(redirectUrl || "")}`} className="text-ll-dark-blue border-b-ll-dark-blue border-b">Click here</Link> to create one!</div>
           </Form>
         </Formik>
       </div>

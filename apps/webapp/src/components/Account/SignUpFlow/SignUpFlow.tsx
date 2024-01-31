@@ -10,6 +10,7 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import * as Yup from "yup";
+import { Typography } from "~/components/common/Typography";
 
 type SignupFlowFormValues = {
   firstName: string;
@@ -155,17 +156,21 @@ export default function SignUpFlow() {
             {steps[activeStep]}
             <button type="button" hidden={oAuthRedirect && activeStep === 2 || activeStep === 0} className="absolute top-2 left-0 lg:hidden" onClick={() => handleBackClick()}><ChevronLeftIcon width={25}/></button>
             <div className="flex flex-row w-full justify-center gap-3 mt-5">
-              <button type="button" onClick={() => handleBackClick()} disabled={oAuthRedirect && activeStep === 2 || activeStep === 0} className="w-full h-12 bg-ll-grey border border-ll-orange font-inter text-sm rounded-full hover:opacity-70 text-ll-black hidden lg:block disabled:opacity-70">Back</button>
-              <button type="submit" className="w-full h-12 bg-ll-orange font-inter text-sm rounded-full hover:opacity-70 text-ll-black lg:max-w-xs">{isLastStep ? "Browse Experiences" : "Next"}</button>
+              <button type="button" onClick={() => handleBackClick()} disabled={oAuthRedirect && activeStep === 2 || activeStep === 0} className="w-full h-12 bg-ll-grey border border-ll-orange rounded-full hover:opacity-70 text-ll-black hidden lg:block disabled:opacity-70">
+                <span className={Typography.ButtonText}>Back</span>
+              </button>
+              <button type="submit" className="w-full h-12 bg-ll-orange font-inter text-sm rounded-full hover:opacity-70 text-ll-black lg:max-w-xs">
+                <span className={Typography.ButtonText}>{isLastStep ? "Browse Experiences" : "Next"}</span>
+              </button>
             </div>
-            <div className="font-inter text-sm text-red-500">{errors}</div>
-            <div className="font-inter text-sm text-red-500">
+            <div className={`${Typography.BodyText} text-red-500`}>{errors}</div>
+            <div className={`${Typography.BodyText} text-red-500`}>
               <ErrorMessage name="firstName" component={"div"} />
               <ErrorMessage name="lastName" component={"div"} />
               <ErrorMessage name="emailAddress" component={"div"} />
               <ErrorMessage name="password" component={"div"} />
             </div>
-            <p className="text-ll-dark-grey font-inter text-sm" hidden={activeStep > 1}>Already have an account? <Link href="/account/signin" className=" text-ll-blue">Login</Link></p>  
+            <p className={Typography.BodyText} hidden={activeStep > 1}>Already have an account? <Link href="/account/signin" className=" text-ll-blue">Login</Link></p>  
           </Form>
         </Formik>
       </div>

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import textlistGraphic from "../../../../assets/textlist/textlist_subscribed_graphic.png";
 import Link from "next/link";
+import { Typography } from "~/components/common/Typography";
 
 export default function Confirm() {
   return (
@@ -44,8 +45,8 @@ export default function Confirm() {
             </div>
           </div>
           <div className="flex flex-col gap-1">
-            <div className="font-raleway text-xl">You&apos;re in!</div>
-            <div className="font-inter">
+            <div className={Typography.PrimaryTitle}>You&apos;re in!</div>
+            <div className={Typography.BodyText}>
               We appreciate your subscription to our texting list. Updates are
               coming your way!
             </div>
@@ -54,7 +55,7 @@ export default function Confirm() {
             href="/"
             className="flex w-full flex-col items-center rounded-full bg-ll-black py-4 font-inter text-sm text-ll-grey"
           >
-            Visit home page
+            <span className={Typography.ButtonText}>Visit home page</span>
           </Link>
         </div>
       </div>

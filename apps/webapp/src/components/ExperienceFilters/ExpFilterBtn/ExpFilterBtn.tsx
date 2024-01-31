@@ -1,6 +1,7 @@
 import * as React from "react";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import type { Filter } from "~/components/types";
+import { Typography } from "~/components/common/Typography";
 
 type Props<T extends Filter> = {
   selectedFilter: T | undefined;
@@ -19,9 +20,9 @@ const ExpFilterBtn = <T extends Filter>({
     <div className="dropdown">
       <label
         tabIndex={0}
-        className="inline-flex cursor-pointer content-center items-center rounded-3xl border border-ll-black px-4 py-2 text-sm duration-100 ease-in-out hover:bg-ll-slate hover:bg-opacity-20"
+        className="inline-flex cursor-pointer content-center items-center rounded-3xl border border-ll-black px-4 py-2 duration-100 ease-in-out hover:bg-ll-slate hover:bg-opacity-20"
       >
-        {selectedFilter.name}
+        <span className={Typography.InfoText}>{selectedFilter.name}</span>
         <ChevronDownIcon className="ml-2 h-4 w-4 rounded-full" />
       </label>
       <ul

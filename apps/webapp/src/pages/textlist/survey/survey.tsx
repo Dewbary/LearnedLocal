@@ -5,6 +5,7 @@ import { Field, Form, Formik } from "formik";
 import { useState } from "react";
 import clipboardGraphic from "../../../../assets/textlist/clipboard_graphic.png"
 import { api } from "~/utils/api";
+import { Typography } from "~/components/common/Typography";
 
 type SurveyValues = {
     astronomy: boolean;
@@ -62,7 +63,7 @@ export default function Survey() {
                         </div>
                     </div>
                     <div className="flex flex-col gap-1">
-                        <div className="text-2xl font-raleway font-bold">
+                        <div className={Typography.PrimaryTitle}>
                             Which activities appeal to you the most?
                         </div>
                     </div>
@@ -110,7 +111,7 @@ export default function Survey() {
 
                             <button type="submit" disabled={isLoading} className="font-inter bg-ll-black rounded-full flex flex-col items-center py-4 w-full text-ll-grey text-sm disabled:opacity-50">
                                 <div className="flex flex-row items-center gap-2">
-                                    Finish
+                                    <span className={Typography.ButtonText}>Finish</span>
                                     <span className={`loading loading-spinner loading-xs ${!isLoading ? "hidden" : ""}`} />
                                 </div>
                             </button>
@@ -126,7 +127,7 @@ const ActivityCheckbox = ({activity, checkboxName}: {activity:string, checkboxNa
     return (
         <div className="flex flex-row items-center gap-2">
             <Field name={checkboxName} type="checkbox" className="checkbox rounded-md"/>
-            <span>{activity}</span>
+            <span className={Typography.BodyText}>{activity}</span>
         </div>
     )
 }
