@@ -2,6 +2,7 @@ import type { ExperienceInfo } from "packages/db/types/types";
 import * as React from "react";
 import ExperienceDate from "./ExperienceDate";
 import type { ExperienceAvailability } from "packages/db";
+import { Typography } from "../Typography";
 
 type Props = {
   className?: string;
@@ -16,14 +17,14 @@ const CardInfoV2 = ({ className, experience, availabilities }: Props) => {
         className ?? ""
       } rounded-2xl bg-ll-black px-4 py-2 text-white`}
     >
-      <div className="truncate font-raleway font-bold">{experience.title}</div>
-      <div className="font-inter font-[250]">
+      <div className="truncate"><span className={Typography.SectionTitle}>{experience.title}</span></div>
+      <div className={Typography.BodyText}>
         <ExperienceDate
           availabilities={availabilities}
           isFutureExperience={experience.isFutureExperience}
         />
       </div>
-      <div className="font-inter font-[250]">{experience.city}, UT</div>
+      <div className={Typography.InfoText}>{experience.city}, UT</div>
 
       <div className="absolute bottom-4 right-4 cursor-pointer rounded-full bg-ll-grey p-2">
         <svg

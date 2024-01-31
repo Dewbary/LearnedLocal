@@ -1,0 +1,62 @@
+@font-face {
+  font-family: "Inktrap";
+  src: url("../public/fonts/WhyteInktrap/EduWhyteInktrap-Thin.otf");
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inktrap";
+  src: url("../public/fonts/WhyteInktrap/EduWhyteInktrap-Extralight.otf");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inktrap";
+  src: url("../public/fonts/WhyteInktrap/EduWhyteInktrap-Light.otf");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inktrap";
+  src: url("../public/fonts/WhyteInktrap/EduWhyteInktrap-Regular.otf");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inktrap";
+  src: url("../public/fonts/WhyteInktrap/EduWhyteInktrap-Medium.otf");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inktrap";
+  src: url("../public/fonts/WhyteInktrap/EduWhyteInktrap-Bold.otf");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inktrap";
+  src: url("../public/fonts/WhyteInktrap/EduWhyteInktrap-Heavy.otf");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inktrap";
+  src: url("../public/fonts/WhyteInktrap/EduWhyteInktrap-Black.otf");
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inktrap";
+  src: url("../public/fonts/WhyteInktrap/EduWhyteInktrap-Super.otf");
+  font-weight: 900;
+  font-style: normal;
+}

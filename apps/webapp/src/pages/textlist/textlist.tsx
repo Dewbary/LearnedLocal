@@ -7,6 +7,7 @@ import * as Yup from 'yup';
 import { useRouter } from "next/router";
 import { useState } from "react";
 import Link from "next/link";
+import { Typography } from "~/components/common/Typography";
 
 type SubscribeValues = {
     phoneNumber: string;
@@ -51,10 +52,10 @@ export default function TextList () {
                         </div>
                     </div>
                     <div className="flex flex-col gap-1">
-                        <div className="text-2xl font-raleway font-bold">
+                        <div className={Typography.PrimaryTitle}>
                             Sign Up
                         </div>
-                        <div className="font-inter">
+                        <div className={Typography.BodyText}>
                             {listType === "date" ? (
                                 "Join our texting list for date night inspiration in Utah County."
                             ) : (
@@ -80,7 +81,7 @@ export default function TextList () {
                             </div>
                             <button type="submit" disabled={isLoading} className="font-inter bg-ll-black rounded-full flex flex-col items-center py-4 w-full text-ll-grey text-sm disabled:opacity-50">
                                 <div className="flex flex-row items-center gap-2">
-                                    Sign Up
+                                    <span className={Typography.ButtonText}>Sign Up</span>
                                     <span className={`loading loading-spinner loading-xs ${!isLoading ? "hidden" : ""}`} />
                                 </div>
                             </button>

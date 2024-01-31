@@ -1,10 +1,13 @@
 import PhotoUploadComponent from "~/components/Account/PhotoUploadComponent";
 import InputField from "../InputField";
+import { Typography } from "~/components/common/Typography";
 
 export default function BasicProfileInfoTab() {
   return (
     <>
-      <h1 className="font-raleway font-bold text-3xl mb-5 w-72 lg:w-full lg:text-4xl lg:mb-8">Set up your hosting profile</h1>
+      <h1 className="mb-5 w-72 lg:w-full lg:mb-8">
+        <span className={Typography.PrimaryTitle}>Set up your hosting profile</span>
+      </h1>
       <div className="flex flex-col gap-5 w-full">
         <PhotoUploadComponent name="profileImage" />  
         <InputField name="personalTitle" displayName="PROFILE TAGLINE" placeholder="Art enthusiast, pastry chef, etc." note="Maximum 35 characters" required={true} cyTestData="personalTitleField"/>

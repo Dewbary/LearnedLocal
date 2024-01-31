@@ -4,6 +4,7 @@ import { ChatBubbleOvalLeftIcon, DocumentDuplicateIcon, EnvelopeIcon } from "@he
 import type { ExperienceInfo } from "packages/db/types/types";
 import { env } from "packages/config/env.mjs";
 import { Facebook } from "react-feather";
+import { Typography } from "../Typography";
 
 type Props = {
     experience: ExperienceInfo | null | undefined;
@@ -44,42 +45,44 @@ export default function ShareExperienceComponent({ experience }: Props) {
                 button={
                     <div className="flex flex-row items-center hover:cursor-pointer gap-2">
                         <ArrowUpTrayIcon width={20} height={20} className="text-ll-black"/>
-                        <p className="hidden md:block font-inter underline text-sm">Share</p>
+                        <p className="hidden md:block underline"><span className={Typography.BodyText}>Share</span></p>
                     </div>
                 }>
                 
                 <div className="min-h-screen lg:min-h-fit pt-20 lg:pt-10 flex flex-col items-center w-full px-10 gap-5 pb-10">
-                    <h3 className="font-raleway font-bold text-xl lg:w-96 text-center">Share this experience</h3>
+                    <h3 className="lg:w-96 text-center">
+                        <span className={Typography.SecondaryTitle}>Share this experience</span>
+                    </h3>
                     <div className="flex flex-col gap-3 items-center w-full max-w-xs">
                         <div className="border border-gray-400 w-full px-4 h-16 flex flex-row rounded-lg items-center gap-1 hover:cursor-pointer hover:border-2 hover:border-ll-black transition-colors text-ll-black" onClick={() => handleMessageClick()}>
                             <div className="basis-1/6">
                                 <ChatBubbleOvalLeftIcon className="w-9 h-9"/>
                             </div>
-                            <div className="font-inter font-medium text-sm">Messages</div>
+                            <div className={Typography.BodyText}>Messages</div>
                         </div>
                         <div className="border border-gray-400 w-full px-4 h-16 flex flex-row rounded-lg items-center gap-1 hover:cursor-pointer hover:border-2 hover:border-ll-black transition-colors" onClick={() => handleEmailClick()}>
                             <div className="basis-1/6">
                                 <EnvelopeIcon className="w-9 h-9 text-ll-black"/>
                             </div>
-                            <div className="font-inter font-medium text-sm">Email</div>
+                            <div className={Typography.BodyText}>Email</div>
                         </div>
                         <div className="border border-gray-400 w-full px-4 h-16 flex flex-row rounded-lg items-center gap-1 hover:cursor-pointer hover:border-2 hover:border-ll-black transition-colors" onClick={() => handleCopyURLClick()}>
                             <div className="basis-1/6">
                                 <DocumentDuplicateIcon className="w-9 h-9 text-ll-black"/>
                             </div>
-                            <div className="font-inter font-medium text-sm">Copy link</div>
+                            <div className={Typography.BodyText}>Copy link</div>
                         </div>
                         <div className="border border-gray-400 w-full px-4 h-16 flex flex-row rounded-lg items-center gap-1 hover:cursor-pointer hover:border-2 hover:border-ll-black transition-colors" onClick={() => handleOtherClick()}>
                             <div className="basis-1/6">
                                 <ArrowUpTrayIcon width={30} height={30} className="text-ll-black"/>
                             </div>
-                            <div className="font-inter font-medium text-sm">Other</div>
+                            <div className={Typography.BodyText}>Other</div>
                         </div>
                         <div className="border border-gray-400 w-full px-4 h-16 flex flex-row rounded-lg items-center gap-1 hover:cursor-pointer hover:border-2 hover:border-ll-black transition-colors" onClick={() => handleFacebookClick()}>
                             <div className="basis-1/6">
                                 <Facebook width={30} height={30} className="text-ll-black"/>
                             </div>
-                            <div className="font-inter font-medium text-sm">Facebook</div>
+                            <div className={Typography.BodyText}>Facebook</div>
                         </div>
                     </div>
                     

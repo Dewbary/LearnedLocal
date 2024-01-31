@@ -4,6 +4,7 @@ import InputField from "~/components/Account/InputField"
 import { api } from "~/utils/api"
 import * as Yup from "yup";
 import { useUser } from "@clerk/nextjs";
+import { Typography } from "~/components/common/Typography";
 
 type FormValues = {
   oldPassword: string,
@@ -51,14 +52,16 @@ export default function PasswordTab () {
           enableReinitialize={true}
         >
           <Form className="flex flex-col w-full gap-6">
-            <h1 className="font-raleway text-4xl font-bold mb-5 hidden lg:block">Change password</h1>
+            <h1 className="mb-5 hidden lg:block">
+              <span className={Typography.PrimaryTitle}>Change password</span>
+            </h1>
             <InputField name="oldPassword" displayName="OLD PASSWORD" required type="password" disabled={oAuthAccountExists}/>
             <InputField name="newPassword" displayName="NEW PASSWORD" required type="password" note="8 characters min." disabled={oAuthAccountExists}/>
             <div className="font-inter text-sm text-red-500">
               <ErrorMessage name="newPassword" component={"div"} />
             </div>
             <button type="submit" className="bg-ll-orange rounded-full w-full py-4 text-center text-ll-grey font-inter text-sm flex flex-row items-center justify-center gap-3 disabled:bg-gray-400 lg:w-40 hover:opacity-70" disabled={oAuthAccountExists}>
-              <span>Change Password</span><span className={`${isSaving ? "" : "hidden"} loading loading-spinner loading-sm hover:opacity-70`} />
+              <span className={Typography.ButtonText}>Change Password</span><span className={`${isSaving ? "" : "hidden"} loading loading-spinner loading-sm hover:opacity-70`} />
             </button>
           </Form>
         </Formik>

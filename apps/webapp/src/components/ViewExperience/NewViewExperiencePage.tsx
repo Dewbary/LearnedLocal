@@ -1,5 +1,5 @@
 import type { InferGetServerSidePropsType } from "next";
-import type { getServerSideProps } from "~/pages/experience/newview/[...slug]";
+import type { getServerSideProps } from "~/pages/experience/view/[...slug]";
 import { api } from "~/utils/api";
 import NewNavBar from "../NewNavBar";
 import Image from "next/image";
@@ -23,6 +23,7 @@ import { useRouter } from "next/router";
 import EventSignUp from "./EventSignUp";
 import defaultProfilePic from "../../../assets/profile_pic.png";
 import ChangeRegistration from "./ChangeRegistration/ChangeRegistration";
+import { Typography } from "../common/Typography";
 
 export default function NewViewExperiencePage(
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -64,8 +65,8 @@ export default function NewViewExperiencePage(
   return (
     <>
       <div className="flex min-h-screen w-full flex-col items-center bg-ll-grey">
-        <NewNavBar isFixedNavbar />
-        <div className="pt-20 w-full md:max-w-6xl md:pb-16 md:pt-24">
+        <NewNavBar />
+        <div className="w-full md:max-w-6xl md:pb-16">
           <div className="flex w-full flex-row items-center justify-between px-5 py-5 md:py-7">
             <div className="flex flex-row items-center justify-start gap-3">
               <Link href="/home" className="md:hidden">
@@ -75,8 +76,8 @@ export default function NewViewExperiencePage(
                   className="text-ll-black"
                 />
               </Link>
-              <h1 className="font-raleway text-xl font-bold text-ll-black md:text-4xl">
-                {experienceData?.title}
+              <h1 className="text-ll-black">
+                <span className={Typography.PrimaryTitle}>{experienceData?.title}</span>
               </h1>
             </div>
             <ShareExperienceComponent experience={experienceData} />
@@ -179,11 +180,11 @@ export default function NewViewExperiencePage(
                   />
                 </div>
                 <div className="flex flex-col gap-1">
-                  <h2 className="text-md font-raleway font-bold md:text-xl">
+                  <h2 className={Typography.SecondaryTitle}>
                     Hosted by {experienceData?.profile?.firstName}{" "}
                     {experienceData?.profile?.lastName}
                   </h2>
-                  <p className="font-raleway text-sm">
+                  <p className={Typography.BodyText}>
                     {experienceData?.profile?.personalTitle}
                   </p>
                 </div>
@@ -191,14 +192,14 @@ export default function NewViewExperiencePage(
 
               <div className="flex w-full flex-col gap-3 border-b-2 border-b-gray-300 py-5 md:flex-row md:gap-10">
                 <div className="flex w-full flex-col gap-3 md:basis-2/3">
-                  <h2 className="font-raleway text-lg font-bold md:text-xl">
+                  <h2 className={Typography.SectionTitle}>
                     Description
                   </h2>
-                  <p className="font-inter text-sm font-light">
+                  <p className={Typography.BodyText}>
                     {experienceData?.description}
                   </p>
                 </div>
-                <div className="flex w-full flex-col gap-3 font-inter text-sm font-light md:basis-1/3 md:pt-10">
+                <div className={`${Typography.InfoText} flex w-full flex-col gap-3 md:basis-1/3 md:pt-10`}>
                   <div className="flex flex-row items-center gap-2">
                     <MapPinIcon
                       width={20}
@@ -227,13 +228,13 @@ export default function NewViewExperiencePage(
               </div>
 
               <div className="flex w-full flex-col gap-4 border-b-2 border-b-gray-300 py-5">
-                <h2 className="font-raleway text-lg font-bold md:text-xl">
+                <h2 className={Typography.SectionTitle}>
                   Details
                 </h2>
                 <div className="flex w-full flex-col gap-4 lg:flex-row">
                   {experienceData?.prepItems.length != 0 && (
-                    <div className="flex w-full flex-col gap-3 font-inter">
-                      <h3 className="text-[0.95rem] font-medium">
+                    <div className="flex w-full flex-col gap-3">
+                      <h3 className={Typography.BodyText}>
                         You&apos;ll need
                       </h3>
                       {experienceData?.prepItems.map((item, index) => (
@@ -246,14 +247,14 @@ export default function NewViewExperiencePage(
                             height={20}
                             className="shrink-0 text-ll-black"
                           />
-                          <p className="text-sm font-light">{item}</p>
+                          <p className={Typography.InfoText}>{item}</p>
                         </div>
                       ))}
                     </div>
                   )}
                   {experienceData?.includedItems.length != 0 && (
-                    <div className="flex w-full flex-col gap-3 font-inter">
-                      <h3 className="text-[0.95rem] font-medium">
+                    <div className="flex w-full flex-col gap-3">
+                      <h3 className={Typography.BodyText}>
                         What&apos;s included
                       </h3>
                       {experienceData?.includedItems.map((item, index) => (
@@ -266,14 +267,14 @@ export default function NewViewExperiencePage(
                             height={20}
                             className="shrink-0 text-ll-black"
                           />
-                          <p className="text-sm font-light">{item}</p>
+                          <p className={Typography.InfoText}>{item}</p>
                         </div>
                       ))}
                     </div>
                   )}
                   {experienceData?.activityNotes.length != 0 && (
-                    <div className="flex w-full flex-col gap-3 font-inter">
-                      <h3 className="text-[0.95rem] font-medium">
+                    <div className="flex w-full flex-col gap-3">
+                      <h3 className={Typography.BodyText}>
                         Activity Level
                       </h3>
                       {experienceData?.activityNotes.map((note, index) => (
@@ -286,7 +287,7 @@ export default function NewViewExperiencePage(
                             height={20}
                             className="shrink-0 text-ll-black"
                           />
-                          <p className="text-sm font-light">{note}</p>
+                          <p className={Typography.InfoText}>{note}</p>
                         </div>
                       ))}
                     </div>
@@ -296,10 +297,10 @@ export default function NewViewExperiencePage(
 
               {experienceData?.additionalInformation !== "" && (
                 <div className="flex w-full flex-col gap-4 border-b-2 border-b-gray-300 py-5">
-                  <h2 className="font-raleway text-lg font-bold md:text-xl">
+                  <h2 className={Typography.SectionTitle}>
                     Additional Information
                   </h2>
-                  <p className="font-inter text-sm font-light">
+                  <p className={Typography.BodyText}>
                     {experienceData?.additionalInformation}
                   </p>
                 </div>
@@ -308,10 +309,10 @@ export default function NewViewExperiencePage(
               <div className="flex w-full flex-col gap-5 py-5">
                 <div className="flex w-full flex-row items-center justify-between gap-5 md:justify-start md:gap-10">
                   <div className="flex flex-col gap-1">
-                    <h2 className="font-raleway text-lg font-bold md:text-xl">
+                    <h2 className={Typography.SectionTitle}>
                       Meet your host
                     </h2>
-                    <p className="font-raleway text-sm">
+                    <p className={Typography.BodyText}>
                       {experienceData?.profile?.firstName}{" "}
                       {experienceData?.profile?.lastName}
                     </p>
@@ -325,7 +326,7 @@ export default function NewViewExperiencePage(
                     />
                   </div>
                 </div>
-                <p className="font-inter text-sm font-light">
+                <p className={Typography.InfoText}>
                   {experienceData?.profile?.bio}
                 </p>
                 <a
@@ -338,14 +339,14 @@ export default function NewViewExperiencePage(
                     color="currentColor"
                     className="text-ll-black transition-colors group-hover:text-ll-grey"
                   />
-                  <p className="font-inter text-sm font-light transition-colors group-hover:text-ll-grey">
-                    {experienceData?.profile?.insta}
+                  <p className="transition-colors group-hover:text-ll-grey">
+                    <span className={Typography.InfoText}>{experienceData?.profile?.insta}</span>
                   </p>
                 </a>
               </div>
             </div>
 
-            <div className="order-1 flex h-fit w-full basis-1/3 flex-col font-inter items-center md:order-2">
+            <div className="order-1 flex h-fit w-full basis-1/3 flex-col items-center md:order-2">
               {activeRegistration ? (
                 <>
                   {experienceData && registrantCount && (

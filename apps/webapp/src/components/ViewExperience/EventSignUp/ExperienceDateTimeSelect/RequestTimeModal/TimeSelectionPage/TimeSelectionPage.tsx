@@ -12,7 +12,7 @@ type Props = {
 const TimeSelectionPage = ({ goToNextPage, goToPrevPage }: Props) => {
   return (
     <div className="flex flex-1 flex-col items-center justify-center">
-      <div className={cx(Typography.ModalTitle, "mb-4")}>
+      <div className={cx(Typography.PrimaryTitle, "mb-4")}>
         Request a date & time
       </div>
       <div className={cx(Typography.BodyText, "mb-4 text-center")}>
@@ -24,12 +24,12 @@ const TimeSelectionPage = ({ goToNextPage, goToPrevPage }: Props) => {
 
       <div className="flex justify-between space-x-8">
         <Button
-          className="mt-8 w-48 rounded-full border-2 border-ll-orange bg-white px-6 py-4 text-ll-orange"
+          className={`${Typography.ButtonText} mt-8 w-48 rounded-full border-2 border-ll-orange bg-white px-6 py-4 text-ll-orange`}
           text="Back"
           onClick={goToPrevPage}
         />
         <Button
-          className="mt-8 w-48 rounded-full bg-ll-orange px-6 py-4 text-white"
+          className={`${Typography.ButtonText} mt-8 w-48 rounded-full bg-ll-orange px-6 py-4 text-white`}
           text="Send request"
           onClick={goToNextPage}
         />

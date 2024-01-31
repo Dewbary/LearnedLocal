@@ -2,8 +2,8 @@ import { useState } from "react"
 import UpdateRegistrationPage from "./UpdateRegistrationPage"
 import { Typography } from "~/components/common/Typography";
 import { useRouter } from "next/router";
-import { ExperienceInfo, RegistrationInfo } from "packages/db/types/types";
-import { Registration } from "packages/db";
+import type { ExperienceInfo, RegistrationInfo } from "packages/db/types/types";
+import type { Registration } from "packages/db";
 import { api } from "~/utils/api";
 
 type Props = {
@@ -143,13 +143,13 @@ export default function ChangeRegistrationModal({ experience, activeRegistration
     <>
       <div className="flex flex-col items-center w-full">
         <div className="flex flex-col w-full items-center p-5 pt-10 gap-4 max-w-md lg:p-10">
-          <h1 className={Typography.ModalTitle}>{pages[currentPageIndex]?.title}</h1>
-          <h2 className={Typography.InfoText}>{pages[currentPageIndex]?.description}</h2>
+          <h1 className={Typography.PrimaryTitle}>{pages[currentPageIndex]?.title}</h1>
+          <h2 className={Typography.BodyText}>{pages[currentPageIndex]?.description}</h2>
           {pages[currentPageIndex]?.pageContents}
           <div className="flex flex-row gap-3 w-full">
             {(pages[currentPageIndex]?.buttons.length || 0) > 1 && (
               <button 
-                className="py-4 border border-ll-orange font-inter text-sm rounded-full text-ll-orange basis-1/2 hover:opacity-70"
+                className={`${Typography.ButtonText} py-4 border border-ll-orange rounded-full text-ll-orange basis-1/2 hover:opacity-70`}
                 onClick={() => handleSecondaryButtonClick()}
                 data-cy="change-reservation-button-secondary"
               >
@@ -157,7 +157,7 @@ export default function ChangeRegistrationModal({ experience, activeRegistration
               </button>
             )}
             <button 
-              className="py-4 border border-ll-orange font-inter text-sm rounded-full text-ll-grey bg-ll-orange basis-1/2 flex-grow hover:opacity-70"
+              className={`${Typography.ButtonText} py-4 border border-ll-orange rounded-full text-ll-grey bg-ll-orange basis-1/2 flex-grow hover:opacity-70`}
               onClick={() => handlePrimaryButtonClick()}
               data-cy="change-reservation-button-primary"
             >

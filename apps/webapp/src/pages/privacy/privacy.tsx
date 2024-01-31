@@ -1,16 +1,15 @@
-import { useUser } from "@clerk/nextjs";
 import React from "react";
-import NavBar from "~/components/NavBar/NavBar";
+import Footer from "~/components/NewFooter/NewFooter";
+import NewNavBar from "~/components/NewNavBar";
+import { Typography } from "~/components/common/Typography";
 
 const Privacy = () => {
-  const user = useUser();
-
   return (
-    <>
-      <NavBar isSignedIn={user.isSignedIn ?? false} className="bg-white" />
-      <div className="container mx-auto p-4 max-w-4xl">
-        <div className="card">
-          <h1 className="card-title text-2xl">
+    <div className="bg-ll-grey min-h-screen w-full">
+      <NewNavBar />
+      <div className="container mx-auto p-4 max-w-4xl bg-ll-grey">
+        <div className={`card ${Typography.BodyText}`}>
+          <h1 className={Typography.PrimaryTitle}>
             Privacy Policy for Learned Local
           </h1>
           <p>
@@ -98,7 +97,8 @@ const Privacy = () => {
           </p>
         </div>
       </div>
-    </>
+      <Footer />
+    </div>
   );
 };
 

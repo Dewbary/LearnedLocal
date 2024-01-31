@@ -7,7 +7,7 @@ import AmPmPicker from "../Fields/AmPmPicker";
 const TimeInput = () => {
   return (
     <div className="flex flex-col">
-      <div className={cx(Typography.BigLabelText, "mb-2")}>Start time</div>
+      <div className={`${Typography.InputLabel} mb-2`}>Start time</div>
       <div className="flex flex-col">
         <div className="flex">
           <div className="flex flex-col">
@@ -52,7 +52,7 @@ const TimeInput = () => {
 
           <Field id="ampm" name="ampm" component={AmPmPicker} />
         </div>
-        <div className={cx(Typography.BodyText, "mt-2 flex text-ll-slate")}>
+        <div className={`${Typography.BodyText} mt-2 flex text-ll-slate`}>
           <div className="mr-10 w-20">Hour</div>
           <div className="w-20">Minute</div>
         </div>

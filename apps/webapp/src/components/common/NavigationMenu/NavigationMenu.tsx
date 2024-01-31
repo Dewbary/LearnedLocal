@@ -2,6 +2,7 @@ import Link from "next/link";
 import * as React from "react";
 import CreateExperienceButton from "../CreateExperienceButton";
 import SignInArea from "../SignInArea";
+import { Typography } from "../Typography";
 
 type Props = {
   isSignedIn: boolean;
@@ -28,7 +29,7 @@ const NavigationMenu = ({ isSignedIn }: Props) => {
       </label>
       <ul
         tabIndex={0}
-        className="menu-compact menu dropdown-content rounded-box mt-3 w-52 bg-base-100 p-2 shadow"
+        className={`menu-compact menu dropdown-content rounded-box mt-3 w-52 bg-base-100 p-2 shadow ${Typography.BodyText}`}
       >
         <li>
           <Link className="p-2" href="/">

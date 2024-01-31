@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Facebook, Instagram } from "react-feather";
 import { api } from "~/utils/api";
 import * as Yup from "yup";
+import { Typography } from "../common/Typography";
 
 type FormValues = {
   email: string;
@@ -27,8 +28,8 @@ export default function Footer() {
     <>
       <div className="flex w-full flex-col gap-10 bg-ll-black px-6 py-8 text-ll-grey lg:flex-row lg:gap-32 lg:px-14">
         <div className="flex flex-col gap-3 lg:flex-auto">
-          <div className="font-raleway">STAY IN THE LOOP</div>
-          <div className="font-inter text-sm">
+          <div className={Typography.SectionTitle}>STAY IN THE LOOP</div>
+          <div className={Typography.BodyText}>
             Sign up with your email address to receive experience updates.
           </div>
           <Formik
@@ -51,22 +52,22 @@ export default function Footer() {
               </button>
             </Form>
           </Formik>
-          <Link className="font-inter text-sm underline hover:cursor-pointer" href="/privacy">
-            Privacy Policy
+          <Link className="underline hover:cursor-pointer" href="/privacy">
+            <span className={Typography.BodyText}>Privacy Policy</span>
           </Link>
         </div>
 
         <div className="flex flex-col gap-3">
-          <div className="font-raleway">CONTACT US</div>
-          <div className="font-inter text-sm">(385) 309-3194</div>
-          <div className="font-inter text-sm">
+          <div className={Typography.SectionTitle}>CONTACT US</div>
+          <div className={Typography.BodyText}>(385) 309-3194</div>
+          <div className={Typography.BodyText}>
             11124 N 6000 W<br />
             Highland, UT 84003
           </div>
         </div>
 
         <div className="flex flex-col gap-3">
-          <div className="font-raleway">FOLLOW US</div>
+          <div className={Typography.SectionTitle}>FOLLOW US</div>
           <div className="flex flex-row gap-3">
             <Link
               href="https://www.instagram.com/learnedlocal/"
