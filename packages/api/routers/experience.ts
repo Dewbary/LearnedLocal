@@ -1,8 +1,7 @@
 import { date, z } from "zod";
 import { createTRPCRouter, publicProcedure, protectedProcedure } from "../trpc";
 import { sendExperienceCreationEmail } from "../utils/sendgrid";
-import { add, addDays, startOfDay, startOfToday, startOfTomorrow, startOfWeek, sub } from "date-fns";
-import { env } from "@learnedlocal/config/env.mjs";
+import { add, addDays, startOfDay, startOfToday, startOfWeek } from "date-fns";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "", {
@@ -40,13 +39,15 @@ export const createExperienceAndPrice = async ({
 
 const getFridayOfCurrentWeek = function () {
   // Get the start of the current week (assuming Monday is the first day of the week)
-  const startOfWeekDate = startOfDay(startOfWeek(new Date(), { weekStartsOn: 1 })); // 1 corresponds to Monday
+  const startOfWeekDate = startOfDay(
+    startOfWeek(new Date(), { weekStartsOn: 1 })
+  ); // 1 corresponds to Monday
 
   // Calculate the date of Friday by adding 4 days to the start of the week
   const fridayDate = addDays(startOfWeekDate, 4);
 
   return fridayDate;
-}
+};
 
 export const experienceRouter = createTRPCRouter({
   getAll: publicProcedure.query(({ ctx }) => {
@@ -80,37 +81,35 @@ export const experienceRouter = createTRPCRouter({
     });
   }),
 
-  getRecommended: publicProcedure
-    .input(z.string())
-    .query(({ctx, input}) => {
-      const recommendedExperiences = ctx.prisma.experience.findMany({
-        where: {
-          availability: {
-            some: {
-              AND: [
-                {
-                  startTime: {
-                    gte: getFridayOfCurrentWeek()
-                  }
+  getRecommended: publicProcedure.input(z.string()).query(({ ctx, input }) => {
+    const recommendedExperiences = ctx.prisma.experience.findMany({
+      where: {
+        availability: {
+          some: {
+            AND: [
+              {
+                startTime: {
+                  gte: getFridayOfCurrentWeek(),
                 },
-                {
-                  startTime: {
-                    lt: add(getFridayOfCurrentWeek(), {days: 3})
-                  }
-                }
-              ]
-            }
+              },
+              {
+                startTime: {
+                  lt: add(getFridayOfCurrentWeek(), { days: 3 }),
+                },
+              },
+            ],
           },
-          verified: true,
         },
-        include: {
-          availability: true,
-          profile: true
-        },
-      });
+        verified: true,
+      },
+      include: {
+        availability: true,
+        profile: true,
+      },
+    });
 
-      return recommendedExperiences;
-    }),
+    return recommendedExperiences;
+  }),
 
   getCurrent: protectedProcedure.query(async ({ ctx }) => {
     const currentDate = new Date();
@@ -178,9 +177,9 @@ export const experienceRouter = createTRPCRouter({
         userId: ctx.userId,
         availability: {
           startTime: {
-            gt: startOfToday()
-          }
-        }
+            gt: startOfToday(),
+          },
+        },
       },
       include: {
         experience: {
@@ -199,9 +198,9 @@ export const experienceRouter = createTRPCRouter({
         userId: ctx.userId,
         availability: {
           startTime: {
-            lte: startOfToday()
-          }
-        }
+            lte: startOfToday(),
+          },
+        },
       },
       include: {
         experience: {
@@ -231,7 +230,7 @@ export const experienceRouter = createTRPCRouter({
         where: { id: input },
         include: {
           profile: true,
-          availability: true
+          availability: true,
         },
       });
     }),
@@ -337,6 +336,7 @@ export const experienceRouter = createTRPCRouter({
             endTime: z.date().nullable(),
           })
         ),
+        draft: z.boolean(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -366,6 +366,7 @@ export const experienceRouter = createTRPCRouter({
           includedItems: input.includedItems,
           activityNotes: input.activityNotes,
           additionalInformation: input.additionalInformation,
+          draft: input.draft,
         },
         include: {
           availability: true,
@@ -408,6 +409,7 @@ export const experienceRouter = createTRPCRouter({
             endTime: z.date().nullable(),
           })
         ),
+        draft: z.boolean(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -452,6 +454,7 @@ export const experienceRouter = createTRPCRouter({
               endTime: a.endTime,
             })),
           },
+          draft: input.draft,
         },
         include: {
           availability: true,

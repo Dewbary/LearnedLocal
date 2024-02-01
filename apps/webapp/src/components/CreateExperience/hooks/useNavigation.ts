@@ -1,10 +1,10 @@
 // useNavigation.tsx
 import { useRouter } from "next/router";
-import type { TabInfo } from "../types";
 import { useState } from "react";
+import type { FormPage } from "~/components/types";
 
 export function useNavigation(
-  tabs: TabInfo[],
+  tabs: FormPage[],
   slug: string,
   initialStep = 0,
   experienceId: string
@@ -16,10 +16,7 @@ export function useNavigation(
     if (step < tabs.length - 1) {
       setStep(step + 1);
       await router.push(
-        {
-          pathname: tabs[step + 1]?.url ?? "",
-          query: { experienceId: experienceId || "" },
-        },
+        `/experience/create/${slug}/${tabs[step + 1]?.url ?? ""}`,
         undefined,
         { shallow: true }
       );
@@ -30,10 +27,7 @@ export function useNavigation(
     if (step > 0) {
       setStep(step - 1);
       await router.push(
-        {
-          pathname: tabs[step - 1]?.url ?? "",
-          query: { experienceId: experienceId || "" },
-        },
+        `/experience/create/${slug}/${tabs[step - 1]?.url ?? ""}`,
         undefined,
         { shallow: true }
       );
@@ -44,10 +38,7 @@ export function useNavigation(
     if (step >= 0 && step < tabs.length) {
       setStep(step);
       await router.push(
-        {
-          pathname: tabs[step]?.url ?? "",
-          query: { experienceId: experienceId },
-        },
+        `/experience/create/${slug}/${tabs[step]?.url ?? ""}`,
         undefined,
         { shallow: true }
       );

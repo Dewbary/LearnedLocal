@@ -2,13 +2,17 @@ import type { FieldProps } from "formik";
 import * as React from "react";
 import cx from "classnames";
 
-const AmPmPicker = ({ field, form }: FieldProps<"am" | "pm">) => {
+interface Props extends FieldProps<"am" | "pm"> {
+  className?: string;
+}
+
+const AmPmPicker = ({ field, form, className }: Props) => {
   const { setFieldValue } = form;
 
   const selected = field.value;
 
   return (
-    <div className="ml-4 h-20 w-14 ">
+    <div className={`${className ?? "ml-4 h-20 w-14"}  `}>
       <button
         type="button"
         onClick={() => setFieldValue(field.name, "am")}

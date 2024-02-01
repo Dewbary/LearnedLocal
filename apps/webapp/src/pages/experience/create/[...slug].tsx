@@ -1,3 +1,3 @@
-import CreateExperienceForm from "~/components/CreateExperience/CreateExperienceForm";
+import CreateExperienceFormLayout from "~/components/CreateExperience/CreateExperienceFormLayout";
 
-export default CreateExperienceForm;
+export default CreateExperienceFormLayout;

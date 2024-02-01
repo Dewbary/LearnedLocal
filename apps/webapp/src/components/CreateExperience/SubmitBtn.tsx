@@ -2,27 +2,33 @@ import classNames from "classnames";
 import { useFormikContext } from "formik";
 import React from "react";
 import type { FormValues } from "./types";
+import Button from "../common/Button";
 
 type Props = {
   isEditing: boolean;
+  setDraftState: (state: boolean) => void;
 };
 
-const SubmitBtn = ({ isEditing }: Props) => {
-  const { dirty, isSubmitting, initialErrors} = useFormikContext<FormValues>();
+const SubmitBtn = ({ isEditing, setDraftState }: Props) => {
+  const { dirty, isSubmitting, initialErrors } = useFormikContext<FormValues>();
   return (
-    <div>
-      <button
+    <>
+      <Button
         type="submit"
         className={classNames({
-          "btn bg-amber-500 border-amber-500 text-white": true,
+          "flex max-w-xs flex-1 rounded-full bg-ll-orange px-6 py-4 text-white":
+            !isSubmitting,
           loading: isSubmitting,
         })}
         disabled={!dirty}
-      >
-        {isEditing ? "Update" : "Submit"}
-      </button>
+        text={isEditing ? "Update" : "Submit"}
+        onClick={() => {
+          setDraftState(false);
+          console.log("clicked");
+        }}
+      />
       {initialErrors.availability?.toString()}
-    </div>
+    </>
   );
 };
 

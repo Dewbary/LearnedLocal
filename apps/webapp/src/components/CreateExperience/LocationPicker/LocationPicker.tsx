@@ -88,7 +88,7 @@ const LocationPicker = ({ value, onLocationChange }: LocationPickerProps) => {
           onPlaceSelected={handlePlaceSelected}
           onApiReady={handleApiReady}
         />
-        <PinButton clearPinData={clearPinData} />
+        {/* <PinButton clearPinData={clearPinData} />  //TODO: decide if we want to add this back in later */}
       </div>
       <div className="flex h-full flex-col">
         <div className="flex-grow">

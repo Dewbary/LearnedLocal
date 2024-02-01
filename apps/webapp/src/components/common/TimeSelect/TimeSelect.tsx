@@ -31,9 +31,9 @@ const TimeSelect = ({
         placeholderText={title}
         locale="enUS"
         dateFormat="h:mm aa"
-        className={`w-20 rounded-lg border ${
+        className={`h-14 w-24 rounded-lg border border-ll-slate bg-ll-grey text-center ${
           error ? "border-red-500" : ""
-        } p-2 text-sm`}
+        } p-2 text-lg`}
       />
     </div>
   );

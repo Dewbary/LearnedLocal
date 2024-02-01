@@ -1,47 +1,57 @@
 import * as Yup from "yup";
 import type { FormValues } from "./types";
-import {
-  HomeIcon,
-  CalendarIcon,
-  CogIcon,
-  CameraIcon,
-  CheckCircleIcon,
-  MapPinIcon,
-  ClipboardDocumentCheckIcon,
-} from "@heroicons/react/24/solid";
-import DescriptionPage from "./DescriptionPage/DescriptionPage";
-import DatePage from "./DatePage/DatePage";
-import LocationPage from "./LocationPage/LocationPage";
-import RequirementsPage from "./RequirementsPage/RequirementsPage";
-import SettingsPage from "./SettingsPage/SettingsPage";
-import PhotosPage from "./PhotosPage/PhotosPage";
-import FinalStepsPage from "./FinalStepsPage/FinalStepsPage";
 import StartPage from "./StartPage";
 import type { ImageListType } from "react-images-uploading";
 import { uploadImageToBucket } from "~/utils/images";
 import type { ExperienceInfo, Pin } from "@learnedlocal/db/types/types";
+import { FormPage } from "../types";
+import General from "./FormPages/General";
+import DateTime from "./FormPages/DateTime";
+import Location from "./FormPages/Location";
+import Requirements from "./FormPages/Requirements";
+import Photos from "./FormPages/Photos";
 
 export const validationSchema = Yup.object().shape({
   title: Yup.string().required("You need to give your experience a title"),
-  description: Yup.string().required("You need to give your experience a description"),
+  description: Yup.string().required(
+    "You need to give your experience a description"
+  ),
   availability: Yup.array()
     .of(
       Yup.object().shape({
-        startTime: Yup.string().required("You must set a start time for your experience"),
-        endTime: Yup.string().nullable().required("You must set an end time for your experience"),
+        startTime: Yup.string().required(
+          "You must set a start time for your experience"
+        ),
+        endTime: Yup.string()
+          .nullable()
+          .required("You must set an end time for your experience"),
       })
     )
     .required("You must have at least one date and time for your experience")
     .min(1, "You must have at least one date and time for your experience"),
   free: Yup.boolean(),
-  price: Yup.number()
-    .when('free', {
-      is: (free: boolean) => !free,
-      then: (schema: Yup.NumberSchema) => schema
+  price: Yup.number().when("free", {
+    is: (free: boolean) => !free,
+    then: (schema: Yup.NumberSchema) =>
+      schema
         .min(1, "If your experience is not free, it must be at least $1")
-        .required("If your experience is not free, it must be at least $1")
-    })
+        .required("If your experience is not free, it must be at least $1"),
+  }),
 });
+
+export const SKILL_LEVELS = [
+  { value: "Beginner", name: "Beginner" },
+  { value: "Intermediate", name: "Intermediate" },
+  { value: "Advanced", name: "Advanced" },
+  { value: "Expert", name: "Expert" },
+];
+
+export const ACTIVITY_LEVELS = [
+  { value: "Low", name: "Low" },
+  { value: "Medium", name: "Medium" },
+  { value: "High", name: "High" },
+  { value: "Extreme", name: "Extreme" },
+];
 
 export const initialValues: FormValues = {
   title: "",
@@ -65,77 +75,70 @@ export const initialValues: FormValues = {
   prepItems: [],
   includedItems: [],
   activityNotes: [],
-  additionalInformation: ""
+  additionalInformation: "",
 };
 
-export const getTabInfos = (slug: string) => {
-  if (!slug) return [];
+export const formPages: FormPage[] = [
+  {
+    url: "general",
+    tabTitle: "General",
+    pageTitle: "Event overview",
+    subTitle:
+      "Provide general event information here. Your attendees will see the title and description first, so make sure they give a good first impression",
+    pageComponent: <General />,
+  },
+  {
+    url: "date",
+    tabTitle: "Date/Time",
+    pageTitle: "Select dates & times",
+    subTitle:
+      "For a reoccurring experience, choose several dates and times for hosting your event, or opt for a single date and time.",
+    pageComponent: <DateTime />,
+  },
+  {
+    url: "location",
+    tabTitle: "Location",
+    pageTitle: "Select event location",
+    subTitle:
+      "This address is only shared with guests ater they have signed up.",
+    pageComponent: <Location />,
+  },
+  {
+    url: "requirements",
+    tabTitle: "Guest Requirements",
+    pageTitle: "Set guest requirements",
+    subTitle: "Set guest requirements and help attendees know how to prepare",
+    pageComponent: <Requirements />,
+  },
+  {
+    url: "photos",
+    tabTitle: "Photos",
+    pageTitle: "Add photos",
+    subTitle:
+      "Help your attendees know what to expect by adding some photos of the experience. Aim for high-quality photos to wow your audience.",
+    pageComponent: <Photos />,
+  },
+];
 
-  return [
-    {
-      url: `/experience/create/${slug}/description`,
-      text: "Description",
-      activeMatcher: "description",
-      icon: <HomeIcon className="h-5 w-5" />,
-    },
-    {
-      url: `/experience/create/${slug}/date`,
-      text: "Date & Time",
-      activeMatcher: "date",
-      icon: <CalendarIcon className="h-5 w-5" />,
-    },
-    {
-      url: `/experience/create/${slug}/location`,
-      text: "Location",
-      activeMatcher: "location",
-      icon: <MapPinIcon className="h-5 w-5" />,
-    },
-    {
-      url: `/experience/create/${slug}/requirements`,
-      text: "Requirements",
-      activeMatcher: "requirements",
-      icon: <ClipboardDocumentCheckIcon className="h-5 w-5" />,
-    },
-    {
-      url: `/experience/create/${slug}/settings`,
-      text: "Settings",
-      activeMatcher: "settings",
-      icon: <CogIcon className="h-5 w-5" />,
-    },
-    {
-      url: `/experience/create/${slug}/photos`,
-      text: "Photos",
-      activeMatcher: "photos",
-      icon: <CameraIcon className="h-5 w-5" />,
-    },
-    {
-      url: `/experience/create/${slug}/submit`,
-      text: "Submit",
-      activeMatcher: "submit",
-      icon: <CheckCircleIcon className="h-5 w-5" />,
-    },
-  ];
-};
+export const getCurrentFormPage = (
+  activeTab: string,
+  isEditing: boolean
+): FormPage => {
+  const formPage = formPages.find(
+    (page) => page.url.toLowerCase() === activeTab.toLowerCase()
+  );
 
-export const getTabComponent = (activeTab: string, isEditing: boolean) => {
-  switch (activeTab) {
-    case "description":
-      return <DescriptionPage />;
-    case "date":
-      return <DatePage />;
-    case "location":
-      return <LocationPage />;
-    case "requirements":
-      return <RequirementsPage />;
-    case "settings":
-      return <SettingsPage />;
-    case "photos":
-      return <PhotosPage />;
-    case "submit":
-      return <FinalStepsPage isEditing={isEditing} />;
-    default:
-      return <StartPage />;
+  if (!formPage) {
+    return {
+      url: "start",
+      tabTitle: "Start",
+      pageTitle: "Start",
+      subTitle: "Let's get started",
+      pageComponent: <StartPage />,
+    };
   }
+
+  return formPage;
 };
 
 export const uploadImages = async (
@@ -167,7 +170,8 @@ export const getUpdateExperienceObject = (
   experienceId: string,
   filePathArray: string[],
   slug: string,
-  hostProfileId: string
+  hostProfileId: string,
+  isDraft: boolean
 ) => {
   // Update the experience
   return {
@@ -195,7 +199,8 @@ export const getUpdateExperienceObject = (
     prepItems: values.prepItems,
     includedItems: values.includedItems,
     activityNotes: values.activityNotes,
-    additionalInformation: values.additionalInformation
+    additionalInformation: values.additionalInformation,
+    draft: isDraft,
   };
 };
 
@@ -203,7 +208,8 @@ export const getCreateExperienceObject = (
   values: FormValues,
   filePathArray: string[],
   slug: string,
-  hostProfileId: string
+  hostProfileId: string,
+  isDraft: boolean
 ) => {
   return {
     title: values.title,
@@ -229,7 +235,8 @@ export const getCreateExperienceObject = (
     prepItems: values.prepItems,
     includedItems: values.includedItems,
     activityNotes: values.activityNotes,
-    additionalInformation: values.additionalInformation
+    additionalInformation: values.additionalInformation,
+    draft: isDraft,
   };
 };
 

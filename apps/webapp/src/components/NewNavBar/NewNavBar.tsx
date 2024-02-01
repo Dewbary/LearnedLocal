@@ -7,8 +7,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 const NewNavBar = () => {
-
-  const prevScrollPos = useRef(0)
+  const prevScrollPos = useRef(0);
 
   const [showNavBar, setShowNavBar] = useState(true);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
@@ -24,28 +23,30 @@ const NewNavBar = () => {
       prevScrollPos.current = currentScrollPos;
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
   const openMobileMenuClicked = () => {
     setMobileNavOpen(true);
-  }
+  };
 
   const closeMobileMenuClicked = () => {
     setMobileNavOpen(false);
-  }
+  };
 
   return (
     <>
-      <div className="w-full h-24 lg:h-28">
-        <div className={`fixed flex flex-row w-full p-5 bg-transparent z-10 ${showNavBar || mobileNavOpen ? "" : "-translate-y-40"} transition-all duration-700`}>
-          <div
-            className="flex flex-row items-center w-full justify-between h-16 lg:h-22 border border-ll-slate bg-ll-cloud rounded-md"
-          >
+      <div className="h-24 w-full lg:h-28">
+        <div
+          className={`fixed z-10 flex w-full flex-row bg-transparent p-5 ${
+            showNavBar || mobileNavOpen ? "" : "-translate-y-40"
+          } transition-all duration-700`}
+        >
+          <div className="flex h-16 w-full flex-row items-center justify-between rounded-md border border-ll-slate bg-ll-cloud lg:h-22">
             {/* Navbar title and logo */}
             <div className="ml-4 md:ml-12">
               <Link href="/">
@@ -64,14 +65,20 @@ const NewNavBar = () => {
               <div className="hidden gap-8 lg:flex">
                 <NavigationLink text="Our story" route="/about" />
                 <NavigationLink text="Become a host" route="/host" />
-                <NavigationLink text="Find an experience" route="/home" dataCy="desktop-home-link"/>
+                <NavigationLink
+                  text="Find an experience"
+                  route="/home"
+                  dataCy="desktop-home-link"
+                />
                 {/* <NavigationLink text="Our blog" route="/blog" /> */}
               </div>
             </div>
 
-
             {/* Navbar end, responsive mobile hamburger menu / login button */}
-            <NavBarEnd onMenuOpen={openMobileMenuClicked} onMenuClose={closeMobileMenuClicked}/>
+            <NavBarEnd
+              onMenuOpen={openMobileMenuClicked}
+              onMenuClose={closeMobileMenuClicked}
+            />
           </div>
         </div>
       </div>

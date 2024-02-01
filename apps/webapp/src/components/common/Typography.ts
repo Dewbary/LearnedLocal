@@ -8,4 +8,4 @@ export const Typography = {
   ButtonText: "font-sourcesans text-[14px] font-semibold lg:text-[16px]",
   InfoText: "font-sourcesans text-[15px]",
   NumberText: "font-sourcesans text-[24px]",
-}
+};
