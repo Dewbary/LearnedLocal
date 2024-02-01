@@ -1,9 +1,6 @@
 import * as React from "react";
-import { FormLabel } from "../../Form/FormLabel";
 import { ErrorMessage, Field, useFormikContext } from "formik";
-import type { FormValues } from "../../types";
-import Image from "next/image";
-import orangeAsterisk from "../../../../../assets/orange_asterisk.png";
+import type { FormValues } from "../../../CreateExperience/types";
 import FieldLabel from "~/components/common/Fields/FieldLabel";
 
 type Props = {

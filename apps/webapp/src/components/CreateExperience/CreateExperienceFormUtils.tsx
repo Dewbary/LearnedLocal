@@ -1,7 +1,5 @@
 import * as Yup from "yup";
 import type { FormValues } from "./types";
-import RequirementsPage from "./RequirementsPage/RequirementsPage";
-import PhotosPage from "./PhotosPage/PhotosPage";
 import StartPage from "./StartPage";
 import type { ImageListType } from "react-images-uploading";
 import { uploadImageToBucket } from "~/utils/images";

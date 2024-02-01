@@ -1,11 +1,11 @@
 import * as React from "react";
 import { ErrorMessage, useFormikContext } from "formik";
 import { api } from "~/utils/api";
-import PriceField from "../../SettingsPage/PriceField";
 import InputField from "~/components/Account/InputField";
 import SelectField from "~/components/common/Fields/SelectField";
 import StringArrayInputField from "../../Form/StringArrayInputField";
 import type { FormValues } from "../../types";
+import PriceField from "~/components/common/Fields/PriceField";
 
 const General = () => {
   const { setFieldValue, values } = useFormikContext<FormValues>();

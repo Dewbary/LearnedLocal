@@ -15,10 +15,10 @@ import { useNavigation } from "../hooks/useNavigation";
 import FormNavigationBtns from "./FormNavigationBtns";
 import { Form, Formik } from "formik";
 import { useExperienceSubmission } from "../hooks/useExperienceSubmission";
-import SaveAndExitButton from "../FormTabLayout/SaveAndExitButton";
-import FormPageHeader from "../FormTabLayout/FormPageHeader";
+import SaveAndExitButton from "../SaveAndExitButton";
 import Link from "next/link";
 import { ExperienceInfo } from "packages/db/types/types";
+import FormPageHeader from "../FormPageHeader";
 
 const CreateExperienceFormBody = () => {
   const router = useRouter();

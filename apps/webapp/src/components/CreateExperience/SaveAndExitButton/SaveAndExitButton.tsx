@@ -3,7 +3,7 @@ import Button from "~/components/common/Button";
 import { Typography } from "~/components/common/Typography";
 import classNames from "classnames";
 import { useFormikContext } from "formik";
-import { FormValues } from "../../types";
+import { FormValues } from "../types";
 
 type Props = {
   setDraftState: (state: boolean) => void;
