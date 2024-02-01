@@ -169,7 +169,7 @@ export default function LandingBody() {
               </div>
               <Link
                 href="/home"
-                className="flex h-14 w-52 items-center justify-center rounded-full bg-ll-yellow text-sm font-medium transition-opacity hover:cursor-pointer hover:bg-opacity-60"
+                className="flex h-14 w-52 items-center justify-center rounded-full bg-ll-orange text-ll-grey transition-opacity hover:cursor-pointer hover:bg-opacity-60"
               >
                 <span className={Typography.ButtonText}>Explore Experiences</span>
               </Link>
@@ -196,7 +196,7 @@ export default function LandingBody() {
               </div>
               <Link
                 href="/host"
-                className="flex h-14 w-52 items-center justify-center rounded-full bg-ll-yellow text-sm font-medium transition-opacity hover:cursor-pointer hover:bg-opacity-60"
+                className="flex h-14 w-52 items-center justify-center rounded-full bg-ll-orange text-ll-grey transition-opacity hover:cursor-pointer hover:bg-opacity-60"
               >
                 <span className={Typography.ButtonText}>Start Hosting</span>
               </Link>
@@ -233,7 +233,7 @@ export default function LandingBody() {
           </div>
           <Link
             href="/home"
-            className="flex h-14 w-52 items-center justify-center rounded-full bg-ll-yellow"
+            className="flex h-14 w-52 items-center justify-center rounded-full bg-ll-orange text-ll-grey"
           >
             <span className={Typography.ButtonText}>Explore Experiences</span>
           </Link>
@@ -256,9 +256,9 @@ export default function LandingBody() {
           </div>
           <Link
             href="/host"
-            className="flex h-14 w-52 items-center justify-center rounded-full bg-ll-yellow"
+            className="flex h-14 w-52 items-center justify-center rounded-full bg-ll-orange text-ll-grey"
           >
-            <span>Start Hosting</span>
+            <span className={Typography.ButtonText}>Start Hosting</span>
           </Link>
         </div>
 

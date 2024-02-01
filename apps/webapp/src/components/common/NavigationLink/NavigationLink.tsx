@@ -12,7 +12,7 @@ const NavigationLink = ({ text, route, dataCy }: Props) => {
   return (
     <Link
       href={route}
-      className="flex items-center justify-center px-4 hover:cursor-pointer hover:border-b-ll-blue hover:border-b-4"
+      className="flex items-center justify-center px-4 border-b-4 border-t-4 border-b-ll-cloud border-t-ll-cloud hover:cursor-pointer hover:border-b-ll-blue"
       data-cy={dataCy}
     >
       <span className={Typography.BodyText}>{text}</span>
