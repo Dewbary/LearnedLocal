@@ -88,11 +88,11 @@ const NavBarEnd = ({onMenuOpen, onMenuClose} : Props) => {
       
         {!isSignedIn ? (
           <>
-            <div className="hidden rounded-full border border-ll-black p-2 font-inter text-sm lg:flex flex-row items-center">
-              <Link href={signInUrl} className="flex h-12 w-20 items-center justify-center transition-colors hover:cursor-pointer hover:border-b-ll-blue hover:border-b-4">
+            <div className="hidden rounded-full border border-ll-black p-2 font-inter text-sm lg:flex flex-row items-center gap-1">
+              <Link href={signInUrl} className="flex h-12 w-20 items-center justify-center transition-colors hover:bg-ll-black hover:text-ll-grey hover:cursor-pointer rounded-full">
                 Login
               </Link>
-              <Link href={signUpUrl} className="flex h-12 w-24 items-center justify-center rounded-full bg-ll-orange transition-opacity hover:cursor-pointer hover:bg-opacity-60">
+              <Link href={signUpUrl} className="flex h-12 w-24 items-center justify-center rounded-full bg-ll-orange transition-opacity hover:cursor-pointer hover:bg-opacity-60 text-ll-grey">
                 Join
               </Link>
             </div>

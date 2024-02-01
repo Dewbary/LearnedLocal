@@ -7,6 +7,7 @@ import step4Image from "../../../assets/host/become_step_4.jpg";
 import step5Image from "../../../assets/host/become_step_5.jpg";
 import HostStep from "./HostStep";
 import { Typography } from "../common/Typography";
+import Link from "next/link";
 
 export default function HostBody() {
     return (
@@ -42,6 +43,9 @@ export default function HostBody() {
                             memories that we all yearn for. Join us in building those cherished connections and 
                             lasting moments.
                         </p>
+                        <Link href="/account/hostonboard" className="px-6 py-4 bg-ll-orange rounded-full text-ll-grey w-fit hover:opacity-70 hover:cursor-pointer">
+                            <span className={Typography.ButtonText}>Become a Host</span>
+                        </Link>
                     </div>
                 </div>
                 <div className="flex flex-row lg:justify-center w-full">
