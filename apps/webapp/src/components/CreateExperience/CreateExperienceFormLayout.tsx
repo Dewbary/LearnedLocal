@@ -7,7 +7,7 @@ const CreateExperienceFormLayout = () => {
   return (
     <>
       <div className="flex min-h-screen flex-col">
-        <NewNavBar className="bg-ll-grey" />
+        <NewNavBar />
         <div className="flex flex-1 bg-ll-grey">
           <CreateExperienceFormBody />
         </div>

@@ -1,9 +1,9 @@
 import * as React from "react";
 import Button from "~/components/common/Button";
-import { Typography } from "~/components/common/Typography";
 import classNames from "classnames";
 import { useFormikContext } from "formik";
 import { FormValues } from "../types";
+import { Typography } from "../../common/Typography";
 
 type Props = {
   setDraftState: (state: boolean) => void;
@@ -17,7 +17,7 @@ const SaveAndExitButton = ({ setDraftState }: Props) => {
       // className={`${
       //   Typography.SmallButtonText ?? ""
       // } border border-ll-orange bg-ll-grey px-7 py-4 text-ll-orange`}
-      className={classNames(Typography.SmallButtonText, {
+      className={classNames(Typography.ButtonText, {
         "border border-ll-orange bg-ll-grey px-7 py-4 text-ll-orange":
           !isSubmitting,
         loading: isSubmitting,
