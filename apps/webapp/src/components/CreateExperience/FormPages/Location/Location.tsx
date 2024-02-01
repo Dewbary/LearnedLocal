@@ -1,5 +1,6 @@
 import * as React from "react";
-import { Field, FieldProps } from "formik";
+import type { FieldProps } from "formik";
+import { Field } from "formik";
 import { PinContextProvider } from "../../LocationPicker/PinContext";
 import LocationPicker from "../../LocationPicker/LocationPicker";
 import type { Pin } from "packages/db/types/types";
@@ -7,9 +8,7 @@ import type { Pin } from "packages/db/types/types";
 const Location = () => {
   return (
     <Field name="location">
-      {(
-        { field, form }: FieldProps<Pin> // TODO: Extract into a separate component
-      ) => (
+      {({ field, form }: FieldProps<Pin>) => (
         <PinContextProvider>
           <LocationPicker
             {...field}

@@ -140,5 +140,5 @@ export type FormPage = {
 
 export type Item = {
   name: string;
-  value: number;
+  value: string | number;
 };

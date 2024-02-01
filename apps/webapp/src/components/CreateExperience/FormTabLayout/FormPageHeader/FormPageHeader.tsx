@@ -8,10 +8,10 @@ type Props = {
 
 const FormPageHeader = ({ title, subTitle }: Props) => {
   return (
-    <div className="flex flex-row justify-center text-center">
+    <div className="m-4 flex flex-row justify-center text-center">
       <div className="flex flex-col">
         <div className={Typography.FormTitle}>{title}</div>
-        <div className={`${Typography.SubText ?? ""} px-20 pb-4`}>
+        <div className={`${Typography.SubText ?? ""} mb-4 h-12 max-w-md`}>
           {subTitle}
         </div>
       </div>

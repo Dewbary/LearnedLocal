@@ -44,8 +44,8 @@ const General = () => {
         note="Maximum 600 characters"
       />
       <SelectField
-        displayName="Category"
         name="categoryId"
+        displayName="Category"
         items={
           categories?.map((category) => ({
             value: category.id,
@@ -60,13 +60,13 @@ const General = () => {
 
       <StringArrayInputField
         title="What's Included"
-        arrayName="prepItems"
-        arrayObject={values.prepItems}
+        arrayName="includedItems"
+        arrayObject={values.includedItems}
         placeHolderText="Type in included materials or resources one by one, hitting the plus button in-between"
         note="Maximum 25 characters each"
       />
       <InputField
-        name="details"
+        name="additionalInformation"
         displayName="Additional Details"
         as="textarea"
         placeholder="Provide additional details here (disclosures, legal information, etc)"

@@ -38,10 +38,7 @@ export function useNavigation(
     if (step >= 0 && step < tabs.length) {
       setStep(step);
       await router.push(
-        {
-          pathname: tabs[step]?.url ?? "",
-          query: { experienceId: experienceId },
-        },
+        `/experience/create/${slug}/${tabs[step]?.url ?? ""}`,
         undefined,
         { shallow: true }
       );

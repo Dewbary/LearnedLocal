@@ -41,6 +41,20 @@ export const validationSchema = Yup.object().shape({
   }),
 });
 
+export const SKILL_LEVELS = [
+  { value: "Beginner", name: "Beginner" },
+  { value: "Intermediate", name: "Intermediate" },
+  { value: "Advanced", name: "Advanced" },
+  { value: "Expert", name: "Expert" },
+];
+
+export const ACTIVITY_LEVELS = [
+  { value: "Low", name: "Low" },
+  { value: "Medium", name: "Medium" },
+  { value: "High", name: "High" },
+  { value: "Extreme", name: "Extreme" },
+];
+
 export const initialValues: FormValues = {
   title: "",
   description: "",
@@ -158,7 +172,8 @@ export const getUpdateExperienceObject = (
   experienceId: string,
   filePathArray: string[],
   slug: string,
-  hostProfileId: string
+  hostProfileId: string,
+  isDraft: boolean
 ) => {
   // Update the experience
   return {
@@ -187,6 +202,7 @@ export const getUpdateExperienceObject = (
     includedItems: values.includedItems,
     activityNotes: values.activityNotes,
     additionalInformation: values.additionalInformation,
+    draft: isDraft,
   };
 };
 
@@ -194,7 +210,8 @@ export const getCreateExperienceObject = (
   values: FormValues,
   filePathArray: string[],
   slug: string,
-  hostProfileId: string
+  hostProfileId: string,
+  isDraft: boolean
 ) => {
   return {
     title: values.title,
@@ -221,6 +238,7 @@ export const getCreateExperienceObject = (
     includedItems: values.includedItems,
     activityNotes: values.activityNotes,
     additionalInformation: values.additionalInformation,
+    draft: isDraft,
   };
 };
 

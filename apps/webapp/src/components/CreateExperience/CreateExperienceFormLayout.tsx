@@ -8,7 +8,9 @@ const CreateExperienceFormLayout = () => {
     <>
       <div className="flex min-h-screen flex-col">
         <NewNavBar className="bg-ll-grey" />
-        <CreateExperienceFormBody />
+        <div className="flex flex-1 bg-ll-grey">
+          <CreateExperienceFormBody />
+        </div>
         <NewFooter />
       </div>
     </>

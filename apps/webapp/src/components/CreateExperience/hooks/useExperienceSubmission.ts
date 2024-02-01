@@ -8,6 +8,7 @@ import {
   uploadImages,
 } from "../CreateExperienceFormUtils";
 import type { FormValues } from "../types";
+import { isDraft } from "immer";
 
 export const useExperienceSubmission = (
   experienceId: string | null,
@@ -24,7 +25,8 @@ export const useExperienceSubmission = (
 
   const handleSubmit = async (
     values: FormValues,
-    helpers: FormikHelpers<FormValues>
+    helpers: FormikHelpers<FormValues>,
+    isDraft: boolean
   ) => {
     if (!user || !user.isSignedIn) return;
     setIsCreating(true);
@@ -40,7 +42,8 @@ export const useExperienceSubmission = (
           experienceId,
           filePathArray,
           slug,
-          hostProfileId
+          hostProfileId,
+          isDraft
         );
 
         await replaceAvailabilities.mutateAsync({
@@ -51,7 +54,13 @@ export const useExperienceSubmission = (
         await updateExperience.mutateAsync(updatedExperience);
       } else if (hostProfileId) {
         await createExperience.mutateAsync(
-          getCreateExperienceObject(values, filePathArray, slug, hostProfileId)
+          getCreateExperienceObject(
+            values,
+            filePathArray,
+            slug,
+            hostProfileId,
+            isDraft
+          )
         );
       } else {
         throw "No profile has been created";

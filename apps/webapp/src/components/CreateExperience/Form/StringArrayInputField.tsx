@@ -25,6 +25,7 @@ export default function StringArrayInputField({
   const [inputValue, setInputValue] = useState("");
 
   const handleAddInput = (push: (obj: string) => void) => {
+    if (inputValue === "") return;
     push(inputValue);
     setInputValue("");
   };
@@ -35,10 +36,15 @@ export default function StringArrayInputField({
       <FieldArray name={arrayName}>
         {({ remove, push }) => (
           <div className="flex w-full flex-col items-start gap-3">
-            <div className="flex w-full flex-row items-center gap-2 rounded-md border-2 border-gray-200 px-4 py-2 ">
+            <div className="flex w-full flex-row items-center gap-2 rounded-md border border-ll-slate px-4 py-2 ">
               <input
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleAddInput(push);
+                  }
+                }}
                 placeholder={placeHolderText}
                 className="w-full bg-ll-grey text-sm text-gray-700 focus:border-blue-500 focus:outline-none"
               />

@@ -15,7 +15,7 @@ const FinalStepsPage = ({ isEditing }: Props) => {
         title="Review your experience details"
         subtitle="Double check to make sure everything is set correctly"
       />
-      <SubmitBtn isEditing={isEditing} />
+      {/* <SubmitBtn isEditing={isEditing} /> */}
       <div className="text-red-500 ">
         <ErrorMessage name="title" component="div" />
         <ErrorMessage name="description" component="div" />

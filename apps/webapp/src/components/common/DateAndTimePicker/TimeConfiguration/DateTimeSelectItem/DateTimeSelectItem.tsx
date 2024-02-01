@@ -23,8 +23,8 @@ const DateTimeSelectItem = ({ dateIndex, dateInfo, arrayHelpers }: Props) => {
 
   return (
     <>
-      <div className="flex flex-col rounded-lg border border-ll-slate bg-ll-grey px-4 py-4 lg:flex-row lg:items-center lg:justify-center">
-        <h3 className="pb-2 pr-4 text-lg lg:pb-0">
+      <div className="flex flex-col items-center justify-center rounded-lg border border-ll-slate bg-ll-grey px-4 py-4 md:flex-row">
+        <h3 className=" pr-4 text-center text-lg lg:pb-0">
           {format(dateInfo.startTime, "E, MMMM dd, yyyy")}
         </h3>
         <div className="flex flex-col">
@@ -64,16 +64,6 @@ const DateTimeSelectItem = ({ dateIndex, dateInfo, arrayHelpers }: Props) => {
             />
           </div>
         </div>
-        <Field name="lastName">
-          {({ field, form, meta }: FieldProps) => (
-            <AmPmPicker
-              className="ml-4 h-14 w-12"
-              field={field}
-              form={form}
-              meta={meta}
-            />
-          )}
-        </Field>
       </div>
     </>
   );

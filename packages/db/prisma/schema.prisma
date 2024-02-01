@@ -62,6 +62,8 @@ model Experience {
   activityNotes  String[]
   additionalInformation String
 
+  draft         Boolean  @default(true)
+
   registration Registration[] // Relation field
   availability ExperienceAvailability[] // Relation field
 

@@ -3,19 +3,13 @@ import ImageUploading, { type ImageListType } from "react-images-uploading";
 
 type Props = {
   value: ImageListType;
-  onChange: (
-    imageList: ImageListType
-  ) => void;
-  onChangeCoverImage: (
-    imageList: ImageListType,
-    coverIndex: number
-  ) => void;
+  onChange: (imageList: ImageListType) => void;
+  onChangeCoverImage: (imageList: ImageListType, coverIndex: number) => void;
 };
 
-const maxFileSize = 10 * 1024 * 1024; // 10MB in bytes
+const maxFileSize = 10 * 1024 * 1024;
 
 const ImgUploader = ({ value, onChange, onChangeCoverImage }: Props) => {
-
   return (
     <ImageUploading
       multiple
@@ -34,10 +28,10 @@ const ImgUploader = ({ value, onChange, onChangeCoverImage }: Props) => {
         dragProps,
         errors,
       }) => (
-        <div className="flex flex-col items-center mb-10">
+        <div className="mb-10 flex flex-col items-center">
           <button
             type="button"
-            className="flex cursor-pointer flex-col items-center justify-center rounded border border-dashed border-gray-400 p-8 py-10 text-center w-full"
+            className="min-h-72 flex h-72 w-full cursor-pointer flex-col items-center justify-center rounded-xl border border-dashed border-gray-400 p-8 py-10 text-center"
             {...dragProps}
             style={isDragging ? { color: "red" } : undefined}
             onClick={onImageUpload}
@@ -69,25 +63,30 @@ const ImgUploader = ({ value, onChange, onChangeCoverImage }: Props) => {
             {imageList.map((image, index) => (
               <div key={index} className="image-item p-4">
                 <div className="relative">
-                  <img src={image.dataURL} className="h-56 w-72 object-cover" alt="" />
-                  {(index === 0) && (
-                    <div className="absolute top-2 left-2 bg-gradient-to-br from-amber-300 to-amber-500 rounded-full px-3 py-1 text-white">
+                  <img
+                    src={image.dataURL}
+                    className="h-56 w-72 object-cover"
+                    alt=""
+                  />
+                  {index === 0 && (
+                    <div className="absolute left-2 top-2 rounded-full bg-gradient-to-br from-amber-300 to-amber-500 px-3 py-1 text-white">
                       Cover Image
                     </div>
                   )}
-                  <ImageOptionsMenu 
-                    onImageUpdate={() => onImageUpdate(index)} 
-                    onImageRemove={() => onImageRemove(index)} 
-                    onChangeCoverImage={() => onChangeCoverImage(imageList, index)}
+                  <ImageOptionsMenu
+                    onImageUpdate={() => onImageUpdate(index)}
+                    onImageRemove={() => onImageRemove(index)}
+                    onChangeCoverImage={() =>
+                      onChangeCoverImage(imageList, index)
+                    }
                   />
                 </div>
-                
               </div>
             ))}
           </div>
           <button
             type="button"
-            className="bg-red-400 hover:bg-red-300 btn-sm btn mt-5 text-white"
+            className="btn btn-sm mt-5 bg-red-400 text-white hover:bg-red-300"
             onClick={onImageRemoveAll}
           >
             Remove all images
@@ -98,33 +97,55 @@ const ImgUploader = ({ value, onChange, onChangeCoverImage }: Props) => {
   );
 };
 
-const ImageOptionsMenu = function ({onImageUpdate, onImageRemove, onChangeCoverImage}:{onImageUpdate: () => void, onImageRemove: () => void, onChangeCoverImage: () => void}) {
-
+const ImageOptionsMenu = function ({
+  onImageUpdate,
+  onImageRemove,
+  onChangeCoverImage,
+}: {
+  onImageUpdate: () => void;
+  onImageRemove: () => void;
+  onChangeCoverImage: () => void;
+}) {
   const closeMenus = () => {
-    const imageMenus = document.querySelectorAll('.imageMenu');
+    const imageMenus = document.querySelectorAll(".imageMenu");
     imageMenus.forEach((imageMenu) => {
-        if (imageMenu instanceof HTMLDetailsElement && imageMenu.hasAttribute('open')) {
-          imageMenu.removeAttribute('open');
-        }
+      if (
+        imageMenu instanceof HTMLDetailsElement &&
+        imageMenu.hasAttribute("open")
+      ) {
+        imageMenu.removeAttribute("open");
+      }
     });
-  }
-  
+  };
+
   return (
-    <details className="bg-gray-100 w-full absolute top-44 z-10 imageMenu">
+    <details className="imageMenu absolute top-44 z-10 w-full bg-gray-100">
       <summary className="w-full p-3 hover:cursor-pointer">Options</summary>
-      <div className="dropdown-content bg-gray-100 p-3 pt-0 flex flex-col w-full items-start">
-        <div className="w-full hover:cursor-pointer hover:bg-gray-200 p-3" onClick={() => onImageUpdate()}>
+      <div className="dropdown-content flex w-full flex-col items-start bg-gray-100 p-3 pt-0">
+        <div
+          className="w-full p-3 hover:cursor-pointer hover:bg-gray-200"
+          onClick={() => onImageUpdate()}
+        >
           Update
         </div>
-        <div className="w-full hover:cursor-pointer hover:bg-gray-200 p-3" onClick={() => onImageRemove()}>
+        <div
+          className="w-full p-3 hover:cursor-pointer hover:bg-gray-200"
+          onClick={() => onImageRemove()}
+        >
           Remove
         </div>
-        <div className="w-full hover:cursor-pointer hover:bg-gray-200 p-3" onClick={() => {onChangeCoverImage(); closeMenus();}}>
+        <div
+          className="w-full p-3 hover:cursor-pointer hover:bg-gray-200"
+          onClick={() => {
+            onChangeCoverImage();
+            closeMenus();
+          }}
+        >
           Make Cover Image
         </div>
       </div>
     </details>
-  )
-}
+  );
+};
 
 export default ImgUploader;

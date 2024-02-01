@@ -5,10 +5,17 @@ type Props = {
   className?: string;
   type?: "button" | "submit" | "reset" | undefined;
   text: string;
+  disabled?: boolean;
   onClick: () => void;
 };
 
-const Button = ({ className, type = "button", text, onClick }: Props) => {
+const Button = ({
+  className,
+  type = "button",
+  text,
+  disabled = false,
+  onClick,
+}: Props) => {
   return (
     <button
       className={`${

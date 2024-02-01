@@ -17,28 +17,50 @@ const CreateExperienceTabs = ({ tabInfoList, onTabClick }: Props) => {
   }, [router.asPath]);
 
   return (
-    <ul className={`flex flex-1 flex-col items-center`}>
+    <ul
+      className={`mb-8 flex flex-1 items-center justify-center space-x-2 md:flex-col md:justify-start md:space-x-0`}
+    >
       {tabInfoList.map((item, index) => {
         const isSelected = selectedTab.includes(item.url);
 
         return (
-          <li key={index}>
-            <div className="flex flex-col items-center">
+          <div key={index}>
+            <li className="hidden md:block">
+              <div className="flex flex-col items-center">
+                <button
+                  className={`h-10 w-48 rounded-lg text-center ${
+                    isSelected
+                      ? "bg-ll-black text-white"
+                      : "border border-ll-slate"
+                  }`}
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onTabClick(index);
+                  }}
+                >
+                  {item.tabTitle}
+                </button>
+                {index < tabInfoList.length - 1 && (
+                  <div className={styles.progressLine}></div>
+                )}
+              </div>
+            </li>
+            <li className="block md:hidden">
               <button
-                className={`h-10 w-48 rounded-lg text-center ${
+                className={`h-3 w-12 rounded-lg text-center ${
                   isSelected
-                    ? "bg-ll-black text-white"
-                    : "border border-ll-slate"
+                    ? "bg-ll-orange text-white"
+                    : "border border-ll-orange"
                 }`}
-                onClick={() => onTabClick(index)}
-              >
-                {item.tabTitle}
-              </button>
-              {index < tabInfoList.length - 1 && (
-                <div className={styles.progressLine}></div>
-              )}
-            </div>
-          </li>
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onTabClick(index);
+                }}
+              />
+            </li>
+          </div>
         );
       })}
     </ul>
