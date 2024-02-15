@@ -6,9 +6,9 @@ jobs:
   cypress-tests:
     name: Run Cypress E2E tests
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./apps/webapp
+    # defaults:
+    #   run:
+    #     working-directory: ./apps/webapp
 
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
