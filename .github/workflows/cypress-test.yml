@@ -45,7 +45,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 'latest'
-          cache: 'pnpm'
 
       - name: Install Pnpm
         run: npm install -g pnpm
