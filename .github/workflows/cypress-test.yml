@@ -50,9 +50,11 @@ jobs:
 
       - name: Install Cypress
         run: npm install -g cypress
+        working-directory: ./apps/webapp
 
       - name: Install Dependencies
         run: pnpm install
+        working-directory: ./apps/webapp
 
       - name: Reset Test DB
         run: pnpm prisma db push --schema ./packages/db/prisma/schema.prisma --force-reset && pnpm prisma db seed
