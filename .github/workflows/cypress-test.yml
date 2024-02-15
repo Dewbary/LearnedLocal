@@ -63,4 +63,4 @@ jobs:
         with:
           start: pnpm dev
           wait-on: 'http://localhost:3000'
-          project: ./apps/webapp
+          working-directory: ./apps/webapp
