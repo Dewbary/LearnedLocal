@@ -53,7 +53,7 @@ jobs:
         run: pnpm install
 
       - name: Reset Test DB
-        run: prisma db push --schema ./packages/db/prisma/schema.prisma --force-reset && prisma db seed
+        run: pnpm prisma db push --schema ./packages/db/prisma/schema.prisma --force-reset && pnpm prisma db seed
 
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6
