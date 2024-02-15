@@ -50,7 +50,7 @@ jobs:
         run: npm install -g pnpm
 
       - name: Install Cypress
-        run: pnpm install -g cypress
+        run: npm install -g cypress
 
       - name: Install Dependencies
         run: pnpm install
