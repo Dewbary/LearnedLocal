@@ -47,7 +47,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "latest"
-          working-directory: ./apps/webapp
+          cache: "pnpm"
+          cache-dependency-path: "./apps/webapp/package-lock.json"
 
       - name: Install Pnpm
         run: npm install -g pnpm
