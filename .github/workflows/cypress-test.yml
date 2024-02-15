@@ -47,11 +47,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "latest"
-          cache: "npm"
-          cache-dependency-path: "./apps/webapp/package-lock.json"
 
       - name: Install Pnpm
-        run: npm install -g pnpm
+        uses: pnpm/action-setup@v3
 
       - name: Install Cypress
         run: npm install -g cypress
