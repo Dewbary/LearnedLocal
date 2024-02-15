@@ -17,7 +17,7 @@ import { Form, Formik } from "formik";
 import { useExperienceSubmission } from "../hooks/useExperienceSubmission";
 import SaveAndExitButton from "../SaveAndExitButton";
 import Link from "next/link";
-import { ExperienceInfo } from "packages/db/types/types";
+import type { ExperienceInfo } from "packages/db/types/types";
 import FormPageHeader from "../FormPageHeader";
 
 const CreateExperienceFormBody = () => {

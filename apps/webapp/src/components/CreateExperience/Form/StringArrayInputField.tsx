@@ -42,6 +42,7 @@ export default function StringArrayInputField({
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
+                    e.preventDefault();
                     handleAddInput(push);
                   }
                 }}
