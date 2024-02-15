@@ -53,7 +53,7 @@ jobs:
         run: prisma db push --schema ./packages/db/prisma/schema.prisma --force-reset && prisma db seed
 
       - name: Run Cypress tests
-        uses: cypress-io/github-actions@v6
+        uses: cypress-io/github-action@v6
         with:
           start: pnpm dev
           wait-on: 'http://localhost:3000'
