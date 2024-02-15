@@ -6,6 +6,9 @@ jobs:
   cypress-tests:
     name: Run Cypress E2E tests
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./apps/webapp
 
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
@@ -44,17 +47,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "latest"
+          working-directory: ./apps/webapp
 
       - name: Install Pnpm
         run: npm install -g pnpm
 
       - name: Install Cypress
         run: npm install -g cypress
-        working-directory: ./apps/webapp
 
       - name: Install Dependencies
         run: pnpm install
-        working-directory: ./apps/webapp
 
       - name: Reset Test DB
         run: pnpm prisma db push --schema ./packages/db/prisma/schema.prisma --force-reset && pnpm prisma db seed
