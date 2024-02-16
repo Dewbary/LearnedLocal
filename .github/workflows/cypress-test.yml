@@ -52,7 +52,7 @@ jobs:
         uses: pnpm/action-setup@v3
 
       - name: Install Cypress
-        run: npm install -g cypress
+        run: pnpm install -g cypress
 
       - name: Install Dependencies
         run: pnpm install
@@ -63,6 +63,7 @@ jobs:
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6
         with:
+          install: false
           start: pnpm dev
           wait-on: "http://localhost:3000"
           working-directory: ./apps/webapp
