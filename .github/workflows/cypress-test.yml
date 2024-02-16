@@ -1,0 +1,73 @@
+name: Cypress E2E tests
+
+on: [push]
+
+jobs:
+  cypress-tests:
+    name: Run Cypress E2E tests
+    runs-on: ubuntu-latest
+    # defaults:
+    #   run:
+    #     working-directory: ./apps/webapp
+
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      NEXT_PUBLIC_BASE_URL: ${{ secrets.NEXT_PUBLIC_BASE_URL }}
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+      NEXT_PUBLIC_SUPABASE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_KEY }}
+      NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_URL }}
+      NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_NAME: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLIC_BUCKET_NAME }}
+      NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+      CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
+      NEXT_PUBLIC_CLERK_SIGN_IN_URL: ${{ secrets.NEXT_PUBLIC_CLERK_SIGN_IN_URL }}
+      NEXT_PUBLIC_CLERK_SIGN_UP_URL: ${{ secrets.NEXT_PUBLIC_CLERK_SIGN_UP_URL }}
+      NEXT_PUBLIC_STRIPE_PUBLIC_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLIC_KEY }}
+      STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+      STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
+      SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+      TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
+      TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+      TWILIO_ACCOUNT_PHONE: ${{ secrets.TWILIO_ACCOUNT_PHONE }}
+      EDGE_FUNCTION_VERIFICATION_TOKEN: ${{ secrets.EDGE_FUNCTION_VERIFICATION_TOKEN }}
+      SANITY_STUDIO_PROJECT_ID: ${{ secrets.SANITY_STUDIO_PROJECT_ID }}
+      SANITY_STUDIO_DATASET: ${{ secrets.SANITY_STUDIO_DATASET }}
+      SANITY_STUDIO_API_VERSION: ${{ secrets.SANITY_STUDIO_API_VERSION }}
+      NEXT_PUBLIC_GA4_DEBUG_TRUE: ${{ secrets.NEXT_PUBLIC_GA4_DEBUG_TRUE }}
+      ADMIN_USER_ID: ${{ secrets.ADMIN_USER_ID }}
+      NEXT_PUBLIC_FACEBOOK_APP_ID: ${{ secrets.NEXT_PUBLIC_FACEBOOK_APP_ID }}
+      GOOGLE_ANALYTICS_PROPERTY_ID: ${{ secrets.GOOGLE_ANALYTICS_PROPERTY_ID }}
+      GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
+      GOOGLE_CLIENT_EMAIL: ${{ secrets.GOOGLE_CLIENT_EMAIL }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # - name: Setup Node.js
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: "latest"
+
+      - name: Install Pnpm
+        uses: pnpm/action-setup@v3
+
+      - name: Install Cypress
+        run: pnpm install -g cypress
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Build step
+        run: pnpm build
+        working-directory: ./apps/webapp
+
+      - name: Reset Test DB
+        run: pnpm prisma db push --schema ./packages/db/prisma/schema.prisma --force-reset && pnpm prisma db seed
+
+      - name: Run Cypress tests
+        uses: cypress-io/github-action@v6
+        with:
+          install: false
+          start: pnpm start
+          wait-on: "http://localhost:3000"
+          working-directory: ./apps/webapp
