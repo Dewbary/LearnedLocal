@@ -57,6 +57,10 @@ jobs:
       - name: Install Dependencies
         run: pnpm install
 
+      - name: Build step
+        run: pnpm build
+        working-directory: ./apps/webapp
+
       - name: Reset Test DB
         run: pnpm prisma db push --schema ./packages/db/prisma/schema.prisma --force-reset && pnpm prisma db seed
 
@@ -64,6 +68,6 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           install: false
-          start: pnpm dev
+          start: pnpm start
           wait-on: "http://localhost:3000"
           working-directory: ./apps/webapp
