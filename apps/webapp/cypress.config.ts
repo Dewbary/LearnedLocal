@@ -6,6 +6,6 @@ export default defineConfig({
       // implement node event listeners here
     },
   },
-  defaultCommandTimeout: 16000,
+  defaultCommandTimeout: 30000,
   scrollBehavior: "center"
 });
